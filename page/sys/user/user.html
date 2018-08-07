@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body class="bg-white">
+		<div class="panel panel-white">
+			<div class="panel-heading">
+				<div class="panel-title">
+					<!--search start-->
+					<form id="search" class="form-inline fz12">
+       		            <div class="form-group space-15">
+			            	 <label class="fw-n">真实姓名
+		                		<input type="text" placeholder="请输入真实姓名" name="name" class="form-control">
+			                </label>
+			            </div>
+       		            <div class="form-group space-15">
+			            	 <label class="fw-n">用户名
+		                		<input type="text" placeholder="请输入用户名" name="name" class="form-control">
+			                </label>
+			            </div>
+                        <div class="form-group m-b-xs">
+                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+                        </div>
+                    </form>
+                    <!--end search-->
+            	</div>
+				<div class="panel-tools">
+					<button type="button" class="btn btn-default m-r js_importUser">
+						<i class="iconfont icon-shangchuan"></i> 上传用户数据
+					</button>
+					<button type="button" class="btn btn-default js_addOrUpdate" onclick="user.addOrUpdate('新增用户')">
+						<i class="iconfont icon-add"></i> 新增
+					</button>
+                </div>
+			</div>
+			<div class="panel-body collapsed in" id="panelContent1">
+				<div class="row">
+					<div class="col-sm-3 js_leftResearch" style="z-index: 1;">
+						<!--左侧部门树 start-->
+						<div class="panel panel-white">
+							<div class="panel-heading">
+								<div class="panel-title">
+									<i class="iconfont icon-department"></i> 组织结构
+		                    	</div>
+		                    	<div class="panel-tools">
+		                            <a class="toggleIcon js_icon" href="javascript:;" draggable="false">
+		                            	<i class="fa fa-angle-left"></i>
+		                            </a>
+		                        </div>
+							</div>
+							<div class="panel-body collapsed in input-group-sm">
+								<ul class="xztree" id="ztree1"></ul>
+							</div>
+						</div>
+						<!--end 左侧部门树-->
+					</div>
+					<div class="content-box col-sm-9 js_rightContent">
+						<table id="table"></table></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		var user  = {
+			init:function(){
+				//部门树
+				this.dept();
+				//左右切换
+				this.toggle();
+				//表格初始化
+				this.tableInit();
+				//上传用户
+				this.importUser();
+			},
+			importUser(){
+				let $this =this;
+				$(".js_importUser").click(()=>{
+					rj.modal("上传用户数据",
+					"./page/sys/user/importUser.html",
+					()=>{
+						rj.resetPlug();
+					},
+					(dom)=>{
+						$("#addOrUpdate").validate({
+					        rules: {
+					            file: {
+					                required: true
+					            },
+					        },
+					        messages: {
+					             file: {
+					                required:v_icon+"请选择上传的文件~"
+					            }
+					        },
+					        submitHandler: function () {
+					         	//获取form表单数据
+								var data= getFromJson($("#addOrUpdate")[0]);
+								alert("校验成功:"+JSON.stringify(data))
+								/*xa_ajax({
+									id:"#addOrUpdate",
+								    type:"post",
+								    url:
+								    data:data,
+								    success:function(data){
+								    	//关闭
+								    	$(".js_importUser").xmodal("hide")
+								    	//刷新
+								    	$this.list();
+								    }
+								});*/
+					        }
+					    });
+					});
+				});
+			},
+			addOrUpdate(title,id){
+				rj.modal(
+					title,
+					"./page/sys/user/addOrUpdate.html",
+					()=>{
+						console.log("加载完成")
+						//初始化插件
+						rj.resetPlug();
+						//做回显动作
+						var zNodes =[
+							{id:1, pId:0, name:"北京"},
+							{id:2, pId:0, name:"天津"},
+							{id:3, pId:0, name:"上海"},
+							{id:6, pId:0, name:"重庆"},
+							{id:4, pId:0, name:"河北省"},
+							{id:41, pId:4, name:"石家庄"},
+							{id:42, pId:4, name:"保定"},
+							{id:43, pId:4, name:"邯郸"},
+							{id:44, pId:4, name:"承德"},
+							{id:5, pId:0, name:"广东省"},
+							{id:51, pId:5, name:"广州"},
+							{id:52, pId:5, name:"深圳"},
+							{id:53, pId:5, name:"东莞"},
+							{id:54, pId:5, name:"佛山"},
+							{id:6, pId:0, name:"福建省"},
+							{id:61, pId:6, name:"福州"},
+							{id:62, pId:6, name:"厦门"},
+							{id:63, pId:6, name:"泉州"},
+							{id:64, pId:6, name:"三明"}
+						 ];
+						var zNodes2 =[
+							{id:4, pId:0, name:"财务部"},
+							{id:41, pId:4, name:"财务小组1"},
+							{id:42, pId:4, name:"财务小组2"},
+							{id:43, pId:4, name:"财务小组3"},
+							{id:44, pId:4, name:"财务小组4"},
+							{id:5, pId:0, name:"研发部"},
+							{id:51, pId:52, name:"研发部1"},
+							{id:99, pId:51, name:"研发部1-1"},
+							{id:52, pId:5, name:"研发部2"},
+							{id:53, pId:52, name:"研发部3"},
+							{id:54, pId:53, name:"研发部4"},
+							{id:6, pId:0, name:"行政部"},
+							{id:61, pId:6, name:"行政部1"},
+							{id:62, pId:6, name:"行政部2"},
+							{id:63, pId:6, name:"行政部3"},
+							{id:64, pId:6, name:"行政部4"}
+						 ];
+						rj.ztree("ztreeCheckbox","#ztree2",zNodes)
+						rj.ztree("ztreeRadio","#ztree3",zNodes2);
+					},
+					(dom)=>{
+						$("#addOrUpdate").validate({
+					        rules: {
+					            field1: {required: true},
+					            field2: {required: true},
+					            field3: {required: true},
+					            field4: {required: true},
+					        },
+					        messages: {
+					             
+					        },
+					        submitHandler: function () {
+					         	//获取form表单数据
+								var data= getFromJson($("#addOrUpdate")[0]);
+								alert("校验成功:"+JSON.stringify(data))
+								alert("单独打印accounts:"+data.accounts)
+								/*xa_ajax({
+									id:"#addOrUpdate",
+								    type:"post",
+								    url:
+								    data:data,
+								    success:function(data){
+								    	//关闭
+								    	$(".js_importUser").xmodal("hide")
+								    	//刷新
+								    	$this.list();
+								    }
+								});*/
+					        }
+					    });
+					}
+				);
+				
+			},
+			dept:function(){
+		        var zNodes =[
+		            { id:1, pId:0, name:"pNode 1"},
+		            { id:11, pId:1, name:"pNode 1-1"},
+		            { id:111, pId:11, name:"sNode 1-1-1"},
+		            { id:112, pId:11, name:"sNode 1-1-2"},
+		            { id:113, pId:11, name:"sNode 1-1-3"},
+		            { id:114, pId:11, name:"sNode 1-1-4"},
+		            { id:12, pId:1, name:"pNode 1-2"},
+		            { id:121, pId:12, name:"sNode 1-2-1"},
+		            { id:122, pId:12, name:"sNode 1-2-2"},
+		            { id:123, pId:12, name:"sNode 1-2-3"},
+		            { id:124, pId:12, name:"sNode 1-2-4"},
+		            { id:13, pId:1, name:"pNode 1-3"},
+		            { id:2, pId:0, name:"pNode 2"},
+		            { id:21, pId:2, name:"pNode 2-1"},
+		            { id:211, pId:21, name:"sNode 2-1-1"},
+		            { id:212, pId:21, name:"sNode 2-1-2"},
+		            { id:213, pId:21, name:"sNode 2-1-3"},
+		            { id:214, pId:21, name:"sNode 2-1-4"},
+		            { id:22, pId:2, name:"pNode 2-2"},
+		            { id:221, pId:22, name:"sNode 2-2-1"},
+		            { id:222, pId:22, name:"sNode 2-2-2"},
+		            { id:223, pId:22, name:"sNode 2-2-3"},
+		            { id:224, pId:22, name:"sNode 2-2-4"},
+		            { id:23, pId:2, name:"pNode 2-3"},
+		            { id:231, pId:23, name:"sNode 2-3-1"},
+		            { id:232, pId:23, name:"sNode 2-3-2"},
+		            { id:233, pId:23, name:"sNode 2-3-3"},
+		            { id:234, pId:23, name:"sNode 2-3-4"},
+		            { id:3, pId:0, name:"pNode 3"}
+		        ];
+		        rj.ztree("ztree","#ztree1",zNodes,{callback:{
+	        		onClick:function(event, treeId, treeNode){
+	        			alert(treeNode.name);
+	        		}
+	        	}});
+			},
+			toggle:function(){
+				rj.toggleAnimate({
+					triggerDom:".js_icon",
+					targetDom:[".js_leftResearch",".js_rightContent"],
+					triggerToggleClass:["active",""],
+					targetToggleAttr:[{"marginLeft":["-24%","0"]},{"width":["98%","74%"]}],
+					targetToggleClass:[["shake-horizontal-slow shake-constant shake-constant--hover",""]],
+					targetToggleFunction:[function (){
+						$(".panel-body").css("overflow","hidden");
+					},function (){
+						$(".panel-body").css("overflow","visible");
+					}]
+				});
+			},
+			tableInit(){
+				rj.table.init({
+					id:"#table",
+					toolbar:false,
+					data:[
+	            {
+	                "id": 0,
+	                "name": "Item 0阿杜撒打算打算打",
+	                "name2": "Item 0阿杜撒打算打算打算大苏打发送发神经打扫打扫打扫打扫打扫法萨达萨达萨法是否打算打算发送到",
+	                "price": "$0"
+	            },
+	            {
+	                "id": 1,
+	                "name": "Item 1",
+	                "price": "$1"
+	            },
+	            {
+	                "id": 2,
+	                "name": "Item 2",
+	                "price": "$2"
+	            },
+	            {
+	                "id": 3,
+	                "name": "Item 3",
+	                "price": "$3"
+	            },
+	            {
+	                "id": 4,
+	                "name": "Item 4",
+	                "price": "$4"
+	            },
+	            {
+	                "id": 5,
+	                "name": "Item 5",
+	                "price": "$5"
+	            }
+	        ],
+					toolbarAlign:"right",
+					columns:[{
+						checkbox: true
+						}, {
+							field: 'id',
+							title: 'id'
+						}, {
+							field: 'name',
+							title: '名称'
+						},{
+							field: 'name2',
+							title: '名称2'
+						}, {
+							field: 'price',
+							title: '价格'
+						}, {
+							title: '操作',
+							formatter(value,row,index){
+								return `
+								<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="user.addOrUpdate('修改用户',${row.id})">修改</a>
+								<a href="javascript:;" class="btn btn-danger btn-xs m-r-xs" onclick="user.del(${row.id})">删除</a>
+								<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="user.resetPass(${row.id})">重置密码</a>
+								`
+							}
+						}],
+				});
+			},
+			del(id){
+				xconfirm("是否删除用户？","会删除用户以及外部关联数据.",null,function(){
+					//ajax
+					xalert("删除成功","删除成功","success")
+				});
+			},
+			resetPass(id){
+				console.log(id);
+			}
+		}
+		user.init()
+	</script>
+</html>
