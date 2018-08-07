@@ -410,7 +410,7 @@
 						viewMode:"days"
 		            }).on('dp.change', function(ev){
 		            	let start = new Date($(ev.target).val()).getTime();
-		            	let time7Days = 1000*60*60*24*7;
+		            	let time7Days = 1000*60*60*24*6;
 		            	start +=time7Days;
 		            	start = new Date(start);
 					    $dom.closest("form").find(".js_time").eq(1).val(start.format("yyyy-MM-dd"));
