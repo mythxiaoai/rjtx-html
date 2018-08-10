@@ -216,7 +216,7 @@ website:    http://code.google.com/p/jquerytree/
   display: inline-block;
 }
 .xztree li span.button.root_close::before {
-  content: "\f115";
+  content: "\f054";
   padding-top: 10px;
   padding-left: 2px;
   display: inline-block;
@@ -427,11 +427,11 @@ ul.xztree.zTreeDragUL {
 .xztree li span.button::before {
   color: #ccc;
   font-family: FontAwesome;
-  padding-top: 13px;
+/*  padding-top: 13px;*/
 }
-.xztree li span.button.roots_close::before,.xztree li span.button.roots_open::before,.xztree li span.button.center_close::before,.xztree li span.button.center_open::before{
+/*.xztree li span.button.roots_close::before,.xztree li span.button.roots_open::before,.xztree li span.button.center_close::before,.xztree li span.button.center_open::before{
 	padding-top:13px;
-}
+}*/
 .xztree~span.tmpzTreeMove_arrow::before {
   content: "\f061";
   font-family: FontAwesome;

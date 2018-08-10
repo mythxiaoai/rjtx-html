@@ -656,13 +656,28 @@ rj.form.get($("#addOrUpdate")[0]);
 					if($this.config[type]){
 						opts.seeting = $.extend(true,{},$this.config[type],seeting);
 						if(type=="ztree"||type=="dragZtree"){
-							$this.ztree();
+							return $this.ztree();
 						}else if(type=="ztreeRadio"||type=="ztreeCheckbox"){
-							$this.ztreeChoose();
+							return $this.ztreeChoose();
 						}
 					}else{
 						console.error("rj.ztree组件没有这个类型哦~")
 					}
+				},
+				ztree(){
+					$.fn.zTree.init($(id),opts.seeting,data);
+					//不重复添加
+					if($(id).prev()&&$(id).prev().hasClass("rj_ztree_seach"))return false
+					//搜索框
+					$(id).before(`<input type="text" placeholder="请输入搜索~" name="name" class="form-control rj_ztree_seach">`)
+				 	/*
+				 	 	@param zTreeId ztree对象的id,不需要#
+						@param searchField 输入框选择器
+						@param isHighLight 是否高亮,默认高亮,传入false禁用
+						@param isExpand 是否展开,默认合拢,传入true展开
+				 	*/
+				 	fuzzySearch($(id)[0].id,$(id).prev(),null,true); //初始化模糊搜索方法
+				 	return $.fn.zTree.getZTreeObj($(id)[0].id);
 				},
 				ztreeChoose(){
 					 /*原本
@@ -688,6 +703,7 @@ rj.form.get($("#addOrUpdate")[0]);
 		        	if(opts.$dom.val()||opts.$dom.data("value")){
 		        		$this.backShow(opts.$dom.val()||opts.$dom.data("value"));
 		        	}
+		        	return $.fn.zTree.getZTreeObj(opts.id);
 				},
 				bindToggleEvent(){
 					let $this  = this;
@@ -713,20 +729,6 @@ rj.form.get($("#addOrUpdate")[0]);
 		        	opts.id = opts.$dom[0].id;
 		        	opts.$dom.removeAttr("id");
 		        	opts.$dom.next().find(".ztree").attr("id",opts.id);
-				},
-				ztree(){
-					$.fn.zTree.init($(id),opts.seeting,data);
-					//不重复添加
-					if($(id).prev()&&$(id).prev().hasClass("rj_ztree_seach"))return false
-					//搜索框
-					$(id).before(`<input type="text" placeholder="请输入搜索~" name="name" class="form-control rj_ztree_seach">`)
-				 	/*
-				 	 	@param zTreeId ztree对象的id,不需要#
-						@param searchField 输入框选择器
-						@param isHighLight 是否高亮,默认高亮,传入false禁用
-						@param isExpand 是否展开,默认合拢,传入true展开
-				 	*/
-				 	fuzzySearch($(id)[0].id,$(id).prev(),null,true); //初始化模糊搜索方法
 				},
 				config:{
 					ztree:{
@@ -889,7 +891,7 @@ rj.form.get($("#addOrUpdate")[0]);
 					}
 				},
 			}
-			ztree.init();
+			return ztree.init();
 		},
 		toggleRow:{
 			//初始化 做新增表单时 默认值是空  后期有默认值在拓展
