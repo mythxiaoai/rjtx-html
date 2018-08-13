@@ -1,0 +1,599 @@
+<div class="p-m">
+	<div class="row">
+		<div class="col-md-8">
+			<div class="panel-body">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#tab1" data-toggle="tab">汇总</a></li>
+					<li><a href="#tab2" data-toggle="tab">大数据中端</a></li>
+					<li><a href="#tab3" data-toggle="tab">状态库中端</a></li>
+					<li><a href="#tab4" data-toggle="tab">状态库低端</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade in active" id="tab1">
+						<form id="search1" class="form-inline fz12 m-t m-b">
+	       		            <div class="form-group m-r">
+			            	 	<label class="fw-n">粒度
+				            	 	<select class="form-control js_type text-center" name="type">
+						                <option value="">--请选择--</option>
+						                <option value="1">天</option>
+						                <option value="2">周</option>
+						                <option value="3" selected="selected">月</option>
+						            </select> 
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_ohters">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
+											<span class="input-group-addon white-bg">~</span>
+										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_month">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15">
+				            	 <label class="fw-n">项目
+			                		<select class="form-control" name="porject">
+						                <option value="">--请选择--</option>
+						            </select> 
+				                </label>
+				            </div>
+	                        <div class="form-group m-b-xs">
+	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                        </div>
+	                    </form>
+						<table id="table1"></table>
+					</div>
+					<div class="tab-pane fade" id="tab2">
+						<form id="search2" class="form-inline fz12 m-t m-b">
+							<div class="form-group m-r">
+			            	 	<label class="fw-n">粒度
+				            	 	<select class="form-control js_type" name="type">
+						                <option value="">--请选择--</option>
+						                <option value="1" selected="selected">天</option>
+						                <option value="2">周</option>
+						                <option value="3">月</option>
+						            </select> 
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_ohters">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
+											<span class="input-group-addon white-bg">~</span>
+										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_month">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15">
+				            	 <label class="fw-n">项目
+			                		<select class="form-control" name="porject">
+						                <option value="">--请选择--</option>
+						            </select> 
+				                </label>
+				            </div>
+	                        <div class="form-group m-b-xs">
+	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                        </div>
+	                    </form>
+						<table id="table2"></table>
+					</div>
+					<div class="tab-pane fade" id="tab3">
+						<form id="search3" class="form-inline fz12 m-t m-b">
+							<div class="form-group m-r">
+			            	 	<label class="fw-n">粒度
+				            	 	<select class="form-control js_type" name="type">
+						                <option value="">--请选择--</option>
+						                <option value="1" selected="selected">天</option>
+						                <option value="2">周</option>
+						                <option value="3">月</option>
+						            </select> 
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_ohters">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
+											<span class="input-group-addon white-bg">~</span>
+										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_month">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15">
+				            	 <label class="fw-n">项目
+			                		<select class="form-control" name="porject">
+						                <option value="">--请选择--</option>
+						            </select> 
+				                </label>
+				            </div>
+	                        <div class="form-group m-b-xs">
+	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                        </div>
+	                    </form>
+						<table id="table3"></table>
+					</div>
+					<div class="tab-pane fade" id="tab4">
+						<form id="search4" class="form-inline fz12 m-t m-b">
+							<div class="form-group m-r">
+			            	 	<label class="fw-n">粒度
+				            	 	<select class="form-control js_type" name="type">
+						                <option value="">--请选择--</option>
+						                <option value="1" selected="selected">天</option>
+						                <option value="2">周</option>
+						                <option value="3">月</option>
+						            </select> 
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_ohters">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
+											<span class="input-group-addon white-bg">~</span>
+										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15 js_month">
+			            	 	<label class="fw-n">时间
+				            	 	<div class="input-group">
+				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
+						            </div>
+				                </label>
+				            </div>
+	       		            <div class="form-group space-15">
+				            	 <label class="fw-n">项目
+			                		<select class="form-control" name="porject">
+						                <option value="">--请选择--</option>
+						            </select> 
+				                </label>
+				            </div>
+	                        <div class="form-group m-b-xs">
+	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                        </div>
+	                    </form>
+						<table id="table4"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel-body m-b">
+				<div class="js_echart1" style="height: 325px;"></div>
+			</div>
+			<div class="panel-body">
+				<div class="js_echart2" style="height: 325px;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var homeShow={
+		init(){
+			this.tab1();
+			this.tab2();
+			this.tab3();
+			this.tab4();
+			//时间初始化
+			this.time();
+			//图标初始化
+			this.echart1();
+			this.echart2();
+		},
+		echart1(){
+			var option = {
+			    title: {
+			    	text: '工单',  
+                    x:'center',
+                    textStyle:{
+                    	color:"rgb(103, 106, 108)"
+                    }
+			    },
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'shadow'
+			        }
+			    },
+		        toolbox: {
+			        feature: {
+			            saveAsImage: {show: true}
+			        }
+			    },
+			    legend: {
+			        data: ['润建',"铁塔","代维"],
+			       	top:25,
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    yAxis: {
+			        type: 'value',
+			        axisLabel: {
+		                formatter: '{value} 单'
+		            }
+			    },
+			    xAxis: {
+			        type: 'category',
+			        data: ['广东',"上海","天津"],
+			    	axisLabel:{
+		    			interval:0,
+		    			alignWithLabel: true
+			    	},
+			    	axisTick: {
+		                alignWithLabel: true
+		            }
+			    },
+			    series: [
+			        {
+			            name: '润建',
+			            type: 'bar',
+			            data: [89,78,132],
+			            barCategoryGap:"30%",
+			            barGap:"10%",
+			        	label: {
+		                    show: true,
+		                    position: 'top'
+			            },
+			        },
+			      	{
+			            name: '铁塔',
+			            type: 'bar',
+			            data: [25,36,52],
+			        	barCategoryGap:"30%",
+			        	barGap:"10%",
+			        	label: {
+		                    show: true,
+		                    position: 'top'
+			            },
+			        },
+			      	{
+			            name: '代维',
+			            type: 'bar',
+			            data: [23, 31, 121],
+			        	barCategoryGap:"30%",
+			        	barGap:"10%",
+			        	label: {
+		                    show: true,
+		                    position: 'top'
+			            },
+			        }
+			    ]
+			};
+			var myChart = echarts.init($(".js_echart1")[0]);
+			 myChart.setOption(option);
+			 //窗口变动，表格刷新
+			 $(window).resize(function(){myChart.resize();});
+		},
+		echart2(){
+			//demo:http://gallery.echartsjs.com/editor.html?c=xHyqn_rQ6g
+			//api:http://echarts.baidu.com/option.html#visualMap-piecewise
+			function randomData() {  
+			     return Math.round(Math.random()*500);  
+			}
+			var mydata = [  
+                {name: '北京',value: '100' },{name: '天津',value: randomData() },  
+                {name: '上海',value: randomData() },{name: '重庆',value: randomData() },  
+                {name: '河北',value: randomData() },{name: '河南',value: randomData() },  
+                {name: '云南',value: randomData() },{name: '辽宁',value: randomData() },  
+                {name: '黑龙江',value: randomData() },{name: '湖南',value: randomData() },  
+                {name: '安徽',value: randomData() },{name: '山东',value: randomData() },  
+                {name: '新疆',value: randomData() },{name: '江苏',value: randomData() },  
+                {name: '浙江',value: randomData() },{name: '江西',value: randomData() },  
+                {name: '湖北',value: randomData() },{name: '广西',value: randomData() },  
+                {name: '甘肃',value: randomData() },{name: '山西',value: randomData() },  
+                {name: '内蒙古',value: randomData() },{name: '陕西',value: randomData() },  
+                {name: '吉林',value: randomData() },{name: '福建',value: randomData() },  
+                {name: '贵州',value: randomData() },{name: '广东',value: randomData() },  
+                {name: '青海',value: randomData() },{name: '西藏',value: randomData() },  
+                {name: '四川',value: randomData() },{name: '宁夏',value: randomData() },  
+                {name: '海南',value: randomData() },{name: '台湾',value: randomData() },  
+                {name: '香港',value: randomData() },{name: '澳门',value: randomData() }  
+            ];
+            var optionMap = {  
+                backgroundColor: '#FFFFFF',  
+                title: {  
+                    text: '全国地图大数据',  
+                    subtext: '',  
+                    x:'center'  
+                },  
+                tooltip : {  
+                    trigger: 'item'  
+                },  
+                toolbox: {
+			        feature: {
+			            saveAsImage: {show: true}
+			        }
+			    },
+                //左侧小导航图标
+                visualMap: {
+                	type:"piecewise",
+                    show : true,  
+                    x: 'left',  
+                    y: 'bottom',  
+                    splitList: [   
+                        {start: 400, end: 500},  
+                        {start: 300, end: 400},{start: 200, end: 300},  
+                        {start: 100, end: 200},{start: 0, end: 100},  
+                    ],  
+                    //冷色调 color: ['#0277bd', '#039be5','#29b6f6', '#81d4fa', '#e1f5fe'],
+                    color: ['#d84315', '#f4511e','#ff7043', '#ffab91', '#fbe9e7'],
+                	formatter:function (value, value2) {
+					    return value +'~' + value2+' 单'; // 范围标签显示内容。
+					},
+					textGap:5,
+					itemGap:8
+                },
+                
+                //配置属性
+                series: [{  
+                    name: '数据',  
+                    type: 'map',  
+                    mapType: 'china',   
+                    roam: true,  
+                    label: {  
+                        normal: {  
+                            show: true  //省份名称  
+                        },  
+                        emphasis: {  
+                            show: false  
+                        }  
+                    },  
+                    data:mydata  //数据
+                }]  
+            };  
+	        //初始化echarts实例
+	        var myChart = echarts.init($(".js_echart2")[0]);
+			 myChart.setOption(optionMap);
+			 //窗口变动，表格刷新
+			 $(window).resize(function(){myChart.resize();});
+		},
+		time(){
+			//时间初始化
+			$(".js_type").each(function(index,dom){
+				initTime($(dom));
+			});
+			$(".js_type").change(function(){
+				initTime($(this));
+			});
+			function initTime($dom){
+				let type = $dom.val();
+				$dom.closest("form").find(".js_time").val("");
+				$dom.closest("form").find(".js_time").each(function(index,dom){
+					if($(dom).data("DateTimePicker")){
+						$(dom).unbind("dp.change");
+						$(dom).data("DateTimePicker").destroy();
+					}
+				});
+				if(type == 1){
+					$dom.closest("form").find(".js_ohters").show();
+					$dom.closest("form").find(".js_month").hide();
+					$dom.closest("form").find(".js_time").datetimepicker({
+						showClear: true,
+		            	format: 'YYYY-MM-DD',
+						locale: 'zh-CN',
+						viewMode:"days"
+		            })
+				}else if(type == 2){
+					$dom.closest("form").find(".js_ohters").show();
+					$dom.closest("form").find(".js_month").hide();
+					$dom.closest("form").find(".js_time").eq(0).datetimepicker({
+		            	showClear: true,
+		            	format: 'YYYY-MM-DD',
+						locale: 'zh-CN',
+						viewMode:"days"
+		            }).on('dp.change', function(ev){
+		            	let start = new Date($(ev.target).val()).getTime();
+		            	let time7Days = 1000*60*60*24*6;
+		            	start +=time7Days;
+		            	start = new Date(start);
+					    $dom.closest("form").find(".js_time").eq(1).val(start.format("yyyy-MM-dd"));
+					});
+					$dom.closest("form").find(".js_time").eq(1).datetimepicker({
+						showClear: true,
+		            	format: 'YYYY-MM-DD',
+						locale: 'zh-CN',
+						viewMode:"days"
+		            })
+				}else if(type == 3){
+					$dom.closest("form").find(".js_ohters").hide();
+					$dom.closest("form").find(".js_month").show();
+					$dom.closest("form").find(".js_time").datetimepicker({
+		            	showClear: true,
+		            	format: 'YYYY-MM',
+						locale: 'zh-CN',
+						viewMode: 'months'
+		            })
+				}
+			}
+			
+		},
+		tab1(){
+			/*//格式化时间
+			let finalTime = "2018-05";
+			let arr =[];
+			let currMonth=new Date().getMonth()+1;
+			let currYear=new Date().getFullYear();
+			while (true){
+				if(((finalTime.split("-")[0]*1) >= currYear)&&((finalTime.split("-")[1]*1)>currMonth)){
+					break;
+				}
+				arr.push(currYear+"-"+(currMonth<10?"0"+currMonth:currMonth));
+				currMonth--;
+				if(currMonth==0){
+					currMonth=12;
+					currYear--;
+				}
+			}
+			//console.log(arr)// ["2018-08", "2018-07", "2018-06", "2018-05"]
+			//select时间
+			let html =""
+			for(let item of arr){
+				html+=`<option value="${item}">${item.replace('-','年')+'月'}</option>`
+			}
+			$(".js_month").append(html);*/
+			//select项目
+			
+			let data = [
+		            {
+		                "id": "广州",
+		                "name": "Item 0阿杜撒打算打算打",
+		                "name2": "Item 0阿杜撒打算打算打算大苏打发送发神经打扫打扫打扫打扫打扫法萨达萨达萨法是否打算打算发送到",
+		                "price": "$0"
+		            },
+		            {
+		                "id": "广州",
+		                "name": "Item 1",
+		                "price": "$1"
+		            },
+		            {
+		                "id": "广州",
+		                "name": "Item 2",
+		                "price": "$2"
+		            },
+		            {
+		                "id": "深圳",
+		                "name": "Item 3",
+		                "price": "$3"
+		            },
+		            {
+		                "id": "上海",
+		                "name": "Item 4",
+		                "price": "$4"
+		            },
+		            {
+		                "id": "上海",
+		                "name": "Item 5",
+		                "price": "$5"
+		            },
+		            {
+		                "id": "北京",
+		                "name": "Item 5",
+		                "price": "$5"
+		            }
+		        ]
+			
+			//table
+			rj.table.init({
+				id:"#table1",
+				toolbar:false,
+				data:data,
+				toolbarAlign:"right",
+				columns:[ {
+						field: 'id',
+						title: 'id'
+					}, {
+						field: 'name',
+						title: '名称'
+					},{
+						field: 'name2',
+						title: '名称2'
+					}, {
+						field: 'price',
+						title: '价格'
+					}],
+					onLoadSuccess:function(data){
+						//这里ajax才能触发  自己改下参数
+						rj.table.mergeCells("#table1","id",data);
+					}
+			});
+			//因为onLoadSuccess调用不到 我这里写的  记得删掉
+			rj.table.mergeCells("#table1","id",data);
+		},
+		tab2(){
+			$("a[href='#tab2']").one("click",function(){
+				
+			});
+			this.DemoTable("#table2")
+		},
+		tab3(){
+			this.DemoTable("#table3")
+		},
+		tab4(){
+			this.DemoTable("#table4")
+		},
+		DemoTable(id){
+			let data = [
+		            {
+		                "id": "广州",
+		                "name": "Item 0阿杜撒打算打算打",
+		                "name2": "Item 0阿杜撒打算打算打算大苏打发送发神经打扫打扫打扫打扫打扫法萨达萨达萨法是否打算打算发送到",
+		                "price": "$0"
+		            },
+		            {
+		                "id": "广州",
+		                "name": "Item 1",
+		                "price": "$1"
+		            },
+		            {
+		                "id": "深圳",
+		                "name": "Item 2",
+		                "price": "$2"
+		            },
+		            {
+		                "id": "深圳",
+		                "name": "Item 3",
+		                "price": "$3"
+		            },
+		            {
+		                "id": "上海",
+		                "name": "Item 4",
+		                "price": "$4"
+		            },
+		            {
+		                "id": "上海",
+		                "name": "Item 5",
+		                "price": "$5"
+		            }
+		        ]
+			
+			//table
+			rj.table.init({
+				id:id,
+				toolbar:false,
+				data:data,
+				toolbarAlign:"right",
+				columns:[ {
+						field: 'id',
+						title: 'id'
+					}, {
+						field: 'name',
+						title: '名称'
+					},{
+						field: 'name2',
+						title: '名称2'
+					}, {
+						field: 'price',
+						title: '价格'
+					}]
+			});
+		}
+	}
+	homeShow.init();
+</script>
