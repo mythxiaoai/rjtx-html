@@ -340,36 +340,71 @@
     * 提示:其他界面暴露的全局变量请用var声明！不要用let const 会导致报错.
     */
    var home = {
+   		callback:null,
 		init(){
+			this.hashUrl();
 			this.menusClick();
-			//默认页面设置
-			this.load("page/ui/mobal.html");
+		},
+		hashUrl(){
+			let $this = this;
+			window.onpopstate = function(e){
+				if(window.location.hash){
+					$this.cssDeal();
+					rj.load(".js_home_content",window.location.hash.slice(1)+".html",$this.callback||null);
+				}else{
+					window.location.href=window.location.href;
+				}
+			}
+			if(!window.location.hash){
+				//默认页面设置
+				rj.load(".js_home_content","page/ui/mobal.html");
+			}else{
+				$this.cssDeal();
+				rj.load(".js_home_content",window.location.hash.slice(1)+".html");
+			}
+		},
+		jumpMenu(url,callback){
+			let hash = "";
+			if(url){
+				if(url.lastIndexOf(".")!=-1){
+					url = url.slice(0,url.lastIndexOf("."));
+					hash=url;
+				}
+			}
+			this.callback = callback;
+			window.location.hash = "#"+hash;
+		},
+		cssDeal(){
+			$("[data-url]").each(function(index,dom){
+				if($(dom).data("url")==(window.location.hash.slice(1)+".html")){
+					//css
+					$(".js_home_sItem").removeClass("active")
+					$(this).addClass("active");
+					let $pDom = $(this).closest(".sub_menu").closest("li").find(".js_home_pItem");
+					if(!$pDom.hasClass("active")){
+						$(".js_home_pItem").removeClass("active");
+						$($pDom).addClass("active");
+					}
+					return false;
+				}
+			});
 		},
 		menusClick(){
 			let $this = this;
 			//子点击
 			$(".js_home_menus").on("click",".js_home_sItem",function(e,fn){
 				//css
-				$(".js_home_sItem").removeClass("active")
-				$(this).addClass("active");
+				$this.cssDeal()
 				//模拟
 				let url = $(this).data("url")||"./doing.html";
-				$this.load(url,fn);
+				$this.jumpMenu(url);
 			});
 			//父点击
 			$(".js_home_menus").on("click",".js_home_pItem",function(e,fn){
-				//css
-				$(".js_home_pItem").removeClass("active")
-				$(this).addClass("active");
 				//模拟点击子
 				$(this).closest("li").find(".js_home_sItem").eq(0).trigger("click",fn)
 			});
 		},
-		load(url,callback){
-			$(".js_home_content").load(url,function(){
-				if(callback)callback();
-			});
-		}
 	}
    home.init();
 </script>
