@@ -41,9 +41,101 @@
 		//业务
 		var auth={
 			init:function(){
-				this.list();
-				
+				// this.list();		
 				this.del();
+				//列表数据
+				this.total_list();
+			},
+			total_list() {
+				rj.table.init({
+					id: "#table",
+					toolbar: "#toolbar",
+					data: [
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						},
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						},
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						},
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						}
+					],
+					columns: [
+						{
+							checkbox: true, 
+						},
+						{
+							field: 'authName',
+							title: '菜单名称',
+						}, {
+							field: 'priority',
+							title: '菜单优先级',
+						},{
+							field: 'url',
+							title: '访问链接',
+							
+						}, {
+							field: 'createDate',
+							title: '创建时间',
+							formatter:function(value,row,index){
+								var newTime = new Date(value);
+								
+								return newTime.getFullYear() + "-" + (newTime.getMonth() + 1) + "-" + newTime.getDate();
+							}
+						},{
+							field: 'remark',
+							title: '备注'
+						},{
+							field: 'isEnabled',
+							title: '是否停用',
+							formatter:function(value,row,index){
+			                	return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+		                	}
+						},{
+							field: 'authType',
+							title: '权限类型',
+							formatter:function(value,row,index){
+			                	return value==0?"菜单权限":"功能权限";
+		                	}
+						},{
+							title: '操作',
+							formatter:function(value,row,index){ 
+								var str = row.isEnabled==0?'停用':'启用';
+								var status =row.isEnabled==0?1:0;
+			                	return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+			                }
+						}],
+				})
 			},
 			bulidTree(){
 				$.ajax({
@@ -63,6 +155,18 @@
 					()=>{
 						//初始化插件
 						rj.resetPlug();
+						//菜单下拉框
+						var zNodes1 =[
+							{id:4, pId:0, name:"项目管理"},
+							{id:41, pId:4, name:"项目管理"},
+							{id:5, pId:0, name:"系统管理"},
+							{id:51, pId:5, name:"角色管理"},
+							{id:52, pId:5, name:"用户管理"},
+							{id:53, pId:5, name:"菜单管理"},
+							{id:54, pId:5, name:"权限管理"},
+							{id:6, pId:0, name:"首页"},
+						];
+						rj.ztree("ztreeRadio","#ztree1",zNodes1); 
 						//做回显动作
 						if(id){
 							$.ajax({

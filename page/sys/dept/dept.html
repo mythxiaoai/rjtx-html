@@ -58,9 +58,97 @@
 			//左右切换
 			this.toggle();
 			//表格初始化
-			this.tableInit();
+			// this.tableInit();
 			//右侧路径点击
 			this.path();
+			//部门表格数据
+			this.table1_table();
+			//部门树列表
+			this.treeInit();
+		},
+		table1_table() {
+			rj.table.init({
+				id: "#table",
+				toolbar: "#toolbar",
+				data: [
+					{
+						"num": 001,
+						"dept_name": "天馈",
+						"job_title": "Jone",
+						"provincial_city": "GuangZhou",
+					},
+					{
+						"num": 001,
+						"dept_name": "天馈",
+						"job_title": "Jone",
+						"provincial_city": "GuangZhou",
+					},
+					{
+						"num": 001,
+						"dept_name": "天馈",
+						"job_title": "Jone",
+						"provincial_city": "GuangZhou",
+					},
+					{
+						"num": 001,
+						"dept_name": "天馈",
+						"job_title": "Jone",
+						"provincial_city": "GuangZhou",
+					}
+				],
+				columns:[
+					{
+						field: "num",
+						title: '编号',
+						align: 'center',  
+						valign: 'bottom',
+						// formatter:function(value,row,index){  
+						//           var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;  
+						//           var pageSize = $('#table').bootstrapTable('getOptions').pageSize;  
+						//           return (pageNumber-1) * pageSize+index+1;  
+						//       }
+					}, {
+						field: 'dept_name',
+						title: '生产项目名称'
+					},{
+						field: 'job_title',
+						title: '生产项目经理'
+					}, {
+						field: 'provincial_city',
+						title: '生产项目城市'
+					}, {
+						title: '操作',
+						formatter(value,row,index){
+							return `
+							<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="dept.addOrUpdate('修改职位','${row.dept_id}')">修改</a>
+							<a href="javascript:;" class="btn btn-danger btn-xs m-r-xs" onclick="dept.del('${row.dept_id}')">删除</a>
+							`
+						}
+					}],
+			})
+		},
+		treeInit() {
+			var zNodes = [
+				{ id:1, pId:0, name: "aNode 1"},
+				{ id:112, pId:1, name: "aNode 1-1"},
+				{ id:1113, pId:112, name: "aNode 1-1-1"},
+				{ id:1114, pId:112, name: "aNode 1-1-1"},
+				{ id:1115, pId:112, name: "aNode 1-1-1"},
+				{ id:1116, pId:112, name: "aNode 1-1-1"},
+				{ id:2, pId:4, name: "bNode 2"},
+				{ id:221, pId:2, name: "bNode 2-1"},
+				{ id:2221, pId:221, name: "bNode 2-1-1"},
+				{ id:3, pId:0, name: "cNode 1"},
+				{ id:333, pId:3, name: "cNode 1-1"},
+				{ id:3333, pId:333, name: "cNode 3-1-1"},
+				{ id:3334, pId:333, name: "cNode 3-1-1"},
+				{ id:3335, pId:333, name: "cNode 3-1-1"},
+				{ id:3336, pId:333, name: "cNode 3-1-1"},
+			];
+			rj.ztree("ztree","#ztree1",zNodes,{callback: {
+				onclick:function(event, treeId, treeNode) {
+				}
+			}})			
 		},
 		addOrUpdate(title,id){
 		 	var $this = this;
@@ -70,33 +158,36 @@
 			}
 			rj.modal(
 				title,
-				"/page/sys/dept/addOrUpdate.html",
+				"./page/sys/dept/addOrUpdate.html",
 				()=>{
 					console.log("加载完成")
 					//初始化插件
 					rj.resetPlug();
+					//菜单下拉框
+					var zNodes2 =[
+						{id:1, pId:0, name:"北京"},
+						{id:2, pId:0, name:"天津"},
+						{id:3, pId:0, name:"上海"},
+						{id:6, pId:0, name:"重庆"},
+						{id:4, pId:0, name:"河北省", open:true},
+						{id:41, pId:4, name:"石家庄"},
+						{id:42, pId:4, name:"保定"},
+						{id:43, pId:4, name:"邯郸"},
+						{id:44, pId:4, name:"承德"},
+						{id:5, pId:0, name:"广东省", open:true},
+						{id:51, pId:5, name:"广州"},
+						{id:52, pId:5, name:"深圳"},
+						{id:53, pId:5, name:"东莞"},
+						{id:54, pId:5, name:"佛山"},
+						{id:6, pId:0, name:"福建省", open:true},
+						{id:61, pId:6, name:"福州"},
+						{id:62, pId:6, name:"厦门"},
+						{id:63, pId:6, name:"泉州"},
+						{id:64, pId:6, name:"三明"}
+					];
+					rj.ztree("ztreeRadio","#ztree2",zNodes2);
 					//做回显动作
 					var zNodes =[];
-	     			$.ajax({
-					type:"get",
-					url:"/sys/province/getAllCityByDeptId",
-					async:false,
-					dataType:"JSON",
-					data:{"deptId":dept_id},
-					success:function(data){
-						if(level==-1){
-							var jsonObj={"id":-1 , "pId":0,"name":"中国"};
-							zNodes.push(jsonObj);
-							}else{
-								data=data.data;
-								for (var i=0;i<data.length;i++) {
-									var jsonObj={"id":data[i].cityId , "pId":data[i].pert,"name":data[i].provincialCity};
-									zNodes.push(jsonObj);
-								}
-							}
-						}
-					});
-					
 				    if(id!=undefined){
 						var data = [];
 						var rowDate = $("#table").bootstrapTable('getRowByUniqueId',id);
@@ -142,20 +233,7 @@
 			            				xtip("该生产项目已存在！");
 			            				return;
 			            			}
-			            		}
-							$.ajax({
-								id:"#addOrUpdate",
-							    type:"post",
-							    msg:"none",
-							    url:id==undefined?"/sys/dept/addDept":"/sys/dept/updateDept",
-							    data:data,
-							    success:function(data){
-							    	parent.xalert(data.msg,"",data.status==0?"success":"error");
-							    	$(".js_close").trigger("click");
-				            		$this._flush();
-            						$this.dept();
-					   			}
-							});	
+			            		}	
 				        }
 				    });
 				}

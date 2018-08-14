@@ -81,11 +81,150 @@
 			//左右切换
 			this.toggle();
 			//表格初始化
-			this.tableInit();
+			//this.tableInit();
 			//上传用户
 			this.importUser();
 			//删除
 			this.del();
+
+			//表格数据
+			this.table1_table();
+			//部门树total
+			this.treeInit();
+		},
+		table1_table() {
+			rj.table.init({
+				id: "#table",
+				toolbar: "#toolbar",
+				data: [
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+						// "userId": ""//操作
+					},
+				],
+				columns: [
+					{
+						checkbox: true 
+					},
+					{
+						field: 'deptName',
+						title: '项目'
+					},
+					{
+						field: 'companyWorking',
+						title: '工号'
+					},
+					{
+						field: 'userName',
+						title: '用户名'
+					},
+					{
+						field: 'isAdmin',
+						title: '职位'
+					},
+					{
+						field: 'mailbox',
+						title: '邮箱'
+					},
+					{
+						field: 'mobile',
+						title: '手机号'
+					},
+					{
+						// field: 'userId',
+						title: '操作',
+						formatter:function(value,row,index){ 
+								var str = row.isEnabled==0?'停用':'启用';
+								var status =row.isEnabled==0?1:0;
+			                	return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+			                }
+					}
+				]
+			});	
+		},
+		treeInit() {
+			var zNodes = [
+				{ id:1, pId:0, name: "aNode 1"},
+				{ id:112, pId:1, name: "aNode 1-1"},
+				{ id:1113, pId:112, name: "aNode 1-1-1"},
+				{ id:1114, pId:112, name: "aNode 1-1-1"},
+				{ id:1115, pId:112, name: "aNode 1-1-1"},
+				{ id:1116, pId:112, name: "aNode 1-1-1"},
+				{ id:2, pId:4, name: "bNode 2"},
+				{ id:221, pId:2, name: "bNode 2-1"},
+				{ id:2221, pId:221, name: "bNode 2-1-1"},
+				{ id:3, pId:0, name: "cNode 1"},
+				{ id:333, pId:3, name: "cNode 1-1"},
+				{ id:3333, pId:333, name: "cNode 3-1-1"},
+				{ id:3334, pId:333, name: "cNode 3-1-1"},
+				{ id:3335, pId:333, name: "cNode 3-1-1"},
+				{ id:3336, pId:333, name: "cNode 3-1-1"},
+			];
+			rj.ztree("ztree","#ztree1",zNodes,{callback: {
+				onclick:function(event, treeId, treeNode) {
+				}
+			}})
 		},
 		getFileSilce:function(start,file,blockSize){
 			var end=parseInt(start)+parseInt(blockSize);
@@ -166,18 +305,6 @@
 //					         	校验成功:{"hobby":"0","file":"C:\\fakepath\\不正确.xlsx","":"不正确.xlsx"}
 							var data= getFromJson($("#addOrUpdate")[0]);
 //								alert("校验成功:"+JSON.stringify(data))
-							/*xa_ajax({
-								id:"#addOrUpdate",
-							    type:"post",
-							    url:
-							    data:data,
-							    success:function(data){
-							    	//关闭
-							    	$(".js_importUser").xmodal("hide")
-							    	//刷新
-							    	$this.list();
-							    }
-							});*/
 						   var files = $("input[name=file]")[0].files;
 				           $("#upload").attr("disabled", true); 
 				           debugger;
@@ -193,27 +320,30 @@
 			var $this=this;
 			rj.modal(
 				title,
-				"/page/sys/user/addOrUpdate.html?userid="+id,
+				"./page/sys/user/addOrUpdate.html",
 				()=>{
 					//初始化插件
 					rj.resetPlug();
-					$(".js_h_hide").hide();
-					//做回显动作
-					 $.ajax({
-			    	    type:"post",
-					    url:"/sys/user/initZtree",
-					    success:function(data){
-					    	var zNodes2 =[]; 
-					    	data=data.data;
-//						    	    console.log(data);
-							for (var i=0;i<data.length;i++) {
-								var jsonObj={"id":data[i].deptId , "pId":data[i].parentId,"name":data[i].deptName,"level_a":data[i].level};
-								zNodes2.push(jsonObj);
-							}	
-							rj.ztree("ztreeRadio","#ztree3",zNodes2,setting);
-							
-				         }
-				  });
+					var zNodes1 =[
+						{id:4, pId:0, name:"润健通讯"},
+						{id:41, pId:4, name:"交付部领导"},
+						{id:42, pId:41, name:"广东项目部"},
+						{id:43, pId:42, name:"深圳项目"},
+						{id:44, pId:42, name:"佛山项目"},
+						{id:5, pId:0, name:"研发部"},
+						{id:51, pId:5, name:"研发部1"},
+						{id:52, pId:5, name:"研发部2"},
+						{id:53, pId:5, name:"研发部3"},
+						{id:54, pId:5, name:"研发部4"},
+						{id:6, pId:0, name:"行政部"},
+						{id:61, pId:6, name:"行政部1"},
+						{id:62, pId:6, name:"行政部2"},
+						{id:63, pId:6, name:"行政部3"},
+						{id:64, pId:6, name:"行政部4"}
+					 ];
+					rj.ztree("ztreeRadio","#ztree3",zNodes1);
+					// $(".js_h_hide").hide();
+// 					//做回显动作
 				},
 				(dom)=>{
 					$("#addOrUpdate").validate({
@@ -235,18 +365,6 @@
 				        },
 				        submitHandler: function () {
 							let data= getFromJson($("#addOrUpdate")[0]);
-							rj.ajax({
-								id:"#addOrUpdate",
-								msg:"none",
-							    type:"post",
-							    url:'/sys/user/addUser',
-							    data:data,
-							    success:function(data){
-							    	xalert(data.msg,"",data.status==0?"success":"error");
-						    		$(".js_close").trigger("click");
-							    	$this._flush();
-							    }
-							});
 				        }
 				    });
 				}
@@ -256,22 +374,6 @@
 		dept:function(){
 			let $this =this;
 	        var zNodes =[];
-	        $.ajax({
-	    		async:false,
-	    	    type:"post",
-			    url:"/sys/user/initZtree",
-			    success:function(data){
-			    	data=data.data;
-//			    	    console.log(data);
-					for (var i=0;i<data.length;i++) {
-						var jsonObj={"id":data[i].deptId , "pId":data[i].parentId,"name":data[i].deptName};
-						zNodes.push(jsonObj);
-					}	
-
-		         }
-	    	});
-
-	        
 	        let ztreeObj = rj.ztree("ztree","#ztree1",zNodes,{callback:{
         		onClick:function(event, treeId, treeNode){
 //	        			alert(treeNode.name);
@@ -310,24 +412,8 @@
 				showColumns: true, //是否显示所有的列
 				minimumCountColumns: 2, //最少允许的列数
 				sortName: "company_working",
-				queryParams:function(params) {
-					//将查询格式化
-					var formdata= getFromJson($("#search")[0]);
-		            return{
-		            	userName:isNotEmpty(formdata.name)?formdata.name:undefined,
-		            	companyWorking:isNotEmpty(formdata.name_work)?formdata.name_work:undefined,
-			            pageSize:params.limit,
-			            pageNum:(params.offset+params.limit)/params.limit,
-			            //sortName:params.sort,//这里是读取sortName配置选项
-			           // sortOrder:params.order,//默认是desc
-			            deptId:dept_id
-		            }
-	            },
-	            responseHandler:function(data){
-	        	   return data;
-	            },
 				columns:[
-				     {
+				    {
 					checkbox: true 
 					},
 					{

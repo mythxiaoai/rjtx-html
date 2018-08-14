@@ -24,8 +24,7 @@
 					                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
 					            </button>
 					        </div>
-				     		<table id="table">
-				     		</table>
+				     		<table id="table"></table>
 						</div>
 					</div>
 				</div>
@@ -36,7 +35,74 @@
 		//业务
 		var role={
 			init:function(){
-				this.list();
+				//this.list();
+				//角色列表
+				this.table1_list();
+			},
+			table1_list() {
+				rj.table.init({
+					id: "#table",
+					toolbar: "#toolbar",
+					data: [
+						{
+							"num": '',
+							"role_name": "李思思",
+							"creator": "将军军",
+							"create_date": 2012,	
+							"modify_date": 2017,
+							"remark": "仅能各国各地",
+							"is_enabled": 0,
+						},
+						{
+							"num": '',
+							"role_name": "李思思",
+							"creator": "将军军",
+							"create_date": 2012,
+							"modify_date": 2017,
+							"remark": "仅能各国各地",
+							"is_enabled": 1,
+						},
+						
+					],
+					columns: [
+						{
+							field: 'num',
+							title: '序号',
+							formatter:function(value,row,index){
+			                	return index+1;
+			                }
+						}, {
+							field: 'role_name',
+							title: '角色名称'
+						}, {
+							field: 'creator',
+							title: '创建用户',
+						}, {
+							field: 'create_date',
+							title: '创建时间',
+						}, {
+							field: 'modify_date',
+							title: '修改时间'
+						}, {
+							field: 'remark',
+							title: '备注'
+						}, {
+							field: 'is_enabled',
+							title: '是否停用',
+							formatter:function(value,row,index){
+			                	return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+			                }
+						},{
+							title: '操作',
+							formatter:function(value,row,index){ 
+								var str = row.isEnabled==0?'停用':'启用';
+								var status =row.isEnabled==0?1:0;
+			                	return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+			                }
+						}],
+				})
 			},
 			bulidTree(url){
 				var $this = this;
@@ -58,62 +124,20 @@
 					id==undefined?"page/sys/role/addOrUpdate.html?opt=add":("page/sys/role/addOrUpdate.html?opt=update"),
 					()=>{
 						//初始化插件
-						rj.resetPlug();
-						//做回显动作
-						if(id!=undefined){
-							var rowDate = $("#table").bootstrapTable('getRowByUniqueId',id);
-							$.each(rowDate,function(index,val){
-								//index就是这个json数据的key值
-								if(index=='role_id'){
-									$("[name="+index+"]").val(val.split("-")[0]);
-									$.ajax({
-										url : "/sys/role/getRoleById",
-										dataType : "json",
-										type : "post",
-										data : {
-											"role_id" : val.split("-")[0]
-										},
-										success : function(data) {
-											data=data.auth;
-											var value="";
-											for(let i=0;i<data.length;i++){
-												value+=(data[i].auth_id+",");
-											}
-											if(data.length>0){
-												value=value.substring(0,value.length-1)
-											}
-											$("#ztree3").val(value);
-											$this.bulidTree("/sys/role/selectAuthToTree");
-										}
-									});
-								}
-								else if(index=='role_name')
-								{
-									$("[name="+index+"]").val(val);
-									role_name=role_name.substring(0,role_name.length-1);
-									var arr=role_name.split(",");
-									var str1="";
-									for(var i=0;i<arr.length;i++)
-										{
-											if(arr[i]!=val)
-											{
-												str1=str1+arr[i]+",";
-											}
-										}
-									$("[name=role_name_new]").val(str1);
-								}
-								else if(index!='is_enabled'){
-									$("[name="+index+"]").val(val);
-								}else{
-									$("[name='is_enabled']").parent().removeClass("checked");
-									$("[name='is_enabled']:eq("+val+")").attr("checked",true);
-									$("[name='is_enabled']:eq("+val+")").parent().addClass("checked");
-								}
-							});
-							$("[name='userId']").val("update");
-						}else{
-							$this.bulidTree("/sys/role/selectAuthToTree");
-						}
+						rj.resetPlug();	
+						//菜单配置下拉框
+						var zNodes1 =[
+							{id:4, pId:0, name:"项目管理"},
+							{id:41, pId:4, name:"项目管理"},
+							{id:5, pId:0, name:"系统管理"},
+							{id:51, pId:5, name:"角色管理"},
+							{id:52, pId:5, name:"用户管理"},
+							{id:53, pId:5, name:"菜单管理"},
+							{id:54, pId:5, name:"权限管理"},
+							{id:6, pId:0, name:"首页"},
+						 ];
+						 rj.ztree("ztreeCheckbox","#ztree3",zNodes1);
+
 					},
 					(dom)=>{
 						$("#addOrUpdate").validate({
@@ -127,31 +151,7 @@
 					            },
 					        },
 					        submitHandler: function () {
-					         	//获取form表单数据
-								var data= getFromJson($("#addOrUpdate")[0]);
-								data.role_id=data.role_id.split("-")[0];
-								var role_name_new=$('input[name="role_name_new"]').val();
-				            	var arr1=role_name_new.substring(0,role_name_new.length-1).split(",");
-				            	for(var i=0;i<arr1.length;i++)
-				            		{
-				            			if(arr1[i]==data.role_name){
-				            				xtip("角色名称不能相同");
-				            				return;
-				            			}
-				            		}
-								rj.ajax({
-									id:"#addOrUpdate",
-								    type:"post",
-								    msg:"none",
-								   // url:data.userId!='update'?"sys/role/addrole":"sys/role/addrole",
-								   url:"/sys/role/addrole",
-								    data:data,
-								    success:function(data){
-								    	parent.xalert(data.msg,"",data.status==0?"success":"error");
-								    	$(".js_close").trigger("click");
-								    	role._flush();
-								    }
-								});
+								$(".js_close").trigger("click");
 					        }
 					    });
 					}
