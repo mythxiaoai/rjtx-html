@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form id="addOrUpdate" class="form-horizontal">
+			<input type="hidden" name="authId">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">权限名称</label>
+				<div class="col-sm-10">
+					<input type="text" autofocus="autofocus" class="form-control" name="authName">
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">上级菜单</label>
+				<div class="col-sm-10">
+					<input class="form-control" id="ztree1" name="parentId" type="text"/>
+					<!--<input class="form-control js_pid" name="parentId" type="hidden" />
+					<input class="form-control" readonly="readonly" name="authId_show" onclick="rj.treeSelect(this)" />
+					<div class="ztree-down">
+						<ul id="ztree1" class="ztree"></ul>
+					</div>-->
+
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">是否启用</label>
+				<div class="col-sm-10">
+					<div class="radio-inline">
+						<label>
+	                    		<input class="icheck" type="radio" name="isEnabled" checked="checked" value="0"/> 启用
+	                    	</label>
+					</div>
+					<div class="radio-inline">
+						<label >
+	                    		<input  class="icheck"type="radio" name="isEnabled" value="1"/> 禁用
+	                    	</label>
+					</div>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">权限类型</label>
+				<div class="col-sm-10">
+					<div class="radio-inline">
+						<label>
+	                    		<input   class="icheck" type="radio" name="authType" checked="checked" value="0"/> 菜单
+	                    	</label>
+					</div>
+					<div class="radio-inline">
+						<label class="fw-n">
+	                    		<input  class="icheck" type="radio" name="authType" value="1"/> 功能
+	                    	</label>
+					</div>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="js_icon" style="display: block;">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">图标</label>
+					<div class="col-sm-10">
+						<input class="form-control" placeholder="在图标库找出，并写出样式,如 fa fa-camera-retro" name="icon"></input>
+						<span class="help-block m-b-none">
+                    	  		<a class="btn btn-link m-r-xs" href="/page/sys/auth/fa/fa.html" target="_blank">[ fa fa-* ]</a>
+                    	  		<a class="btn btn-link" href="/page/sys/auth/glyphicon/glyphicon.html" target="_blank">[ glyphicon glyphicon-* ]</a>
+                    	  		<a class="btn btn-link" href="/page/sys/auth/iconfnt/demo_fontclass.html" target="_blank">[ iconfnt iconfnt-* ]</a>
+                    	  	</span>
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">url</label>
+				<div class="col-sm-10">
+					<input class="form-control" placeholder="权限链接" name="url"></input>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">优先级</label>
+				<div class="col-sm-10">
+					<input class="form-control" placeholder="url包含*通配符的优先级在500以下" name="priority"></input>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">描述</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" name="remark"></textarea>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+
+			<div class="form-group">
+				<div class="col-sm-12 text-center">
+					<button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+					<button class="btn btn-primary js_sure" type="submit">确定</button>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

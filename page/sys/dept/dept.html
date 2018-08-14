@@ -1,0 +1,298 @@
+<div class="p-m">
+	<div class="panel panel-white">
+		<div class="panel-heading">
+			<div class="panel-title">
+				项目管理
+        	</div>
+			<div class="panel-tools">
+                <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+		</div>
+		<div class="panel-body collapsed in" id="panelContent1">
+			<div class="row">
+				<div class="col-sm-3 js_leftResearch" style="z-index: 1;">
+					<!--左侧部门树 start-->
+					<div class="panel panel-white">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<i class="iconfont icon-dept"></i> 网优事业部职位架构
+	                    	</div>
+	                    	<div class="panel-tools">
+	                            <a class="toggleIcon js_icon" href="javascript:;" draggable="false">
+	                            	<i class="fa fa-angle-left"></i>
+	                            </a>
+	                        </div>
+						</div>
+						<div class="panel-body collapsed in input-group-sm">
+							<ul class="xztree" id="ztree1"></ul>
+						</div>
+					</div>
+					<!--end 左侧部门树-->
+				</div>
+				<div class="content-box col-sm-9 js_rightContent">
+					<div class="crumb js_crumb">
+						<a href="javascript:;" onclick="window.location.reload()">润建通讯</a>	
+					</div>
+					<div id="toolbar">
+						<button type="button" class="btn btn-default js_addOrUpdate" onclick="dept.addOrUpdate('新增职位')">
+							<i class="iconfont icon-add"></i> 新增
+						</button>
+					</div>
+					<table id="table"></table></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var dept_id="1";//全局变量
+	var dept_pid;//全局变量
+	var level=-1;//全局变量
+	var deptNames;//全局变量
+	var dept = {
+		init:function(){
+			//部门树
+			this.dept();
+			//左右切换
+			this.toggle();
+			//表格初始化
+			this.tableInit();
+			//右侧路径点击
+			this.path();
+		},
+		addOrUpdate(title,id){
+		 	var $this = this;
+			if(level>=2&&title=="新增职位"){
+				xtip("项目级别无法新增职位");
+            				return;
+			}
+			rj.modal(
+				title,
+				"/page/sys/dept/addOrUpdate.html",
+				()=>{
+					console.log("加载完成")
+					//初始化插件
+					rj.resetPlug();
+					//做回显动作
+					var zNodes =[];
+	     			$.ajax({
+					type:"get",
+					url:"/sys/province/getAllCityByDeptId",
+					async:false,
+					dataType:"JSON",
+					data:{"deptId":dept_id},
+					success:function(data){
+						if(level==-1){
+							var jsonObj={"id":-1 , "pId":0,"name":"中国"};
+							zNodes.push(jsonObj);
+							}else{
+								data=data.data;
+								for (var i=0;i<data.length;i++) {
+									var jsonObj={"id":data[i].cityId , "pId":data[i].pert,"name":data[i].provincialCity};
+									zNodes.push(jsonObj);
+								}
+							}
+						}
+					});
+					
+				    if(id!=undefined){
+						var data = [];
+						var rowDate = $("#table").bootstrapTable('getRowByUniqueId',id);
+						$.each(rowDate,function(index,val){
+							if(index=='dept_id'){
+								data.deptId=val;
+							}else if(index=='dept_name'){
+								data.deptName=val;
+								data.oldDeptName=val;
+							}else if(index=='province_id'){
+								$("#ztree2").val(val);
+							}
+						});
+						rj.form.set($("#addOrUpdate")[0],data);
+				    }
+					rj.ztree("ztreeRadio","#ztree2",zNodes);
+				},
+				(dom)=>{
+					$("#addOrUpdate").validate({
+				        rules: {
+				            deptName: {required: true},
+				            province: {required: true},
+				        },
+				        messages: {
+				             
+				        },
+				        submitHandler: function () {
+				        	 var oldDeptName="";
+				         	//获取form表单数据
+				         	if(id!=undefined){
+					         	var rowDate = $("#table").bootstrapTable('getRowByUniqueId',id);
+					            oldDeptName=rowDate.dept_name;
+				         	}
+
+							var data= getFromJson($("#addOrUpdate")[0]);
+							data.parentId=dept_id;
+							data.level=level;
+							data.deptId=id;
+			            	var arr1=deptNames.substring(0,deptNames.length-1).split(",");
+			            	for(var i=0;i<arr1.length;i++)
+			            		{
+			            			if(arr1[i]==data.deptName&&arr1[i]!=oldDeptName){
+			            				xtip("该生产项目已存在！");
+			            				return;
+			            			}
+			            		}
+							$.ajax({
+								id:"#addOrUpdate",
+							    type:"post",
+							    msg:"none",
+							    url:id==undefined?"/sys/dept/addDept":"/sys/dept/updateDept",
+							    data:data,
+							    success:function(data){
+							    	parent.xalert(data.msg,"",data.status==0?"success":"error");
+							    	$(".js_close").trigger("click");
+				            		$this._flush();
+            						$this.dept();
+					   			}
+							});	
+				        }
+				    });
+				}
+			);
+			
+		},
+		dept:function(){
+	        var zNodes =[];
+	        var $this = this;
+			$.ajax({
+				type:"get",
+				url:"/sys/dept/initZtree",
+				async:false,
+				dataType:"JSON",
+				success:function(data){
+					data=data.data;
+					deptNames="";
+					for (var i=0;i<data.length;i++) {
+						var jsonObj={"id":data[i].deptId , "pId":data[i].parentId,"name":data[i].deptName};
+						zNodes.push(jsonObj);
+						deptNames=deptNames+(data[i].deptName)+",";
+					}
+				}
+			});
+	        rj.ztree("ztree","#ztree1",zNodes,{callback:{
+        		onClick:function(event, treeId, treeNode){
+        			//alert(treeNode.name);
+            		dept_id=treeNode.id;
+            		dept_pid=treeNode.pId;
+            		level=treeNode.level;
+            		let parentNodes = [],childrenNodes =[];
+            		parentNodes = treeNode.getPath();
+            		childrenNodes=treeNode.children || [];
+            		//先清空
+            		$(".js_crumb").find("a:not(:first-child)").remove();
+            		//路径
+            		let crumbHtml ="";
+            		$.each(parentNodes, function(index,val) {
+            			crumbHtml+=`<a href="javascript:;" data-id="${val.tId}_a">>${val.name} </a> \n`
+            		});
+            		$(".js_crumb").append(crumbHtml);
+            		$this.tableInit();
+            		$this._flush();
+        		}
+        	}});
+		},
+		toggle:function(){
+			rj.toggleAnimate({
+				triggerDom:".js_icon",
+				targetDom:[".js_leftResearch",".js_rightContent"],
+				triggerToggleClass:["active",""],
+				targetToggleAttr:[{"marginLeft":["-24%","0"]},{"width":["98%","74%"]}],
+				targetToggleClass:[["shake-horizontal-slow shake-constant shake-constant--hover",""]],
+				targetToggleFunction:[function (){
+					$(".panel-body").css("overflow","hidden");
+				},function (){
+					$(".panel-body").css("overflow","visible");
+				}]
+			});
+		},
+		tableInit(){
+			rj.table.init({
+				id:"#table",
+				url:'/sys/dept/initPage', 
+				uniqueId:"dept_id",//作用是在tr上面加上主键  方便做修改和删除操作
+				queryParams:function(params) {
+					//将查询格式化
+					//var formdata= getFromJson($("#search")[0]);
+		            return{
+			            pageSize:params.limit,
+			          	pageNum:(params.offset+params.limit)/params.limit,
+			          	//pageNum : params.offset,
+			          	pageNo : params.offset, // 页码
+			            sortName:params.sort,//这里是读取sortName配置选项
+			            sortOrder:params.order,//默认是desc
+			            dept_id:dept_id,
+		            }
+	           	},
+				columns:[{
+						title: '编号',
+						align: 'center',  
+						valign: 'bottom',
+						formatter:function(value,row,index){  
+						          var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;  
+						          var pageSize = $('#table').bootstrapTable('getOptions').pageSize;  
+						          return (pageNumber-1) * pageSize+index+1;  
+						      }
+					}, {
+						field: 'dept_name',
+						title: '生产项目名称'
+					},{
+						field: 'job_title',
+						title: '生产项目经理'
+					}, {
+						field: 'provincial_city',
+						title: '生产项目城市'
+					}, {
+						field: 'dept_id',
+						title: '操作',
+						formatter(value,row,index){
+							return `
+							<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="dept.addOrUpdate('修改职位','${row.dept_id}')">修改</a>
+							<a href="javascript:;" class="btn btn-danger btn-xs m-r-xs" onclick="dept.del('${row.dept_id}')">删除</a>
+							`
+						}
+					}],
+			});
+		},
+		del(id){
+			var $this = this;
+			xconfirm("是否删除职位？","会删除职位以及所关联的数据.",null,function(){
+				$this.delajax(id);
+			});
+		},
+		delajax(id){
+			var $this = this;
+			rj.ajax({
+			    type:"post",
+			    url:"/sys/dept/deleteDeptById",
+			    data:{"deptId":id},
+			    success:function(data){
+			    	$this._flush();
+			    	$this.dept();
+			    }
+			});
+		},
+		resetPass(id){
+			console.log(id);
+		},
+		path(){
+			$(".js_crumb").on("click","a[data-id]",function(){
+				$("#"+$(this).data("id")).trigger("click");
+			});
+		},
+		_flush:function(){
+			$("#table").bootstrapTable('refresh');
+		}
+	}
+	dept.init()
+</script>

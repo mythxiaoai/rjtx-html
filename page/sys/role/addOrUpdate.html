@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<form id="addOrUpdate" class="form-horizontal">
+			<input type="hidden" name="userId">
+			<input type="hidden" name="role_id">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">角色名称</label>
+				<div class="col-sm-10">
+					<input type="text" autofocus="autofocus" class="form-control" name="role_name">
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">菜单配置</label>
+				<div class="col-sm-10">
+					<input class="form-control" id="ztree3" name="authIds" type="text"/>
+					<!--<input class="form-control" name="authIds" type="hidden" />
+					<input class="form-control" readonly unselectable="on" data-placeholder="菜单必填" name="authIds_show" onclick="rj.treeSelect(this)" />
+					<div class="ztree-down">
+						<ul id="ztree1" class="ztree"></ul>
+					</div>-->
+				</div>
+			</div>
+
+			<input class="form-control" name="role_name_new" type="hidden" />
+
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">是否启用</label>
+				<div class="col-sm-10">
+					<div class="radio-inline">
+						<label >
+	                    		<input class="icheck"type="radio" name="is_enabled" checked="checked" value="0"/> 启用
+	                    	</label>
+					</div>
+					<div class="radio-inline">
+						<label>
+	                    		<input class="icheck"type="radio" name="is_enabled" value="1"/> 禁用
+	                    	</label>
+					</div>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">备注</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" name="remark"></textarea>
+				</div>
+			</div>
+			<div class="hr-line-dashed"></div>
+
+			<div class="form-group">
+				<div class="col-sm-12 text-center">
+					<button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+					<button class="btn btn-primary js_sure" type="submit">确定</button>
+				</div>
+			</div>
+		</form>
+	</body>
+</html>

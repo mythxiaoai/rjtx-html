@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<body class="bg-gray">
+		<div class="p-md animated fadeInRight">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-white">
+						<div class="panel-heading">
+							<div class="panel-title">
+								角色管理
+                        	</div>
+							<div class="panel-tools">
+	                            <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+	                                <i class="fa fa-chevron-up"></i>
+	                            </a>
+	                        </div>
+                        </div>
+						<div class="panel-body collapsed in" id="panelContent">
+							<!--操作工具栏-->
+				     		<div id="toolbar" class="btn-group">
+					            <button type="button" onclick="role.addOrUpdate('新增角色')" class="btn btn-default" title="新增">
+					                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+					            </button>
+					        </div>
+				     		<table id="table">
+				     		</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<script>
+	var role_name;//全局变量
+		//业务
+		var role={
+			init:function(){
+				this.list();
+			},
+			bulidTree(url){
+				var $this = this;
+				$.ajax({
+					url : url,
+					dataType : "json",
+					async:false,
+					type : "post",
+					success : function(data) {
+						rj.ztree("ztreeCheckbox","#ztree3",data.list.data);
+					}
+				});
+			},
+			addOrUpdate:function(title,id)
+			{
+				var $this=this;
+				rj.modal(
+					title,
+					id==undefined?"page/sys/role/addOrUpdate.html?opt=add":("page/sys/role/addOrUpdate.html?opt=update"),
+					()=>{
+						//初始化插件
+						rj.resetPlug();
+						//做回显动作
+						if(id!=undefined){
+							var rowDate = $("#table").bootstrapTable('getRowByUniqueId',id);
+							$.each(rowDate,function(index,val){
+								//index就是这个json数据的key值
+								if(index=='role_id'){
+									$("[name="+index+"]").val(val.split("-")[0]);
+									$.ajax({
+										url : "/sys/role/getRoleById",
+										dataType : "json",
+										type : "post",
+										data : {
+											"role_id" : val.split("-")[0]
+										},
+										success : function(data) {
+											data=data.auth;
+											var value="";
+											for(let i=0;i<data.length;i++){
+												value+=(data[i].auth_id+",");
+											}
+											if(data.length>0){
+												value=value.substring(0,value.length-1)
+											}
+											$("#ztree3").val(value);
+											$this.bulidTree("/sys/role/selectAuthToTree");
+										}
+									});
+								}
+								else if(index=='role_name')
+								{
+									$("[name="+index+"]").val(val);
+									role_name=role_name.substring(0,role_name.length-1);
+									var arr=role_name.split(",");
+									var str1="";
+									for(var i=0;i<arr.length;i++)
+										{
+											if(arr[i]!=val)
+											{
+												str1=str1+arr[i]+",";
+											}
+										}
+									$("[name=role_name_new]").val(str1);
+								}
+								else if(index!='is_enabled'){
+									$("[name="+index+"]").val(val);
+								}else{
+									$("[name='is_enabled']").parent().removeClass("checked");
+									$("[name='is_enabled']:eq("+val+")").attr("checked",true);
+									$("[name='is_enabled']:eq("+val+")").parent().addClass("checked");
+								}
+							});
+							$("[name='userId']").val("update");
+						}else{
+							$this.bulidTree("/sys/role/selectAuthToTree");
+						}
+					},
+					(dom)=>{
+						$("#addOrUpdate").validate({
+							//验证表单
+							rules: {
+					            roleName: {
+					                required: true,
+					            },
+					            authIds: {
+					                required: true,
+					            },
+					        },
+					        submitHandler: function () {
+					         	//获取form表单数据
+								var data= getFromJson($("#addOrUpdate")[0]);
+								data.role_id=data.role_id.split("-")[0];
+								var role_name_new=$('input[name="role_name_new"]').val();
+				            	var arr1=role_name_new.substring(0,role_name_new.length-1).split(",");
+				            	for(var i=0;i<arr1.length;i++)
+				            		{
+				            			if(arr1[i]==data.role_name){
+				            				xtip("角色名称不能相同");
+				            				return;
+				            			}
+				            		}
+								rj.ajax({
+									id:"#addOrUpdate",
+								    type:"post",
+								    msg:"none",
+								   // url:data.userId!='update'?"sys/role/addrole":"sys/role/addrole",
+								   url:"/sys/role/addrole",
+								    data:data,
+								    success:function(data){
+								    	parent.xalert(data.msg,"",data.status==0?"success":"error");
+								    	$(".js_close").trigger("click");
+								    	role._flush();
+								    }
+								});
+					        }
+					    });
+					}
+				);
+			
+			},
+			del:function(){
+				var $this=this;
+				//$(".js_del").click(function(){
+					var rowDate = $("#table").bootstrapTable('getAllSelections');
+					if(rowDate.length==0){
+						xtip("selectLeastOne")
+					}else{
+						xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！",function(){
+							//数据处理
+							var ids="";
+							$.each(rowDate, function(index,val) {
+								if(index!=rowDate.length-1){
+									ids+=val.role_id+",";
+								}else{
+									ids+=val.role_id;
+								}
+							});
+							rj.ajax({
+							    type:"post",
+							    url:"/sys/role/deleteRole",
+				   				data:{"cole_id":ids},
+							    success:function(data){
+							    	$this._flush();
+							    }
+							});
+						});
+						
+					}
+				//});
+			},
+			list:function(){
+				rj.table.init({
+					id:"#table",
+					toolbar:"#toolbar",
+					url:'/sys/role/roleManager', 
+					uniqueId:"role_id",//作用是在tr上面加上主键  方便做修改和删除操作
+					sortName: "createDate",
+					queryParams:function(params) {
+						//将查询格式化
+						//var formdata= getFromJson($("#search")[0]);
+			            return{
+				            pageSize:params.limit,
+				          //  pageNum:(params.offset+params.limit)/params.limit,
+				          	pageNum : params.offset,
+				          	pageNo : params.offset, // 页码
+				            sortName:params.sort,//这里是读取sortName配置选项
+				            sortOrder:params.order,//默认是desc
+			            }
+		           },
+		           responseHandler:function(data){
+		           //	debugger;
+		        	   var rows=data.rows;
+		        	   role_name="";
+		        	   for(var i=0;i<rows.length;i++)
+		        		   {
+		        		   role_name=role_name+(rows[i].role_name)+",";
+		        		   }
+		        	   return data;
+		           },
+					columns: [{
+						checkbox: true
+						}, {
+							field: '',
+							title: '序号',
+							formatter:function(value,row,index){
+			                	return index+1;
+			                }
+						}, {
+							field: 'role_name',
+							title: '角色名称'
+						}, {
+							field: 'creator',
+							title: '创建用户',
+						}, {
+							field: 'create_date',
+							title: '创建时间',
+						}, {
+							field: 'creator',
+							title: '修改用户',
+						}, {
+							field: 'modify_date',
+							title: '修改时间'
+						}, {
+							field: 'remark',
+							title: '备注'
+						}, {
+							field: 'is_enabled',
+							title: '是否停用',
+							formatter:function(value,row,index){
+			                	return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+			                }
+						},{
+							field: 'role_id',
+							title: '操作',
+							formatter:function(value,row,index){
+								var v=value.split("-");
+								var html="";
+								var state=v[1]=='0'?"停用":"启用";
+								html+="<a href='javascript:;' id='"+v[0]+"'  onclick='role.updateOne(\""+value+"\")' class='btn btn-info btn-xs m-r-xs'>"
+										+state+"</a>";
+								html+="<a href='javascript:;' id='"+value+"' onclick='role.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs'>修改</a>";
+								//html+="<a href='javascript:;' id='"+v[0]+"' onclick='role.delOne(this.id)'  class='btn btn-danger btn-xs '>删除</a>";
+			                	if(v[0]=='system'){
+									html+="<a href='javascript:;' id='"+v[0]+"' disabled title='内置角色，不可删除' class='btn btn-danger btn-xs js_tooltip'>删除</a>";
+								}else{
+									html+="<a href='javascript:;' id='"+v[0]+"' onclick='role.delOne(this.id)'  class='btn btn-danger btn-xs '>删除</a>";
+								}
+
+			                	return html;
+			                }
+						}],
+				});
+			},
+			_flush:function(){
+				$("#table").bootstrapTable('refresh');
+			},
+			delOne:function(ids){
+				var $this = this;
+				xconfirm("确定删除？","删除后将无法恢复，请谨慎操作！",null,function(){
+					$this.delajax(ids);
+				});
+			},
+			delajax:function(ids){
+				var $this = this;
+				rj.ajax({
+				    type:"post",
+				    url:"/sys/role/deleteRole",
+				    data:{"cole_id":ids},
+				    success:function(data){
+				    	$this._flush();
+				    }
+				});
+			},
+			updateOne:function(value){
+				var $this=this;
+				$.ajax({
+					url : "/sys/role/update",
+					type : "post",
+					data : {
+						"msg" : value.split("-")[1],
+						"roleId" :value.split("-")[0]
+					},
+					dataType : "json",
+					success : function(data) {
+						xalert(data.msg,"","success");
+						$this._flush();
+					}
+				});
+			}
+		}
+		role.init();
+</script>
+	</body>
+</html>
