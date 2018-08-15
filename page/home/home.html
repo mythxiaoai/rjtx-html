@@ -35,9 +35,9 @@
 			let $this = this;
 			$(".js_home_tab").click(function(){
 				$(this).addClass("active").siblings().removeClass("active");
-				$(".js_home_tabContent").load($(this).data("url"),function(){
+				rj.load(".js_home_tabContent",$(this).data("url"),function(){
 					$this.time();
-				});
+				})
 			});
 			//默认选中第一个
 			$(".js_home_tab").eq(0).trigger("click");

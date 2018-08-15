@@ -17,6 +17,7 @@ rj对象大纲:
 	ztree：树组件
 	toggleAnimateRow：新增和删除行的抽取
 	form:表单的获取和回显的封装
+	load:加载子界面
 }
 简易说明文档:
 --------------------resetPlug--------------------
@@ -451,7 +452,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				            	if(xloading)xloading.destroy();
 				            	//检测是否是登陆超时 直接跳转
 				            	if(xhr.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
-				            		window.top.xalert("登陆超时~","请重新登陆...","warning",function(){
+				            		xalert("登陆超时~","登陆超时,请重新登陆","warning",function(){
 				            			 window.top.location.href=$this.basePath+"/login.html"
 				            		})
 				            	}
@@ -543,6 +544,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			});
 		},
 		modal(params) {
+			let $this = this;//用到this中的load全局处理
 			let opts, defaults, htmlBox;
 			if(arguments.length == 1 && typeof params == "object") {
 				opts = params;
@@ -622,9 +624,12 @@ rj.form.get($("#addOrUpdate")[0]);
 			function bindEvents(opts, htmlBox) {
 				$("body").append(htmlBox);
 				if(opts.url) {
-					$("#xa-modal .modal-body").load(opts.url, function() {
+					$this.load("#xa-modal .modal-body",opts.url, function() {
 						if(opts.loadback) opts.loadback();
 					});
+					/*$("#xa-modal .modal-body").load(opts.url, function() {
+						if(opts.loadback) opts.loadback();
+					});*/
 					$("#xa-modal .modal-footer").remove();
 				}
 				if(opts.content) {
@@ -1083,6 +1088,27 @@ rj.form.get($("#addOrUpdate")[0]);
 					});
 				})(formDom,data);
 			}
+		},
+		load(selector,url,callback){
+			$(selector).load(url,function(reponseText,status,res){
+				if(res.readyState==4){
+					if (res.status >= 200 && res.status < 300) {
+						if(res.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
+		            		xalert("登陆超时~","登陆超时,请重新登陆","warning",function(){
+		            			 window.top.location.href=$this.basePath+"/login.html"
+		            		})
+		            	}
+						callback&&callback();
+					}else{
+	                	//这里是为了跳转登陆超时  返回无权限页面403
+	                	if(res.responseText.indexOf("3292b1da35a94a3b8b4c4964f8e48c05")!=-1){
+	            			document.write(res.responseText);
+		            	}else{
+		            		xalert("出错啦~",res.responseText,"error");
+		            	}
+					}
+				}
+			});
 		}
 	};
 	rjtx.init();
