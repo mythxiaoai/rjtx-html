@@ -6,51 +6,41 @@
 </head>
 <body class="bg-gray">
 		<div class="p-md animated fadeInRight">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel panel-white">
-						<div class="panel-heading">
-							<div class="panel-title">
-								工单分配
-                            </div>          
-							<div class="panel-tools">
-	                            <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
-	                                <i class="fa fa-chevron-up"></i>
-	                            </a>
-	                        </div>
+			<div class="panel panel-white">
+				<div class="panel-heading">
+					<div class="panel-title">
+						工单分配
+                    </div>          
+					<div class="panel-tools">
+                        <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="panel-body collapsed in" id="panelContent">
+                    <form id="search" class="form-inline fz12" >
+                        <div class="form-group m-r">
+							<label class="fw-n">项目					
+							</label>
+							<select name="casting" class="form-control" >
+								<option value="">--请选择--</option>
+								<option value="市优化网格组员">市优化网格组员</option>
+								<option value="市优化现场实施人员">市优化现场实施人员</option>   
+							</select> 
                         </div>
-                        <div class="panel-body collapsed in" id="panelContent">
-                            <form id="search" class="form-inline fz12 fl p-l" >
-                                <div class="form-group m-r">
-									<label class=" fw-n f-pro p-t-dis">项目					
-									</label>
-			        				<div class="col-sm-10">	
-										<select name="casting" class="form-control chosen-select" >
-											<option value="">--请选择--</option>
-											<option value="市优化网格组员">市优化网格组员</option>
-											<option value="市优化现场实施人员">市优化现场实施人员</option>   
-										</select> 
-			        				</div>
-                                </div>
-                                    <div class="form-group space-15 ">
-                                    <label class="fw-n p-r">工号
-                                        
-									</label>
-									<input type="text" placeholder="请输入用户名" name="name" class="form-control">
-                                </div>
-                                <div class="form-group m-b-xs">
-                                    <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
-                                    <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
-                                </div>
-                            </form>
-                            <div class="panel-body collapsed in" id="panelContent">
-                                <!--操作工具栏-->
-                                <table id="table"></table>
-                            </div>                           
+                            <div class="form-group space-15">
+                            <label class="fw-n">工号
+							</label>
+							<input type="text" placeholder="请输入用户名" name="name" class="form-control">
                         </div>
-
-					</div>
-				</div>
+                        <div class="form-group m-b-xs">
+                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+                        </div>
+                    </form>
+                    <!--操作工具栏-->
+                    <table id="table"></table>
+                </div>
 			</div>
 		</div>
 <script>
@@ -64,7 +54,7 @@
 			table1_list() {
 				rj.table.init({
 					id: "#table",
-					toolbar: "#toolbar",
+					toolbar:"#toolbar",
 					data: [
 						{
 							"pro_name": 'ddd',

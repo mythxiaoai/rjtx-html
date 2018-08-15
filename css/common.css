@@ -80,7 +80,6 @@ textarea{overflow:auto; }
 .bg-yellow{background-color:#f8ac59;color:#fff}
 .bg-red{background-color:#ed5565;color:#fff}
 .bg-black{background-color:#262626}
-
 .p-none{padding: 0;}
 .p-xs{padding:5px}
 .p-sm{padding:10px}
@@ -93,7 +92,6 @@ textarea{overflow:auto; }
 .p-t-xs{padding-top:5px}
 .p-t-sm{padding-top:10px}
 .p-t{padding-top:15px}
-.p-t-dis{padding-top:10px}
 .p-t-md{padding-top:20px}
 .p-t-lg{padding-top:30px}
 .p-t-xl{padding-top:40px}
@@ -198,7 +196,6 @@ textarea{overflow:auto; }
 /*清楚浮动*/
 .clearfix{*zoom:1;}/*兼容ie67*/
 .clearfix:after{content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;}
-.f-pro{float: left;}
 /*ie9+*/
 
 /*鼠标手势*/

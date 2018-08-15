@@ -210,13 +210,13 @@
 	  				</a>
 	  				<ul class="sub_menu">
 	  					<li>
-	  						<a href="javascript:;" class="js_home_sItem" data-url="page/project/project.html">
+	  						<a href="javascript:;" class="js_home_sItem" data-url="page/project/config/project.html">
 			  					<i class="iconfont icon-shezhi"></i>
 			  					<span>项目工单配置</span>
 			  				</a>
 						  </li>
 						  <li>
-							<a href="javascript:;" class="js_home_sItem" data-url="page\project\distr\prodistr.html">
+							<a href="javascript:;" class="js_home_sItem" data-url="page/project/distr/prodistr.html">
 								<i class="iconfont icon-dept"></i>
 								<span>工单分配</span>
 							</a>
@@ -345,8 +345,10 @@
     *全局共用一个window对象挂载,其他界面都用jquery.load加载出来
     * 提示:其他界面暴露的全局变量请用var声明！不要用let const 会导致报错.
     */
-   var home = {
+ var home = {
    		callback:null,
+   		//设置首页
+   		home:"page/ui/mobal.html",
 		init(){
 			this.hashUrl();
 			this.menusClick();
@@ -358,12 +360,14 @@
 					$this.cssDeal();
 					rj.load(".js_home_content",window.location.hash.slice(1)+".html",$this.callback||null);
 				}else{
-					window.location.href=window.location.href;
+					$this.cssDeal();
+					rj.load(".js_home_content",$this.home);
 				}
 			}
 			if(!window.location.hash){
 				//默认页面设置
-				rj.load(".js_home_content","page/ui/mobal.html");
+				$this.cssDeal();
+				rj.load(".js_home_content",$this.home);
 			}else{
 				$this.cssDeal();
 				rj.load(".js_home_content",window.location.hash.slice(1)+".html");
@@ -381,8 +385,9 @@
 			window.location.hash = "#"+hash;
 		},
 		cssDeal(){
+			let currUrl = window.location.hash?window.location.hash.slice(1)+".html":this.home;
 			$("[data-url]").each(function(index,dom){
-				if($(dom).data("url")==(window.location.hash.slice(1)+".html")){
+				if($(dom).data("url")==currUrl){
 					//css
 					$(".js_home_sItem").removeClass("active")
 					$(this).addClass("active");
