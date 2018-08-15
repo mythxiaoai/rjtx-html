@@ -20,7 +20,7 @@
 	                        </div>
                         </div>
                         <div class="panel-body collapsed in" id="panelContent">
-                            <form id="search" class="form-inline fz12 fl">
+                            <form id="search" class="form-inline fz12 fl" style="padding-left: 13px;">
                                 <div class="form-group m-r">
 									<label class=" fw-n" style=" float: left;padding-top:10px;">项目					
 									</label>
@@ -109,48 +109,6 @@
 						}
 					],
 				})
-			},
-			addOrUpdate:function(title,id)
-			{
-				var $this=this;
-				rj.modal(
-					title,
-					id==undefined?"page/sys/role/addOrUpdate.html?opt=add":("page/sys/role/addOrUpdate.html?opt=update"),
-					()=>{
-						//初始化插件
-						rj.resetPlug();	
-						//菜单配置下拉框
-						var zNodes1 =[
-							{id:4, pId:0, name:"项目管理"},
-							{id:41, pId:4, name:"项目管理"},
-							{id:5, pId:0, name:"系统管理"},
-							{id:51, pId:5, name:"角色管理"},
-							{id:52, pId:5, name:"用户管理"},
-							{id:53, pId:5, name:"菜单管理"},
-							{id:54, pId:5, name:"权限管理"},
-							{id:6, pId:0, name:"首页"},
-						 ];
-						 rj.ztree("ztreeCheckbox","#ztree3",zNodes1);
-
-					},
-					(dom)=>{
-						$("#addOrUpdate").validate({
-							//验证表单
-							rules: {
-					            roleName: {
-					                required: true,
-					            },
-					            authIds: {
-					                required: true,
-					            },
-					        },
-					        submitHandler: function () {
-								$(".js_close").trigger("click");
-					        }
-					    });
-					}
-				);
-			
 			},
 			list:function(){
 				rj.table.init({
