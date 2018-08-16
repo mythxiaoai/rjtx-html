@@ -3,180 +3,13 @@
 		<div class="col-md-8">
 			<div class="panel-body">
 				<ul class="nav nav-tabs">
-					<li class="active"><a href="#tab1" data-toggle="tab">汇总</a></li>
-					<li><a href="#tab2" data-toggle="tab">大数据中端</a></li>
-					<li><a href="#tab3" data-toggle="tab">状态库中端</a></li>
-					<li><a href="#tab4" data-toggle="tab">状态库低端</a></li>
+					<li class="active js_home_tab" data-url="./page/home/tab1.html"><a href="javascript:;" >汇总</a></li>
+					<li class="js_home_tab" data-url="./page/home/tab2.html"><a href="javascript:;">大数据中端</a></li>
+					<li class="js_home_tab" data-url="./page/home/tab3.html"><a href="javascript:;">状态库中端</a></li>
+					<li class="js_home_tab" data-url="./page/home/tab4.html"><a href="javascript:;">状态库低端</a></li>
 				</ul>
-				<div class="tab-content">
-					<div class="tab-pane fade in active" id="tab1">
-						<form id="search1" class="form-inline fz12 m-t m-b">
-	       		            <div class="form-group m-r">
-			            	 	<label class="fw-n">粒度
-				            	 	<select class="form-control js_type text-center" name="type">
-						                <option value="">--请选择--</option>
-						                <option value="1">天</option>
-						                <option value="2">周</option>
-						                <option value="3" selected="selected">月</option>
-						            </select> 
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_ohters">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
-											<span class="input-group-addon white-bg">~</span>
-										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_month">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15">
-				            	 <label class="fw-n">项目
-			                		<select class="form-control" name="porject">
-						                <option value="">--请选择--</option>
-						            </select> 
-				                </label>
-				            </div>
-	                        <div class="form-group m-b-xs">
-	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
-	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
-	                        </div>
-	                    </form>
-						<table id="table1"></table>
-					</div>
-					<div class="tab-pane fade" id="tab2">
-						<form id="search2" class="form-inline fz12 m-t m-b">
-							<div class="form-group m-r">
-			            	 	<label class="fw-n">粒度
-				            	 	<select class="form-control js_type" name="type">
-						                <option value="">--请选择--</option>
-						                <option value="1" selected="selected">天</option>
-						                <option value="2">周</option>
-						                <option value="3">月</option>
-						            </select> 
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_ohters">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
-											<span class="input-group-addon white-bg">~</span>
-										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_month">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15">
-				            	 <label class="fw-n">项目
-			                		<select class="form-control" name="porject">
-						                <option value="">--请选择--</option>
-						            </select> 
-				                </label>
-				            </div>
-	                        <div class="form-group m-b-xs">
-	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
-	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
-	                        </div>
-	                    </form>
-						<table id="table2"></table>
-					</div>
-					<div class="tab-pane fade" id="tab3">
-						<form id="search3" class="form-inline fz12 m-t m-b">
-							<div class="form-group m-r">
-			            	 	<label class="fw-n">粒度
-				            	 	<select class="form-control js_type" name="type">
-						                <option value="">--请选择--</option>
-						                <option value="1" selected="selected">天</option>
-						                <option value="2">周</option>
-						                <option value="3">月</option>
-						            </select> 
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_ohters">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
-											<span class="input-group-addon white-bg">~</span>
-										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_month">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15">
-				            	 <label class="fw-n">项目
-			                		<select class="form-control" name="porject">
-						                <option value="">--请选择--</option>
-						            </select> 
-				                </label>
-				            </div>
-	                        <div class="form-group m-b-xs">
-	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
-	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
-	                        </div>
-	                    </form>
-						<table id="table3"></table>
-					</div>
-					<div class="tab-pane fade" id="tab4">
-						<form id="search4" class="form-inline fz12 m-t m-b">
-							<div class="form-group m-r">
-			            	 	<label class="fw-n">粒度
-				            	 	<select class="form-control js_type" name="type">
-						                <option value="">--请选择--</option>
-						                <option value="1" selected="selected">天</option>
-						                <option value="2">周</option>
-						                <option value="3">月</option>
-						            </select> 
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_ohters">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
-											<span class="input-group-addon white-bg">~</span>
-										<input class="form-control fz12 js_time" placeholder="请选择结束时间"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15 js_month">
-			            	 	<label class="fw-n">时间
-				            	 	<div class="input-group">
-				                		<input class="form-control fz12 js_time" placeholder="请选择月份"/>
-						            </div>
-				                </label>
-				            </div>
-	       		            <div class="form-group space-15">
-				            	 <label class="fw-n">项目
-			                		<select class="form-control" name="porject">
-						                <option value="">--请选择--</option>
-						            </select> 
-				                </label>
-				            </div>
-	                        <div class="form-group m-b-xs">
-	                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
-	                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
-	                        </div>
-	                    </form>
-						<table id="table4"></table>
-					</div>
+				<div class="js_home_tabContent">
+					
 				</div>
 			</div>
 		</div>
@@ -193,15 +26,21 @@
 <script>
 	var homeShow={
 		init(){
-			this.tab1();
-			this.tab2();
-			this.tab3();
-			this.tab4();
-			//时间初始化
-			this.time();
+			this.tabInit();
 			//图标初始化
 			this.echart1();
 			this.echart2();
+		},
+		tabInit(){
+			let $this = this;
+			$(".js_home_tab").click(function(){
+				$(this).addClass("active").siblings().removeClass("active");
+				rj.load(".js_home_tabContent",$(this).data("url"),function(){
+					$this.time();
+				})
+			});
+			//默认选中第一个
+			$(".js_home_tab").eq(0).trigger("click");
 		},
 		echart1(){
 			var option = {
@@ -432,167 +271,6 @@
 		            })
 				}
 			}
-			
-		},
-		tab1(){
-			/*//格式化时间
-			let finalTime = "2018-05";
-			let arr =[];
-			let currMonth=new Date().getMonth()+1;
-			let currYear=new Date().getFullYear();
-			while (true){
-				if(((finalTime.split("-")[0]*1) >= currYear)&&((finalTime.split("-")[1]*1)>currMonth)){
-					break;
-				}
-				arr.push(currYear+"-"+(currMonth<10?"0"+currMonth:currMonth));
-				currMonth--;
-				if(currMonth==0){
-					currMonth=12;
-					currYear--;
-				}
-			}
-			//console.log(arr)// ["2018-08", "2018-07", "2018-06", "2018-05"]
-			//select时间
-			let html =""
-			for(let item of arr){
-				html+=`<option value="${item}">${item.replace('-','年')+'月'}</option>`
-			}
-			$(".js_month").append(html);*/
-			//select项目
-			
-			let data = [
-		            {
-		                "id": "广州",
-		                "name": "Item 0阿杜撒打算打算打",
-		                "name2": "Item 0阿杜撒打算打算打算大苏打发送发神经打扫打扫打扫打扫打扫法萨达萨达萨法是否打算打算发送到",
-		                "price": "$0"
-		            },
-		            {
-		                "id": "广州",
-		                "name": "Item 1",
-		                "price": "$1"
-		            },
-		            {
-		                "id": "广州",
-		                "name": "Item 2",
-		                "price": "$2"
-		            },
-		            {
-		                "id": "深圳",
-		                "name": "Item 3",
-		                "price": "$3"
-		            },
-		            {
-		                "id": "上海",
-		                "name": "Item 4",
-		                "price": "$4"
-		            },
-		            {
-		                "id": "上海",
-		                "name": "Item 5",
-		                "price": "$5"
-		            },
-		            {
-		                "id": "北京",
-		                "name": "Item 5",
-		                "price": "$5"
-		            }
-		        ]
-			
-			//table
-			rj.table.init({
-				id:"#table1",
-				toolbar:false,
-				data:data,
-				toolbarAlign:"right",
-				columns:[ {
-						field: 'id',
-						title: 'id'
-					}, {
-						field: 'name',
-						title: '名称'
-					},{
-						field: 'name2',
-						title: '名称2'
-					}, {
-						field: 'price',
-						title: '价格'
-					}],
-					onLoadSuccess:function(data){
-						//这里ajax才能触发  自己改下参数
-						rj.table.mergeCells("#table1","id",data);
-					}
-			});
-			//因为onLoadSuccess调用不到 我这里写的  记得删掉
-			rj.table.mergeCells("#table1","id",data);
-		},
-		tab2(){
-			$("a[href='#tab2']").one("click",function(){
-				
-			});
-			this.DemoTable("#table2")
-		},
-		tab3(){
-			this.DemoTable("#table3")
-		},
-		tab4(){
-			this.DemoTable("#table4")
-		},
-		DemoTable(id){
-			let data = [
-		            {
-		                "id": "广州",
-		                "name": "Item 0阿杜撒打算打算打",
-		                "name2": "Item 0阿杜撒打算打算打算大苏打发送发神经打扫打扫打扫打扫打扫法萨达萨达萨法是否打算打算发送到",
-		                "price": "$0"
-		            },
-		            {
-		                "id": "广州",
-		                "name": "Item 1",
-		                "price": "$1"
-		            },
-		            {
-		                "id": "深圳",
-		                "name": "Item 2",
-		                "price": "$2"
-		            },
-		            {
-		                "id": "深圳",
-		                "name": "Item 3",
-		                "price": "$3"
-		            },
-		            {
-		                "id": "上海",
-		                "name": "Item 4",
-		                "price": "$4"
-		            },
-		            {
-		                "id": "上海",
-		                "name": "Item 5",
-		                "price": "$5"
-		            }
-		        ]
-			
-			//table
-			rj.table.init({
-				id:id,
-				toolbar:false,
-				data:data,
-				toolbarAlign:"right",
-				columns:[ {
-						field: 'id',
-						title: 'id'
-					}, {
-						field: 'name',
-						title: '名称'
-					},{
-						field: 'name2',
-						title: '名称2'
-					}, {
-						field: 'price',
-						title: '价格'
-					}]
-			});
 		}
 	}
 	homeShow.init();
