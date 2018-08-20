@@ -137,28 +137,13 @@
 			     return Math.round(Math.random()*500);  
 			}
 			var mydata = [  
-                {name: '北京',value: '100' },{name: '天津',value: randomData() },  
-                {name: '上海',value: randomData() },{name: '重庆',value: randomData() },  
-                {name: '河北',value: randomData() },{name: '河南',value: randomData() },  
-                {name: '云南',value: randomData() },{name: '辽宁',value: randomData() },  
-                {name: '黑龙江',value: randomData() },{name: '湖南',value: randomData() },  
-                {name: '安徽',value: randomData() },{name: '山东',value: randomData() },  
-                {name: '新疆',value: randomData() },{name: '江苏',value: randomData() },  
-                {name: '浙江',value: randomData() },{name: '江西',value: randomData() },  
-                {name: '湖北',value: randomData() },{name: '广西',value: randomData() },  
-                {name: '甘肃',value: randomData() },{name: '山西',value: randomData() },  
-                {name: '内蒙古',value: randomData() },{name: '陕西',value: randomData() },  
-                {name: '吉林',value: randomData() },{name: '福建',value: randomData() },  
-                {name: '贵州',value: randomData() },{name: '广东',value: randomData() },  
-                {name: '青海',value: randomData() },{name: '西藏',value: randomData() },  
-                {name: '四川',value: randomData() },{name: '宁夏',value: randomData() },  
-                {name: '海南',value: randomData() },{name: '台湾',value: randomData() },  
-                {name: '香港',value: randomData() },{name: '澳门',value: randomData() }  
+                {name: '广州市',value: '100' },{name: '佛山市',value: randomData() },  
+                {name: '肇庆市',value: randomData() },{name: '云浮市',value: randomData() },  
             ];
             var optionMap = {  
                 backgroundColor: '#FFFFFF',  
                 title: {  
-                    text: '全国地图大数据',  
+                    text: '广州地图大数据',  
                     subtext: '',  
                     x:'center'  
                 },  
@@ -181,8 +166,8 @@
                         {start: 300, end: 400},{start: 200, end: 300},  
                         {start: 100, end: 200},{start: 0, end: 100},  
                     ],  
-                    //冷色调 color: ['#0277bd', '#039be5','#29b6f6', '#81d4fa', '#e1f5fe'],
-                    color: ['#d84315', '#f4511e','#ff7043', '#ffab91', '#fbe9e7'],
+                    color: ['#0277bd', '#039be5','#29b6f6', '#81d4fa', '#e1f5fe'],
+                    //color: ['#d84315', '#f4511e','#ff7043', '#ffab91', '#fbe9e7'],
                 	formatter:function (value, value2) {
 					    return value +'~' + value2+' 单'; // 范围标签显示内容。
 					},
@@ -194,7 +179,7 @@
                 series: [{  
                     name: '数据',  
                     type: 'map',  
-                    mapType: 'china',   
+                    mapType: 'guangdong',   
                     roam: true,  
                     label: {  
                         normal: {  
