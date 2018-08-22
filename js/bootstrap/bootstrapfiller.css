@@ -334,3 +334,8 @@ fieldset[disabled] .navbar-white .btn-link:focus {
 	word-wrap: break-word;
 }
 
+/*modal*/
+.modal-xlg {
+    width: 90%;
+  }
+

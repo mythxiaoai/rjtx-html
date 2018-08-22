@@ -34,16 +34,39 @@ fn   回调函数
  rj.error(...)||xerror
  rj.confirm(...)||xconfirm
 --------------------table--------------------
+table:{
+	init(){},
+	tableFmt(){},
+	fmt:{
+		VHcenter(){}
+	},
+	mergeCells:()
+}
 包装插件:bootstrapTable
 目的是为了让bootstrapTable插件的参数统一 
 调用方式  rj.table.init({id:"",toolbar...});
-其他工具方法  rj.table.mergeCells(tableId,field,data)
+其他工具方法 
+--mergeCells //合并指定列单元格
+rj.table.mergeCells(tableId,field,data)
 合并指定列名的相同值的单元格
 底层调用的是$(tableId).bootstrapTable('mergeCells',fn)方法
 参数说明:
 tableId:表格的id
 field:表字段
 data:全量表格数据
+--fmt 对象   包含格式化表格的一些方法
+	--VHcenter水平垂直居中
+调用方法：
+rj.table.fmt.VHcenter
+事例
+表格的列配置：
+ {
+	field: 'company',
+	title: '公司',
+	sortable:true,
+	order:"desc",
+	formatter:rj.table.fmt.VHcenter
+}
 --------------------bootstrapTableFmt--------------------
 包装插件:bootstrapTable
 目的是为了统一格式化单元格的渲染
@@ -227,9 +250,9 @@ rj.form.get($("#addOrUpdate")[0]);
 		basePath:window.location.origin,
 		init(){
 			this.sweetAlert();
-			this.resetPlug();
 			//表格插件初始化 只用初始化一次
 			this.table.tableFmt();
+			this.resetPlug();
 		},
 		resetPlug(){
 			/*iCheck   需要选框有ickeck的class*/
@@ -248,7 +271,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			}
 			//file框
 			if($.fn.prettyFile){
-				$( 'input[type="file"]' ).prettyFile();
+				$( 'input[type="file"]:not(:hidden)').prettyFile();
 			}
 			//新增删除行抽取
 			if($(".rj_toggleRow").length>0){
@@ -371,26 +394,30 @@ rj.form.get($("#addOrUpdate")[0]);
 					}
 				}
 			},
+			fmt:{
+				VHcenter(value,row,index){
+					return `<div style="position: absolute;width: 100%;left: 0;top: 50%;text-align: center;transform: translateY(-50%);font-weight: 600;">
+						${value}
+					</div>`;
+				}
+			},
 			mergeCells(tableId,field,data){
 				let rowspanArr = [];
 				let startIndexArr = [];
 				let rowspan = 1;
-				let startIndex = 0;
-				star=false;
 				for(let i=0,len=data.length;i<len;i++){
 					if(data[i-1]&&(data[i-1][field]==data[i][field])){
-						rowspan++;
-						star=true;
 						continue;
-					}else{
-						if(star){
-							rowspanArr.push(rowspan);
-							rowspan=1;
-						}
 					}
 					startIndexArr.push(i);
 				}
-				rowspanArr.push(rowspan);
+				for(let i=0,len=startIndexArr.length;i<len;i++){
+					if(startIndexArr[i+1]!==undefined){
+						rowspanArr.push(startIndexArr[i+1]-startIndexArr[i]);
+					}else{
+						rowspanArr.push(data.length-startIndexArr[i]);
+					}
+				}
 				for(let i in startIndexArr){
 					$(tableId).bootstrapTable('mergeCells', {index: startIndexArr[i], field:field, colspan: 1, rowspan:rowspanArr[i]});
 				}
@@ -1090,13 +1117,12 @@ rj.form.get($("#addOrUpdate")[0]);
 			}
 		},
 		load(selector,url,callback){
+			let $this = this;
 			$(selector).load(url,function(reponseText,status,res){
 				if(res.readyState==4){
 					if (res.status >= 200 && res.status < 300) {
 						if(res.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
-		            		xalert("登陆超时~","登陆超时,请重新登陆","warning",function(){
 		            			 window.top.location.href=$this.basePath+"/login.html"
-		            		})
 		            	}
 						callback&&callback();
 					}else{
