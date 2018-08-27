@@ -6,7 +6,7 @@
 	    <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0">
 		<meta name="Keywords" content="">
 		<meta name="description" content="">
-		<title>润建大数据平台系统-主页</title>
+		<title>RJTX Documentation</title>
 		<link rel="shortcut icon" href="../img/logo.ico" type="image/x-icon"/>
 		 <link rel="stylesheet" href="../fonts/font-awesome.css"/>
 	    <!--字体图标 iconfont icon-*-->
@@ -34,65 +34,110 @@
 		<link rel="stylesheet" href="../js/colorpicker/css/jquery-ui.css" />
 		<link rel="stylesheet" href="../js/colorpicker/css/evol-colorpicker.css" />
 	    <!--基础样式文件-->
-	    <link rel="stylesheet" href="../css/common.css"/>
-		<div>
-			<nav class="navbar navbar-default "><!--navbar-inverse ,navbar-fixed-bottom||navbar-fixed-top||navbar-static-top--->
+		<link rel="stylesheet" href="../css/common.css"/>
+
+		<style>
+		body{width: 1005;overflow-x: hidden;height: 100%;}
+		#main{height: 100%;}		
+		.home_header{position: fixed;left: 0;top: 0;width: 100%;z-index: 1;}
+		.home_header .navbar-default{background-color: #31373f;border: 0;border-radius: 0;}
+		.icon-bg{color: #fff;position: relative;top: 0px;float: left;font-size: 30px;}
+		.hone_sysname{color:#fff;font-size:18px;padding-left:5px;font-family: Microsoft JhengHei;font-weight: bold;}
+
+		.home_header .navbar-nav li a{color: #bdbabaf7;}
+		.home_header .navbar-nav li a:hover{color: #f9f9f9; background-color: rgb(43, 41, 41);}
+		.home_header .navbar-nav li a:active{color: #f9f9f9;background-color: rgb(22, 22, 22);}
+		.home_header .navbar-nav{padding-left:20px;}
+		.home_header .navbar-header .navbar-brand i{font-size: 24px;}
+		.home_header .navbar-header .navbar-brand span{font-size: 16px;}
+		.home_header .navbar-nav ul li a:focus{background-color: red;}
+		.home_header .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{background-color: rgb(22, 22, 22);}
+		.home_header .navbar-nav .dropdown-menu{background-color: rgb(22, 22, 22);width: 100%;border: 0;}
+		.content-area{position: absolute;top: 50px;bottom: 0;width: 100%;}
+		.content-area-left{position: fixed;top: 50px;bottom: 0;width: 220px;height: 100%;padding: 10px;}
+		.content-area-right{position:fixed;border-left: 1px solid #ddd;top: 50px;left: 220px;height: 100%;width: 100%;}
+		.content-area-left-input .input-group {margin-top: 10px;margin-left: 10px;border: 1px solid #ddd;border-radius: 3px;}
+		.content-area-left-input .input-group i {font-size: 14px;}
+		.content-area-left-input .input-group span{border: 0;}
+		.content-area-left-input .input-group input{border: 0;padding-left: 0;}
+		</style>
+	</head>
+	<body>
+
+	<div id="main">
+	<!-- 头部菜单栏 -->
+		<div class="home_header">
+			<nav class="navbar navbar-default navbar-inverse navbar-fixed-top"><!--navbar-inverse ,navbar-fixed-bottom||navbar-fixed-top||navbar-static-top--->
 					<div class="container-fluid">
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target= "#bs-example-navbar-collapse-1" aria-expanded="false">
 					        <span class="icon-bar"></span>
 					        <span class="icon-bar"></span>
-					        <span class="icon-bar"></span>
+							<span class="icon-bar"></span>
 							</button>
-							<a class="navbar-brand" href="#">Brand</a>
+							<a class="navbar-brand" href="#">
+								<span class="hone_sysname">RJTX</span>
+							</a>
 						</div>
 						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-								<ul class="nav navbar-nav">
-									<li class="dropdown">
+							<ul class="nav navbar-nav">
+								<li> <a href="javascript:;">Documentation1</a></li>
+								<li> <a href="javascript:;">Documentation2</a></li>
+								<li class="dropdown">
+									<a href="#"  class="dropdown-toggle" data-toggle="dropdown">Dropdown
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li ><a href="#">items</a></li>
+										<li ><a href="#">items</a></li>
+									</ul>
+								</li>
+								<li> <a href="javascript:;">Documentation3</a></li>
+								<li class="dropdown">
+									<a href="#"  class="dropdown-toggle" data-toggle="dropdown">Dropdown
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+										<li ><a href="#">items</a></li>
+										<li ><a href="#">items</a></li>
+										<li ><a href="#">items</a></li>
+									</ul>
+								</li>
+								<li class="dropdown">
 										<a href="#"  class="dropdown-toggle" data-toggle="dropdown">Dropdown
 											<span class="caret"></span>
 										</a>
-											<ul class="dropdown-menu">
-												<li class="dropdown-header">header</li>
-												<li class="divider"></li>
-												<li ><a href="#">items</a></li>
-												<li ><a href="#">items</a></li>
-												<li ><a href="#">items</a></li>
-											</ul>
+										<ul class="dropdown-menu">
+											<li ><a href="#">items</a></li>
+											<li ><a href="#">items</a></li>
+											<li ><a href="#">items</a></li>
+										</ul>
 									</li>
-									<li>
-										<div href="#" class="btn-group dropup navbar-btn">
-											<button type="button" class="btn btn-danger">button</button>
-											<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-												<span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu">
-												<li class="dropdown-header">header</li>
-												<li class="divider"></li>
-												<li ><a href="#">items</a></li>
-												<li ><a href="#">items</a></li>
-												<li ><a href="#">items</a></li>
-											</ul>
-										</div>
-									</li>
-									<li> <a href="#">common</a></li>
-									<li class="active"> <a href="#">Action</a></li>
-								</ul>
-								<form class="navbar-form navbar-left">
-									<div class="input-group has-success">
-										<input class="form-control" />
-										<div class="input-group-btn">
-											<a href="#" class="btn btn-success">查找</a>
-										</div>
-									</div>
-								</form>
-							 <button type="button " class="btn btn-success navbar-btn navbar-left">button</button>
-							 <p class="navbar-text navbar-left">navbar-text</p>
-							 <p class="navbar-text navbar-left"> <a href="#" class="navbar-link">navbar-link</a></p>
+							</ul>
 						</div>
 					</div>
 				</nav>
 		</div>
+	<!-- /头部菜单栏 -->
+	<!-- content -->
+		<div class="content-area">
+			<!-- input搜索框 -->
+			<div class="content-area-left">
+				<div class="content-area-left-input">
+					<div class="input-group input-group-sm">
+						<span class="input-group-addon" id="sizing-addon3"><i class="iconfont">&#xe6f3;</i></span>
+						<input type="text" class="form-control" placeholder="配置项模糊搜索" aria-describedby="sizing-addon3">
+					</div>				
+				</div>
+			</div>
+			<!--  -->
+			<div class="content-area-right">
+				
+			</div>
+		</div>
+	</div>
+
+
 		<!--jQuery-->
 		<script type="text/javascript" src="../js/jquery.js" ></script>
 		<!--颜色插件  jquery-ui 与boostartp样式有冲突，注意引入顺序-->
