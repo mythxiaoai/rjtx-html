@@ -271,7 +271,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			}
 			//file框
 			if($.fn.prettyFile){
-				$( 'input[type="file"]:not(:hidden)').prettyFile();
+				$('input[type="file"]:not(:hidden)').prettyFile();
 			}
 			//新增删除行抽取
 			if($(".rj_toggleRow").length>0){
@@ -279,6 +279,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			}
 		},
 		sweetAlert(){
+			if(!window.swal){return false};
 			if(window.top !== window.self){
 				swal=window.top.swal;
 			}
@@ -425,9 +426,6 @@ rj.form.get($("#addOrUpdate")[0]);
 		},
 		ajax(options){
 			let $this = this;
-			//var time=null;
-			/*if(time)clearTimeout(time);//时间坑，，bug就是页面初始加载3个ajax只执行一个   按钮式的正常
-			time=setTimeout(function(){*/
 				//Promise兼容
 				if(window.Promise){
 					return new Promise(function(resolve,reject){
@@ -441,9 +439,10 @@ rj.form.get($("#addOrUpdate")[0]);
 				    options = options || {};
 				    options.url = $this.basePath+options.url;
 					//loading
+					var xloading;
 					if(options.id!=undefined&&options.id!=null&&options.id!=""&&options.id!=0){
-						if(Xloading){
-							var xloading = new Xloading(options.id)
+						if(window.Xloading){
+							xloading = new Xloading(options.id)
 						}
 					}
 					//beforeSend
@@ -518,8 +517,6 @@ rj.form.get($("#addOrUpdate")[0]);
 				        return arr.join("&");
 				    }
 				}
-			/*},2000);*/
-			//end ajax
 		},
 		toggleAnimate(pos){
 			$(pos.triggerDom).click(function(){
@@ -1122,7 +1119,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				if(res.readyState==4){
 					if (res.status >= 200 && res.status < 300) {
 						if(res.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
-		            			 window.top.location.href=$this.basePath+"/login.html"
+            			 	window.top.location.href=$this.basePath+"/login.html"
 		            	}
 						callback&&callback();
 					}else{
