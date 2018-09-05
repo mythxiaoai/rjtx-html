@@ -37,6 +37,7 @@
 		<link rel="stylesheet" href="../css/common.css"/>
 
 		<style>
+		/* main start */
 		body{width: 1005;overflow-x: hidden;height: 100%;}
 		#main{height: 100%;}
 		.home_header{position: fixed;left: 0;top: 0;width: 100%;z-index: 1;}
@@ -59,10 +60,49 @@
 		.home_content_left_input .input-group i {font-size: 14px;}
 		.home_content_left_input .input-group span{border: 0;}
 		.home_content_left_input .input-group input{border: 0;padding-left: 0;}
+		/* end main */
+		
+		/* suggestion start */
+		.suggestion{
+			display: none;
+			position: absolute;
+			top: 96px;
+			left: 16px;
+			width: 189px;
+			text-align: left;
+			max-height: 254px;
+			cursor: default;
+			z-index: 9999;	
+			overflow: hidden;
+			overflow-y: auto;
+			box-sizing: border-box;		
+			background-color: #fff;
+			border: 1px solid rgb(216, 214, 214);
+		}
+		.suggestion_column{
+			position: relative;
+			line-height: 23px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			font-size: 1.02em;
+			color: #333;
+		}
+		.suggestion_column a{
+			width: 100%;
+			display: block;
+			padding-left: 5px;
+		}
+		.suggestion_column a:hover{
+			background-color: #81d4fa;
+    		color: #fff;			
+		}
+
+		/* end suggestion */
+
 		</style>
 	</head>
 	<body>
-
 	<div id="main">
 	<!-- 头部菜单栏 -->
 		<div class="home_header">
@@ -104,7 +144,7 @@
 					<div class="home_content_left_input">
 						<div class="input-group input-group-sm">
 							<span class="input-group-addon" id="sizing-addon3"><i class="iconfont">&#xe6f3;</i></span>
-							<input type="text" class="form-control" placeholder="配置项模糊搜索" aria-describedby="sizing-addon3">
+							<input type="text" class="form-control" onfocus="showSuggestion()" onblur="hiddenSuggestion()" id="inputOne" placeholder="配置项模糊搜索" aria-describedby="sizing-addon3">
 						</div>
 					</div>
 					<style>
@@ -188,6 +228,43 @@
 			</div>
 		</div>
 	</div>
+	<!--suggestion star -->
+	<div class="suggestion" id="test">
+		<ul>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li  class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+			<li class="suggestion_column"><a href="javascript:;">0000</a></li>
+
+		</ul>
+		<!-- <div>0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div>
+		<div class="suggestion_column">0000</div> -->
+	</div>
+	<!-- end suggestion -->
 		<!--jQuery-->
 		<script type="text/javascript" src="../js/jquery.js" ></script>
 		<script type="text/javascript" src="../js/jquery.slimscroll.min.js" ></script>
@@ -230,6 +307,13 @@
 		<script type="text/javascript" src="../js/rjtx.js" ></script>
 	<script type="text/javascript" src="../js/index.js" ></script>
 	<script>
+		//焦点
+		function showSuggestion(){
+			document.getElementById("test").style.display = "block";
+		}
+		function hiddenSuggestion(){
+			document.getElementById("test").style.display = "none";
+		}
 		//滚动条
 		$("#js_menuBox").slimScroll({
 				height:"100%",
