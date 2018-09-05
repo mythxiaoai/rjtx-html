@@ -5,7 +5,7 @@
 html{font-size:0.625em;}/*把px设置成10px   方便 每个局部模块的rem取值   1.2rem = 12px*/
 ::selection{background:#3399FF ;color:#fff ;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,figure,figcaption,input,textarea,p,blockquote,th,td,span{padding:0;margin:0;}
-body{font:normal 1.2em  微软雅黑,Helvetica Neue, Helvetica, Arial, sans-serif;text-align: justify;color:rgb(103, 106, 108);}/*font:normal 0.75em/1.5em "微软雅黑","冬青黑体简体中文 w3","宋体";*/
+body{font:normal 1.2em "PingFang SC","Lantinghei SC","Microsoft YaHei","HanHei SC","Helvetica Neue","Open Sans",Arial,"Hiragino Sans GB","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;text-align: justify;color:rgb(103, 106, 108);}
 fieldset,img,html,body,iframe{border:0;}
 /*去掉input[type="number"]*/
 input::-webkit-outer-spin-button,
