@@ -54,9 +54,9 @@
 	var dept = {
 		init:function(){
 			//部门跳用户
-			home.jumpMenu("page/sys/user/user.html?id='5'",function(){
+			/*home.jumpMenu("page/sys/user/user.html?id='5'",function(){
 				$("input[name='name_work']").val(66656);
-			});
+			});*/
 			//部门树
 			this.dept();
 			//左右切换
@@ -150,7 +150,7 @@
 				{ id:3336, pId:333, name: "cNode 3-1-1"},
 			];
 			rj.ztree("ztree","#ztree1",zNodes,{callback: {
-				onclick:function(event, treeId, treeNode) {
+				onClick:function(event, treeId, treeNode) {
 				}
 			}})			
 		},

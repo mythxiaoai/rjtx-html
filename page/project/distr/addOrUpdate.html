@@ -1,0 +1,114 @@
+<style>
+	.idropdown{
+		position: relative;
+	}
+	.idropdown-menu{
+		position: absolute;
+		display: none;
+		z-index: 1;
+		width: 100%;
+		border-left: 1px solid #e7eaec;
+		border-right: 1px solid #e7eaec;
+		min-height: 29px;
+		background: #fff;
+	}
+	.idropdown-menu:before{
+		content: "暂无数据~";
+		padding: 6px 15px;
+		border-bottom: 1px solid #e7eaec;
+		width: 100%;
+		display: block;
+		text-align: center;
+		color: rgb(153,153,153);
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 0;
+	}
+	.idropdown-item{
+		position: relative;
+		display: block;
+		padding: 6px 15px;
+		border-bottom: 1px solid #e7eaec;
+		background: #fff;
+	}
+	.idropdown-item:hover{
+		background: #d9edf7;
+	}
+</style>
+<form id="addOrUpdate" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">规则名称</label>
+        <div class="col-md-10">
+            <input type="text" readonly="readonly" autocomplete="off" class="form-control" placeholder="请输入规则名称" name="input1">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">工单类型</label>
+        <div class="col-md-10">
+        	<div class="radio-inline">
+				<label><input type="radio" disabled="disabled" name="input2" value="1" checked="checked"  class="icheck">方案库中端</label>
+			</div>
+			<div class="radio-inline">
+				<label><input type="radio" disabled="disabled" name="input2" value="2" class="icheck">状态库低端</label>
+			</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">规则模板</label>
+        <div class="col-sm-10 rj_toggleRow" data-name="input3" >
+        	<div class="row m-b-xs rj_toggleRow_item">
+        		<div class="col-md-2  p-none">
+		       		<select class="form-control js_special rj_toggleRow_input" name="inputKey1" disabled="disabled">
+		       			<option value="and">且</option>
+		       			<option value="or">或</option>
+		       		</select>
+		         </div>
+		         <div class="col-md-4">
+		      		<select class="form-control rj_toggleRow_input" name="inputKey2" disabled="disabled" >
+		       			<option value="q1">派单人</option>
+		       			<option value="q2">数据来源</option>
+		       		</select>
+		         </div>
+		         <div class="col-md-2 p-none">
+		      		<select class="form-control rj_toggleRow_input" name="inputKey3" disabled="disabled">
+		       			<option value="=">等于</option>
+		       			<option value="!=">不等于</option>
+		       			<option value=">">大于</option>
+		       			<option value=">=">大于等于</option>
+		       			<option value="<">小于</option>
+		       			<option value="<=">小于等于</option>
+		       			<option value="like">包含</option>
+		       			<option value="not like">不包含</option>
+		       			<option value="is null">等空值</option>
+		       			<option value="in">属于</option>
+		       		</select>
+		         </div>
+		         <div class="col-md-4">
+		         	<div class="idropdown">
+		      			<input type="text" autocomplete="on" data-toggle="idropdown" class="form-control rj_toggleRow_input" name="inputKey4">
+			         	<ul class="idropdown-menu">
+			         		<li><a href="javascript:;" class="idropdown-item">123</a></li>
+			         	</ul>
+		         	</div>
+		         </div>
+        	</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">人员分配</label>
+        <div class="col-md-10">
+        	<input class="form-control" id="ztree2" name="input4" name="input4"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+            <button class="btn btn-primary js_sure" type="button">确定</button>
+        </div>
+    </div>
+</form>

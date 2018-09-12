@@ -680,10 +680,13 @@ rj.form.get($("#addOrUpdate")[0]);
 		        	id:null,//ztree的id
 				};
 			let ztree={
+				_default:{
+					seachInput:true
+				},
 				init(){
 					let $this = this;
 					if($this.config[type]){
-						opts.seeting = $.extend(true,{},$this.config[type],seeting);
+						opts.seeting = $.extend(true,{},$this._default,$this.config[type],seeting);
 						if(type=="ztree"||type=="dragZtree"){
 							return $this.ztree();
 						}else if(type=="ztreeRadio"||type=="ztreeCheckbox"){
@@ -695,10 +698,16 @@ rj.form.get($("#addOrUpdate")[0]);
 				},
 				ztree(){
 					$.fn.zTree.init($(id),opts.seeting,data);
+					if(opts.seeting.seachInput){
+						this.addSeach();
+					}
+				 	return $.fn.zTree.getZTreeObj($(id)[0].id);
+				},
+				addSeach(){
 					//不重复添加
 					if($(id).prev()&&$(id).prev().hasClass("rj_ztree_seach"))return false
 					//搜索框
-					$(id).before(`<input type="text" placeholder="请输入搜索~" name="name" class="form-control rj_ztree_seach">`)
+					$(id).before(`<input type="text" placeholder="请输入搜索关键字~" name="rj_ztree_seach" class="form-control rj_ztree_seach">`)
 				 	/*
 				 	 	@param zTreeId ztree对象的id,不需要#
 						@param searchField 输入框选择器
@@ -706,7 +715,6 @@ rj.form.get($("#addOrUpdate")[0]);
 						@param isExpand 是否展开,默认合拢,传入true展开
 				 	*/
 				 	fuzzySearch($(id)[0].id,$(id).prev(),null,true); //初始化模糊搜索方法
-				 	return $.fn.zTree.getZTreeObj($(id)[0].id);
 				},
 				ztreeChoose(){
 					 /*原本
@@ -728,6 +736,10 @@ rj.form.get($("#addOrUpdate")[0]);
 		        	this.bindToggleEvent();
 		        	//3.初始化下拉值
 		        	$.fn.zTree.init(opts.$dom.next().find(".ztree"),opts.seeting,data);
+		        	//是否需要初始化过滤器
+		        	if(opts.seeting.seachInput){
+						this.addSeach();
+					}
 		        	//4.是否需要回显
 		        	if(opts.$dom.val()||opts.$dom.data("value")){
 		        		$this.backShow(opts.$dom.val()||opts.$dom.data("value"));
@@ -741,8 +753,11 @@ rj.form.get($("#addOrUpdate")[0]);
 						$("body").on("click",hideTree);
 					});
 					function hideTree(event) {
-						if (!(($(event.target).closest(".ztree").length>0)||event.target==opts.$dom[0])) {
+						if (!(($(event.target).closest(".ztree-down").length>0)||event.target==opts.$dom[0])) {
 							opts.$dom.next().hide();
+							if($(".rj_ztree_seach").length>0){
+								$(".rj_ztree_seach").val("")
+							}
 							$("body").unbind("click", hideTree);
 						}
 					}
@@ -853,6 +868,8 @@ rj.form.get($("#addOrUpdate")[0]);
 							onClick:function(e, treeId, treeNode){
 								if(treeNode.isParent){
 									$("#"+treeNode.tId+"_switch").trigger("click");
+								}else{
+									$("#"+treeNode.tId+"_check").trigger("click");
 								}
 							},
 							onCheck: function(e, treeId, treeNode){
@@ -1033,7 +1050,7 @@ rj.form.get($("#addOrUpdate")[0]);
 							if(data[i][opts.defaultKey[inputIndex]]!=undefined){
 								$(inputDom).val(data[i][opts.defaultKey[inputIndex]]);
 							}else{
-								console.error("rj.toggleRow组件 数据返回的格式key值与原始表单name不对应~")
+								console.error(`rj.toggleRow组件 ${opts.defaultKey[inputIndex]}:在数据源的key与name为该值的表单控件没有对应项`)
 							}
 						});
 						$(rowDom).append($itemHtml)

@@ -9,11 +9,12 @@ website:	http://code.google.com/p/jquerytree/
 -------------------------------------*/
 
 .ztree * {padding:0; margin:0; font-size:14px; font-family:"微软雅黑", Arial, Helvetica, AppleGothic, sans-serif}
-.ztree {margin:0; padding:5px; color:#333;max-height: 700px;overflow: auto;}
-.ztree li{padding:0; margin:0; list-style:none; line-height:30px; text-align:left; white-space:nowrap; outline:0}
+/*self background-color: #fff; min-height: 30px;*/
+.ztree {margin:0; padding:5px; color:#333;max-height: 700px;overflow: auto;background-color: #fff;min-height: 30px;}
+/*self background-color: #fff;position: relative;*/
+.ztree li{padding:0; margin:0; list-style:none; line-height:30px; text-align:left; white-space:nowrap; outline:0;background-color: #fff;position: relative;}
 .ztree li ul{ margin:0; padding:0 0 0 18px}
 .ztree li ul.line{ background:url(./img/line_conn.gif) 0 0 repeat-y;}
-
 .ztree li a {padding:1px 3px 0 0; margin:0; cursor:pointer; height:30px; color:#969696; background-color: transparent;
 	text-decoration:none; vertical-align:top; display: inline-block}
 .ztree li a:hover {color: #555;background: transparent;}
