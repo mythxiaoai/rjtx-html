@@ -1,0 +1,177 @@
+<div class="p-m">
+	<div class="panel panel-white">
+		<div class="panel-heading">
+			<div class="panel-title">
+				规则定义
+        	</div>
+			<div class="panel-tools">
+                <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+		</div>
+		<div class="panel-body collapsed in" id="panelContent">
+				<div class="col-md-12">
+					<!--search start-->
+					<form id="search" class="form-inline fz12 fl">
+	   		            <div class="form-group m-r">
+			            	 <label class="fw-n">项目
+		                		<select class="form-control" name="project">
+		                			<option value="">--请选择--</option>
+		                			<option value="1">广州项目</option>
+		                			<option value="2">深圳项目</option>
+		                		</select>
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">工单类型
+		                		<select class="form-control" name="type">
+		                			<option value="">--请选择--</option>
+		                			<option value="1">方案库工单</option>
+		                			<option value="2">XXX工单</option>
+		                		</select>
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">应用类型
+		                		<select class="form-control" name="type">
+		                			<option value="">--请选择--</option>
+		                			<option value="1">工单分配</option>
+		                			<option value="2">接单配置</option>
+		                		</select>
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">规则名称
+		                		<input class="form-control"  name="ruleName"/>
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">创建用户
+		                		<input class="form-control"  name="createName"/>
+			                </label>
+			            </div>
+	                    <div class="form-group m-b-xs">
+	                        <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                    </div>
+	                </form>
+	                <!--end search-->
+					<div id="toolbar" class="m-b-sm m-t-sm">
+						<button type="button" class="btn btn-default js_addOrUpdate" onclick="rule.addOrUpdate('新增规则')">
+							<i class="iconfont icon-add"></i> 新增
+						</button>
+						<div class="pull-right">
+							<button type="button" class="btn btn-default">
+								<i class="iconfont icon-shangchuan"></i> 数据上传
+							</button>
+							<button type="button" class="btn btn-default">
+								<i class="iconfont icon-xiazai"></i> 数据下载
+							</button>
+						</div>
+					</div>
+					<table id="table"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var rule = {
+		init(){
+			this.tableInit();
+		},
+		addOrUpdate(title,id){
+			//新增
+			rj.modal(
+				title,
+				"page/project/rule/addOrUpdate.html",
+				()=>{
+					//load加载完成  需要把问题的下拉加载完
+					if(!id){
+						//新增
+					}else{
+						//修改
+						console.log(id)
+						//回显操作  根据id查到对象值为
+						//注意inputKey1，inputKey2，inputKey3一定不能少 少了自己加
+						let json ={"input1":"test1","input2":"[{\"inputKey1\":\"and\",\"inputKey2\":\"q2\",\"inputKey3\":\"=\"},{\"inputKey1\":\"and\",\"inputKey2\":\"q1\",\"inputKey3\":\"=\"}]"};
+						rj.form.set($("#addOrUpdate")[0],json);
+					}
+					rj.resetPlug();
+					$(".js_special:first").hide();
+				},
+				()=>{
+					//点击确认
+					alert(JSON.stringify( rj.form.get($("#addOrUpdate")[0])  ))
+				}
+			)
+		},
+		tableInit(){
+			rj.table.init({
+				id: "#table",
+				toolbar:false,
+				data: [
+					{
+						"id": '56165',
+						"pro_name": 'ddd',
+						"user_name": "JONE",
+						"job_name": "33366",
+						"account": "22255",
+						"amount_work": 1,
+						"type_work": "方案库终端",
+					},
+					{
+						"id": '23544',
+						"pro_name": '工单健康',
+						"user_name": "李思思",
+						"job_name": "22333",
+						"account": "22255",
+						"amount_work": 2,
+						"type_work": "方案库终端",
+					},
+					
+				],
+				columns: [
+					{
+						field: 'pro_name',
+						title: '规则名称'
+					}, {
+						field: 'user_name',
+						title: '创建用户',
+					}, {
+						field: 'job_name',
+						title: '创建时间',
+					}, {
+						field: 'account',
+						title: '是否启用'
+					}, {
+						field: 'amount_work',
+						title: '启用状态',
+						formatter:function(value,row,index){ 
+			                	if(value==1){
+			                		return `<span class="text-cuccess">启用</span>`
+			                	}else{
+			                		return `<span class="text-danger">停用</span>`
+			                	}
+			                }
+					}, {
+						title: '操作',
+						formatter:function(value,row,index){ 
+							if(row.amount_work==1){
+			                	return `<a class="btn btn-warning btn-xs">停用</a>
+										<a class="btn btn-info btn-xs" onclick="rule.addOrUpdate('规则修改',${row.id})">修改</a>
+										<a class="btn btn-danger btn-xs">删除</a>`
+							}else{
+			                	return `<a class="btn btn-success btn-xs">启用</a>
+										<a class="btn btn-info btn-xs" onclick="rule.addOrUpdate('规则修改',${row.id})">修改</a>
+										<a class="btn btn-danger btn-xs">删除</a>`
+							}
+		                }
+					}
+				],
+			})
+		}
+	}
+	rule.init();
+</script>

@@ -1,0 +1,79 @@
+<form id="addOrUpdate" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">规则名称</label>
+        <div class="col-md-10">
+            <input type="text" autofocus="autofocus" autocomplete="on" class="form-control" placeholder="请输入规则名称" name="input1">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">工单类型</label>
+        <div class="col-md-10">
+        	<div class="radio-inline">
+				<label><input type="radio" name="input2" value="1" checked="checked"  class="icheck">方案库中端</label>
+			</div>
+			<div class="radio-inline">
+				<label><input type="radio" name="input2" value="2" class="icheck">状态库低端</label>
+			</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">应用类型</label>
+        <div class="col-md-10">
+        	<div class="radio-inline">
+				<label><input type="radio" name="input3" value="1" checked="checked"  class="icheck">工单分配</label>
+			</div>
+			<div class="radio-inline">
+				<label><input type="radio" name="input3" value="2" class="icheck">接单配置</label>
+			</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-md-2 control-label">规则模板</label>
+        <div class="col-sm-10 rj_toggleRow" data-name="input4" >
+        	<div class="row m-b-xs rj_toggleRow_item">
+        		<div class="col-md-2  p-none">
+		       		<select class="form-control js_special rj_toggleRow_input" name="inputKey1">
+		       			<option value="and">且</option>
+		       			<option value="or">或</option>
+		       		</select>
+		         </div>
+		         <div class="col-md-5">
+		      		<select class="form-control rj_toggleRow_input" name="inputKey2">
+		       			<option value="q1">派单人</option>
+		       			<option value="q2">数据来源</option>
+		       		</select>
+		         </div>
+		         <div class="col-md-3">
+		      		<select class="form-control rj_toggleRow_input" name="inputKey3">
+		       			<option value="=">等于</option>
+		       			<option value="!=">不等于</option>
+		       			<option value=">">大于</option>
+		       			<option value=">=">大于等于</option>
+		       			<option value="<">小于</option>
+		       			<option value="<=">小于等于</option>
+		       			<option value="like">包含</option>
+		       			<option value="not like">不包含</option>
+		       			<option value="is null">等空值</option>
+		       			<option value="in">属于</option>
+		       		</select>
+		         </div>
+		         <div class="col-md-2 p-none">
+		         	<div class="btn-group btn-group-xs m-t-xs">
+		         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
+		         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+		         	</div>
+		         </div>
+        	</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+            <button class="btn btn-primary js_sure" type="button">确定</button>
+        </div>
+    </div>
+</form>
