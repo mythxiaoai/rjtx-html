@@ -136,7 +136,12 @@ fieldset[disabled] .navbar-white .btn-link:focus {
 /*平面盒子*/
 .nav-content-layout{position:absolute;top:56px;height:calc(100% - 56px);width:100%;}
 /*label 上下没对齐*/
-.label{padding: .3em .6em .3em;}
+.label{
+	font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    text-shadow: none;
+    }
 /*重写panel*/
 .panel{
 	border-radius: 0;

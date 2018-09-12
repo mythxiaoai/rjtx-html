@@ -247,7 +247,7 @@ rj.form.get($("#addOrUpdate")[0]);
 */
 ;((win)=>{
 	let rjtx={
-		basePath:window.location.origin,
+		basePath:window.location.origin+"/",
 		init(){
 			this.sweetAlert();
 			//表格插件初始化 只用初始化一次
@@ -437,7 +437,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				function ajax(resolve,reject){
 					//参数处理
 				    options = options || {};
-				    options.url = $this.basePath+options.url;
+				    options.url =options.url;
 					//loading
 					var xloading;
 					if(options.id!=undefined&&options.id!=null&&options.id!=""&&options.id!=0){
@@ -479,7 +479,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				            	//检测是否是登陆超时 直接跳转
 				            	if(xhr.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
 				            		xalert("登陆超时~","登陆超时,请重新登陆","warning",function(){
-				            			 window.top.location.href=$this.basePath+"/login.html"
+				            			 window.top.location.href="login.html"
 				            		})
 				            	}
 				            	//返回结果格式化成json
@@ -487,10 +487,10 @@ rj.form.get($("#addOrUpdate")[0]);
 				            	//回调
 				                options.success && options.success(data);
 				                //弹窗
-				                if(data.status==0){
+				                if(data.status==0&&options.msg!="none"){
 				                	xalert(data.msg ||"哎呀，后台没给{msg:消息}参数",data.describe||null,"success");
 				                }
-				                if(data.status==1){
+				                if(data.status==1&&options.msg!="none"){
 				                	xerror(data.msg ||"哎呀，后台没给{msg:消息}参数",data.describe||null,"error");
 				            	}
 			                } else {
@@ -501,7 +501,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			            			// window.location.href="index.jsp";
 			            			document.write(xhr.responseText);
 				            	}else{
-				            		options.error && options.error(status);
+				            		options.error && options.error(xhr);
 				            		xalert("出错啦~",xhr.responseText,"error");
 				            	}
 				            }
@@ -1119,7 +1119,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				if(res.readyState==4){
 					if (res.status >= 200 && res.status < 300) {
 						if(res.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
-            			 	window.top.location.href=$this.basePath+"/login.html"
+            			 	window.top.location.href="login.html"
 		            	}
 						callback&&callback();
 					}else{

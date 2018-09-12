@@ -1,5 +1,5 @@
 <style>
-	.doc_main_title{
+	/*.doc_main_title{
 		font-size: 25px;
 		position: relative;
 		padding-left: 15px;
@@ -15,9 +15,139 @@
 		bottom: 0;
 		margin: auto;
 	}
+	.doc_title{
+		font-size: 13px;
+	}
+	*/
+	.doc p{
+		text-align: justify;
+		line-height: 2;
+		font-size: 13px;
+	}
+	.doc table th{
+		color: #fff;
+	    background-color: #555;
+	    border: none!important;
+	}
+	.doc h4,.doc .h4,.doc h5,.doc .h5,.doc h6,.doc .h6 {
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	}
 </style>
-<div class="p-m animated fadeInRight">
+<div class="p-m animated fadeInRight doc">
 	<div class="panel-body">
-		<div class="doc_main_title">ajax</div>
+		<div class="page-header">
+			<h3>ajax({opts})</h3>
+		</div>
+		<h5>概述:</h5>
+		<p>
+			在实际开发过程中ajax很常用,但是通常在新增和修改发起前需要在对应的ajax加载数据区域需要加上友好的loading，ajax发送完成后需要判断成功还是失败，成功或者失败需要把信息呈现在前台下面说下具体的优点：<br/>
+			1.融合插件  loading.js和sweetAlert.js  可配置loading和操作成功后的提示<br/>
+			2.支持promise  调用ajax1().then(ajax2).then(ajax3) 控制ajax请求的顺序!详情请看js  es6 Promise承诺<br/>
+			3.对所有ajax的返回结果错误和成功集中处理。
+		</p>
+		<h5>参数:</h5>
+		<table class="table table-bordered table-striped table-hover">
+			<tbody>
+				<tr>
+					<th>名称</th>
+					<th>说明</th>
+					<th>类型</th>
+					<th>可选值</th>
+					<th>默认值</th>
+				</tr>
+				<tr>
+					<td>url</td>
+					<td>规定发送请求的 URL</td>
+					<td>string</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>请求类型</td>
+					<td>string </td>
+					<td>post/get</td>
+					<td>post</td>
+				</tr>
+				<tr>
+					<td>success</td>
+					<td>当请求成功时运行的函数。</td>
+					<td>fn(data) data:返回成功的json值 </td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>id</td>
+					<td>会在请求的过程中给这个选择器元素添加loading效果</td>
+					<td>string</td>
+					<td>格式为jquery选择器</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>msg</td>
+					<td>默认请求成功后返回值有msg的key且有值则弹出消息框,设置为"none"则不会弹出 </td>
+					<td>string</td>
+					<td>"none"</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>data</td>
+					<td>规定要发送到服务器的数据。</td>
+					<td>json</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>error</td>
+					<td>如果请求失败要运行的函数。</td>
+					<td>fn(xhr) xhr:xhr对象</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<h5>事例:</h5>
+		<div class="row">
+			<div class="col-md-6">
+				<textarea class="js_code"></textarea>
+			</div>
+			<div class="col-md-6">
+				<div class="js_runner">
+					我就是.js_runner区域
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
+<script>
+	let codeMirror = CodeMirror.fromTextArea($(".js_code")[0], {
+		    lineNumbers: true,
+		    mode: "htmlmixed",
+		    theme:"ambiance",
+		   	scrollbarStyle: "simple"
+		  });
+let html =$(".js_runner").parent().html();
+codeMirror.on("change",function(a,b){
+	try{
+		let js = codeMirror.getValue();
+		$(".js_runner").parent().html(html);
+		eval(js)
+	}catch(e){
+		console.error("脚本语法错误~")
+	}
+})
+codeMirror.setValue(
+	`
+rj.ajax({
+	id:".js_runner",
+	msg:"none",
+    url:"data/1.txt",
+    type:"get",
+    success:function(data){
+    	console.log(data)
+    }
+})
+	`);
+
+</script>

@@ -1,144 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title></title>
-</head>
-<body class="bg-gray">
-		<div class="p-md animated fadeInRight">
-			<div class="panel panel-white">
-				<div class="panel-heading">
-					<div class="panel-title">
-						工单分配
-                    </div>          
-					<div class="panel-tools">
-                        <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="panel-body collapsed in" id="panelContent">
-                    <form id="search" class="form-inline fz12" >
-                        <div class="form-group m-r">
-							<label class="fw-n">项目					
-							</label>
-							<select name="casting" class="form-control" >
-								<option value="">--请选择--</option>
-								<option value="市优化网格组员">市优化网格组员</option>
-								<option value="市优化现场实施人员">市优化现场实施人员</option>   
-							</select> 
-                        </div>
-                            <div class="form-group space-15">
-                            <label class="fw-n">工号
-							</label>
-							<input type="text" placeholder="请输入用户名" name="name" class="form-control">
-                        </div>
-                        <div class="form-group m-b-xs">
-                            <input class="btn btn-default btn-md js_search m-r-md" type="button" value="查询">
-                            <input class="btn btn-default btn-md" onclick="reset()" type="button" value="重置">
-                        </div>
-                    </form>
-                    <!--操作工具栏-->
-                    <table id="table"></table>
-                </div>
+<div class="p-m">
+	<div class="panel panel-white">
+		<div class="panel-heading">
+			<div class="panel-title">
+				工单分配
+        	</div>
+			<div class="panel-tools">
+                <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+		</div>
+		<div class="panel-body collapsed in" id="panelContent">
+				<div class="col-md-12">
+					<!--search start-->
+					<form id="search" class="form-inline fz12 fl">
+	   		            <div class="form-group m-r">
+			            	 <label class="fw-n">项目
+		                		<select class="form-control" name="project">
+		                			<option value="">--请选择--</option>
+		                			<option value="1">广州项目</option>
+		                			<option value="2">深圳项目</option>
+		                		</select>
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">工单类型
+		                		<select class="form-control" name="type">
+		                			<option value="">--请选择--</option>
+		                			<option value="1">方案库工单</option>
+		                			<option value="2">XXX工单</option>
+		                		</select>
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">规则名称
+		                		<input class="form-control"  name="ruleName"/>
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">创建用户
+		                		<input class="form-control"  name="createName"/>
+			                </label>
+			            </div>
+	                    <div class="form-group m-b-xs">
+	                        <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                    </div>
+	                </form>
+	                <!--end search-->
+					<div id="toolbar" class="m-b-sm m-t-sm">
+						<button type="button" class="btn btn-default js_addOrUpdate" onclick="rule.addOrUpdate('新增规则')">
+							<i class="iconfont icon-add"></i> 新增
+						</button>
+						<div class="pull-right">
+							<button type="button" class="btn btn-default">
+								<i class="iconfont icon-shangchuan"></i> 数据上传
+							</button>
+							<button type="button" class="btn btn-default">
+								<i class="iconfont icon-xiazai"></i> 数据下载
+							</button>
+						</div>
+					</div>
+					<table id="table"></table>
+				</div>
 			</div>
 		</div>
+	</div>
+</div>
 <script>
-	var role_name;//全局变量
-		var role={
-			init:function(){
-				//this.list();
-				//角色列表
-				this.table1_list();
-			},
-			table1_list() {
-				rj.table.init({
-					id: "#table",
-					toolbar:"#toolbar",
-					data: [
-						{
-							"pro_name": 'ddd',
-							"user_name": "JONE",
-							"job_name": "33366",
-							"account": "22255",
-							"amount_work": 202,
-							"type_work": "方案库终端",
-						},
-						{
-							"pro_name": '工单健康',
-							"user_name": "李思思",
-							"job_name": "22333",
-							"account": "22255",
-							"amount_work": 202,
-							"type_work": "方案库终端",
-						},
-						
-					],
-					columns: [
-						{
-							field: 'pro_name',
-							title: '项目'
-						}, {
-							field: 'user_name',
-							title: '用户名称',
-						}, {
-							field: 'job_name',
-							title: '工号',
-						}, {
-							field: 'account',
-							title: '接受账号'
-						}, {
-							field: 'amount_work',
-							title: '已接工单量'
-						}, {
-							field: 'type_work',
-							title: '工单类型',	
-						}
-					],
-				})
-			},
-			list:function(){
-				rj.table.init({
-					id:"#table",
-					toolbar:"#toolbar",
-					queryParams:function(params) {
-						//将查询格式化
-			            return{
-				            pageSize:params.limit,
-				          	pageNum : params.offset,
-				          	pageNo : params.offset, // 页码
-				            sortName:params.sort,//这里是读取sortName配置选项
-				            sortOrder:params.order,//默认是desc
-			            }
-		           },
-				   columns: [
-						{
-							field: 'pro_name',
-							title: '项目'
-						}, {
-							field: 'user_name',
-							title: '用户名称',
-						}, {
-							field: 'job_name',
-							title: '工号',
-						}, {
-							field: 'account',
-							title: '接受账号'
-						}, {
-							field: 'amount_work',
-							title: '已接工单量'
-						}, {
-							field: 'type_work',
-							title: '工单类型',	
-						}
-					],
-				});
-			},
-			_flush:function(){
-				$("#table").bootstrapTable('refresh');
-			},
+	var rule = {
+		init(){
+			this.tableInit();
+		},
+		addOrUpdate(title,id){
+			//新增
+			rj.modal(
+				title,
+				"page/project/rule/addOrUpdate.html",
+				()=>{
+					//load加载完成  需要把问题的下拉加载完
+					if(!id){
+						//新增
+					}else{
+						//修改
+						console.log(id)
+						//回显操作  根据id查到对象值为
+						//注意inputKey1，inputKey2，inputKey3一定不能少 少了自己加
+						let json ={"input1":"test1","input2":"[{\"inputKey1\":\"and\",\"inputKey2\":\"q2\",\"inputKey3\":\"=\"},{\"inputKey1\":\"and\",\"inputKey2\":\"q1\",\"inputKey3\":\"=\"}]"};
+						rj.form.set($("#addOrUpdate")[0],json);
+					}
+					rj.resetPlug();
+					$(".js_special:first").hide();
+				},
+				()=>{
+					//点击确认
+					alert(JSON.stringify( rj.form.get($("#addOrUpdate")[0])  ))
+				}
+			)
+		},
+		tableInit(){
+			rj.table.init({
+				id: "#table",
+				toolbar:false,
+				data: [
+					{
+						"id": '56165',
+						"pro_name": 'ddd',
+						"user_name": "JONE",
+						"job_name": "33366",
+						"account": "22255",
+						"amount_work": 1,
+						"type_work": "方案库终端",
+					},
+					{
+						"id": '23544',
+						"pro_name": '工单健康',
+						"user_name": "李思思",
+						"job_name": "22333",
+						"account": "22255",
+						"amount_work": 2,
+						"type_work": "方案库终端",
+					},
+					
+				],
+				columns: [
+					{
+						field: 'pro_name',
+						title: '派单人'
+					}, {
+						field: 'user_name',
+						title: '创建用户',
+					}, {
+						field: 'job_name',
+						title: '创建时间',
+					}, {
+						field: 'account',
+						title: '是否启用'
+					}, {
+						field: 'amount_work',
+						title: '启用状态',
+						formatter:function(value,row,index){ 
+			                	if(value==1){
+			                		return `<span class="text-cuccess">启用</span>`
+			                	}else{
+			                		return `<span class="text-danger">停用</span>`
+			                	}
+			                }
+					}, {
+						title: '操作',
+						formatter:function(value,row,index){ 
+							if(row.amount_work==1){
+			                	return `<a class="btn btn-warning btn-xs">停用</a>
+										<a class="btn btn-info btn-xs" onclick="rule.addOrUpdate('规则修改',${row.id})">修改</a>
+										<a class="btn btn-danger btn-xs">删除</a>`
+							}else{
+			                	return `<a class="btn btn-success btn-xs">启用</a>
+										<a class="btn btn-info btn-xs" onclick="rule.addOrUpdate('规则修改',${row.id})">修改</a>
+										<a class="btn btn-danger btn-xs">删除</a>`
+							}
+		                }
+					}
+				],
+			})
 		}
-		role.init();
+	}
+	rule.init();
 </script>
-</body
-</html>
