@@ -1,24 +1,8 @@
 <style>
-	/*.doc_main_title{
-		font-size: 25px;
-		position: relative;
-		padding-left: 15px;
+	.CodeMirror{
+		height: auto;
+		border-radius: 3px;
 	}
-	.doc_main_title:before{
-		content: "";
-		height: 80%;
-		width: 4px;
-		background: #ccc;
-		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		margin: auto;
-	}
-	.doc_title{
-		font-size: 13px;
-	}
-	*/
 	.doc p{
 		text-align: justify;
 		line-height: 2;
@@ -32,6 +16,13 @@
 	.doc h4,.doc .h4,.doc h5,.doc .h5,.doc h6,.doc .h6 {
 	    margin-top: 10px;
 	    margin-bottom: 10px;
+	}
+	.doc .run_btn{
+		position: absolute;
+		top: 5px;
+		right: 20px;
+		padding: 4px 15px;
+		z-index: 10;
 	}
 </style>
 <div class="p-m animated fadeInRight doc">
@@ -108,9 +99,10 @@
 			</tbody>
 		</table>
 		<h5>事例:</h5>
-		<div class="row">
+		<div class="row m-b">
 			<div class="col-md-6">
-				<textarea class="js_code"></textarea>
+				<textarea class="code js_code"></textarea>
+				<a href="javascript:;" class="btn btn-info btn-xs run_btn">运行</a>
 			</div>
 			<div class="col-md-6">
 				<div class="js_runner">
@@ -121,33 +113,55 @@
 	</div>
 </div>
 <script>
-	let codeMirror = CodeMirror.fromTextArea($(".js_code")[0], {
-		    lineNumbers: true,
-		    mode: "htmlmixed",
-		    theme:"ambiance",
-		   	scrollbarStyle: "simple"
-		  });
-let html =$(".js_runner").parent().html();
-codeMirror.on("change",function(a,b){
-	try{
-		let js = codeMirror.getValue();
-		$(".js_runner").parent().html(html);
-		eval(js)
-	}catch(e){
-		console.error("脚本语法错误~")
+	var template = {
+		opts:{
+			urlArr:[
+				"./demo/ajax.html",
+			],
+			cmarr:[]
+		},
+		init(){
+			//cm初始化
+			this.codeMirrorInit();
+			console.log(this.opts.cmarr)
+			//内容填充
+			this.contentInit();
+			//运行事件
+			this.runClick();
+		},
+		codeMirrorInit(){
+			let $this = this;
+			$(".js_code").each(function(index,val){
+				$this.opts.cmarr[index] = CodeMirror.fromTextArea(val, {
+				    lineNumbers: true,
+				    mode: "htmlmixed",
+				    styleActiveLine: true,
+					matchBrackets: true,
+					autoCloseBrackets: true,
+				    theme:"abcdef",
+				    showCursorWhenSelecting: true,
+				   	scrollbarStyle: "simple"
+				  });
+			});
+		},
+		contentInit(){
+			let $this = this;
+			$.each(this.opts.urlArr, function(index,val) {
+				$.ajax(val).then(function(data){
+					$this.opts.cmarr[index].setValue(data);
+					$(".js_runner").eq(index).html(data);
+				});
+			});
+		},
+		runClick(){
+			let $this = this;
+			$(".run_btn").each(function(index,val){
+				$(val).click(function(){
+					let html = $this.opts.cmarr[index].getValue();
+					$(".js_runner").eq(index).html(html);
+				});
+			});
+		}
 	}
-})
-codeMirror.setValue(
-	`
-rj.ajax({
-	id:".js_runner",
-	msg:"none",
-    url:"data/1.txt",
-    type:"get",
-    success:function(data){
-    	console.log(data)
-    }
-})
-	`);
-
+	template.init();
 </script>
