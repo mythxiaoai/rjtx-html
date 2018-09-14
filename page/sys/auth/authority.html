@@ -210,7 +210,7 @@
 								//获取form表单数据
 								var data = getFromJson($("#addOrUpdate")[0]);
 								rj.ajax({
-										id: "#addOrUpdate",
+										loading: "#addOrUpdate",
 										type: "post",
 										url: data.authId ? "/auth/update" : "/auth/add",
 										data: data,
