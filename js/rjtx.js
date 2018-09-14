@@ -424,99 +424,111 @@ rj.form.get($("#addOrUpdate")[0]);
 				}
 			},
 		},
-		ajax(options){
-			let $this = this;
-				//Promise兼容
-				if(window.Promise){
-					return new Promise(function(resolve,reject){
-						ajax(resolve,reject);
-			   		});
-				}else{
-					ajax();
-				}
-				function ajax(resolve,reject){
-					//参数处理
-				    options = options || {};
-				    options.url =options.url;
-					//loading
-					var xloading;
-					if(options.id!=undefined&&options.id!=null&&options.id!=""&&options.id!=0){
-						if(window.Xloading){
-							xloading = new Xloading(options.id)
-						}
+		ajax(options,setting={}){
+			//1.参数处理
+			let _default = {
+				url:"",
+				type:"POST",
+				data:{},
+				loading:false,
+				msg:true,
+				async:true,
+				success:undefined,
+				beforeSend:undefined,
+				error:undefined,
+			},opts={},params="",xhr=null,xloading=null;
+			if(typeof options =="string"){
+				setting.url = options;
+				opts = $.extend(true,{},_default,setting);
+			}else{
+				opts = $.extend(true,{},_default,options);
+			}
+			opts.type = opts.type.toUpperCase();
+			//2.Promise兼容
+			if(window.Promise){
+				return new Promise(function(resolve,reject){
+					ajax(resolve,reject);
+		   		});
+			}else{
+				ajax();
+			}
+			function ajax(resolve,reject){
+				//beforeSend
+				if(opts.beforeSend)beforeSend();
+				//loading
+				if(opts.loading){
+					if(window.Xloading){
+						xloading = new Xloading(opts.loading)
 					}
-					//beforeSend
-					if(options.beforeSend)beforeSend();
-					//type
-				    options.type = (options.type || "POST").toUpperCase();
-				    var params = formatParams(options.data);
+				}
+				//参数拼接
+				let tempParam = [];
+				//防止缓存
+				tempParam.push(("v=" + Math.random()).replace(".",""));
+				for(let key in opts.data){
+					//url中文转义
+					tempParam.push(encodeURIComponent(key) + "=" + encodeURIComponent(opts.data[key]));
+				}
+				params = tempParam.join("&")
 				
-				    //创建 - 非IE6 - 第一步
-				    if (window.XMLHttpRequest) {
-				        var xhr = new XMLHttpRequest();
-				    } else { //IE6及其以下版本浏览器
-				        var xhr = new ActiveXObject('Microsoft.XMLHTTP');
-				    }
-					//连接 和 发送 - 第二步
-				    if (options.type == "GET") {
-				        xhr.open("GET", options.url + "?" + params, true);
-				        xhr.send(null);
-				    } else if (options.type == "POST") {
-				        xhr.open("POST", options.url, true);
-				        //设置表单提交时的内容类型
-				        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				        xhr.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-				        xhr.send(params);
-				    }
-				    //接收 - 第三步
-				    xhr.onreadystatechange = function () {
-				        if (xhr.readyState == 4) {
-				            var status = xhr.status;
-				            if (status >= 200 && status < 300) {
-				            	if(window.Promise)resolve();
-				            	//关loading
-				            	if(xloading)xloading.destroy();
-				            	//检测是否是登陆超时 直接跳转
-				            	if(xhr.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
-				            		xalert("登陆超时~","登陆超时,请重新登陆","warning",function(){
-				            			 window.top.location.href="login.html"
-				            		})
-				            	}
-				            	//返回结果格式化成json
-				            	var data = JSON.parse(xhr.responseText)
-				            	//回调
-				                options.success && options.success(data);
-				                //弹窗
-				                if(data.status==0&&options.msg!="none"){
+			    //创建 - 非IE6 - 第一步
+			    if (window.XMLHttpRequest) {
+			       	xhr = new XMLHttpRequest();
+			    } else { //IE6及其以下版本浏览器
+			        xhr = new ActiveXObject('Microsoft.XMLHTTP');
+			    }
+				//连接 和 发送 - 第二步
+			    if (opts.type == "GET") {
+			        xhr.open("GET", opts.url + "?" + params,opts.async);
+			        xhr.send(null);
+			    } else if (opts.type == "POST") {
+			        xhr.open("POST", opts.url, opts.async);
+			        //设置表单提交时的内容类型
+			        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			        xhr.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
+			        xhr.send(params);
+			    }
+			    //接收 - 第三步
+			    xhr.onreadystatechange = function () {
+			        if (xhr.readyState == 4) {
+			            var status = xhr.status;
+			            if (status >= 200 && status < 300) {
+			            	//关loading
+			            	if(xloading)xloading.destroy();
+			            	//检测是否是登陆超时 直接跳转
+			            	if(xhr.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
+			            		xalert("登陆超时~","登陆超时,请重新登陆","warning",function(){
+			            			 window.top.location.href="login.html"
+			            		})
+			            	}
+			            	//返回结果格式化成json
+			            	var data = JSON.parse(xhr.responseText)
+			            	//回调
+			                opts.success && opts.success(data);
+			                if(window.Promise)resolve(data);
+			                //弹窗
+			                if(opts.msg){
+				                if(data.status==0){
 				                	xalert(data.msg ||"哎呀，后台没给{msg:消息}参数",data.describe||null,"success");
 				                }
-				                if(data.status==1&&options.msg!="none"){
+				                if(data.status==1){
 				                	xerror(data.msg ||"哎呀，后台没给{msg:消息}参数",data.describe||null,"error");
 				            	}
-			                } else {
-			                	if(window.Promise)reject();
-			                	if(xloading)xloading.destroy();
-			                	//这里是为了跳转登陆超时  返回无权限页面403
-			                	if(xhr.responseText.indexOf("3292b1da35a94a3b8b4c4964f8e48c05")!=-1){
-			            			// window.location.href="index.jsp";
-			            			document.write(xhr.responseText);
-				            	}else{
-				            		options.error && options.error(xhr);
-				            		xalert("出错啦~",xhr.responseText,"error");
-				            	}
-				            }
-				        }
-				    }
-				    //格式化参数
-				    function formatParams(data) {
-				        var arr = [];
-				        for (var name in data) {
-				            arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
-				        }
-				        arr.push(("v=" + Math.random()).replace(".",""));
-				        return arr.join("&");
-				    }
-				}
+			                }
+		                } else {
+		                	if(window.Promise)reject();
+		                	if(xloading)xloading.destroy();
+		                	//这里是为了跳转登陆超时  返回无权限页面403
+		                	if(xhr.responseText.indexOf("3292b1da35a94a3b8b4c4964f8e48c05")!=-1){
+		            			document.write(xhr.responseText);
+			            	}else{
+			            		opts.error && opts.error(xhr);
+			            		xalert("出错啦~",xhr.responseText,"error");
+			            	}
+			            }
+			        }
+			    }
+			}
 		},
 		toggleAnimate(pos){
 			$(pos.triggerDom).click(function(){

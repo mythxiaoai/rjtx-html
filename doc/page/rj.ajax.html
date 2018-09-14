@@ -62,14 +62,14 @@
 					<td>post</td>
 				</tr>
 				<tr>
-					<td>success</td>
-					<td>当请求成功时运行的函数。</td>
-					<td>fn(data) data:返回成功的json值 </td>
-					<td></td>
-					<td></td>
+					<td>async</td>
+					<td>是否同步</td>
+					<td>boolean</td>
+					<td>true/false true同步，false异步</td>
+					<td>true</td>
 				</tr>
 				<tr>
-					<td>id</td>
+					<td>loading</td>
 					<td>会在请求的过程中给这个选择器元素添加loading效果</td>
 					<td>string</td>
 					<td>格式为jquery选择器</td>
@@ -77,15 +77,29 @@
 				</tr>
 				<tr>
 					<td>msg</td>
-					<td>默认请求成功后返回值有msg的key且有值则弹出消息框,设置为"none"则不会弹出 </td>
-					<td>string</td>
-					<td>"none"</td>
-					<td></td>
+					<td>默认请求成功后返回值有msg的key且有值则弹出消息框,设置为false则不会弹出 </td>
+					<td>boolean</td>
+					<td>false</td>
+					<td>true</td>
 				</tr>
 				<tr>
 					<td>data</td>
 					<td>规定要发送到服务器的数据。</td>
 					<td>json</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>beforeSend</td>
+					<td>发送前的回调函数。</td>
+					<td>fn(xhr) xhr:xhr对象 </td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>success</td>
+					<td>当请求成功时运行的函数。</td>
+					<td>fn(data) data:返回成功的json值 </td>
 					<td></td>
 					<td></td>
 				</tr>
@@ -102,7 +116,7 @@
 		<div class="row m-b">
 			<div class="col-md-6">
 				<textarea class="code js_code"></textarea>
-				<a href="javascript:;" class="btn btn-info btn-xs run_btn">运行</a>
+				<a href="javascript:;" class="btn btn-primary btn-xs run_btn">运行</a>
 			</div>
 			<div class="col-md-6">
 				<div class="js_runner">
