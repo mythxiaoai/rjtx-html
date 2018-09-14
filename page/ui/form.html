@@ -1,209 +1,201 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<form id="addOrUpdate" class="form-horizontal">
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">普通输入框</label>
-		        <div class="col-sm-10">
-		            <input type="text" autofocus="autofocus" class="form-control" placeholder="请输入..." name="input1">
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-	        <div class="form-group">
-	           	<label class="col-sm-2 control-label">密码</label>
-		        <div class="col-sm-10">
-		            <input type="password" class="form-control" placeholder="请输入..." name="input2">
-		        </div>
-	        </div>
-	        <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">select</label>
-		        <div class="col-sm-10">
-		            <select class="form-control" name="input3">
-		                <option value="">--请选择--</option>
-		                <option value="0">男</option>
-		                <option value="1">女</option>
-		            </select> 
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">多选</label>
-		        <div class="col-sm-10">
-					<div class="checkbox-inline">
-						<label><input type="checkbox" class="icheck" value="html" name="input4">html</label>
-					</div>
-					<div class="checkbox-inline">
-						<label><input type="checkbox" class="icheck" value="css" name="input4">css</label>
-					</div>
-					<div class="checkbox-inline">
-						<label><input type="checkbox" class="icheck" value="js" name="input4">js</label>
-					</div>
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">单选</label>
-		        <div class="col-sm-10">
-		        	<div class="radio-inline">
-						<label><input type="radio" name="input5" value="学习使我进步"  class="icheck">学习使我进步</label>
-					</div>
-					<div class="radio-inline">
-						<label><input type="radio" name="input5" value="学习使我快乐" class="icheck">学习使我快乐</label>
-					</div>
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		   	<div class="form-group">
-		        <label class="col-sm-2 control-label">文本域</label>
-		        <div class="col-sm-10"><!--+2是为了border-->
-		        	<textarea class="form-control" oninput="this.style.height=(this.scrollHeight+2)+'px'" name="input6">我是自适应文本域哦  不行多输入点~~~</textarea>
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">ztree1</label>
-		        <div class="col-sm-10">
-					<input class="form-control" id="ztree1" name="input7" type="text"/>
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">ztree2</label>
-		        <div class="col-sm-10">
-		        	<input class="form-control" id="ztree2" name="input8" type="text"/>
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">分栏</label>
-		        <div class="col-sm-5">
-		       		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input9">
+
+<form id="addOrUpdate" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">普通输入框</label>
+        <div class="col-sm-10">
+            <input type="text" autofocus="autofocus" class="form-control" placeholder="请输入..." name="input1">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+       	<label class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" placeholder="请输入..." name="input2">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">select</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="input3">
+                <option value="">--请选择--</option>
+                <option value="0">男</option>
+                <option value="1">女</option>
+            </select> 
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">多选</label>
+        <div class="col-sm-10">
+			<div class="checkbox-inline">
+				<label><input type="checkbox" class="icheck" value="html" name="input4">html</label>
+			</div>
+			<div class="checkbox-inline">
+				<label><input type="checkbox" class="icheck" value="css" name="input4">css</label>
+			</div>
+			<div class="checkbox-inline">
+				<label><input type="checkbox" class="icheck" value="js" name="input4">js</label>
+			</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">单选</label>
+        <div class="col-sm-10">
+        	<div class="radio-inline">
+				<label><input type="radio" name="input5" value="学习使我进步"  class="icheck">学习使我进步</label>
+			</div>
+			<div class="radio-inline">
+				<label><input type="radio" name="input5" value="学习使我快乐" class="icheck">学习使我快乐</label>
+			</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+   	<div class="form-group">
+        <label class="col-sm-2 control-label">文本域</label>
+        <div class="col-sm-10"><!--+2是为了border-->
+        	<textarea class="form-control" oninput="this.style.height=(this.scrollHeight+2)+'px'" name="input6">我是自适应文本域哦  不行多输入点~~~</textarea>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ztree1</label>
+        <div class="col-sm-10">
+			<input class="form-control" id="ztree1" name="input7" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ztree2</label>
+        <div class="col-sm-10">
+        	<input class="form-control" id="ztree2" name="input8" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">分栏</label>
+        <div class="col-sm-5">
+       		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input9">
+         </div>
+         <div class="col-sm-5">
+      		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input10">
+         </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">分栏</label>
+        <div class="col-sm-10 rj_toggleRow" data-name="input11" >
+        	<div class="row m-b-xs rj_toggleRow_item">
+        		<div class="col-sm-5">
+		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
 		         </div>
 		         <div class="col-sm-5">
-		      		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input10">
+		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
 		         </div>
-		    </div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">分栏</label>
-		        <div class="col-sm-10 rj_toggleRow" data-name="input11" >
-		        	<div class="row m-b-xs rj_toggleRow_item">
-		        		<div class="col-sm-5">
-				       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
-				         </div>
-				         <div class="col-sm-5">
-				      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
-				         </div>
-				         <div class="col-sm-2 p-none">
-				         	<div class="btn-group btn-group-xs m-t-xs">
-				         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
-				         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-				         	</div>
-				         </div>
-		        	</div>
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <label class="col-sm-2 control-label">分栏2</label>
-		        <div class="col-sm-10 rj_toggleRow" data-name="input12">
-		        	<div class="row m-b-xs rj_toggleRow_item">
-		        		<div class="col-sm-5">
-				       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
-				         </div>
-				         <div class="col-sm-5">
-				      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
-				         </div>
-				         <div class="col-sm-2 p-none">
-				         	<div class="btn-group btn-group-xs m-t-xs">
-				         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
-				         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-				         	</div>
-				         </div>
-		        	</div>
-		        </div>
-		    </div>
-		    <div class="hr-line-dashed"></div>
-		    <div class="form-group">
-		        <div class="col-sm-12 text-center">
-		            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
-		            <button class="btn btn-primary js_sure" type="button">确定</button>
-		        </div>
-		    </div>
-		</form>
-		<script>
-			var formDemo={
-				init(){
-					var zNodes1 =[
-						{id:4, pId:0, name:"财务部"},
-						{id:41, pId:4, name:"财务小组1"},
-						{id:42, pId:4, name:"财务小组2"},
-						{id:43, pId:4, name:"财务小组3"},
-						{id:44, pId:4, name:"财务小组4"},
-						{id:5, pId:0, name:"研发部"},
-						{id:51, pId:5, name:"研发部1"},
-						{id:52, pId:5, name:"研发部2"},
-						{id:53, pId:5, name:"研发部3"},
-						{id:54, pId:5, name:"研发部4"},
-						{id:6, pId:0, name:"行政部"},
-						{id:61, pId:6, name:"行政部1"},
-						{id:62, pId:6, name:"行政部2"},
-						{id:63, pId:6, name:"行政部3"},
-						{id:64, pId:6, name:"行政部4"}
-					 ];
-					var zNodes2 =[
-						{id:1, pId:0, name:"北京"},
-						{id:2, pId:0, name:"天津"},
-						{id:3, pId:0, name:"上海"},
-						{id:6, pId:0, name:"重庆"},
-						{id:4, pId:0, name:"河北省", open:true},
-						{id:41, pId:4, name:"石家庄"},
-						{id:42, pId:4, name:"保定"},
-						{id:43, pId:4, name:"邯郸"},
-						{id:44, pId:4, name:"承德"},
-						{id:5, pId:0, name:"广东省", open:true},
-						{id:51, pId:5, name:"广州"},
-						{id:52, pId:5, name:"深圳"},
-						{id:53, pId:5, name:"东莞"},
-						{id:54, pId:5, name:"佛山"},
-						{id:6, pId:0, name:"福建省", open:true},
-						{id:61, pId:6, name:"福州"},
-						{id:62, pId:6, name:"厦门"},
-						{id:63, pId:6, name:"泉州"},
-						{id:64, pId:6, name:"三明"}
-					 ];
-					 //回显
-					 var data = 
-					 {
-					    "input1": "a",
-					    "input2": "b",
-					    "input3": "1",
-					    "input4": "html,js",
-					    "input5": "学习使我进步",
-					    "input6": "c",
-					    "input7": "43",
-					    "input8": "41,42,43",
-					    "input9": "d",
-					    "input10": "e",
-					    "input11": "[{\"inputKey1\":\"f\",\"inputKey2\":\"g\"}]",
-					    "input12": "[{\"inputKey1\":\"h\",\"inputKey2\":\"i\"},{\"inputKey1\":\"\",\"inputKey2\":\"j\"}]"
-					}
-					rj.form.set($("#addOrUpdate")[0],data);
-					 //重置插件
-					rj.resetPlug();
-					rj.ztree("ztreeRadio","#ztree1",zNodes1);
-					rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
-					$(".js_sure").click(()=>{
-						let formJSON = rj.form.get($("#addOrUpdate")[0]);
-						alert(JSON.stringify(formJSON,null,4))
-					});
-				}
+		         <div class="col-sm-2 p-none">
+		         	<div class="btn-group btn-group-xs m-t-xs">
+		         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
+		         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+		         	</div>
+		         </div>
+        	</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">分栏2</label>
+        <div class="col-sm-10 rj_toggleRow" data-name="input12">
+        	<div class="row m-b-xs rj_toggleRow_item">
+        		<div class="col-sm-5">
+		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
+		         </div>
+		         <div class="col-sm-5">
+		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
+		         </div>
+		         <div class="col-sm-2 p-none">
+		         	<div class="btn-group btn-group-xs m-t-xs">
+		         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
+		         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+		         	</div>
+		         </div>
+        	</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+            <button class="btn btn-primary js_sure" type="button">确定</button>
+        </div>
+    </div>
+</form>
+<script>
+	var formDemo={
+		init(){
+			var zNodes1 =[
+				{id:4, pId:0, name:"财务部"},
+				{id:41, pId:4, name:"财务小组1"},
+				{id:42, pId:4, name:"财务小组2"},
+				{id:43, pId:4, name:"财务小组3"},
+				{id:44, pId:4, name:"财务小组4"},
+				{id:5, pId:0, name:"研发部"},
+				{id:51, pId:5, name:"研发部1"},
+				{id:52, pId:5, name:"研发部2"},
+				{id:53, pId:5, name:"研发部3"},
+				{id:54, pId:5, name:"研发部4"},
+				{id:6, pId:0, name:"行政部"},
+				{id:61, pId:6, name:"行政部1"},
+				{id:62, pId:6, name:"行政部2"},
+				{id:63, pId:6, name:"行政部3"},
+				{id:64, pId:6, name:"行政部4"}
+			 ];
+			var zNodes2 =[
+				{id:1, pId:0, name:"北京"},
+				{id:2, pId:0, name:"天津"},
+				{id:3, pId:0, name:"上海"},
+				{id:6, pId:0, name:"重庆"},
+				{id:4, pId:0, name:"河北省", open:true},
+				{id:41, pId:4, name:"石家庄"},
+				{id:42, pId:4, name:"保定"},
+				{id:43, pId:4, name:"邯郸"},
+				{id:44, pId:4, name:"承德"},
+				{id:5, pId:0, name:"广东省", open:true},
+				{id:51, pId:5, name:"广州"},
+				{id:52, pId:5, name:"深圳"},
+				{id:53, pId:5, name:"东莞"},
+				{id:54, pId:5, name:"佛山"},
+				{id:6, pId:0, name:"福建省", open:true},
+				{id:61, pId:6, name:"福州"},
+				{id:62, pId:6, name:"厦门"},
+				{id:63, pId:6, name:"泉州"},
+				{id:64, pId:6, name:"三明"}
+			 ];
+			 //回显
+			 var data = 
+			 {
+			    "input1": "a",
+			    "input2": "b",
+			    "input3": "1",
+			    "input4": "html,js",
+			    "input5": "学习使我进步",
+			    "input6": "c",
+			    "input7": "43",
+			    "input8": "41,42,43",
+			    "input9": "d",
+			    "input10": "e",
+			    "input11": "[{\"inputKey1\":\"f\",\"inputKey2\":\"g\"}]",
+			    "input12": "[{\"inputKey1\":\"h\",\"inputKey2\":\"i\"},{\"inputKey1\":\"\",\"inputKey2\":\"j\"}]"
 			}
-			formDemo.init();
-		</script>
-	</body>
-</html>
+			rj.form.set($("#addOrUpdate")[0],data);
+			 //重置插件
+			rj.resetPlug();
+			rj.ztree("ztreeRadio","#ztree1",zNodes1);
+			rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
+			$(".js_sure").click(()=>{
+				let formJSON = rj.form.get($("#addOrUpdate")[0]);
+				alert(JSON.stringify(formJSON,null,4))
+			});
+		}
+	}
+	formDemo.init();
+</script>
