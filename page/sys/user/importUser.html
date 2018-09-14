@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form id="addOrUpdate" class="form-horizontal">
+		    <div class="form-group">
+		        <label class="col-sm-2 control-label">下载模板</label>
+		        <div class="col-sm-10">
+		            <a type="button" class="btn btn-link btn-sm" href="javascript:;">
+		            	<i class="iconfont icon-xiazai"></i>
+		            	用户模板.xlsx
+		            </a>
+		            <span class="help-block m-b-none"><i class="fa fa-info-circle"> 请按模板格式导入~</i></span>
+		        </div>
+		    </div>
+		    <div class="hr-line-dashed"></div>
+		    <div class="form-group">
+		        <label class="col-sm-2 control-label">导入方式</label>
+		        <div class="col-sm-10">
+					<div class="radio-inline">
+						<label><input class="icheck" checked="checked" type="radio" name="hobby"> 覆盖导入</label>
+					</div>
+		        	<div class="radio-inline">
+						<label><input class="icheck" type="radio" name="hobby"> 增量导入</label>
+					</div>
+		        </div>
+		    </div>
+		    <div class="hr-line-dashed"></div>
+		    <div class="form-group">
+		        <label class="col-sm-2 control-label">选择文件</label>
+		        <div class="col-sm-10">
+                    <input type="file" class="form-control" name="file">
+		        </div>
+		    </div>
+		    <div class="hr-line-dashed"></div>
+		    <div class="form-group">
+		        <div class="col-sm-12 text-center">
+		            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+		            <button class="btn btn-primary js_sure" type="submit">确定</button>
+		        </div>
+		    </div>
+		</form>
+	</body>
+</html>

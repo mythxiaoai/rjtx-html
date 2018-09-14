@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+	<body class="bg-gray">
+		<div class="p-md animated fadeInRight">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-white">
+						<div class="panel-heading">
+							<div class="panel-title">
+								菜单管理
+                        	</div>
+							<div class="panel-tools">
+	                            <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+	                                <i class="fa fa-chevron-up"></i>
+	                            </a>
+	                            <!-- <a class="close-link" href="javascript:;" data-dismiss="panel">
+	                                <i class="fa fa-times"></i>
+	                            </a> -->
+	                        </div>
+						</div>
+						<div class="panel-body collapsed in" id="panelContent">
+							<!--操作工具栏-->
+				     		<div id="toolbar" class="btn-group">
+					            <button type="button" onclick="auth.addOrUpdate('新增')" class="btn btn-default" title="新增">
+					                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+					            </button>
+					            
+					            <button type="button" class="btn btn-default js_del" title="删除">
+					                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 删除
+					            </button>
+					        </div>
+				     		<table id="table">
+				     		</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+<script>
+		//业务
+		var auth={
+			init:function(){
+				// this.list();		
+				this.del();
+				//列表数据
+				this.total_list();
+			},
+			total_list() {
+				rj.table.init({
+					id: "#table",
+					toolbar: "#toolbar",
+					data: [
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						},
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						},
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						},
+						{
+							"authName": "控制台",
+							"priority": 3,
+							"url": "http://127.0.0.1:5500/rjtx-html/index.html",
+							"createDate": "2018-01-10",
+							"remark": "测试",
+							"isEnabled": 0,
+							"authType": 0,
+						}
+					],
+					columns: [
+						{
+							checkbox: true, 
+						},
+						{
+							field: 'authName',
+							title: '菜单名称',
+						}, {
+							field: 'priority',
+							title: '菜单优先级',
+						},{
+							field: 'url',
+							title: '访问链接',
+							
+						}, {
+							field: 'createDate',
+							title: '创建时间',
+							formatter:function(value,row,index){
+								var newTime = new Date(value);
+								
+								return newTime.getFullYear() + "-" + (newTime.getMonth() + 1) + "-" + newTime.getDate();
+							}
+						},{
+							field: 'remark',
+							title: '备注'
+						},{
+							field: 'isEnabled',
+							title: '是否停用',
+							formatter:function(value,row,index){
+			                	return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+		                	}
+						},{
+							field: 'authType',
+							title: '权限类型',
+							formatter:function(value,row,index){
+			                	return value==0?"菜单权限":"功能权限";
+		                	}
+						},{
+							title: '操作',
+							formatter:function(value,row,index){ 
+								var str = row.isEnabled==0?'停用':'启用';
+								var status =row.isEnabled==0?1:0;
+			                	return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+			                }
+						}],
+				})
+			},
+			bulidTree(){
+				$.ajax({
+					url: "/auth/getTree",
+					dataType: "json",
+					type: "post",
+					data: {},
+					success: function(data) {
+						rj.ztree("ztreeRadio","#ztree1",data);
+					}}) 
+			},
+			addOrUpdate(title,id){
+				var $this=this;
+				rj.modal(
+					title,
+					"page/sys/auth/addOrUpdate.html",
+					()=>{
+						//初始化插件
+						rj.resetPlug();
+						//菜单下拉框
+						var zNodes1 =[
+							{id:4, pId:0, name:"项目管理"},
+							{id:41, pId:4, name:"项目管理"},
+							{id:5, pId:0, name:"系统管理"},
+							{id:51, pId:5, name:"角色管理"},
+							{id:52, pId:5, name:"用户管理"},
+							{id:53, pId:5, name:"菜单管理"},
+							{id:54, pId:5, name:"权限管理"},
+							{id:6, pId:0, name:"首页"},
+						];
+						rj.ztree("ztreeRadio","#ztree1",zNodes1); 
+						//做回显动作
+						if(id){
+							$.ajax({
+								url:"/auth/getAuthorityById",
+								dataType:"json",
+								type:"post",
+								data:{id:id},
+								success:function(data){
+									var name=['authId','authName',,'url','icon','priority','remark'];
+									for(let i=0;i<name.length;i++){
+										$("input[name='"+name[i]+"']").val(data[name[i]]);
+									}
+									$("input[name='isEnabled']").eq(data.isEnabled).attr("checked","checked");
+									$("input[name='authType']").eq(data.authType).attr('checked','checked');
+									$("input[name='parentId']").attr("data-value",data.parentId);
+									$this.bulidTree();
+									rj.resetPlug();
+								}
+							})
+						}else{
+							$this.bulidTree();
+						}
+					},
+					(dom)=>{
+						var $this=this;
+						$("#addOrUpdate").validate({
+							rules: {
+								priority: {
+									required: true,
+									digits: true
+								},
+								authName: {
+									required: true
+								},
+								url: {
+									required: true,
+	
+								}
+							},
+							submitHandler: function() {
+								//获取form表单数据
+								var data = getFromJson($("#addOrUpdate")[0]);
+								rj.ajax({
+										id: "#addOrUpdate",
+										type: "post",
+										url: data.authId ? "/auth/update" : "/auth/add",
+										data: data,
+									success: function(data1) {
+										xalert(data.msg,"",data.status==0?"success":"error");
+										$(".js_close").trigger("click");
+								    	$this._flush();
+									}
+								});
+							}
+						});
+					}
+				);
+			},
+			delOne:function(id){
+				xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！","warning",function(){
+					rj.ajax({
+						    type:"post",
+						    url:"/auth/delete",
+						    data:{id:id},
+						    success:function(data){
+								
+						    	auth._flush();
+						    }
+						});
+					
+				});
+			},
+			del:function(){
+				$("button[class='btn btn-default js_del']").click(function(){
+				var rowDate = $("#table").bootstrapTable('getAllSelections');
+				
+				if(rowDate.length==0){
+					xtip("selectLeastOne");
+				}else{
+					xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！","warning",function(){
+						//数据处理
+						var ids="";
+						$.each(rowDate, function(index,val) {
+							if(index!=rowDate.length-1){
+								ids+=val.authId+",";
+							}else{
+								ids+=val.authId;
+							}
+						});
+						rj.ajax({
+							type:"post",
+							url:"/auth/deleteall",
+							data:{"ids":ids},
+							success:function(data){
+								auth._flush();
+							}
+						});
+					});
+						
+				}
+				});
+				
+				
+			},
+			changestuts:function(id,status){
+				
+				xconfirm("是否更改状态","",null,function(){
+					rj.ajax({
+							type:"post",
+							url:"/auth/updatestatus",
+							data:{id:id,status:status},
+							success:function(data){
+								auth._flush();
+							}
+						});
+				})
+			},
+			list:function(){
+				$('#table').bootstrapTable({
+                    url: '/auth/init',
+		            striped: true,
+		            sidePagination: 'server',
+		            idField: 'authId',
+                   	toolbar: '#toolbar',
+                    treeShowField: 'authName',
+      				parentIdField: 'parentId',
+                    
+                    //idField: "authId",
+                    //treeField: "authName",
+                    columns: [{
+							checkbox: true,
+						},{
+							field: 'authName',
+							title: '菜单名称',
+						}, {
+							field: 'priority',
+							title: '菜单优先级',
+						},{
+							field: 'url',
+							title: '访问链接',
+							
+						}, {
+							field: 'createDate',
+							title: '创建时间',
+							formatter:function(value,row,index){
+								var newTime = new Date(value);
+								
+								return newTime.getFullYear() + "-" + (newTime.getMonth() + 1) + "-" + newTime.getDate();
+							}
+						},{
+							field: 'remark',
+							title: '备注'
+						},{
+							field: 'isEnabled',
+							title: '是否停用',
+							formatter:function(value,row,index){
+			                	return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+		                	}
+						},{
+							field: 'authType',
+							title: '权限类型',
+							formatter:function(value,row,index){
+			                	return value==0?"菜单权限":"功能权限";
+		                	}
+						},{
+							field: 'authId',
+							title: '操作',
+							formatter:function(value,row,index){ 
+								var str = row.isEnabled==0?'停用':'启用';
+								var status =row.isEnabled==0?1:0;
+			                	return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+			                }
+						}],
+						onLoadSuccess: function(data) {
+					        $('#table').treegrid({
+					          treeColumn: 1,
+					          onChange: function() {
+					            $("#table").bootstrapTable('resetWidth');
+					          }
+					        });
+      }
+              		});
+			},
+			_flush:function(){
+				$("#table").bootstrapTable('refresh');
+			},
+			
+		}
+		auth.init();
+		
+</script>
+	</body>
+</html>

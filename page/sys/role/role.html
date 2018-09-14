@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<body class="bg-gray">
+		<div class="p-md animated fadeInRight">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-white">
+						<div class="panel-heading">
+							<div class="panel-title">
+								角色管理
+                        	</div>
+							<div class="panel-tools">
+	                            <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+	                                <i class="fa fa-chevron-up"></i>
+	                            </a>
+	                        </div>
+                        </div>
+						<div class="panel-body collapsed in" id="panelContent">
+							<!--操作工具栏-->
+				     		<div id="toolbar" class="btn-group">
+					            <button type="button" onclick="role.addOrUpdate('新增角色')" class="btn btn-default" title="新增">
+					                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 新增
+					            </button>
+					        </div>
+				     		<table id="table"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+<script>
+	var role_name;//全局变量
+		//业务
+		var role={
+			init:function(){
+				//this.list();
+				//角色列表
+				this.table1_list();
+			},
+			table1_list() {
+				rj.table.init({
+					id: "#table",
+					toolbar: "#toolbar",
+					data: [
+						{
+							"num": '',
+							"role_name": "李思思",
+							"creator": "将军军",
+							"create_date": 2012,	
+							"modify_date": 2017,
+							"remark": "仅能各国各地",
+							"is_enabled": 0,
+						},
+						{
+							"num": '',
+							"role_name": "李思思",
+							"creator": "将军军",
+							"create_date": 2012,
+							"modify_date": 2017,
+							"remark": "仅能各国各地",
+							"is_enabled": 1,
+						},
+						
+					],
+					columns: [
+						{
+							field: 'num',
+							title: '序号',
+							formatter:function(value,row,index){
+			                	return index+1;
+			                }
+						}, {
+							field: 'role_name',
+							title: '角色名称'
+						}, {
+							field: 'creator',
+							title: '创建用户',
+						}, {
+							field: 'create_date',
+							title: '创建时间',
+						}, {
+							field: 'modify_date',
+							title: '修改时间'
+						}, {
+							field: 'remark',
+							title: '备注'
+						}, {
+							field: 'is_enabled',
+							title: '是否停用',
+							formatter:function(value,row,index){
+			                	return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+			                }
+						},{
+							title: '操作',
+							formatter:function(value,row,index){ 
+								var str = row.isEnabled==0?'停用':'启用';
+								var status =row.isEnabled==0?1:0;
+			                	return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+			                }
+						}],
+				})
+			},
+			bulidTree(url){
+				var $this = this;
+				$.ajax({
+					url : url,
+					dataType : "json",
+					async:false,
+					type : "post",
+					success : function(data) {
+						rj.ztree("ztreeCheckbox","#ztree3",data.list.data);
+					}
+				});
+			},
+			addOrUpdate:function(title,id)
+			{
+				var $this=this;
+				rj.modal(
+					title,
+					id==undefined?"page/sys/role/addOrUpdate.html?opt=add":("page/sys/role/addOrUpdate.html?opt=update"),
+					()=>{
+						//初始化插件
+						rj.resetPlug();	
+						//菜单配置下拉框
+						var zNodes1 =[
+							{id:4, pId:0, name:"项目管理"},
+							{id:41, pId:4, name:"项目管理"},
+							{id:5, pId:0, name:"系统管理"},
+							{id:51, pId:5, name:"角色管理"},
+							{id:52, pId:5, name:"用户管理"},
+							{id:53, pId:5, name:"菜单管理"},
+							{id:54, pId:5, name:"权限管理"},
+							{id:6, pId:0, name:"首页"},
+						 ];
+						 rj.ztree("ztreeCheckbox","#ztree3",zNodes1);
+
+					},
+					(dom)=>{
+						$("#addOrUpdate").validate({
+							//验证表单
+							rules: {
+					            roleName: {
+					                required: true,
+					            },
+					            authIds: {
+					                required: true,
+					            },
+					        },
+					        submitHandler: function () {
+								$(".js_close").trigger("click");
+					        }
+					    });
+					}
+				);
+			
+			},
+			del:function(){
+				var $this=this;
+				//$(".js_del").click(function(){
+					var rowDate = $("#table").bootstrapTable('getAllSelections');
+					if(rowDate.length==0){
+						xtip("selectLeastOne")
+					}else{
+						xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！",function(){
+							//数据处理
+							var ids="";
+							$.each(rowDate, function(index,val) {
+								if(index!=rowDate.length-1){
+									ids+=val.role_id+",";
+								}else{
+									ids+=val.role_id;
+								}
+							});
+							rj.ajax({
+							    type:"post",
+							    url:"/sys/role/deleteRole",
+				   				data:{"cole_id":ids},
+							    success:function(data){
+							    	$this._flush();
+							    }
+							});
+						});
+						
+					}
+				//});
+			},
+			list:function(){
+				rj.table.init({
+					id:"#table",
+					toolbar:"#toolbar",
+					url:'/sys/role/roleManager', 
+					uniqueId:"role_id",//作用是在tr上面加上主键  方便做修改和删除操作
+					sortName: "createDate",
+					queryParams:function(params) {
+						//将查询格式化
+						//var formdata= getFromJson($("#search")[0]);
+			            return{
+				            pageSize:params.limit,
+				          //  pageNum:(params.offset+params.limit)/params.limit,
+				          	pageNum : params.offset,
+				          	pageNo : params.offset, // 页码
+				            sortName:params.sort,//这里是读取sortName配置选项
+				            sortOrder:params.order,//默认是desc
+			            }
+		           },
+		           responseHandler:function(data){
+		           //	debugger;
+		        	   var rows=data.rows;
+		        	   role_name="";
+		        	   for(var i=0;i<rows.length;i++)
+		        		   {
+		        		   role_name=role_name+(rows[i].role_name)+",";
+		        		   }
+		        	   return data;
+		           },
+					columns: [{
+						checkbox: true
+						}, {
+							field: '',
+							title: '序号',
+							formatter:function(value,row,index){
+			                	return index+1;
+			                }
+						}, {
+							field: 'role_name',
+							title: '角色名称'
+						}, {
+							field: 'creator',
+							title: '创建用户',
+						}, {
+							field: 'create_date',
+							title: '创建时间',
+						}, {
+							field: 'creator',
+							title: '修改用户',
+						}, {
+							field: 'modify_date',
+							title: '修改时间'
+						}, {
+							field: 'remark',
+							title: '备注'
+						}, {
+							field: 'is_enabled',
+							title: '是否停用',
+							formatter:function(value,row,index){
+			                	return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+			                }
+						},{
+							field: 'role_id',
+							title: '操作',
+							formatter:function(value,row,index){
+								var v=value.split("-");
+								var html="";
+								var state=v[1]=='0'?"停用":"启用";
+								html+="<a href='javascript:;' id='"+v[0]+"'  onclick='role.updateOne(\""+value+"\")' class='btn btn-info btn-xs m-r-xs'>"
+										+state+"</a>";
+								html+="<a href='javascript:;' id='"+value+"' onclick='role.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs'>修改</a>";
+								//html+="<a href='javascript:;' id='"+v[0]+"' onclick='role.delOne(this.id)'  class='btn btn-danger btn-xs '>删除</a>";
+			                	if(v[0]=='system'){
+									html+="<a href='javascript:;' id='"+v[0]+"' disabled title='内置角色，不可删除' class='btn btn-danger btn-xs js_tooltip'>删除</a>";
+								}else{
+									html+="<a href='javascript:;' id='"+v[0]+"' onclick='role.delOne(this.id)'  class='btn btn-danger btn-xs '>删除</a>";
+								}
+
+			                	return html;
+			                }
+						}],
+				});
+			},
+			_flush:function(){
+				$("#table").bootstrapTable('refresh');
+			},
+			delOne:function(ids){
+				var $this = this;
+				xconfirm("确定删除？","删除后将无法恢复，请谨慎操作！",null,function(){
+					$this.delajax(ids);
+				});
+			},
+			delajax:function(ids){
+				var $this = this;
+				rj.ajax({
+				    type:"post",
+				    url:"/sys/role/deleteRole",
+				    data:{"cole_id":ids},
+				    success:function(data){
+				    	$this._flush();
+				    }
+				});
+			},
+			updateOne:function(value){
+				var $this=this;
+				$.ajax({
+					url : "/sys/role/update",
+					type : "post",
+					data : {
+						"msg" : value.split("-")[1],
+						"roleId" :value.split("-")[0]
+					},
+					dataType : "json",
+					success : function(data) {
+						xalert(data.msg,"","success");
+						$this._flush();
+					}
+				});
+			}
+		}
+		role.init();
+</script>
+</body>
+</html>

@@ -1,0 +1,574 @@
+<style>
+	.fixed-table-toolbar .dropdown-menu{
+		width: 150px;
+	}
+</style>
+<div class="p-m">
+	<div class="panel panel-white">
+		<div class="panel-heading">
+			<div class="panel-title">
+				用户管理
+        	</div>
+			<div class="panel-tools">
+                <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div>
+		</div>
+		<div class="panel-body collapsed in" id="panelContent">
+			<div class="row">
+				<div class="col-sm-3 js_leftResearch" style="z-index: 1;">
+					<!--左侧部门树 start-->
+					<div class="panel panel-white">
+						<div class="panel-heading">
+							<div class="panel-title">
+								<i class="iconfont icon-dept"></i> 组织结构
+	                    	</div>
+	                    	<div class="panel-tools">
+	                            <a class="toggleIcon js_icon" href="javascript:;" draggable="false">
+	                            	<i class="fa fa-angle-left"></i>
+	                            </a>
+	                        </div>
+						</div>
+						<div class="panel-body collapsed in input-group-sm">
+							<ul class="xztree" id="ztree1"></ul>
+						</div>
+					</div>
+					<!--end 左侧部门树-->
+				</div>
+				<div class="col-sm-9 js_rightContent">
+					<!--search start-->
+					<form id="search" class="form-inline fz12 fl">
+	   		            <div class="form-group m-r">
+			            	 <label class="fw-n">公司工号
+		                		<input type="text" placeholder="请输入真实姓名" name="name_work" class="form-control">
+			                </label>
+			            </div>
+	   		            <div class="form-group space-15">
+			            	 <label class="fw-n">用户名
+		                		<input type="text" placeholder="请输入用户名" name="name" class="form-control">
+			                </label>
+			            </div>
+	                    <div class="form-group m-b-xs">
+	                        <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                    </div>
+	                </form>
+	                <!--end search-->
+					<div id="toolbar" class="btn-group">
+						<button type="button" class="btn btn-default js_addOrUpdate" onclick="user.addOrUpdate('新增用户')">
+							<i class="iconfont icon-add"></i> 新增
+						</button>
+						 <button type="button" class="btn btn-default js_del" title="删除">
+						 	<i class="iconfont icon-shanchu" ></i> 删除
+						</button>
+		                <button type="button" class="btn btn-info js_importUser">
+							<i class="iconfont icon-shangchuan"></i> 上传用户数据
+						</button>
+					</div>
+					<table id="table"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var dept_id;//全局变量
+	var user  = {
+		init:function(){
+			//部门树
+			this.dept();
+			//左右切换
+			this.toggle();
+			//表格初始化
+			//this.tableInit();
+			//上传用户
+			this.importUser();
+			//删除
+			this.del();
+
+			//表格数据
+			this.table1_table();
+			//部门树total
+			this.treeInit();
+		},
+		table1_table() {
+			rj.table.init({
+				id: "#table",
+				toolbar: "#toolbar",
+				data: [
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+
+					},
+					{
+						"deptName": 007,//项目
+						"companyWorking": 33233,//工号
+						"userName": "张三",//用户名
+						"isAdmin": "IT",//职位
+						"mailbox": "z55555@qq.com",//邮箱
+						"mobile": 13390902223,//手机号
+						// "userId": ""//操作
+					},
+				],
+				columns: [
+					{
+						checkbox: true 
+					},
+					{
+						field: 'deptName',
+						title: '项目'
+					},
+					{
+						field: 'companyWorking',
+						title: '工号'
+					},
+					{
+						field: 'userName',
+						title: '用户名'
+					},
+					{
+						field: 'isAdmin',
+						title: '职位'
+					},
+					{
+						field: 'mailbox',
+						title: '邮箱'
+					},
+					{
+						field: 'mobile',
+						title: '手机号'
+					},
+					{
+						// field: 'userId',
+						title: '操作',
+						formatter:function(value,row,index){ 
+								var str = row.isEnabled==0?'停用':'启用';
+								var status =row.isEnabled==0?1:0;
+			                	return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+			                	"<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+			                }
+					}
+				]
+			});	
+		},
+		treeInit() {
+			var zNodes = [
+				{ id:1, pId:0, name: "aNode 1"},
+				{ id:112, pId:1, name: "aNode 1-1"},
+				{ id:1113, pId:112, name: "aNode 1-1-1"},
+				{ id:1114, pId:112, name: "aNode 1-1-1"},
+				{ id:1115, pId:112, name: "aNode 1-1-1"},
+				{ id:1116, pId:112, name: "aNode 1-1-1"},
+				{ id:2, pId:4, name: "bNode 2"},
+				{ id:221, pId:2, name: "bNode 2-1"},
+				{ id:2221, pId:221, name: "bNode 2-1-1"},
+				{ id:3, pId:0, name: "cNode 1"},
+				{ id:333, pId:3, name: "cNode 1-1"},
+				{ id:3333, pId:333, name: "cNode 3-1-1"},
+				{ id:3334, pId:333, name: "cNode 3-1-1"},
+				{ id:3335, pId:333, name: "cNode 3-1-1"},
+				{ id:3336, pId:333, name: "cNode 3-1-1"},
+			];
+			rj.ztree("ztree","#ztree1",zNodes,{callback: {
+				onClick:function(event, treeId, treeNode) {
+				}
+			}})
+		},
+		getFileSilce:function(start,file,blockSize){
+			var end=parseInt(start)+parseInt(blockSize);
+			if(file.size<end)
+				end=file.size;
+			return {"FileBlock":file.slice(start,end),"size":end,"finishFileSize":start};
+	   },
+		fileChange:function(start,file,data){
+			   let $this =this;
+				data.append("type","1");
+				data.append("fileSize",file.size);
+//					 debugger;
+				if(start>=file.size){	
+					//回调函数
+					return  ;
+				}
+				var blockData= $this.getFileSilce(start,file,1024*1024*1);
+				data.append("finishFileSize",blockData.finishFileSize);
+				data.append("file",blockData.FileBlock);
+				data.append("isFinish",0);
+				data.append("fileName",file.name);
+				var inport_mode = $("input[name='importState']:checked").val() ;
+				data.append("importState",inport_mode);
+				$this.uploadFile(data,file);
+		},
+		uploadFile:function(formData,file){
+//				 debugger;
+			let $this =this;
+				$.ajax({
+					type: "post",
+					url: "/file/FileUpload/gd/update",
+					data: formData,
+					dataType: "json",
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function(data) {
+						/*formData=new FormData();
+						var start=0;
+						if(data.data!=null){
+							data=data.data;
+							formData.append("id",data.id);
+							start=data.finishFileSize;
+							formData.append("path",data.path);	
+							$this.fileChange(start,file,formData);
+						}else{
+							xalert("温馨提示","上传出现异常，请按照模板上传","error");
+						}*/
+						xalert(data.msg,"",data.status==0?"success":"error");
+					},
+					error: function(data) {
+						xalert("出错啦", data.responseText, "error");
+					}
+				});
+		},
+		importUser(){
+			let $this =this;
+			$(".js_importUser").click(()=>{
+				rj.modal("上传用户数据",
+				"./page/sys/user/import.html",
+				()=>{
+					rj.resetPlug();
+				},
+				(dom)=>{
+					$("#addOrUpdate").validate({
+				        rules: {
+				            file: {
+				                required: true
+				            },
+				        },
+				        messages: {
+				             file: {
+				                required:v_icon+"请选择上传的文件~"
+				            }
+				        },
+				        submitHandler: function () {
+				         	//获取form表单数据
+//					         	校验成功:{"hobby":"0","file":"C:\\fakepath\\不正确.xlsx","":"不正确.xlsx"}
+							var data= getFromJson($("#addOrUpdate")[0]);
+//								alert("校验成功:"+JSON.stringify(data))
+						   var files = $("input[name=file]")[0].files;
+				           $("#upload").attr("disabled", true); 
+				           debugger;
+				             //获取file
+				           $this.fileChange(0,files[0],new FormData());
+
+				        }
+				    });
+				});
+			});
+		},
+		addOrUpdate(title,id){
+			var $this=this;
+			rj.modal(
+				title,
+				"./page/sys/user/addOrUpdate.html",
+				()=>{
+					//初始化插件
+					rj.resetPlug();
+					var zNodes1 =[
+						{id:4, pId:0, name:"润健通讯"},
+						{id:41, pId:4, name:"交付部领导"},
+						{id:42, pId:41, name:"广东项目部"},
+						{id:43, pId:42, name:"深圳项目"},
+						{id:44, pId:42, name:"佛山项目"},
+						{id:5, pId:0, name:"研发部"},
+						{id:51, pId:5, name:"研发部1"},
+						{id:52, pId:5, name:"研发部2"},
+						{id:53, pId:5, name:"研发部3"},
+						{id:54, pId:5, name:"研发部4"},
+						{id:6, pId:0, name:"行政部"},
+						{id:61, pId:6, name:"行政部1"},
+						{id:62, pId:6, name:"行政部2"},
+						{id:63, pId:6, name:"行政部3"},
+						{id:64, pId:6, name:"行政部4"}
+					 ];
+					rj.ztree("ztreeRadio","#ztree3",zNodes1);
+					// $(".js_h_hide").hide();
+// 					//做回显动作
+				},
+				(dom)=>{
+					$("#addOrUpdate").validate({
+				        rules: {
+				        	companyWorking: {required: true},    // 工号
+				            userName: {required: true},    // 用户名
+				            jobTitle: {required: true},    // 职位
+				            mobile:{ 
+				            	required : true,
+								tel : true,
+						    },
+				            mailbox : {
+								required : true,
+								isMyEmial : true,
+							},
+				        },
+				        messages: {
+				             
+				        },
+				        submitHandler: function () {
+							let data= getFromJson($("#addOrUpdate")[0]);
+				        }
+				    });
+				}
+			);
+			
+		},
+		dept:function(){
+			let $this =this;
+	        var zNodes =[];
+	        let ztreeObj = rj.ztree("ztree","#ztree1",zNodes,{callback:{
+        		onClick:function(event, treeId, treeNode){
+//	        			alert(treeNode.name);
+                  if(event.ctrlKey==true)return false;//当按住ctrlkey的时候不触发下面的事件
+		           dept_id=treeNode.id;
+		           dept_pid=treeNode.pId;
+		           level=treeNode.level;
+		           $this._flush();
+        		}
+        	}});
+        	ztreeObj.expandAll(true);
+		},
+		toggle:function(){
+			rj.toggleAnimate({
+				triggerDom:".js_icon",
+				targetDom:[".js_leftResearch",".js_rightContent"],
+				triggerToggleClass:["active",""],
+				targetToggleAttr:[{"marginLeft":["-24%","0"]},{"width":["98%","74%"]}],
+				targetToggleClass:[["shake-horizontal-slow shake-constant shake-constant--hover",""]],
+				targetToggleFunction:[function (){
+					$(".panel-body").css("overflow","hidden");
+				},function (){
+					$(".panel-body").css("overflow","visible");
+				}]
+			});
+		},
+		_flush:function(){
+			$("#table").bootstrapTable('refresh');
+		},
+		tableInit(){
+			rj.table.init({
+				id:"#table",
+				toolbar:"#toolbar",
+				url:'/sys/user/list', 
+				uniqueId:"userId",//作用是在tr上面加上主键  方便做修改和删除操作
+				showColumns: true, //是否显示所有的列
+				minimumCountColumns: 2, //最少允许的列数
+				sortName: "company_working",
+				columns:[
+				    {
+					checkbox: true 
+					},
+					{
+						field: 'deptName',
+						title: '项目'
+					}, {
+						field: 'companyWorking',
+						title: '工号'
+					},{
+						field: 'userName',
+						title: '用户名'
+					}, {
+						field: 'isAdmin',
+						title: '职位',
+						formatter(value,row,index){
+							return value==-1?'项目人员':'管理员';
+						}
+					}, {
+						field: 'mailbox',
+						title: '邮箱'
+					}, {
+						field: 'mobile',
+						title: '手机号'
+					},{
+						field: 'grid',
+						visible: false,
+						title: '责任网格'
+					},{
+						field: 'casting',
+						visible: false,
+						title: '外部账号角色'
+					},{
+						
+						field: 'problemType',
+						title: '问题点类型',
+						visible: false,
+						formatter:function(value,row,index){
+							if(value!=undefined)
+								return "<div style='width:200px'>"+value+"</div>";
+		               }
+					},{
+						field: 'custom1',
+						visible: false,
+						title: '自定义1'
+					},{
+						field: 'custom2',
+						title: '自定义2',
+						visible: false
+					},{
+						field: 'relevancyAccount',
+						title: '关联账号',
+						visible: false,
+						formatter:function(value,row,index){
+							var html ="";
+							if(value!=undefined)
+							$.each(value.split(","), function() {
+								html+=" <span class='label label-info m-b-xs m-r-xs inline-block'>"+this+"</span>";
+							});
+							return "<div >"+html+"</div>";
+		               }
+					},{
+						field: 'relevancyPwd',
+						title: '关联密码',
+						visible: false,
+						formatter:function(value,row,index){
+							var html ="";
+							if(value!=undefined)
+							$.each(value.split(","), function() {
+								html+=" <span class='label label-info m-b-xs m-r-xs inline-block'>"+this+"</span>";
+							});
+							return "<div>"+html+"</div>";
+		               }
+					},
+					{
+						field:'userId',
+						title: '操作',
+						formatter(value,row,index){
+							/*<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="user.addOrUpdate('修改用户','${row.userId}')">修改</a>*/
+							return `
+							<div style='width:110px'><a href="javascript:;" class="btn btn-danger btn-xs m-r-xs" onclick="user.delOne('${row.userId}')">删除</a>
+							<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="user.resetPass('${row.userId}')">重置密码</a>
+							</div>`;
+						}
+					}],
+			});
+		},
+
+		resetPass(id){
+			console.log(id);
+			let $this =this;
+			xconfirm("确定是否重置密码？","重置后密码将返回初始密码 rjtx123456",null,function(){
+		       	if (id == "") {
+		        	xalert("请选择要重置的用户");
+		        	return;
+		       	}
+		       	rj.ajax({
+		       		msg:"none",
+				    type:"post",
+				    url:"/sys/user/resetPwd",
+				    data:{"userId":id},
+				    success:function(data){
+				    	   $this._flush();
+				    }
+				});
+			});
+		},
+		//删除用户
+		del(){
+			let $this=this;
+			$(".js_search").click(function(){
+				$this._flush();
+			});
+			$(".js_del").click(function(){
+				var rowDate = $("#table").bootstrapTable('getAllSelections');
+				if(rowDate.length==0){
+					xtip("selectLeastOne")
+				}else{
+					xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！",null,function(){
+						//数据处理
+						var ids="";
+						$.each(rowDate, function(index,val) {
+							if(index!=rowDate.length-1){
+								ids+=val.userId+",";
+							}else{
+								ids+=val.userId;
+							}
+						});
+						$this.delajax(ids);
+					});
+				}
+			});
+		},
+		
+		
+		//删除一行
+		delOne(ids){
+			let $this = this;
+			xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！",null,function(){
+				$this.delajax(ids);
+			});
+		},
+		//删除
+		delajax:function(ids){
+			let $this = this;
+			rj.ajax({
+				msg:"none",
+			    type:"post",
+			    url:"/sys/user/deleteUser",
+			    data:{"ids":ids},
+			    success:function(data){
+			    	$this._flush();
+			    }
+			});
+		}
+	
+	}
+	user.init()
+</script>

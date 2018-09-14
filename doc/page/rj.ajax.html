@@ -1,0 +1,181 @@
+<style>
+	.CodeMirror{
+		height: auto;
+		border-radius: 3px;
+	}
+	.doc p{
+		text-align: justify;
+		line-height: 2;
+		font-size: 13px;
+	}
+	.doc table th{
+		color: #fff;
+	    background-color: #555;
+	    border: none!important;
+	}
+	.doc h4,.doc .h4,.doc h5,.doc .h5,.doc h6,.doc .h6 {
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	}
+	.doc .run_btn{
+		position: absolute;
+		top: 5px;
+		right: 20px;
+		padding: 4px 15px;
+		z-index: 10;
+	}
+</style>
+<div class="p-m animated fadeInRight doc">
+	<div class="panel-body">
+		<div class="page-header">
+			<h3>ajax({opts})</h3>
+		</div>
+		<h5>概述:</h5>
+		<p>
+			在实际开发过程中ajax很常用,但是通常在新增和修改发起前需要在对应的ajax加载数据区域需要加上友好的loading，ajax发送完成后需要判断成功还是失败，成功或者失败需要把信息呈现在前台下面说下具体的优点：<br/>
+			1.融合插件  loading.js和sweetAlert.js  可配置loading和操作成功后的提示<br/>
+			2.支持promise  调用ajax1().then(ajax2).then(ajax3) 控制ajax请求的顺序!详情请看js  es6 Promise承诺<br/>
+			3.对所有ajax的返回结果错误和成功集中处理。
+		</p>
+		<h5>参数:</h5>
+		<table class="table table-bordered table-striped table-hover">
+			<tbody>
+				<tr>
+					<th>名称</th>
+					<th>说明</th>
+					<th>类型</th>
+					<th>可选值</th>
+					<th>默认值</th>
+				</tr>
+				<tr>
+					<td>url</td>
+					<td>规定发送请求的 URL</td>
+					<td>string</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>type</td>
+					<td>请求类型</td>
+					<td>string </td>
+					<td>post/get</td>
+					<td>post</td>
+				</tr>
+				<tr>
+					<td>async</td>
+					<td>是否同步</td>
+					<td>boolean</td>
+					<td>true/false true同步，false异步</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td>loading</td>
+					<td>会在请求的过程中给这个选择器元素添加loading效果</td>
+					<td>string</td>
+					<td>格式为jquery选择器</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>msg</td>
+					<td>默认请求成功后返回值有msg的key且有值则弹出消息框,设置为false则不会弹出 </td>
+					<td>boolean</td>
+					<td>false</td>
+					<td>true</td>
+				</tr>
+				<tr>
+					<td>data</td>
+					<td>规定要发送到服务器的数据。</td>
+					<td>json</td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>beforeSend</td>
+					<td>发送前的回调函数。</td>
+					<td>fn(xhr) xhr:xhr对象 </td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>success</td>
+					<td>当请求成功时运行的函数。</td>
+					<td>fn(data) data:返回成功的json值 </td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>error</td>
+					<td>如果请求失败要运行的函数。</td>
+					<td>fn(xhr) xhr:xhr对象</td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+		<h5>事例:</h5>
+		<div class="row m-b">
+			<div class="col-md-6">
+				<textarea class="code js_code"></textarea>
+				<a href="javascript:;" class="btn btn-primary btn-xs run_btn">运行</a>
+			</div>
+			<div class="col-md-6">
+				<div class="js_runner">
+					我就是.js_runner区域
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var template = {
+		opts:{
+			urlArr:[
+				"./demo/ajax.html",
+			],
+			cmarr:[]
+		},
+		init(){
+			//cm初始化
+			this.codeMirrorInit();
+			console.log(this.opts.cmarr)
+			//内容填充
+			this.contentInit();
+			//运行事件
+			this.runClick();
+		},
+		codeMirrorInit(){
+			let $this = this;
+			$(".js_code").each(function(index,val){
+				$this.opts.cmarr[index] = CodeMirror.fromTextArea(val, {
+				    lineNumbers: true,
+				    mode: "htmlmixed",
+				    styleActiveLine: true,
+					matchBrackets: true,
+					autoCloseBrackets: true,
+				    theme:"abcdef",
+				    showCursorWhenSelecting: true,
+				   	scrollbarStyle: "simple"
+				  });
+			});
+		},
+		contentInit(){
+			let $this = this;
+			$.each(this.opts.urlArr, function(index,val) {
+				$.ajax(val).then(function(data){
+					$this.opts.cmarr[index].setValue(data);
+					$(".js_runner").eq(index).html(data);
+				});
+			});
+		},
+		runClick(){
+			let $this = this;
+			$(".run_btn").each(function(index,val){
+				$(val).click(function(){
+					let html = $this.opts.cmarr[index].getValue();
+					$(".js_runner").eq(index).html(html);
+				});
+			});
+		}
+	}
+	template.init();
+</script>

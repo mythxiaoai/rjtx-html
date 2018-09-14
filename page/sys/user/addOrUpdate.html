@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<form id="addOrUpdate" class="form-horizontal">
+		    <div class="form-group">
+		        <label class="col-sm-2 control-label">用户名(工号)</label>
+		        <div class="col-sm-10">
+		            <input type="text" autofocus="autofocus" class="form-control" placeholder="请输入公司工号,初始密码为rjtx123456" name="companyWorking">
+		            <input type="hidden" name="password" value="rjtx123456">
+		           	<input type="hidden" name="userId" value="">
+		        </div>
+		    </div>
+		    <div class="hr-line-dashed"></div>
+		    <div class="form-group">
+		        <label class="col-sm-2 control-label">用户姓名</label>
+		        <div class="col-sm-10">
+		            <input type="text"class="form-control" placeholder="请输入真实姓名" name="userName">  
+		        </div>
+		    </div>
+		    <div class="hr-line-dashed"></div>
+		    <div class="form-group">
+		        <label class="col-sm-2 control-label">部门</label>
+		        <div class="col-sm-10">
+		            <input class="form-control" id="ztree3"name="item" type="text"/><!-- data-value="54"-->
+		        </div>
+		    </div>
+		    <div class="hr-line-dashed"></div>
+		    <div class="js_h_hide">
+			    <div class="form-group">
+			        <label class="col-sm-2 control-label">职位</label>
+			        <div class="col-sm-10">
+			        		<select id= "jobTitle" name="jobTitle" class="form-control chosen-select" >
+							     <option value="生产项目经理">生产项目经理</option>
+							      <option value="项目组员">项目组员</option>
+							</select> 
+			        </div>
+			    </div>
+			    <div class="hr-line-dashed"></div>
+		    </div>
+		    <div class="form-group">
+		        <label class="col-sm-2 control-label">联系方式</label>
+		        <div class="col-sm-5">
+		       		<input type="text" class="form-control" placeholder="请输入手机号" name="mobile">
+		         </div>
+		         <div class="col-sm-5">
+		      		<input type="text" class="form-control" placeholder="请输入邮箱" name="mailbox">
+		         </div>
+		    </div>
+		     <div class="hr-line-dashed"></div>
+		    <div class="js_h_hide">
+			    <div class="form-group">
+			        <label class="col-sm-3 control-label text-info" style="text-align: left;">外部关联数据</label>
+			        <div class="col-sm-5">
+			            
+			        </div>
+			    </div>
+			    <div class="form-group ">
+			        <label class="col-sm-2 control-label">角色</label>
+			        <div class="col-sm-10">
+			        		<select name="casting" class="form-control chosen-select" >
+							     <option value="">--请选择--</option>
+							     <option value="市优化网格组员">市优化网格组员</option>
+							     <option value="市优化现场实施人员">市优化现场实施人员</option>   
+							</select> 
+			        </div>
+			    </div>
+			    <div class="hr-line-dashed"></div>
+			   	 <div class="form-group">
+			        <label class="col-sm-2 control-label">网络优化</label>
+			        <div class="col-sm-10">
+			            <input type="text" autocomplete="off" class="form-control" placeholder="" name="refine">
+			        </div>
+			    </div>
+			    <div class="hr-line-dashed"></div>
+			   	<div class="form-group">
+			        <label class="col-sm-2 control-label">责任网络</label>
+			        <div class="col-sm-10"><!--+2是为了border-->
+			        	<textarea class="form-control"  name ="grid" oninput="this.style.height=(this.scrollHeight+2)+'px'"></textarea>
+			        </div>
+			    </div>
+			    <div class="hr-line-dashed"></div>
+			   	<div class="form-group">
+			        <label class="col-sm-2 control-label">问题点类型</label>
+			        <div class="col-sm-10"><!--+2是为了border-->
+			        	<textarea class="form-control" name="problemType" oninput="this.style.height=(this.scrollHeight+2)+'px'"></textarea>
+			        </div>
+			    </div>
+			     <div class="hr-line-dashed"></div>
+			   	<div class="form-group">
+			        <label class="col-sm-2 control-label">自定义1</label>
+			        <div class="col-sm-10"><!--+2是为了border-->
+			        	<textarea class="form-control" name="custom1" oninput="this.style.height=(this.scrollHeight+2)+'px'"></textarea>
+			        </div>
+			    </div>
+			     <div class="hr-line-dashed"></div>
+			   	<div class="form-group">
+			        <label class="col-sm-2 control-label">自定义2</label>
+			        <div class="col-sm-10"><!--+2是为了border-->
+			        	<textarea class="form-control" name="custom2" oninput="this.style.height=(this.scrollHeight+2)+'px'"></textarea>
+			        </div>
+			    </div>
+			    <div class="hr-line-dashed"></div>
+			    <div class="form-group">
+			        <label class="col-sm-2 control-label">关联账号</label>
+			        <div class="col-sm-10 rj_toggleRow" data-name="accounts">
+			        	<div class="row m-b-xs rj_toggleRow_item">
+			        		<div class="col-sm-5">
+					       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="relevancyAccount">
+					         </div>
+					         <div class="col-sm-5">
+					      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="relevancyPwd">
+					         </div>
+					         <div class="col-sm-2 p-none">
+					         	<div class="btn-group btn-group-xs m-t-xs">
+					         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
+					         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+					         	</div>
+					         </div>
+			        	</div>
+			        </div>
+			    </div>
+			    <div class="hr-line-dashed"></div>
+			</div>
+		    <div class="form-group">
+		        <div class="col-sm-12 text-center">
+		            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+		            <button class="btn btn-primary js_sure" type="submit">确定</button>
+		        </div>
+		    </div>
+		</form>
+	</body>
+	<script type="text/javascript">
+		jQuery.validator.addMethod("isMyEmial", function(value, element) {   
+		    var tel = /^\w+((-\w+)|(\.\w+))*\@139.com$/;
+		    return this.optional(element) || (tel.test(value));
+		}, "请正确填写您的139邮箱");
+		function onchange(){
+			console.log($("[name='item']").val())
+		}
+		var setting={
+				view: {
+					dblClickExpand: false,
+					showLine: false,
+					showIcon:false
+				},
+				data: {
+					simpleData: {
+						enable: true
+					}
+				},
+				check:{
+					enable:true,
+					chkStyle: "radio",
+					radioType: "all",
+				},
+				callback: {
+					onClick:function(e, treeId, treeNode){
+						if(treeNode.isParent){
+							$("#"+treeNode.tId+"_switch").trigger("click");
+						}else{
+							$("#"+treeNode.tId+"_check").trigger("click");
+						}
+					},
+					onCheck: function(e, treeId, treeNode){
+						if(treeNode.checked){
+							$("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().attr("value",treeNode.name).prev().attr("value",treeNode.id)
+						}else{
+							$("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().attr("value","").prev().attr("value","")
+						}
+						if(treeNode.level_a>=2){
+							$(".js_h_hide").slideDown()
+						}else{
+							$(".js_h_hide").slideUp()
+						}
+					}
+				}
+			};
+	</script>
+</html>
