@@ -852,8 +852,10 @@ rj.form.get($("#addOrUpdate")[0]);
 								}
 							},
 							onCheck: function(e, treeId, treeNode){
+							  let html = treeNode.name;
+							  html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
 								if(treeNode.checked){
-									$("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val(treeNode.name).prev().val(treeNode.id)
+									$("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val(html).prev().val(treeNode.id)
 								}else{
 									$("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val("").prev().val("")
 								}
@@ -901,6 +903,8 @@ rj.form.get($("#addOrUpdate")[0]);
 											ids+=node.id;
 										}
 								});
+								//search标签的处理
+								html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
 								$("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(sublen>0?("("+sublen+"个)"+html):"").prev().val(ids);
 							}
 						}
