@@ -510,7 +510,7 @@
 		        	return;
 		       	}
 		       	rj.ajax({
-		       		msg:"none",
+		       		msg: false,
 				    type:"post",
 				    url:"/sys/user/resetPwd",
 				    data:{"userId":id},
@@ -559,7 +559,7 @@
 		delajax:function(ids){
 			let $this = this;
 			rj.ajax({
-				msg:"none",
+				msg: false,
 			    type:"post",
 			    url:"/sys/user/deleteUser",
 			    data:{"ids":ids},
