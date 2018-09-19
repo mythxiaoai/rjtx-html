@@ -260,16 +260,16 @@
 					rj.load(".js_home_content",window.location.hash.slice(1)+".html",$this.callback||null);
 				}else{
 					$this.cssDeal();
-					rj.load(".js_home_content",$this.home);
+					rj.load(".js_home_content",$this.home,$this.callback||null);
 				}
 			}
 			if(!window.location.hash){
 				//默认页面设置
 				$this.cssDeal();
-				rj.load(".js_home_content",$this.home);
+				rj.load(".js_home_content",$this.home,$this.callback||null);
 			}else{
 				$this.cssDeal();
-				rj.load(".js_home_content",window.location.hash.slice(1)+".html");
+				rj.load(".js_home_content",window.location.hash.slice(1)+".html",$this.callback||null);
 			}
 		},
 		jumpMenu(url,callback){
@@ -280,7 +280,7 @@
 					hash=url;
 				}
 			}
-			this.callback = callback;
+			this.callback = callback||this.callback;
 			window.location.hash = "#"+hash;
 		},
 		cssDeal(){
