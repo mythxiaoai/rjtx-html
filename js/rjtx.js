@@ -267,6 +267,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				 $('body').tooltip({
 				  selector: '.js_tooltip',
 				  //placement:"auto",
+				  container:"body"
 				});
 			}
 			//file框
@@ -1003,6 +1004,7 @@ rj.form.get($("#addOrUpdate")[0]);
 		},
 		toggleRow:{
 			//初始化 做新增表单时 默认值是空  后期有默认值在拓展
+			instances:[],
 			init(){
 				/*
 				.rj_toggleRow     data-name data-value
@@ -1013,119 +1015,148 @@ rj.form.get($("#addOrUpdate")[0]);
 				*/
 				let $this = this;
 				$.each($(".rj_toggleRow"), function(index,rowDom) {
-					let opts ={};
-					//复制 赋值defaultKey  itemHtml
-					opts = $this._cloneDom(rowDom,opts);
-					//创建隐藏域
-					$this._createInput(rowDom,opts);
-					//判断是否有初始值
-					$this._isStartValue(rowDom,opts);
-					//控制删除建
-					$this._controlDel(rowDom);
-					//value赋值
-					$this._synValue(rowDom,opts);
-					//表单绑定事件
-					$this._bindChange(rowDom,opts);
-					//新增
-					$(rowDom).on("click",".rj_toggleRow_add",function(){
-						$(rowDom).append(opts.itemHtml);
-						$this._controlDel(rowDom);
-						$this._synValue(rowDom,opts);
-					});
-					//删除
-					$(rowDom).on("click",".rj_toggleRow_del",function(){
-						$(this).closest(".rj_toggleRow_item").remove();
-						$this._controlDel(rowDom);
-						$this._synValue(rowDom,opts);
-					});
+				  $this.instances.push($this.getInstance(rowDom));
 				});
 			},
-			_cloneDom(rowDom,opts){
-				opts.defaultKey=[];
-				opts.itemHtml="";
-				let cloneDom =$(rowDom).find(".rj_toggleRow_item").eq(0);
-				$(cloneDom).find(".rj_toggleRow_input").each(function(index,inputDom){
-					opts.defaultKey.push(inputDom.name);
-					$(inputDom).removeAttr("name");
-				});
-				opts.itemHtml = $(cloneDom).prop("outerHTML");
-				return opts;
+			destroy(){
+			  for(let ins of this.instances){
+			    ins.destroy();
+			  }
 			},
-			_createInput(rowDom,opts){
-				let name =$(rowDom).data("name")||"defaultKey";
-				$(rowDom).before(`<input type="hidden" name="${name}"/>`);
-			},
-			_synValue(rowDom,opts){
-				opts.valueJSON=[];
-				$.each($(rowDom).children(),function(itemIndex,itemDom) {
-					//item
-					let obj = {};
-					$(itemDom).find(".rj_toggleRow_input").each(function(inputIndex,inputDom){
-						obj[opts.defaultKey[inputIndex]]=$(inputDom).val();
-					});
-					//是否值全部为空  true表示有值  false表示没值
-					function isHasValue(obj){
-						for(let key in obj){
-							if(obj[key]){
-								return true;
-							}else{
-								if(obj[key]===0||obj[key]==="0"){
-									return true;
-								}
-							}
-						}
-						return false;
-					}
-					if(isHasValue(obj)){
-						opts.valueJSON.push(obj);
-					}
-				});
-				$(rowDom).data("value",opts.valueJSON);
-				if(opts.valueJSON.length>0){
-					$(rowDom).prev().val(JSON.stringify(opts.valueJSON));
-				}else{
-					$(rowDom).prev().val("");
-				}
-				return opts;
-			},
-			_bindChange(rowDom,opts){
-				let $this = this;
-				$(rowDom).on("change",".rj_toggleRow_input",function(){
-					$this._synValue(rowDom,opts);
-				});
-			},
-			_isStartValue(rowDom,opts){
-				if($(rowDom).data("value")){
-					let data = $(rowDom).data("value");
-					if(typeof data =="string"){
-						try{
-							data = JSON.parse(data)
-						}catch(e){
-							console.error("rj.toggleRow组件 data-value的格式错误~")
-							return false;
-						}
-					}
-					$(rowDom).children().remove();
-					for(let i in data){
-						let $itemHtml = $(opts.itemHtml);
-						$itemHtml.find(".rj_toggleRow_input").each(function(inputIndex,inputDom){
-							if(data[i][opts.defaultKey[inputIndex]]!=undefined){
-								$(inputDom).val(data[i][opts.defaultKey[inputIndex]]);
-							}else{
-								console.error(`rj.toggleRow组件 ${opts.defaultKey[inputIndex]}:在数据源的key与name为该值的表单控件没有对应项`)
-							}
-						});
-						$(rowDom).append($itemHtml)
-					}
-				}
-			},
-			_controlDel(rowDom){
-				//样式
-				if($(rowDom).children().length==1){
-					$(rowDom).find(".rj_toggleRow_del").addClass("hide");
-				}else{
-					$(rowDom).children().eq(0).find(".rj_toggleRow_del").removeClass("hide");
-				}
+			getInstance(rowDom){
+			  class  Togglerow{
+			    constructor(rowDom){
+			      this.rowDom = rowDom
+			      this.opts = {};
+			      this.init();
+			    }
+			    destroy() {
+            //清除按钮点击事件
+            $(this.rowDom).unbind("click change");
+            $(this.rowDom).data("name","")
+            $(this.rowDom).data("value","")
+            this.opts.hiddenInput.remove();
+            $(this.rowDom).html(this.opts.oldItemHtml);
+          }
+			    init(){
+			      //复制 赋值defaultKey  itemHtml
+			      this.cloneDom();
+			      //创建隐藏
+			      this.createInput();
+			      //判断是否有初始值
+			      this.isStartValue();
+			      //控制删除建
+			      this.controlDel();
+			      //value赋值
+			      this.synValue();
+			       //表单绑定事件
+			      this.bindChange();
+			      //绑定按钮点击
+			      this.bindBtnClick();
+			    }
+			    cloneDom(){
+			      this.opts.defaultKey=[];
+            this.opts.itemHtml="";
+            let cloneDom = $(this.rowDom).find(".rj_toggleRow_item").eq(0);
+            this.opts.oldItemHtml = $(cloneDom).prop("outerHTML");
+            $(cloneDom).find(".rj_toggleRow_input").each((index,inputDom)=>{
+              this.opts.defaultKey.push(inputDom.name);
+              $(inputDom).removeAttr("name");
+            });
+            this.opts.itemHtml = $(cloneDom).prop("outerHTML");
+			    }
+			    createInput(){
+			      let name = $(this.rowDom).data("name") || "defaultKey";
+			      this.opts.hiddenInput = $(`<input type="hidden" name="${name}"/>`)
+			      $(this.rowDom).before(this.opts.hiddenInput);
+			    }
+			    controlDel(){
+			      //样式
+			      if($(this.rowDom).children().length == 1) {
+			        $(this.rowDom).find(".rj_toggleRow_del").addClass("hide");
+			      } else {
+			        $(this.rowDom).children().eq(0).find(".rj_toggleRow_del").removeClass("hide");
+			      }
+			    }
+			    synValue(){
+			      this.opts.valueJSON=[];
+            $.each($(this.rowDom).children(),(itemIndex,itemDom)=>{
+              //item
+              let obj = {};
+              $(itemDom).find(".rj_toggleRow_input").each((inputIndex,inputDom)=>{
+                obj[this.opts.defaultKey[inputIndex]]=$(inputDom).val();
+              });
+              //是否值全部为空  true表示有值  false表示没值
+              function isHasValue(obj){
+                for(let key in obj){
+                  if(obj[key]){
+                    return true;
+                  }else{
+                    if(obj[key]===0||obj[key]==="0"){
+                      return true;
+                    }
+                  }
+                }
+                return false;
+              }
+              if(isHasValue(obj)){
+                this.opts.valueJSON.push(obj);
+              }
+            });
+            $(this.rowDom).data("value",this.opts.valueJSON);
+            if(this.opts.valueJSON.length>0){
+              $(this.rowDom).prev().val(JSON.stringify(this.opts.valueJSON));
+            }else{
+              $(this.rowDom).prev().val("");
+            }
+			    }
+			    bindChange(){
+            $(this.rowDom).on("change",".rj_toggleRow_input",()=>{
+              this.synValue();
+            });
+			    }
+			    bindBtnClick(){
+			      let $this = this;
+			      //新增
+            $($this.rowDom).on("click",".rj_toggleRow_add",function(){
+              $($this.rowDom).append($this.opts.itemHtml);
+              $this.controlDel();
+              $this.synValue();
+            });
+            //删除
+            $($this.rowDom).on("click",".rj_toggleRow_del",function(){
+              $(this).closest(".rj_toggleRow_item").remove();
+              $this.controlDel();
+              $this.synValue();
+            });
+			    }
+			    isStartValue(){
+            if($(this.rowDom).data("value")){
+              let data = $(this.rowDom).data("value");
+              if(typeof data =="string"){
+                try{
+                  data = JSON.parse(data)
+                }catch(e){
+                  console.error("rj.toggleRow组件 data-value的格式错误~")
+                  return false;
+                }
+              }
+              $(this.rowDom).children().remove();
+              for(let i in data){
+                let $itemHtml = $(this.opts.itemHtml);
+                $itemHtml.find(".rj_toggleRow_input").each((inputIndex,inputDom)=>{
+                  if(data[i][this.opts.defaultKey[inputIndex]]!=undefined){
+                    $(inputDom).val(data[i][this.opts.defaultKey[inputIndex]]);
+                  }else{
+                    console.error(`rj.toggleRow组件 ${this.opts.defaultKey[inputIndex]}:在数据源的key与name为该值的表单控件没有对应项`)
+                  }
+                });
+                $(this.rowDom).append($itemHtml)
+              }
+            }
+          }
+			  }
+			   return new Togglerow(rowDom);
 			}
 		},
 		form:{

@@ -1,4 +1,3 @@
-
 <form id="addOrUpdate" class="form-horizontal">
     <div class="form-group">
         <label class="col-sm-2 control-label">普通输入框</label>
@@ -107,10 +106,10 @@
         <div class="col-sm-10 rj_toggleRow" data-name="input12">
         	<div class="row m-b-xs rj_toggleRow_item">
         		<div class="col-sm-5">
-		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey3">
+		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
 		         </div>
 		         <div class="col-sm-5">
-		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey4">
+		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
 		         </div>
 		         <div class="col-sm-2 p-none">
 		         	<div class="btn-group btn-group-xs m-t-xs">
@@ -124,80 +123,8 @@
     <div class="hr-line-dashed"></div>
     <div class="form-group">
         <div class="col-sm-12 text-center">
-            <button class="btn btn-default m-r " type="button" onclick="rj.toggleRow.init()">初始化rj_toggleRow</button>
-            <button class="btn btn-default m-r " type="button" onclick="rj.toggleRow.destroy()">销毁rj_toggleRow</button>
             <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
             <button class="btn btn-primary js_sure" type="button">确定</button>
         </div>
     </div>
 </form>
-<script>
-	var formDemo={
-		init(){
-			var zNodes1 =[
-				{id:4, pId:0, name:"财务部"},
-				{id:41, pId:4, name:"财务小组1"},
-				{id:42, pId:4, name:"财务小组2"},
-				{id:43, pId:4, name:"财务小组3"},
-				{id:44, pId:4, name:"财务小组4"},
-				{id:5, pId:0, name:"研发部"},
-				{id:51, pId:5, name:"研发部1"},
-				{id:52, pId:5, name:"研发部2"},
-				{id:53, pId:5, name:"研发部3"},
-				{id:54, pId:5, name:"研发部4"},
-				{id:6, pId:0, name:"行政部"},
-				{id:61, pId:6, name:"行政部1"},
-				{id:62, pId:6, name:"行政部2"},
-				{id:63, pId:6, name:"行政部3"},
-				{id:64, pId:6, name:"行政部4"}
-			 ];
-			var zNodes2 =[
-				{id:1, pId:0, name:"北京"},
-				{id:2, pId:0, name:"天津"},
-				{id:3, pId:0, name:"上海"},
-				{id:6, pId:0, name:"重庆"},
-				{id:4, pId:0, name:"河北省", open:true},
-				{id:41, pId:4, name:"石家庄"},
-				{id:42, pId:4, name:"保定"},
-				{id:43, pId:4, name:"邯郸"},
-				{id:44, pId:4, name:"承德"},
-				{id:5, pId:0, name:"广东省", open:true},
-				{id:51, pId:5, name:"广州"},
-				{id:52, pId:5, name:"深圳"},
-				{id:53, pId:5, name:"东莞"},
-				{id:54, pId:5, name:"佛山"},
-				{id:6, pId:0, name:"福建省", open:true},
-				{id:61, pId:6, name:"福州"},
-				{id:62, pId:6, name:"厦门"},
-				{id:63, pId:6, name:"泉州"},
-				{id:64, pId:6, name:"三明"}
-			 ];
-			 //回显
-			 var data = 
-			 {
-			    "input1": "a",
-			    "input2": "b",
-			    "input3": "1",
-			    "input4": "html,js",
-			    "input5": "学习使我进步",
-			    "input6": "c",
-			    "input7": "43",
-			    "input8": "41,42,43",
-			    "input9": "d",
-			    "input10": "e",
-			    "input11": "[{\"inputKey1\":\"f\",\"inputKey2\":\"g\"}]",
-			    "input12": "[{\"inputKey3\":\"h\",\"inputKey4\":\"i\"},{\"inputKey3\":\"\",\"inputKey4\":\"j\"}]"
-			}
-			rj.form.set($("#addOrUpdate")[0],data);
-			 //重置插件
-			rj.resetPlug();
-			rj.ztree("ztreeRadio","#ztree1",zNodes1);
-			rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
-			$(".js_sure").click(()=>{
-				let formJSON = rj.form.get($("#addOrUpdate")[0]);
-				alert(JSON.stringify(formJSON,null,4))
-			});
-		}
-	}
-	formDemo.init();
-</script>
