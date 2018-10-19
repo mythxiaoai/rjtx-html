@@ -252,6 +252,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			this.sweetAlert();
 			//表格插件初始化 只用初始化一次
 			this.table.tableFmt();
+			this.fileinput.init();
 			this.resetPlug();
 		},
 		resetPlug(){
@@ -272,7 +273,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			}
 			//file框
 			if($.fn.prettyFile){
-				$('input[type="file"]:not(:hidden)').prettyFile();
+				$('input.prettyFile[type="file"]:not(:hidden)').prettyFile();
 			}
 			//新增删除行抽取
 			if($(".rj_toggleRow").length>0){
@@ -1014,6 +1015,7 @@ rj.form.get($("#addOrUpdate")[0]);
 					rj_toggleRow_del
 				*/
 				let $this = this;
+				$this.instances = [];
 				$.each($(".rj_toggleRow"), function(index,rowDom) {
 				  $this.instances.push($this.getInstance(rowDom));
 				});
@@ -1033,7 +1035,6 @@ rj.form.get($("#addOrUpdate")[0]);
 			    destroy() {
             //清除按钮点击事件
             $(this.rowDom).unbind("click change");
-            $(this.rowDom).data("name","")
             $(this.rowDom).data("value","")
             this.opts.hiddenInput.remove();
             $(this.rowDom).html(this.opts.oldItemHtml);
@@ -1242,6 +1243,64 @@ rj.form.get($("#addOrUpdate")[0]);
 					}
 				}
 			});
+		},
+		fileinput:{
+		  init() {
+		    if(!$.fn.fileinput)return false;
+  	    $.fn.fileinput.defaults = $.extend(true, {}, $.fn.fileinput.defaults, $.fn.fileinputThemes["explorer-fa"], {
+  	      theme: "explorer-fa",
+  	      language: "zh",
+  	      showRemove: false,
+  	      showUpload: false, //是否显示上传按钮
+  	      showClose: false,
+  	      browseClass: "btn btn-default",
+  	      dropZoneEnabled: false, //不显示拖拽
+  	      preferIconicPreview: true, //上传的文件不解析   换成下面图标
+  	      overwriteInitial: false, //是否覆盖初始的值
+  	      previewFileIconSettings: { // configure your icon file extensions
+  	        'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+  	        'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+  	        'ppt': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+  	        'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+  	        'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+  	        'htm': '<i class="fa fa-file-code-o text-info"></i>',
+  	        'txt': '<i class="fa fa-file-text-o text-info"></i>',
+  	        'mov': '<i class="fa fa-file-video-o text-warning"></i>',
+  	        'mp3': '<i class="fa fa-file-audio-o text-warning"></i>',
+  	        // note for these file types below no extension determination logic 
+  	        // has been configured (the keys itself will be used as extensions)
+  	        'jpg': '<i class="fa fa-file-photo-o text-danger"></i>',
+  	        'gif': '<i class="fa fa-file-photo-o text-muted"></i>',
+  	        'png': '<i class="fa fa-file-photo-o text-primary"></i>'
+  	      },
+  	      previewFileExtSettings: { // configure the logic for determining icon file extensions
+  	        'doc': function(ext) {
+  	          return ext.match(/(doc|docx)$/i);
+  	        },
+  	        'xls': function(ext) {
+  	          return ext.match(/(xls|xlsx)$/i);
+  	        },
+  	        'ppt': function(ext) {
+  	          return ext.match(/(ppt|pptx)$/i);
+  	        },
+  	        'zip': function(ext) {
+  	          return ext.match(/(zip|rar|tar|gzip|gz|7z)$/i);
+  	        },
+  	        'htm': function(ext) {
+  	          return ext.match(/(htm|html)$/i);
+  	        },
+  	        'txt': function(ext) {
+  	          return ext.match(/(txt|ini|csv|java|php|js|css)$/i);
+  	        },
+  	        'mov': function(ext) {
+  	          return ext.match(/(avi|mpg|mkv|mov|mp4|3gp|webm|wmv)$/i);
+  	        },
+  	        'mp3': function(ext) {
+  	          return ext.match(/(mp3|wav)$/i);
+  	        }
+  	      }
+  	    });
+	    }
 		}
 	};
 	rjtx.init();

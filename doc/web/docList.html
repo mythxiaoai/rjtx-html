@@ -33,8 +33,16 @@
       <!--颜色插件-->
     <link rel="stylesheet" href="../../js/colorpicker/css/jquery-ui.css" />
     <link rel="stylesheet" href="../../js/colorpicker/css/evol-colorpicker.css" />
+        <!--文件上传插件-->
+    <link href="../../js/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />
+    <link href="../../js/fileinput/themes/explorer-fa/theme.css" rel="stylesheet">
       <!--基础样式文件-->
     <link rel="stylesheet" href="../../css/common.css"/>
+    <style>
+      ul {
+        list-style:inherit;
+      }
+    </style>
   </head>
   <body class="bg-gray p-m">
     <div class="panel-body">
@@ -81,6 +89,8 @@
     <script type="text/javascript" src="../../js/ztree/js/jquery.ztree.excheck.js" ></script>
     <script type="text/javascript" src="../../js/ztree/js/jquery.ztree.exhide.js" ></script>
     <script type="text/javascript" src="../../js/ztree/js/ztree.search.js" ></script>
+    <!--富文本编辑器-->
+    <script type="text/javascript" src="../../js/wangEditor/wangEditor.min.js" ></script>
     <!--代码渲染-->
     <script type="text/javascript" src="../../js/codeMirro/js/codemirror.js" ></script>
     <script src="../../js/codeMirro/addon/search/searchcursor.js"></script>
@@ -93,6 +103,10 @@
     <script src="../../js/codeMirro/addon/fold/foldcode.js"></script>
     <script src="../../js/codeMirro/addon/fold/brace-fold.js"></script>
     <script src="../../js/codeMirro/keymap/sublime.js"></script>
+    <!--文件上传插件-->
+    <script src="../../js/fileinput/js/fileinput.js"></script>
+    <script src="../../js/fileinput/themes/explorer-fa/theme.js"></script>
+    <script src="../../js/fileinput/js/locales/zh.js"></script>
     <!--工具js-->
     <script type="text/javascript" src="../../js/util.js"></script>
     <!--业务通用js-->
@@ -105,14 +119,78 @@
       },
       add(){
         $(".js_addOrUpdate").click(function(){
-          rj.modal("新增事例界面", "./page/addOrUpdate.html",
-          ()=> {
-            rj.resetPlug();
-          },
-          () => {
-            let formJSON = rj.form.get($("#addOrUpdate")[0]);
-            alert(JSON.stringify(formJSON,null,4))
+          let editor1,editor2;
+          rj.modal({
+            title:"新增事例界面",
+            url:"./page/addOrUpdate.html",
+            size:"modal-lg",
+            loadback(){
+               var E = window.wangEditor
+                editor1 = new E('.js_editor1')
+                editor1.create()
+                editor2 = new E('.js_editor2')
+                editor2.create()
+                rj.resetPlug();
+                
+                $(".file").fileinput({
+                  uploadUrl:"/addOrUpdate",
+                  uploadExtraData:function (previewId, index) {
+                    let formJSON = rj.form.get($("#addOrUpdate")[0]);
+                    formJSON.discription = editor1.txt.html();
+                    formJSON.args = editor2.txt.html();
+                      var obj = {};
+                      $('.your-form-class').find('input').each(function() {
+                          var id = $(this).attr('id'), val = $(this).val();
+                          obj[id] = val;
+                      });
+                      console.log(obj)
+                      return formJSON;
+                  },
+                  
+                });
+                
+                
+                
+                /**
+                 * 
+                 * initialPreview: [
+            '<img class="file-preview-image kv-preview-data" src="http://lorempixel.com/800/460/city/1">',
+            '<img class="file-preview-image kv-preview-data" src="http://lorempixel.com/800/460/city/2">',
+        ],
+        initialPreviewConfig: [
+            {caption: "City-1.jpg", size: 327892, url: "/site/file-delete", key: 1},
+            {caption: "City-2.jpg", size: 438828, url: "/site/file-delete", key: 2}, 
+        ],
+                 *
+                 */
+                
+            },
+            sureback(){
+               $("#addOrUpdate").validate({
+                rules: {
+                    key: {
+                        required: true,
+                        remote:"/checkKey",
+                    }
+                   
+                },
+                messages: {
+                     key: {
+                        remote:v_icon+"key已经存在"
+                    }
+                },
+                submitHandler: function () {
+                  console.log("运行")
+                  $(".file").fileinput("upload");
+                  
+                 /* rj.ajax("/addOrUpdate",{data:formJSON}).then((e)=>{
+                    console.log(e)
+                  });*/
+                 }
+                })
+            }
           });
+          
         });
       },
       list(){

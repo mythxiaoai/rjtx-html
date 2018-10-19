@@ -1,130 +1,44 @@
 <form id="addOrUpdate" class="form-horizontal">
     <div class="form-group">
-        <label class="col-sm-2 control-label">普通输入框</label>
+        <label class="col-sm-2 control-label">key</label>
         <div class="col-sm-10">
-            <input type="text" autofocus="autofocus" class="form-control" placeholder="请输入..." name="input1">
+            <input type="text" autofocus="autofocus" class="form-control" placeholder="请输入..." name="key">
         </div>
     </div>
-    <div class="hr-line-dashed"></div>
     <div class="form-group">
-       	<label class="col-sm-2 control-label">密码</label>
+        <label class="col-sm-2 control-label">标题</label>
         <div class="col-sm-10">
-            <input type="password" class="form-control" placeholder="请输入..." name="input2">
+            <input type="text"  class="form-control" placeholder="方法名称和参数格式:fn(''|{}|[]|)" name="title">
         </div>
     </div>
     <div class="hr-line-dashed"></div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">select</label>
+       	<label class="col-sm-2 control-label">概述:</label>
         <div class="col-sm-10">
-            <select class="form-control" name="input3">
-                <option value="">--请选择--</option>
-                <option value="0">男</option>
-                <option value="1">女</option>
-            </select> 
+            <div class="js_editor1"></div>
         </div>
     </div>
     <div class="hr-line-dashed"></div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">多选</label>
+        <label class="col-sm-2 control-label">参数</label>
         <div class="col-sm-10">
-			<div class="checkbox-inline">
-				<label><input type="checkbox" class="icheck" value="html" name="input4">html</label>
-			</div>
-			<div class="checkbox-inline">
-				<label><input type="checkbox" class="icheck" value="css" name="input4">css</label>
-			</div>
-			<div class="checkbox-inline">
-				<label><input type="checkbox" class="icheck" value="js" name="input4">js</label>
-			</div>
+            <div class="js_editor2">
+              <table border="0" width="100%" cellpadding="0" cellspacing="0"><tbody><tr><th>名称</th><th>说明</th><th>类型</th><th>可选值</th><th>默认值</th></tr><tr><td><br></td><td><br></td><td><br></td><td><br></td><td><br></td></tr><tr><td></td><td></td><td></td><td></td><td><br></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+            </div>
         </div>
     </div>
     <div class="hr-line-dashed"></div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">单选</label>
+        <label class="col-sm-2 control-label">事例上传</label>
         <div class="col-sm-10">
-        	<div class="radio-inline">
-				<label><input type="radio" name="input5" value="学习使我进步"  class="icheck">学习使我进步</label>
-			</div>
-			<div class="radio-inline">
-				<label><input type="radio" name="input5" value="学习使我快乐" class="icheck">学习使我快乐</label>
-			</div>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-   	<div class="form-group">
-        <label class="col-sm-2 control-label">文本域</label>
-        <div class="col-sm-10"><!--+2是为了border-->
-        	<textarea class="form-control" oninput="this.style.height=(this.scrollHeight+2)+'px'" name="input6">我是自适应文本域哦  不行多输入点~~~</textarea>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">ztree1</label>
-        <div class="col-sm-10">
-			<input class="form-control" id="ztree1" name="input7" type="text"/>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">ztree2</label>
-        <div class="col-sm-10">
-        	<input class="form-control" id="ztree2" name="input8" type="text"/>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">分栏</label>
-        <div class="col-sm-5">
-       		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input9">
-         </div>
-         <div class="col-sm-5">
-      		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input10">
-         </div>
-    </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">分栏</label>
-        <div class="col-sm-10 rj_toggleRow" data-name="input11" >
-        	<div class="row m-b-xs rj_toggleRow_item">
-        		<div class="col-sm-5">
-		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
-		         </div>
-		         <div class="col-sm-5">
-		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
-		         </div>
-		         <div class="col-sm-2 p-none">
-		         	<div class="btn-group btn-group-xs m-t-xs">
-		         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
-		         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-		         	</div>
-		         </div>
-        	</div>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label">分栏2</label>
-        <div class="col-sm-10 rj_toggleRow" data-name="input12">
-        	<div class="row m-b-xs rj_toggleRow_item">
-        		<div class="col-sm-5">
-		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
-		         </div>
-		         <div class="col-sm-5">
-		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
-		         </div>
-		         <div class="col-sm-2 p-none">
-		         	<div class="btn-group btn-group-xs m-t-xs">
-		         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
-		         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-		         	</div>
-		         </div>
-        	</div>
+			     <input type="file" name="file" class="file" multiple="multiple" />
         </div>
     </div>
     <div class="hr-line-dashed"></div>
     <div class="form-group">
         <div class="col-sm-12 text-center">
             <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary js_sure" type="button">确定</button>
+            <button class="btn btn-primary js_sure" type="submit">确定</button>
         </div>
     </div>
 </form>
