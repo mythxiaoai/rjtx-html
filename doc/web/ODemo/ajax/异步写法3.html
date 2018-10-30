@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+  <button type="button" class="btn btn-default" onclick="run()">点击运行ajax</button>
+  <pre class="js_result"></pre>
+    <script>
+      //运用es6的async/await  解决异步问题    成功的结果返还用变量接收就行
+      function run(){
+        //立即运行,顺序执行，报错处理
+        (async ()=>{
+            try{
+                let a = await rj.ajax("/demo/test1");
+                console.log(a)
+                let b = await rj.ajax("/demo/test2",{loading:".js_runner6"});
+                console.log(b)
+                let c = await rj.ajax("/demo/test3");
+                console.log(c)
+                console.log(a,b,c)
+            }catch(e){
+                console.log("有问题")
+            }
+        })()
+        console.log(1111)
+      }
+    </script>
+  </body>
+</html>

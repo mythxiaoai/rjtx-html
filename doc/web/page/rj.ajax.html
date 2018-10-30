@@ -63,9 +63,9 @@
 				</tr>
 				<tr>
 					<td>async</td>
-					<td>是否同步</td>
+					<td>是否异步</td>
 					<td>boolean</td>
-					<td>true/false true同步，false异步</td>
+					<td>true/false true异步，false同步</td>
 					<td>true</td>
 				</tr>
 				<tr>
@@ -137,7 +137,6 @@
 		init(){
 			//cm初始化
 			this.codeMirrorInit();
-			console.log(this.opts.cmarr)
 			//内容填充
 			this.contentInit();
 			//运行事件

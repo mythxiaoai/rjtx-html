@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="file" multiple="multiple" class="js_file fl" style="display: inline-block;" name="file">
+    <button type="button" class="btn btn-default btn-sm fl" onclick="run3(this)">点击上传</button>
+  <pre class="js_result3">
+    
+  </pre>
+  <progress  id="progress" style="width: 100%;"></progress>
+  <div id="pro1"></div>
+  <div id="pro2"></div>
+  <div id="pro3"></div>
+    <script>
+      function run3(dom){
+        if($(".js_file")[0].files.length==0)return false
+        $(dom).prop("disabled",true);
+        //var fd = new FormData(formDom);
+        var fd = new FormData();
+        for( let file of $(".js_file")[0].files){
+          fd.append("file",file)
+        }
+        rj.ajax({
+          url: "/demo/upload",
+          data: fd,
+          upload:true,
+          success:function(data){
+            $(dom).prop("disabled",false);
+             let str = JSON.stringify(data);
+            $(".js_result3").html(str)
+          },
+          progress(opt,e){
+            progress.value=opt.percent;
+            //(opt.percent*100).toFixed(2)  opt.percent*100会出现小数点多余  因为.1 .2是语言的bug...所以需要加个方法
+            pro1.innerHTML=opt.percent+"--百分比"+(opt.percent*100).toFixed(2)+"%";
+            pro2.innerHTML=opt.time+"--ms";
+            pro3.innerHTML=opt.fmtTime+"--格式化后的时间";
+          }
+        })
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+  <button type="button" class="btn btn-default" onclick="run2()">点击运行ajax</button>
+  <pre class="js_result2">
+    
+  </pre>
+    <script>
+      function run2(){
+        rj.ajax({
+          url:"/demo/resultEdit",//url
+          post:"post",//请求类型  默认post
+          async:true,//是否异步  默认true
+          loading:".js_runner2",//菊花的选择器
+          msg:true,//是否弹出消息
+          data:{"data":"返回的数据","msg":"弹出什么消息","describe":"消息描述文字","status":0},//status 状态码  0 正常   1业务代码异常  2系统级别异常 需要后台去定义规则
+          beforeSend(){
+            console.log("beforeSend");
+          },
+          success(data){
+            let str = JSON.stringify(data,null,4);
+            $(".js_result2").html(str)
+          },
+          error(e){
+            console.log(e);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

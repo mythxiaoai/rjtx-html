@@ -365,7 +365,7 @@
 		var index = {
 			callback:null,
 	   		//设置首页
-	   		home:"rj.ajax",
+	   		home:"page/rj.ajax.html",
 	   		init(){
 	   			this.suggestInit();
 	   			this.sugInput();
@@ -393,7 +393,7 @@
 	   			});
 	   			//li点击
 	   			$(".js_suggestion").on("click","li",function(){
-	   				let router = $(this).text().trim();
+	   				let router = "page/"+$(this).text().trim()+".html";
 	   				$(".js_sug_input").val($(this).text().trim());
 	   				$(".js_menu_item").each(function(){
 	   					if($(this).data("url")==router){
@@ -408,11 +408,11 @@
 	   				//enter
 	   				if(e.keyCode == 13){
 	   					if(activeLiDom.length>=1){
-	   						let router = activeLiDom.text().trim();
+	   						let router = "page/"+activeLiDom.text().trim()+".html";
 	   						activeLiDom.trigger("click");
 	   					}else{
 	   						activeLiDom = $(".js_suggestion li:not(:hidden):first");
-	   						let router =activeLiDom.text().trim();
+	   						let router = "page/"+activeLiDom.text().trim()+".html";
 	   						activeLiDom.trigger("click");
 	   					}
 	   				}
@@ -439,7 +439,7 @@
 	   					}else{
 	   						let lastDom = $(".js_suggestion li:not(:hidden):last");
 	   						let top = lastDom.position().top+lastDom.outerHeight();
-							  let winT = $(".js_suggestion").outerHeight();
+							let winT = $(".js_suggestion").outerHeight();
 	   						$(".js_suggestion li:not(:hidden):last").addClass("active");
 	   						if(top>winT){
 	   							$(".js_suggestion").scrollTop(top-winT);
@@ -508,31 +508,38 @@
 				}
 	   		},
 			hashUrl(){
-  				let $this = this;
-  				//初始执行
-  				runload();
-  				//绑定路由事件
-  				window.onpopstate = runload;
-  				function runload(){
-  				  let key = window.location.hash?window.location.hash.slice(1):$this.home;
-  				  $this.cssDeal();
-  				  //ajax
-  				  rj.load(".js_home_content","./page/template.html",function(){
-              $this.callback&&$this.callback();
-              template.init(key);
-            });
-          }
+				let $this = this;
+				window.onpopstate = function(e){
+					if(window.location.hash){
+						$this.cssDeal();
+						rj.load(".js_home_content",window.location.hash.slice(1)+".html",$this.callback||null);
+					}else{
+						$this.cssDeal();
+						rj.load(".js_home_content",$this.home);
+					}
+				}
+				if(!window.location.hash){
+					//默认页面设置
+					$this.cssDeal();
+					rj.load(".js_home_content",$this.home);
+				}else{
+					$this.cssDeal();
+					rj.load(".js_home_content",window.location.hash.slice(1)+".html");
+				}
 			},
 			jumpMenu(url,callback){
 				let hash = "";
 				if(url){
+					if(url.lastIndexOf(".")!=-1){
+						url = url.slice(0,url.lastIndexOf("."));
 						hash=url;
+					}
 				}
-				this.callback = callback||null;
+				this.callback = callback;
 				window.location.hash = "#"+hash;
 			},
 			cssDeal(){
-				let currUrl = window.location.hash?window.location.hash.slice(1):this.home;
+				let currUrl = window.location.hash?window.location.hash.slice(1)+".html":this.home;
 				$(".js_menu_item").removeClass("active");
 				$("[data-url]").each(function(index,dom){
 					if($(dom).data("url")==currUrl){
@@ -576,7 +583,7 @@
 			},
 			dataInit(){
 				let loading = new Xloading(".home_content_left");
-				$(".js_menu_items").html(getHtml({rj:rj},""));
+				$(".js_menu_items").html(getHtml({rj:rj},"page/"));
 				loading.destroy()
 				function getHtml(val,path,jsonpath=[],leavl=0){
 					let html ="";
@@ -592,9 +599,8 @@
 							//url处理
 							jsonpath[leavl]=key;
 							jsonpath = jsonpath.slice(0,leavl+1);
-							url = path+jsonpath.join(".");
+							url = path+jsonpath.join(".")+".html"
 							if(isJSON(val[key])){
-							  //有子
 								html +=`<li>
 									<i class="fa fa-angle-right js_menu_icon"></i>
 									<span class="js_menu_item" data-url="${url}">
@@ -607,7 +613,6 @@
 								</li> `
 								--leavl;
 							}else{
-							  //目录
 								html +=`<li>
 										<span class="js_menu_item" data-url="${url}">
 											<span class="key">${key}:</span>

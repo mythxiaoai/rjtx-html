@@ -464,7 +464,7 @@ rj.form.get($("#addOrUpdate")[0]);
     
       function ajax(resolve, reject) {
         //beforeSend
-        if(opts.beforeSend) beforeSend();
+        if(opts.beforeSend) opts.beforeSend();
         //loading
         if(opts.loading) {
           if(window.Xloading) {
@@ -536,7 +536,12 @@ rj.form.get($("#addOrUpdate")[0]);
           }
         }
         //接收 - 第三步
-        xhr.onreadystatechange = function() {
+        if(opts.async){//异步
+           xhr.onreadystatechange = stateChange;  
+        }else{//同步
+           stateChange();  
+        }
+        function stateChange(){
           if(xhr.readyState == 4) {
             var status = xhr.status;
             if(status >= 200 && status < 300) {
@@ -555,7 +560,7 @@ rj.form.get($("#addOrUpdate")[0]);
               if(window.Promise) resolve(data);
               //弹窗
               if(opts.msg) {
-                if(data.status == 0) {
+                if(data.status === 0 ||data.status === "0") {
                   window.xalert && xalert(data.msg || "哎呀，后台没给{msg:消息}参数", data.describe || null, "success");
                 }
                 if(data.status == 1) {
@@ -575,7 +580,6 @@ rj.form.get($("#addOrUpdate")[0]);
             }
           }
         }
-    
       }
     },
 		toggleAnimate(pos){
@@ -1005,7 +1009,7 @@ rj.form.get($("#addOrUpdate")[0]);
 		},
 		toggleRow:{
 			//初始化 做新增表单时 默认值是空  后期有默认值在拓展
-			instances:[],
+			_instances:[],
 			init(){
 				/*
 				.rj_toggleRow     data-name data-value
@@ -1015,13 +1019,13 @@ rj.form.get($("#addOrUpdate")[0]);
 					rj_toggleRow_del
 				*/
 				let $this = this;
-				$this.instances = [];
+				$this._instances = [];
 				$.each($(".rj_toggleRow"), function(index,rowDom) {
-				  $this.instances.push($this.getInstance(rowDom));
+				  $this._instances.push($this.getInstance(rowDom));
 				});
 			},
 			destroy(){
-			  for(let ins of this.instances){
+			  for(let ins of this._instances){
 			    ins.destroy();
 			  }
 			},
@@ -1257,6 +1261,7 @@ rj.form.get($("#addOrUpdate")[0]);
   	      dropZoneEnabled: false, //不显示拖拽
   	      preferIconicPreview: true, //上传的文件不解析   换成下面图标
   	      overwriteInitial: false, //是否覆盖初始的值
+  	      fileActionSettings:{showUpload:false},//不显示上传和排序按钮showDrag:false
   	      previewFileIconSettings: { // configure your icon file extensions
   	        'doc': '<i class="fa fa-file-word-o text-primary"></i>',
   	        'xls': '<i class="fa fa-file-excel-o text-success"></i>',
@@ -1300,7 +1305,92 @@ rj.form.get($("#addOrUpdate")[0]);
   	        }
   	      }
   	    });
-	    }
+	    },
+	    getFileType(vType,vName){
+        let fileTypeSettings = {
+            image: function (vType, vName) {
+                return (compare(vType, 'image.*') && !compare(vType, /(tiff?|wmf)$/i) ||
+                    compare(vName, /\.(gif|png|jpe?g)$/i));
+            },
+            html: function (vType, vName) {
+                return compare(vType, 'text/html') || compare(vName, /\.(htm|html)$/i);
+            },
+            office: function (vType, vName) {
+                return compare(vType, /(word|excel|powerpoint|office)$/i) ||
+                    compare(vName, /\.(docx?|xlsx?|pptx?|pps|potx?)$/i);
+            },
+            gdocs: function (vType, vName) {
+                return compare(vType, /(word|excel|powerpoint|office|iwork-pages|tiff?)$/i) ||
+                    compare(vName, /\.(docx?|xlsx?|pptx?|pps|potx?|rtf|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i);
+            },
+            text: function (vType, vName) {
+                return compare(vType, 'text.*') || compare(vName, /\.(xml|javascript)$/i) ||
+                    compare(vName, /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
+            },
+            video: function (vType, vName) {
+                return compare(vType, 'video.*') && (compare(vType, /(ogg|mp4|mp?g|mov|webm|3gp)$/i) ||
+                    compare(vName, /\.(og?|mp4|webm|mp?g|mov|3gp)$/i));
+            },
+            audio: function (vType, vName) {
+                return compare(vType, 'audio.*') && (compare(vName, /(ogg|mp3|mp?g|wav)$/i) ||
+                    compare(vName, /\.(og?|mp3|mp?g|wav)$/i));
+            },
+            flash: function (vType, vName) {
+                return compare(vType, 'application/x-shockwave-flash', true) || compare(vName, /\.(swf)$/i);
+            },
+            pdf: function (vType, vName) {
+                return compare(vType, 'application/pdf', true) || compare(vName, /\.(pdf)$/i);
+            },
+            object: function () {
+                return true;
+            },
+            other: function () {
+                return true;
+            }
+        }
+          function compare(input, str, exact) {
+            return input !== undefined && (exact ? input === str : input.match(str));
+          }
+        
+        for(let key in fileTypeSettings){
+          let result = fileTypeSettings[key](vType,vName);
+          if(result)return key
+        }
+      },
+      getDealURL(vurl){
+        let $this = this ;
+        let restype = this.getFileType("",vurl);
+        let result=vurl;
+        if(restype=="html"||restype=="text"){
+          $.ajax({
+            url:vurl,
+            async:false,
+            success(data){
+              result = data;
+            }
+          })
+        }
+        return result;
+      }
+		},
+		util:{
+		  init(){
+		    
+		  },
+		  pre(str){
+        return str.replace(/[<>"&]/g,function(val,index,allText){
+          switch(val){
+            case "<":
+              return "&lt;";
+            case ">":
+              return "&gt;";
+            case "\"":
+              return "&quot;";
+            case "&":
+              return "&amp;";
+          }
+        });
+      }
 		}
 	};
 	rjtx.init();

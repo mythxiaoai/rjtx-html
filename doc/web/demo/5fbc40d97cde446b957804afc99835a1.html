@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	<button type="button" class="btn btn-default" onclick="run1()">点击运行ajax</button>
+	<pre class="js_result1">
+	</pre>
+		<script>
+		  //1.最简洁写法
+		  function run1(){
+		    //因为请求类型默认是post  then的回调函数默认返回成功后的回调
+		    rj.ajax("/demo/test1").then((data)=>{
+		      let str = JSON.stringify(data,null,4);
+		      $(".js_result1").html(str)
+		    })
+		  }
+		  
+		 
+		 //2. ajax的参数配置可在第二个参数传入
+		  /*function run1(){
+		    rj.ajax("/demo/test1",{loading:".js_runner1"}).then((data)=>{
+		      let str = JSON.stringify(data,null,4);
+		      $(".js_result1").html(str)
+		    })
+		  }*/
+		 
+		 //3. ajax的参数配置普通写法
+		  /*function run1(){
+		    //因为请求类型默认是post  then的回调函数默认返回成功后的回调
+		    rj.ajax({
+		      loading:".js_runner1",
+		      url:"/demo/test1",
+		    }).then((data)=>{
+		      let str = JSON.stringify(data,null,4);
+		      $(".js_result1").html(str)
+		    })
+		  }*/
+		</script>
+	</body>
+</html>

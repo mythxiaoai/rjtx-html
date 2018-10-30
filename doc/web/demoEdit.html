@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0">
+    <meta name="Keywords" content="">
+    <meta name="description" content="">
+    <title>RJTX Documentation</title>
+    <link rel="shortcut icon" href="../../img/logo.ico" type="image/x-icon"/>
+      <link rel="stylesheet" href="../../fonts/font-awesome.css"/>
+      <!--字体图标 iconfont icon-*-->
+      <link rel="stylesheet" href="../../fonts/iconfont.css"/>
+      <!--bootstrap-->
+      <link rel="stylesheet" href="../../js/bootstrap/bootstrap.css"/>
+      <!--bootstrap过滤样式-->
+      <link rel="stylesheet" href="../../js/bootstrap/bootstrapfiller.css"/>
+      <!--checkbox/radio修饰-->
+      <link rel="stylesheet" href="../../js/icheck/skins/all.css"/>
+      <!--loading加载动画-->
+      <link rel="stylesheet" href="../../js/loading/loading.css"/>
+      <!--sweetalert弹框提示-->
+      <link rel="stylesheet" href="../../js/sweetalert/sweetalert.css"/>
+      <!--通用动画样式-->
+      <link rel="stylesheet" href="../../css/animate.css"/>
+      <!--时间插件-->
+    <link rel="stylesheet" href="../../js/bootstrapDatetimepicker/bootstrap-datetimepicker.css" />
+      <!--bootstrap表格-->
+    <link rel="stylesheet" href="../../js/bootstrapTable/bootstrap-table.css" />
+      <!--ztree树插件-->
+      <link rel="stylesheet" href="../../js/ztree/css/awesomeStyle/awesome.css" type="text/css">
+    <link rel="stylesheet" href="../../js/ztree/css/zTreeStyle/zTreeStyle.css" />
+      <!--颜色插件-->
+    <link rel="stylesheet" href="../../js/colorpicker/css/jquery-ui.css" />
+    <link rel="stylesheet" href="../../js/colorpicker/css/evol-colorpicker.css" />
+    <!--代码风格插件-->
+    <link rel="stylesheet" href="../../js/codeMirro/lib/codemirror.css">
+    <link rel="stylesheet" href="../../js/codeMirro/addon/scroll/simplescrollbars.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/3024-day.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/3024-night.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/abcdef.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/ambiance.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/base16-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/bespin.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/base16-light.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/blackboard.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/cobalt.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/colorforth.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/dracula.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/duotone-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/duotone-light.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/eclipse.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/elegant.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/erlang-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/gruvbox-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/hopscotch.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/icecoder.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/isotope.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/lesser-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/liquibyte.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/lucario.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/material.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/mbo.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/mdn-like.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/midnight.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/monokai.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/neat.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/neo.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/night.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/oceanic-next.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/panda-syntax.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/paraiso-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/paraiso-light.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/pastel-on-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/railscasts.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/rubyblue.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/seti.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/shadowfox.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/solarized.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/the-matrix.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/tomorrow-night-bright.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/tomorrow-night-eighties.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/ttcn.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/twilight.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/vibrant-ink.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/xq-dark.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/xq-light.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/yeti.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/idea.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/darcula.css">
+    <link rel="stylesheet" href="../../js/codeMirro/theme/zenburn.css">
+    <!--文件上传插件-->
+    <link href="../../js/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />
+    <link href="../../js/fileinput/themes/explorer-fa/theme.css" rel="stylesheet">
+      <!--基础样式文件-->
+    <link rel="stylesheet" href="../../css/common.css"/>
+    <style>
+       .CodeMirror{
+    height: auto;
+    border-radius: 3px;
+  }
+  .doc p{
+    text-align: justify;
+    line-height: 2;
+    font-size: 13px;
+  }
+  .doc ul{
+      list-style-type: disc;
+      -webkit-margin-before: 1em;
+      -webkit-padding-start: 40px;
+  }
+  .doc ol {
+    list-style-type: decimal;
+    -webkit-padding-start: 40px;
+  }
+  .doc table th{
+    color: #fff;
+      background-color: #555;
+      border: none!important;
+  }
+  .doc h4,.doc .h4,.doc h5,.doc .h5,.doc h6,.doc .h6 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+  .doc .run_btn{
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    padding: 4px 15px;
+    z-index: 10;
+  }
+  .doc .runner{
+    min-height: 300px;
+  }
+    </style>
+  </head>
+  <body class="bg-gray p-m doc js_res">
+    <div class="row m-b">
+    <div class="col-md-12">
+    </div>
+      <div class="col-md-6">
+        <textarea class="code js_code"></textarea>
+        <a href="javascript:;" class="btn btn-primary btn-xs run_btn">运行代码</a>
+      </div>
+      <div class="col-md-6">
+        <div class="runner js_runner">
+          我就是.js_runner区域
+        </div>
+      </div>
+    </div>
+    <!--jQuery-->
+    <script src="../../js/jquery.js" ></script>
+    <script src="../../js/jquery.slimscroll.min.js" ></script>
+    <!--颜色插件  jquery-ui 与boostartp样式有冲突，注意引入顺序-->
+    <script src="../../js/colorpicker/js/jquery-ui.min.js" ></script>
+    <script src="../../js/colorpicker/js/evol-colorpicker.js" ></script>
+    <!--bootstrap-->
+    <script src="../../js/bootstrap/bootstrap.js" ></script>
+    <!--echart图表插件-->
+    <script src="../../js/echart/echarts.js"></script>
+    <script src="../../js/echart/guangdong.js"></script>
+    <!--bootstrap 文件上传-->
+    <script src="../../js/bootstrap/bootstrap-prettyfile.js" ></script>
+    <!--checkbox/radio修饰-->
+    <script src="../../js/icheck/icheck.js" ></script>
+    <!--loading加载-->
+    <script src="../../js/loading/loading.js" ></script>
+    <!--sweetalert提示框-->
+    <script src="../../js/sweetalert/sweetalert-dev.js" ></script>
+    <!--tip 错误操作提示框-->
+    <script src="../../js/tip.js" ></script>
+    <!--时间插件-->
+    <script src="../../js/bootstrapDatetimepicker/moment-with-locales.js" ></script>
+    <script src="../../js/bootstrapDatetimepicker/bootstrap-datetimepicker.min.js" ></script>
+    <!--bootstrap表格-->
+    <script src="../../js/bootstrapTable/bootstrap-table.js" ></script>
+    <script src="../../js/bootstrapTable/locale/bootstrap-table-zh-CN.js" ></script>
+    <!--验证插件-->
+    <script src="../../js/jQueryValidation/jquery.validate.js" ></script>
+    <script src="../../js/jQueryValidation/jquery.validate.messages_zh.js"></script>
+    <!--ztree树插件-->
+    <script src="../../js/ztree/js/jquery.ztree.core.js" ></script>
+    <script src="../../js/ztree/js/jquery.ztree.exedit.js" ></script>
+    <script src="../../js/ztree/js/jquery.ztree.excheck.js" ></script>
+    <script src="../../js/ztree/js/jquery.ztree.exhide.js" ></script>
+    <script src="../../js/ztree/js/ztree.search.js" ></script>
+    <!--代码渲染-->
+    <script src="../../js/codeMirro/js/codemirror.js" ></script>
+    <script src="../../js/codeMirro/addon/search/searchcursor.js"></script>
+    <script src="../../js/codeMirro/addon/search/searchcursor.js"></script>
+    <script src="../../js/codeMirro/addon/dialog/dialog.js"></script>
+    <script src="../../js/codeMirro/addon/edit/matchbrackets.js"></script>
+    <script src="../../js/codeMirro/addon/edit/closebrackets.js"></script>
+    <script src="../../js/codeMirro/addon/comment/comment.js"></script>
+    <script src="../../js/codeMirro/addon/wrap/hardwrap.js"></script>
+    <script src="../../js/codeMirro/addon/fold/foldcode.js"></script>
+    <script src="../../js/codeMirro/addon/fold/brace-fold.js"></script>
+    <script src="../../js/codeMirro/mode/xml/xml.js" ></script>
+    <script src="../../js/codeMirro/mode/css/css.js" ></script>
+    <script src="../../js/codeMirro/mode/javascript/javascript.js" ></script>
+    <script src="../../js/codeMirro/mode/htmlmixed/htmlmixed.js" ></script>
+    <script src="../../js/codeMirro/addon/scroll/simplescrollbars.js" ></script>
+    <script src="../../js/codeMirro/keymap/sublime.js"></script>
+    <!--文件上传插件-->
+    <script src="../../js/fileinput/js/fileinput.js"></script>
+    <script src="../../js/fileinput/themes/explorer-fa/theme.js"></script>
+    <script src="../../js/fileinput/js/locales/zh.js"></script>
+    <!--工具js-->
+    <script src="../../js/util.js"></script>
+    <!--业务通用js-->
+    <script src="../../js/rjtx.js" ></script>
+  <script src="../../js/index.js" ></script>
+  <script>
+    var template = {
+    opts:{
+      urlArr:[
+      "ODemo/ajax/推荐写法.html",
+      "ODemo/ajax/完整属性配置.html",
+      "ODemo/ajax/文件上传.html",
+      "ODemo/ajax/异步写法1.html",
+      "ODemo/ajax/异步写法2.html",
+      "ODemo/ajax/异步写法3.html"
+      ],
+      cmarr:[]
+    },
+    init(key){
+        this.start()
+        this.codeMirrorInit()
+        this.contentInit()
+        this.runClick()
+    },
+    start(){
+      //初始化事例
+        let html = ""
+        $.each(this.opts.urlArr, function(index,val) {
+          html +=`<div class="row m-b">
+          <div class="col-md-12">
+          <h5>${val}:</h5>
+          </div>
+            <div class="col-md-6">
+              <textarea class="code js_code"></textarea>
+              <a href="javascript:;" class="btn btn-primary btn-xs run_btn">运行代码</a>
+            </div>
+            <div class="col-md-6">
+              <div class="runner js_runner${index+1}">
+                  我就是.js_runner区域
+              </div>
+            </div>
+          </div>`
+        });
+        $(".js_res").html(html);
+    },
+    codeMirrorInit(){
+      let $this = this;
+      $(".js_code").each(function(index,val){
+        $this.opts.cmarr[index] = CodeMirror.fromTextArea(val, {
+            lineNumbers: true,
+            mode: "htmlmixed",
+            styleActiveLine: true,
+            matchBrackets: true,
+            autoCloseBrackets: true,
+            theme:"abcdef",
+            showCursorWhenSelecting: true,
+            scrollbarStyle: "simple"
+          });
+      });
+    },
+    contentInit(){
+      let $this = this;
+      $.each(this.opts.urlArr, function(index,val) {
+        $.ajax(val).then(function(data){
+          $this.opts.cmarr[index].setValue(data);
+          $(`.js_runner${index+1}`).html(data);
+        });
+      });
+    },
+    runClick(){
+      let $this = this;
+      $(".run_btn").each(function(index,val){
+        $(val).click(function(){
+          let html = $this.opts.cmarr[index].getValue();
+          $(`.js_runner${index+1}`).html(html);
+        });
+      });
+    }
+  }
+    template.init()
+  </script>
+  </body>
+</html>

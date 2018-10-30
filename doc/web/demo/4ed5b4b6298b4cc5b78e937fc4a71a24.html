@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title></title>
+  </head>
+  <body>
+  <button type="button" class="btn btn-default" onclick="run()">点击运行ajax</button>
+  <pre class="js_result"></pre>
+    <script>
+      //三个ajax全部执行成功后才执行回调，返回是三个ajax的结果集数组形式，任何一个报错都会中断
+      function run(){
+        Promise.all([
+          rj.ajax("/demo/test1"),
+          rj.ajax("/demo/test2"),
+          rj.ajax("/demo/test3")
+        ]).then(function(data){
+          let str = JSON.stringify(data,null,4);
+          $(".js_result").html(str)
+        })
+      }
+    </script>
+  </body>
+</html>

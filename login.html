@@ -17,12 +17,42 @@
 	<link rel="stylesheet" href="js/bootstrap/bootstrapfiller.css" />
 	<link rel="stylesheet" href="fonts/font-awesome.min.css"/>
 	<link rel="stylesheet" href="js/slider/jquery.slider.css"/>
+	<link rel="stylesheet" href="js/sweetalert/sweetalert.css"/>
 	<link rel="stylesheet" href="css/common.css"/>
 	<link rel="stylesheet" href="fonts/iconfont.css">
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
-    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+    <script>if(window.top !== window.self){ window.top.location = window.location;}
+    function IEVersion() {
+      var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+      var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器  
+      var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
+      var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+      if(isIE) {
+          var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+          reIE.test(userAgent);
+          var fIEVersion = parseFloat(RegExp["$1"]);
+          if(fIEVersion == 7) {
+              return 7;
+          } else if(fIEVersion == 8) {
+              return 8;
+          } else if(fIEVersion == 9) {
+              return 9;
+          } else if(fIEVersion == 10) {
+              return 10;
+          } else {
+              return 6;//IE版本<=7
+          }   
+      } else if(isEdge) {
+          return 'edge';//edge
+      } else if(isIE11) {
+          return 11; //IE11  
+      }else{
+          return -1;//不是ie浏览器
+      }
+  }
+    </script>
 <style>
 body{word-wrap: break-word;;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;min-width: 960px;}
 .floor-img{position:fixed;width:120%;height:120%;background-color:#1454CF;background:url(img/logo-bg.jpg) no-repeat;background-position: center bottom;background-size: cover; background-attachment:fixed;z-index:-1;}/*-webkit-filter:blur(2px);-moz-filter:blur(2px);-ms-filter:blur(2px);filter:blur(2px);*/
@@ -148,7 +178,15 @@ ol{list-style:decimal;padding-left:40px;font-size:13px;}
 	<!--业务通用js-->
 	<script type="text/javascript" src="js/rjtx.js"></script>
 	<script type="text/javascript" src="js/slider/jquery.slider.min.js"></script>
+	<script type="text/javascript" src="js/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript" src="js/rjtx.js"></script>
 	<script type="text/javascript">
+	  if(IEVersion()>-1){
+	    xalert("提示",`
+	    <p> 抱歉~,此网页不支持IE浏览器<p/>
+	    <p>推荐使用谷歌浏览器~ <a href="javascript:;" class="btn btn-link btn-sm m-b-xs m-t-xs">点击下载</a><p/>
+	    `,"warning")
+    }
 		var flag = false;
 		$("#slider").slider({
 			width: "319",
