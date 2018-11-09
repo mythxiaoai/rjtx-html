@@ -7,6 +7,9 @@
     position: relative;
 }
 /*dropdown-menu*/ 
+.fixed-table-toolbar .dropdown-menu{
+ min-width: 150px;
+}
 .dropdown-menu {
   position: absolute;
   top: 100%;

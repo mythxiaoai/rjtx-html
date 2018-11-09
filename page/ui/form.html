@@ -74,6 +74,20 @@
     </div>
     <div class="hr-line-dashed"></div>
     <div class="form-group">
+        <label class="col-sm-2 control-label">ztree3</label>
+        <div class="col-sm-10">
+        	<input class="form-control" id="ztree3" name="input99" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ztree4</label>
+        <div class="col-sm-10">
+        	<input class="form-control" id="ztree4" name="input98" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
         <label class="col-sm-2 control-label">分栏</label>
         <div class="col-sm-5">
        		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input9">
@@ -82,8 +96,9 @@
       		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input10">
          </div>
     </div>
+    <div class="hr-line-dashed"></div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">分栏</label>
+        <label class="col-sm-2 control-label">分栏1</label>
         <div class="col-sm-10 rj_toggleRow" data-name="input11" >
         	<div class="row m-b-xs rj_toggleRow_item">
         		<div class="col-sm-5">
@@ -172,6 +187,28 @@
 				{id:63, pId:6, name:"泉州"},
 				{id:64, pId:6, name:"三明"}
 			 ];
+			var zNodes3 =[
+        {id:"", pId:0, name:"全部"},
+        {id:"2018", pId:"", name:"2018"},
+        {id:"1", pId:"2018", name:"1月"},
+        {id:"2", pId:"2018", name:"2月"},
+        {id:"3", pId:"2018", name:"3月"},
+        {id:"4", pId:"2018", name:"4月"},
+        {id:"5", pId:"2018", name:"5月"},
+        {id:"6", pId:"2018", name:"6月"},
+        {id:"7", pId:"2018", name:"7月"},
+       ];
+			 var zNodes4 =[
+        {id:"", pId:0, name:"全部"},
+        {id:"润建", pId:0, name:"润建"},
+        {id:"怡创", pId:0, name:"怡创"},
+        {id:"宜通", pId:0, name:"宜通"},
+        {id:"华苏", pId:0, name:"华苏"},
+        {id:"华星", pId:0, name:"华星"},
+        {id:"南建", pId:0, name:"南建"},
+        {id:"拓明", pId:0, name:"拓明"},
+        {id:"中通服", pId:0, name:"中通服"},
+       ];
 			 //回显
 			 var data = 
 			 {
@@ -193,6 +230,46 @@
 			rj.resetPlug();
 			rj.ztree("ztreeRadio","#ztree1",zNodes1);
 			rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
+			rj.ztree("ztreeCheckbox","#ztree3",zNodes3);
+			var treeObj = rj.ztree("ztreeCheckbox","#ztree4",zNodes4,{
+			callback:{
+			  onCheck: function(e, treeId, treeNode){
+                var html =[];//页面显示的值
+                var ids =[];//数据库传入的值
+                if(treeNode.id==""){
+                  if(treeNode.checked){
+                    treeObj.checkAllNodes(true);
+                    let nodes = treeObj.getNodes();
+                    nodes.map((v,i)=>{
+                      if(i!=0){
+                        ids.push(v.id);
+                        html.push(v.name);
+                      }
+                    });
+                  }else{
+                    treeObj.checkAllNodes(false);
+                    ids = [];
+                    html = [];
+                  }
+                }else{
+                  var nodes = treeObj.getCheckedNodes(true);
+                  $.each(nodes, function(index,node){
+                    if(node.id !=""){
+                      html.push(node.name);
+                      ids.push(node.id);
+                    }else{
+                      treeObj.checkNode(node,false,true,false);
+                    }
+                  });
+                }
+                let len = ids.length;
+                ids = ids.join(",");
+                //search标签的处理
+                html=$("<div>").html(html.join(",")).text().replace(/( )/gi,"").trim();
+                $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(len>0?`${html}(${len}个)`:"").prev().val(ids);
+              }
+			  }
+			});
 			$(".js_sure").click(()=>{
 				let formJSON = rj.form.get($("#addOrUpdate")[0]);
 				alert(JSON.stringify(formJSON,null,4))

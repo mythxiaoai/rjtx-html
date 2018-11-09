@@ -346,7 +346,7 @@ rj.form.get($("#addOrUpdate")[0]);
 		            cache:false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 		            pagination:true,                   //是否显示分页（*）
 		            sortable:true,                     //是否启用排序
-	    			sortOrder:"desc",					//排序方式
+	    			    sortOrder:"desc",					//排序方式
 		            sidePagination:"server",           //分页方式：client客户端分页，server服务端分页（*）
 		            pageNumber:1,                       //初始化加载第一页，默认第一页
 		            pageSize:10,                       //每页的记录行数（*）
@@ -738,275 +738,274 @@ rj.form.get($("#addOrUpdate")[0]);
 			}
 		},
 		ztree(type,id,data,seeting){
-			let opts={
-					seeting:null,//设置
-					$dom:null,//主dom
-		        	id:null,//ztree的id
-				};
-			let ztree={
-				_default:{
-					seachInput:true
-				},
-				init(){
-					let $this = this;
-					if($this.config[type]){
-						opts.seeting = $.extend(true,{},$this._default,$this.config[type],seeting);
-						if(type=="ztree"||type=="dragZtree"){
-							return $this.ztree();
-						}else if(type=="ztreeRadio"||type=="ztreeCheckbox"){
-							return $this.ztreeChoose();
-						}
-					}else{
-						console.error("rj.ztree组件没有这个类型哦~")
-					}
-				},
-				ztree(){
-					$.fn.zTree.init($(id),opts.seeting,data);
-					if(opts.seeting.seachInput){
-						this.addSeach();
-					}
-				 	return $.fn.zTree.getZTreeObj($(id)[0].id);
-				},
-				addSeach(){
-					//不重复添加
-					if($(id).prev()&&$(id).prev().hasClass("rj_ztree_seach"))return false
-					//搜索框
-					$(id).before(`<input type="text" placeholder="请输入搜索关键字~" name="rj_ztree_seach" class="form-control rj_ztree_seach">`)
-				 	/*
-				 	 	@param zTreeId ztree对象的id,不需要#
-						@param searchField 输入框选择器
-						@param isHighLight 是否高亮,默认高亮,传入false禁用
-						@param isExpand 是否展开,默认合拢,传入true展开
-				 	*/
-				 	fuzzySearch($(id)[0].id,$(id).prev(),null,true); //初始化模糊搜索方法
-				},
-				ztreeChoose(){
-					 /*原本
-					  <div class="col-sm-10">
-			        	<input class="form-control" id="ztree2" name="ztree" type="text"/>
-			        </div>
-			        	格式化后
-			        <div class="js_comm_ztree_checkBox">
-			        	<input type="hidden" class="form-control input1" name="ztrees" />
-			           	<input class="form-control input2" readonly="readonly" name="ztree2" type="text"/>
-						<div class="ztree-down">
-							<ul id="ztree2" class="ztree"></ul>
-						</div>
-		        	</div>*/
-		        	let $this = this;
-		        	//1.创建符合ztree的dom形式
-		        	this.setFmtHtml();
-		        	//2.绑定下拉显示树型结构
-		        	this.bindToggleEvent();
-		        	//3.初始化下拉值
-		        	$.fn.zTree.init(opts.$dom.next().find(".ztree"),opts.seeting,data);
-		        	//是否需要初始化过滤器
-		        	if(opts.seeting.seachInput){
-						this.addSeach();
-					}
-		        	//4.是否需要回显
-		        	if(opts.$dom.val()||opts.$dom.data("value")){
-		        		$this.backShow(opts.$dom.val()||opts.$dom.data("value"));
-		        	}
-		        	return $.fn.zTree.getZTreeObj(opts.id);
-				},
-				bindToggleEvent(){
-					let $this  = this;
-					opts.$dom.click(function(){
-						opts.$dom.next().css({left:$(this).position().left, top:$(this).outerHeight()-1,width:$(this).outerWidth()}).slideDown("fast");
-						$("body").on("click",hideTree);
-					});
-					function hideTree(event) {
-						if (!(($(event.target).closest(".ztree-down").length>0)||event.target==opts.$dom[0])) {
-							opts.$dom.next().hide();
-							if($(".rj_ztree_seach").length>0){
-								$(".rj_ztree_seach").val("")
-							}
-							$("body").unbind("click", hideTree);
-						}
-					}
-				},
-				setFmtHtml(){
-					$(id).prop("readonly",true);
-		        	let name = $(id).attr("name");
-		        	$(id).removeAttr("name");
-		        	$(id).before(`<input type="hidden" class="form-control input1" name="${name}" />`);
-		        	$(id).after(`<div class="ztree-down"><ul class="ztree"></ul></div>`);
-		        	//opts赋值
-		        	opts.$dom=$(id);
-		        	opts.id = opts.$dom[0].id;
-		        	opts.$dom.removeAttr("id");
-		        	opts.$dom.next().find(".ztree").attr("id",opts.id);
-				},
-				config:{
-					ztree:{
-						view: {
-			            	showIcon:false,
-			            },
-			            data: {
-			                simpleData: {
-			                    enable: true
-			                }
-			            }
-					},
-					dragZtree:{
-			            view: {
-			            	showIcon:false,
-			            },
-			            data: {
-			                simpleData: {
-			                    enable: true
-			                }
-			            },
-			            edit: {
-			                enable: true,
-			                drag:{
-			                	isCopy:false,
-			                	autoOpenTime:200,
-			                },
-			                showRemoveBtn:false,
-			                showRenameBtn:false,
-			            },
-			            callback:{
-			            	onDrop:function(event, treeId, treeNodes, targetNode, moveType, isCopy){
-			            		//treeNodes所选中的拖拽的节点  可以是多个  按住ctrl可以多选。
-			            		//targetNode目标节点
-			            		//moveType"inner"：成为子节点，"prev"：成为同级前一个节点，"next"：成为同级后一个节点
-			            		//isCopy是否是复制，，这个不关注 我已经设置为不可复制
-			            	},
-			            	onClick:function(event, treeId, treeNode){
-			            		if(event.ctrlKey==true)return false;//当按住ctrlkey的时候不触发下面的事件  自己写的时候记得加上 事件冲突
-			            	}
-			            }
-					},
-					ztreeRadio:{
-						view: {
-							dblClickExpand: false,
-							showLine: false,
-							showIcon:false
-						},
-						data: {
-							simpleData: {
-								enable: true
-							}
-						},
-						check:{
-							enable:true,
-							chkStyle: "radio",
-							radioType: "all",
-						},
-						callback: {
-							onClick:function(e, treeId, treeNode){
-								if(treeNode.isParent){
-									$("#"+treeNode.tId+"_switch").trigger("click");
-								}else{
-									$("#"+treeNode.tId+"_check").trigger("click");
-								}
-							},
-							onCheck: function(e, treeId, treeNode){
-							  let html = treeNode.name;
-							  html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
-								if(treeNode.checked){
-									$("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val(html).prev().val(treeNode.id)
-								}else{
-									$("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val("").prev().val("")
-								}
-							}
-						}
-					},
-					ztreeCheckbox:{
-						view: {
-							dblClickExpand: false,
-							showLine: false,
-							showIcon:false
-						},
-						data: {
-							simpleData: {
-								enable: true
-							}
-						},
-						check:{
-							enable:true,
-							chkStyle: "checkbox",
-							chkboxType: { "Y": "ps", "N": "ps" }
-						},
-						callback: {
-							onClick:function(e, treeId, treeNode){
-								if(treeNode.isParent){
-									$("#"+treeNode.tId+"_switch").trigger("click");
-								}else{
-									$("#"+treeNode.tId+"_check").trigger("click");
-								}
-							},
-							onCheck: function(e, treeId, treeNode){
-								var treeObj = $.fn.zTree.getZTreeObj(opts.id);
-								var nodes = treeObj.getCheckedNodes(true);
-								var len = nodes.length;//选中的数组长度
-								var sublen = 0;//选中子项的查明后第
-								var html ="";//页面显示的值
-								var ids ="";//数据库传入的值
-								$.each(nodes, function(index,node){
-										sublen++;
-										if(index!=len-1){
-											html+=node.name+",";
-											ids+=node.id+",";
-										}else{
-											html+=node.name;
-											ids+=node.id;
-										}
-								});
-								//search标签的处理
-								html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
-								$("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(sublen>0?("("+sublen+"个)"+html):"").prev().val(ids);
-							}
-						}
-					}
-				},
-				backShow(ids){
-					var treeObj = $.fn.zTree.getZTreeObj(opts.id);
-					if(type=="ztreeCheckbox"){
-						var nodes = treeObj.transformToArray(treeObj.getNodes()).filter(node=>{
-							return !node.isParent;
-						})
-						for (var i=0, l=nodes.length; i < l; i++) {
-							let arr = ids.split(",");
-							for (let id of arr) {
-								if(nodes[i].id==id){
-									let node = treeObj.transformTozTreeNodes(nodes[i])[0];
-									let pnode=node.getParentNode();
-									while(pnode){
-										if(!treeObj.open){
-											treeObj.expandNode(pnode, true, false);
-										}
-										pnode=pnode.getParentNode();
-									}
-									$("#"+nodes[i].tId+"_check").trigger("click");
-									break;
-								}
-							}
-						}
-					}else if(type == "ztreeRadio"){
-						var nodes = treeObj.transformToArray(treeObj.getNodes());
-						for (var i=0, l=nodes.length; i < l; i++) {
-							if(nodes[i].id==ids){
-								let node = treeObj.transformTozTreeNodes(nodes[i])[0];
-								let pnode=node.getParentNode();
-								while(pnode){
-									if(!treeObj.open){
-										treeObj.expandNode(pnode, true, false);
-									}
-									pnode=pnode.getParentNode();
-								}
-								$("#"+nodes[i].tId+"_check").trigger("click");
-								//treeObj.checkNode(node, true, true,true);
-								break;
-							}
-						}
-					}
-				},
-			}
-			return ztree.init();
-		},
+      let opts={
+          seeting:null,//设置
+          $dom:null,//主dom
+              id:null,//ztree的id
+        };
+      let ztree={
+        _default:{
+          seachInput:true
+        },
+        init(){
+          let $this = this;
+          if($this.config[type]){
+            opts.seeting = $.extend(true,{},$this._default,$this.config[type],seeting);
+            if(type=="ztree"||type=="dragZtree"){
+              return $this.ztree();
+            }else if(type=="ztreeRadio"||type=="ztreeCheckbox"){
+              return $this.ztreeChoose();
+            }
+          }else{
+            console.error("rj.ztree组件没有这个类型哦~")
+          }
+        },
+        ztree(){
+          $.fn.zTree.init($(id),opts.seeting,data);
+          if(opts.seeting.seachInput){
+            this.addSeach();
+          }
+          return $.fn.zTree.getZTreeObj($(id)[0].id);
+        },
+        addSeach(){
+          //不重复添加
+          if($(id).prev()&&$(id).prev().hasClass("rj_ztree_seach"))return false
+          //搜索框
+          $(id).before(`<input type="text" placeholder="请输入搜索关键字~" name="rj_ztree_seach" style="width:100%" class="form-control rj_ztree_seach">`)
+          /*
+            @param zTreeId ztree对象的id,不需要#
+            @param searchField 输入框选择器
+            @param isHighLight 是否高亮,默认高亮,传入false禁用
+            @param isExpand 是否展开,默认合拢,传入true展开
+          */
+          fuzzySearch($(id)[0].id,$(id).prev(),null,true); //初始化模糊搜索方法
+        },
+        ztreeChoose(){
+           /*原本
+            <div class="col-sm-10">
+                <input class="form-control" id="ztree2" name="ztree" type="text"/>
+              </div>
+                格式化后
+              <div class="js_comm_ztree_checkBox">
+                <input type="hidden" class="form-control input1" name="ztrees" />
+                  <input class="form-control input2" readonly="readonly" name="ztree2" type="text"/>
+            <div class="ztree-down">
+              <ul id="ztree2" class="ztree"></ul>
+            </div>
+              </div>*/
+              let $this = this;
+              //1.创建符合ztree的dom形式
+              this.setFmtHtml();
+              //2.绑定下拉显示树型结构
+              this.bindToggleEvent();
+              //3.初始化下拉值
+              $.fn.zTree.init(opts.$dom.next().find(".ztree"),opts.seeting,data);
+              //是否需要初始化过滤器
+              if(opts.seeting.seachInput){
+            this.addSeach();
+          }
+              //4.是否需要回显
+              if(opts.$dom.val()||opts.$dom.data("value")){
+                $this.backShow(opts.$dom.val()||opts.$dom.data("value"));
+              }
+              return $.fn.zTree.getZTreeObj(opts.id);
+        },
+        bindToggleEvent(){
+          if(opts.$dom.parent().css("position")=="static"){
+            opts.$dom.parent().css("position","relative")
+          }
+          let $this  = this;
+          opts.$dom.click(function(){
+            opts.$dom.next().css({left:$(this).position().left,top:$(this).outerHeight()-1,width:$(this).outerWidth()}).slideDown("fast");
+            $("body").on("click",hideTree);
+          });
+          function hideTree(event) {
+            if (!(($(event.target).closest(".ztree-down").length>0)||event.target==opts.$dom[0])) {
+              opts.$dom.next().hide();
+              if($(".rj_ztree_seach").length>0){
+                $(".rj_ztree_seach").val("")
+              }
+              $("body").unbind("click", hideTree);
+            }
+          }
+        },
+        setFmtHtml(){
+          $(id).prop("readonly",true);
+              let name = $(id).attr("name");
+              $(id).removeAttr("name");
+              $(id).before(`<input type="hidden" class="form-control input1" name="${name}" />`);
+              $(id).after(`<div class="ztree-down"><ul class="ztree"></ul></div>`);
+              //opts赋值
+              opts.$dom=$(id);
+              opts.id = opts.$dom[0].id;
+              opts.$dom.removeAttr("id");
+              opts.$dom.next().find(".ztree").attr("id",opts.id);
+        },
+        config:{
+          ztree:{
+            view: {
+                    showIcon:false,
+                  },
+                  data: {
+                      simpleData: {
+                          enable: true
+                      }
+                  }
+          },
+          dragZtree:{
+                  view: {
+                    showIcon:false,
+                  },
+                  data: {
+                      simpleData: {
+                          enable: true
+                      }
+                  },
+                  edit: {
+                      enable: true,
+                      drag:{
+                        isCopy:false,
+                        autoOpenTime:200,
+                      },
+                      showRemoveBtn:false,
+                      showRenameBtn:false,
+                  },
+                  callback:{
+                    onDrop:function(event, treeId, treeNodes, targetNode, moveType, isCopy){
+                      //treeNodes所选中的拖拽的节点  可以是多个  按住ctrl可以多选。
+                      //targetNode目标节点
+                      //moveType"inner"：成为子节点，"prev"：成为同级前一个节点，"next"：成为同级后一个节点
+                      //isCopy是否是复制，，这个不关注 我已经设置为不可复制
+                    },
+                    onClick:function(event, treeId, treeNode){
+                      if(event.ctrlKey==true)return false;//当按住ctrlkey的时候不触发下面的事件  自己写的时候记得加上 事件冲突
+                    }
+                  }
+          },
+          ztreeRadio:{
+            view: {
+              dblClickExpand: false,
+              showLine: false,
+              showIcon:false
+            },
+            data: {
+              simpleData: {
+                enable: true
+              }
+            },
+            check:{
+              enable:true,
+              chkStyle: "radio",
+              radioType: "all",
+            },
+            callback: {
+              onClick:function(e, treeId, treeNode){
+                if(treeNode.isParent){
+                  $("#"+treeNode.tId+"_switch").trigger("click");
+                }else{
+                  $("#"+treeNode.tId+"_check").trigger("click");
+                }
+              },
+              onCheck: function(e, treeId, treeNode){
+                let html = treeNode.name;
+                html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
+                if(treeNode.checked){
+                  $("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val(html).prev().val(treeNode.id)
+                }else{
+                  $("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val("").prev().val("")
+                }
+              }
+            }
+          },
+          ztreeCheckbox:{
+            view: {
+              dblClickExpand: false,
+              showLine: false,
+              showIcon:false
+            },
+            data: {
+              simpleData: {
+                enable: true
+              }
+            },
+            check:{
+              enable:true,
+              chkStyle: "checkbox",
+              chkboxType: { "Y": "ps", "N": "ps" }
+            },
+            callback: {
+              onClick:function(e, treeId, treeNode){
+                if(treeNode.isParent){
+                  $("#"+treeNode.tId+"_switch").trigger("click");
+                }else{
+                  $("#"+treeNode.tId+"_check").trigger("click");
+                }
+              },
+              onCheck: function(e, treeId, treeNode){
+                var treeObj = $.fn.zTree.getZTreeObj(opts.id);
+                var html =[];//页面显示的值
+                var ids =[];//数据库传入的值
+                var nodes = treeObj.getCheckedNodes(true);
+                $.each(nodes, function(index,node){
+                  if(node.id !=""){
+                    html.push(node.name);
+                    ids.push(node.id);
+                  }
+                });
+                let len = ids.length;
+                ids = ids.join(",");
+                //search标签的处理
+                html=$("<div>").html(html.join(",")).text().replace(/( )/gi,"").trim();
+                $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(len>0?`${html}(${len}个)`:"").prev().val(ids);
+              }
+            }
+          }
+        },
+        backShow(ids){
+          var treeObj = $.fn.zTree.getZTreeObj(opts.id);
+          if(type=="ztreeCheckbox"){
+            var nodes = treeObj.transformToArray(treeObj.getNodes()).filter(node=>{
+              return !node.isParent;
+            })
+            for (var i=0, l=nodes.length; i < l; i++) {
+              let arr = ids.split(",");
+              for (let id of arr) {
+                if(nodes[i].id==id){
+                  let node = treeObj.transformTozTreeNodes(nodes[i])[0];
+                  let pnode=node.getParentNode();
+                  while(pnode){
+                    if(!treeObj.open){
+                      treeObj.expandNode(pnode, true, false);
+                    }
+                    pnode=pnode.getParentNode();
+                  }
+                  $("#"+nodes[i].tId+"_check").trigger("click");
+                  break;
+                }
+              }
+            }
+          }else if(type == "ztreeRadio"){
+            var nodes = treeObj.transformToArray(treeObj.getNodes());
+            for (var i=0, l=nodes.length; i < l; i++) {
+              if(nodes[i].id==ids){
+                let node = treeObj.transformTozTreeNodes(nodes[i])[0];
+                let pnode=node.getParentNode();
+                while(pnode){
+                  if(!treeObj.open){
+                    treeObj.expandNode(pnode, true, false);
+                  }
+                  pnode=pnode.getParentNode();
+                }
+                $("#"+nodes[i].tId+"_check").trigger("click");
+                //treeObj.checkNode(node, true, true,true);
+                break;
+              }
+            }
+          }
+        },
+      }
+      return ztree.init();
+    },
 		toggleRow:{
 			//初始化 做新增表单时 默认值是空  后期有默认值在拓展
 			_instances:[],
