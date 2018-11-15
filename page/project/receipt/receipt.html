@@ -1,0 +1,164 @@
+<div class="p-m">
+  <div class="panel panel-white">
+    <div class="panel-heading">
+      <div class="panel-title">
+                  回单管理
+      </div>
+      <div class="panel-tools">
+          <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+              <i class="fa fa-chevron-up"></i>
+          </a>
+      </div>
+    </div>
+    <div class="panel-body collapsed in" id="panelContent">
+        <div class="col-md-12">
+          <!--search start-->
+          <form id="search" class="form-inline fz12 clearfix">
+                    <div class="form-group">
+                     <label class="fw-n">项目
+                        <select class="form-control" name="project">
+                          <option value="">--请选择--</option>
+                          <option value="1" selected="selected">广州项目</option>
+                          <option value="2">深圳项目</option>
+                        </select>
+                      </label>
+                  </div>
+                    <div class="form-group">
+                     <label class="fw-n">回复类型
+                        <select class="form-control" name="type">
+                          <option value="">--请选择--</option>
+                          <option value="1" selected="selected">故障类型</option>
+                          <option value="2">状态库低端</option>
+                        </select>
+                      </label>
+                  </div>
+                    <div class="form-group">
+                     <label class="fw-n">时间
+                        <input class="form-control js_time"  name="createName"/>
+                      </label>
+                  </div>
+                      <div class="form-group m-b-xs">
+                          <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+                          <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+                      </div>
+                  </form>
+                  <!--end search-->
+          <div id="toolbar" class="m-b-sm m-t-sm">
+            <button type="button" class="btn btn-default js_addOrUpdate" onclick="receipt.addOrUpdate('新增回单')">
+              <i class="iconfont icon-add"></i> 新增
+            </button>
+          </div>
+          <table id="table"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var receipt = {
+    init() {
+      this.time();
+      this.tableInit();
+    },
+    time() {
+      $(".js_time").datetimepicker({
+        showClear: true,
+        format: 'YYYY-MM-DD',
+        locale: 'zh-CN',
+        viewMode: "days"
+      });
+    },
+    openInfo(id) {
+      //查看详情
+      home.jumpMenu("page/project/receipt/receiptInfo.html", function() {
+        receiptInfo.tableInit(id);
+      })
+    },
+    addOrUpdate(title, id) {
+      rj.modal(
+        title,
+        "page/project/receipt/addOrUpdate.html",
+        () => {
+          //load加载完成  需要把问题的下拉加载完
+          rj.resetPlug();
+          
+          //改变title
+          let ptext = $("select[name='project'] option:selected").text();
+          let ttext = $("select[name='type'] option:selected").text();
+          let text = ` ${ptext} | ${ttext} `
+          $("#xa-modal .modal-title").text( $("#xa-modal .modal-title").text() + text);
+        },
+        () => {
+          //点击确认
+          alert(JSON.stringify(rj.form.get($("#addOrUpdate")[0])))
+        }
+      )
+    },
+    tableInit() {
+      let data = [
+                {
+                  "id":"9465156465",
+                    "field1": "field1",
+                    "field2": "field2",
+                    "field3": "field3",
+                    "field4": "field4",
+                    "field5": "field5",
+                    "field6": "field6",
+                    "field7": "field7",
+                }
+            ]
+      rj.table.init({
+          id: "#table",
+          toolbar: false,
+          data:data,
+          columns: [
+          {
+              field: 'field1',
+              title: '回复工单任务名称'
+            }, 
+            {
+              field: 'field2',
+              title: '工单类型',
+            }, 
+            {
+              field: 'field3',
+              title: '工单数量',
+            }, 
+            {
+              field: 'field4',
+              title: '回复成功数量',
+              formatter: function(value, row, index) {
+                return `<span class="text-cuccess">启用</span>`
+              }
+            }, 
+            {
+              field: 'field5',
+              title: '回复失败数量',
+              formatter: function(value, row, index) {
+                return `<span class="text-danger">停用</span>`
+              },
+            },
+              {
+                field: 'field6',
+                title: '用户',
+              },
+              {
+                field: 'field7',
+                title: '回复时间',
+              },
+              {
+                title: '操作',
+                formatter: function(value, row, index) {
+                  return `
+                  <div style="width:160px">
+              <a class="btn btn-info btn-xs" onclick="receipt.addOrUpdate('修改回单',${row.id})">修改</a>
+              <a class="btn btn-info btn-xs" onclick="receipt.openInfo(${row.id})">查看详情</a>
+              <a class="btn btn-danger btn-xs">删除</a><div/>`
+                }
+              }
+            ],
+          })
+      }
+    }
+    receipt.init();
+</script>
