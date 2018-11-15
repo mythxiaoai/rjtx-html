@@ -70,7 +70,7 @@ var receipt = {
     },
     openInfo(id) {
       //查看详情
-      home.jumpMenu("page/project/receipt/receiptInfo.html", function() {
+      rj.load(".js_home_content","page/project/receipt/receiptInfo.html", function() {
         receiptInfo.tableInit(id);
       })
     },

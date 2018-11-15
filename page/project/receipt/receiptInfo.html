@@ -5,7 +5,7 @@
                   回单详情
       </div>
       <div class="panel-tools">
-           <a class="fz18 js_back" href="javascript:;" onclick="home.jumpMenu('page/project/receipt/receipt.html')" title="点击返回">
+           <a class="fz18 js_back" href="javascript:;" onclick="receiptInfo.back()" title="点击返回">
               <i class="fa fa-reply"></i>
           </a>
       </div>
@@ -52,6 +52,9 @@
             setTimeout(function(){
               $(".js_back").tooltip("hide");
             },2000);
+    },
+    back(){
+      rj.load(".js_home_content","page/project/receipt/receipt.html")
     },
     tableInit(id) {
       console.log(id)
