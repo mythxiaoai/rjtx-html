@@ -152,3 +152,56 @@ function getRandomSafeColor() {
     return res;
 }
 
+//简单数据变成父子结构数据  忽略大小写
+function simpleToPS(data,optObj){
+  let opts = {
+    idKey: "id",
+    pIdKey: "pid",
+    rootPId: ""
+  }
+  opts = Object.assign({},opts,optObj);
+  for(let i in opts){
+    opts[i] = opts[i].toLowerCase();
+  }
+  data = JSON.parse(JSON.stringify(data));
+  for(let i in data){
+      data[i].children = [];
+    }
+  let index = 0,result=[];
+  while(data.length>0){
+    index = index%data.length;
+    if(data[index][opts.pIdKey]==opts.rootPId){
+      data[index].level=1;
+      result.push(data[index]);
+      data.splice(index,1);
+      index--;
+    }else{
+      arrpush(result,2);
+    }
+    index++;
+  }
+  function arrpush(arr,level){
+      let markinto=true;
+      for(let i=0;i<data.length;i++){
+        for(let k=0;k<arr.length;k++){
+          if(data.length>0){
+            if(arr[k][opts.idKey]==data[i][opts.pIdKey]){
+              data[i].level = level;
+              arr[k].children.push(data[i]);
+              data.splice(i,1);
+              i--;
+              markinto = false;
+              break;
+            }
+          }
+          if(arr[k].children.length>0&&markinto){
+            arrpush(arr[k].children,++level);
+            level--;
+          }
+        }
+      }
+      
+    }
+    return result;
+ }
+
