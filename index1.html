@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>润建前端模板平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
+    <!--字体图标 fa fa-*-->
+    <link rel="stylesheet" href="fonts/font-awesome.css"/>
+    <!--字体图标 iconfont icon-*-->
+    <link rel="stylesheet" href="fonts/iconfont.css"/>
+    <!--bootstrap-->
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css"/>
+    <!--bootstrap过滤样式-->
+    <link rel="stylesheet" href="js/bootstrap/bootstrapfiller.css"/>
+    <!--checkbox/radio修饰-->
+    <link rel="stylesheet" href="js/icheck/skins/all.css"/>
+    <!--loading加载动画-->
+    <link rel="stylesheet" href="js/loading/loading.css"/>
+    <!--sweetalert弹框提示-->
+    <link rel="stylesheet" href="js/sweetalert/sweetalert.css"/>
+    <!--通用动画样式-->
+    <link rel="stylesheet" href="css/animate.css"/>
+    <!--时间插件-->
+    <link rel="stylesheet" href="js/bootstrapDatetimepicker/bootstrap-datetimepicker.css" />
+    <!--bootstrap表格-->
+    <link rel="stylesheet" href="js/bootstrapTable/bootstrap-table.css" />
+    <!--ztree树插件-->
+    <link rel="stylesheet" href="js/ztree/css/awesomeStyle/awesome.css" type="text/css">
+    <link rel="stylesheet" href="js/ztree/css/zTreeStyle/zTreeStyle.css" />
+    <!--颜色插件-->
+    <link rel="stylesheet" href="js/colorpicker/css/jquery-ui.css" />
+    <link rel="stylesheet" href="js/colorpicker/css/evol-colorpicker.css" />
+    <!--文件上传插件-->
+    <link href="./js/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />
+    <link href="./js/fileinput/themes/explorer-fa/theme.css" rel="stylesheet">
+    <!--基础样式文件-->
+    <link rel="stylesheet" href="css/common.css"/>
+    <style>
+	/*header start*/
+	.index_hearder{position:fixed;left:0;top:0;width:100%;height:60px;z-index:1;}
+	.index_nav{height:60px;background:#409EFF}
+	.index_nav .index_sysinfo{display:inline-block;height:60px;float:left;padding:0 15px;line-height:60px;position:relative;}
+	.index_nav .index_sysinfo img{display:inline-block;position:relative;top:-4px;}
+	.index_nav .hone_sysname{color:#fff;font-size:18px;padding-left:5px;}
+	.index_nav .index_menu,.index_nav .index_menu>ul,.index_nav .index_menu>ul>li{display:inline-block;font-size:0;}
+	.index_nav .index_menu >ul>li>a{display:inline-block;color:#fff;height:60px;line-height:60px;font-size:14px;float:left;padding:0 15px;position:relative;transition:text-shadow,background-color .75s;}
+	.index_nav .index_menu >ul>li>a>i{display:block;height:35px;font-size:24px;text-align:center;line-height:45px;vertical-align:bottom;transition:text-shadow .75s;}
+	.index_nav .index_menu >ul>li>a>span{display:block;font-size:12px;padding:0 10px;line-height:18px;}
+	.index_nav .index_menu >ul>li:not(:last-child)>a::after{content:"";position:absolute;height:60%;background:#3A8EE5;width:1px;right:-0.5px;top:0;bottom:0;margin:auto 0;}
+	.index_nav .index_menu >ul>li>a.active{background-color:rgba(0,0,0,0.1);text-shadow:1px 1px #555;}
+	.index_nav .index_menu >ul>li>a.active>i{text-shadow:0px 0px 15px #fff,0px 0px 10px #fff,0px 0px 5px #fff;}
+	.index_nav .index_menu >ul>li>a:hover{background-color:rgba(0,0,0,0.1);text-shadow:1px 1px #555;}
+	.index_nav .index_menu >ul>li>a:hover>i{text-shadow:0px 0px 15px #fff,0px 0px 10px #fff,0px 0px 5px #fff;}
+	.icon-bg{color: #fff;position: relative;top: 0px;float: left;font-size: 30px;}
+	/*控制显示隐藏*/
+	.index_nav .index_menu >ul>li>a.active + .sub_menu{display:block;}
+	/*sub_menu start*/
+	.index_nav .index_menu >ul>li >.sub_menu{display:none;height:30px;position:absolute;background:#3A8EE5;left:0;right:0;top:60px;margin:0 auto;padding:0 20px;}
+	.index_nav .index_menu >ul>li >.sub_menu>li{display:inline-block;font-size:0;}
+	.index_nav .index_menu >ul>li >.sub_menu>li>a{display:inline-block;height:30px;line-height:30px;font-size:13px;float:left;padding:0 10px;color:#E5E0DB;transition:color .75s;}
+	.index_nav .index_menu >ul>li >.sub_menu>li>a:hover{color:#fff;}
+	.index_nav .index_menu >ul>li >.sub_menu>li>a.active{color:#fff;}
+	.index_nav .index_sysopts{display:inline-block;float:right;}
+	.index_nav .index_sysopts .index_sys_opts{display:inline-block;color:#fff;height:60px;line-height:60px;font-size:14px;padding:0 15px;}
+	.index_nav .index_sysopts .index_sys_opts:hover{background-color:rgba(0,0,0,0.1);}
+	/*end header*/
+	/*main-box start*/
+	.index_content{padding-top:90px;}
+    </style>
+</head>
+<body class="bg-gray">
+<div class="index_hearder animated fadeInDown">
+	<div class="index_nav">
+	  	<div class="index_sysinfo">
+			<i class="iconfont icon-bg">&#xe66e;</i>
+	  		<span class="hone_sysname">润建前端模板平台</span>
+	  	</div>
+	  	<div class="index_menu js_index_menus">
+	  		<ul>
+<!--	  			<li>
+	  				<a href="javascript:;" class="js_index_pItem">
+	  					<i class="fa fa-wpforms"></i>
+	  					<span>首页</span>
+	  				</a>
+	  				<ul class="sub_menu">
+	  					<li>
+	  						<a href="javascript:;" class="js_index_sItem" data-url="page/index/index.html">
+			  					<i class="iconfont icon-yonghuicon"></i>
+			  					<span>首页</span>
+			  				</a>
+	  					</li>
+	  				</ul>
+	  			</li>-->
+	  		</ul>
+	  	</div>
+	  	<div class="index_sysopts">
+	  		<div class="dropdown">
+		  		<a data-toggle="dropdown" class="dropdown-toggle index_sys_opts" href="javascript:;">
+		  			<i class="fa fa-user"></i> 管理员 <span class="caret"></span>
+		  		</a>
+		  		<ul class="dropdown-menu animated fadeInRight m-t-xs">
+	                <li><a class="js_changeStyle" href="javascript:;">修改风格</a>
+	                <li><a href="javascript:;">修改密码</a>
+	                </li>
+	                <li class="divider"></li>
+	                <li><a href="logout">安全退出</a>
+	                </li>
+	            </ul>
+				<a href="./login1.html" class="index_sys_opts">
+					<i class="fa fa-power-off"></i>
+					退出
+				</a>	
+	        </div>
+	  	</div>
+	</div>
+</div>
+<!--主菜单  路由-->
+<div class="index_content animated fadeInRight js_index_content">
+	123
+</div>
+<!--jQuery-->
+<script type="text/javascript" src="js/jquery.js" ></script>
+<!--颜色插件  jquery-ui 与boostartp样式有冲突，注意引入顺序-->
+<script type="text/javascript" src="js/colorpicker/js/jquery-ui.min.js" ></script>
+<script type="text/javascript" src="js/colorpicker/js/evol-colorpicker.js" ></script>
+<!--bootstrap-->
+<script type="text/javascript" src="js/bootstrap/bootstrap.js" ></script>
+<!--echart图表插件-->
+<script type="text/javascript" src="js/echart/echarts.js"></script>
+<script type="text/javascript" src="js/echart/guangdong.js"></script>
+<!--bootstrap 文件上传-->
+<script type="text/javascript" src="js/bootstrap/bootstrap-prettyfile.js" ></script>
+<!--checkbox/radio修饰-->
+<script type="text/javascript" src="js/icheck/icheck.js" ></script>
+<!--loading加载-->
+<script type="text/javascript" src="js/loading/loading.js" ></script>
+<!--sweetalert提示框-->
+<script type="text/javascript" src="js/sweetalert/sweetalert-dev.js" ></script>
+<!--tip 错误操作提示框-->
+<script type="text/javascript" src="js/tip.js" ></script>
+<!--时间插件-->
+<script type="text/javascript" src="js/bootstrapDatetimepicker/moment-with-locales.js" ></script>
+<script type="text/javascript" src="js/bootstrapDatetimepicker/bootstrap-datetimepicker.min.js" ></script>
+<!--bootstrap表格-->
+<script type="text/javascript" src="js/bootstrapTable/bootstrap-table.js" ></script>
+<script type="text/javascript" src="js/bootstrapTable/locale/bootstrap-table-zh-CN.js" ></script>
+<!--验证插件-->
+<script type="text/javascript" src="js/jQueryValidation/jquery.validate.js" ></script>
+<script type="text/javascript" src="js/jQueryValidation/jquery.validate.messages_zh.js"></script>
+<!--ztree树插件-->
+<script type="text/javascript" src="js/ztree/js/jquery.ztree.core.js" ></script>
+<script type="text/javascript" src="js/ztree/js/jquery.ztree.exedit.js" ></script>
+<script type="text/javascript" src="js/ztree/js/jquery.ztree.excheck.js" ></script>
+<script type="text/javascript" src="js/ztree/js/jquery.ztree.exhide.js" ></script>
+<script type="text/javascript" src="js/ztree/js/ztree.search.js" ></script>
+<!--文件上传插件-->
+<script src="js/fileinput/js/fileinput.js" type="text/javascript"></script>
+<script src="js/fileinput/themes/explorer-fa/theme.js"></script>
+<script src="js/fileinput/js/locales/zh.js" type="text/javascript"></script>
+<!--工具js-->
+<script type="text/javascript" src="js/util.js"></script>
+<!--业务通用js-->
+<script type="text/javascript" src="js/rjtx.js" ></script>
+<script>
+   /**
+    *全局共用一个window对象挂载,其他界面都用jquery.load加载出来
+    * 提示:其他界面暴露的全局变量请用var声明！不要用let const 会导致报错.
+    */
+ var index = {
+   		callback:null,
+   		//设置首页
+   		index:"page/ui/mobal.html",
+		init(){
+		  this.changeStyle();
+		  let  $this = this;
+		  rj.ajax({
+		    type:"get",
+		    url:"js/data.js",
+		    success(data){
+		      data = data[0].menus;
+		      data = simpleToPS(data);
+		     $(".js_index_menus").append(getHTML(data));
+		     function getHTML(data){
+		       let html="";
+		       data.map(v=>{
+		         let temp="";
+		         if(v.children.length>0&&v.level<2){
+		            temp =  getHTML(v.children)
+		         }
+		         if(v.level==1){
+  		         html+=`<li>
+                    <a href="javascript:;" class="js_index_pItem">
+                      <i class="${v.icon}"></i>
+                      <span>${v.name}</span>
+                    </a>
+                    ${temp}
+                  </li>`
+		         }else{
+		           html+=`<li>
+                      <a href="javascript:;" class="js_index_sItem" data-url="${v.url}">
+                        <i class="${v.icon}"></i>
+                        <span>${v.name}</span>
+                      </a>
+                      ${temp}
+                    </li>`
+		         }
+		       });
+		       if(data[0].level==1){
+		         html=`<ul>${html}</ul>`
+		       }else{
+		         html=`<ul class="sub_menu">${html}</ul>`
+		       }
+		       return html;
+		     }
+		      $this.hashUrl();
+          $this.menusClick();
+		    }
+		  })
+			
+			
+		},
+		hashUrl(){
+        let $this = this;
+        let run = function(){
+          if(!window.location.hash){
+            //默认页面设置
+            $this.cssDeal();
+            rj.load(".js_index_content",$this.index,$this.callback||null);
+          }else{
+            $this.cssDeal();
+            rj.load(".js_index_content",window.location.hash.slice(1)+".html",$this.callback||null);
+          }
+        }
+        run()
+        window.onpopstate = run
+		},
+		jumpMenu(url,callback){
+			let hash = "";
+			if(url){
+				if(url.lastIndexOf(".")!=-1){
+					url = url.slice(0,url.lastIndexOf("."));
+					hash=url;
+				}
+			}
+			this.callback = callback||this.callback;
+			window.location.hash = "#"+hash;
+		},
+		cssDeal(){
+			let currUrl = window.location.hash?window.location.hash.slice(1)+".html":this.index;
+			$("[data-url]").each(function(index,dom){
+				if($(dom).data("url")==currUrl){
+					//css
+					$(".js_index_sItem").removeClass("active")
+					$(this).addClass("active");
+					let $pDom = $(this).closest(".sub_menu").closest("li").find(".js_index_pItem");
+					if(!$pDom.hasClass("active")){
+						$(".js_index_pItem").removeClass("active");
+						$($pDom).addClass("active");
+					}
+					return false;
+				}
+			});
+		},
+		menusClick(){
+			let $this = this;
+			//子点击
+			$(".js_index_menus").on("click",".js_index_sItem",function(e,fn){
+				//css
+				$this.cssDeal()
+				//模拟
+				let url = $(this).data("url")||"./doing.html";
+				$this.jumpMenu(url);
+			});
+			//父点击
+			$(".js_index_menus").on("click",".js_index_pItem",function(e,fn){
+				//模拟点击子
+				$(this).closest("li").find(".js_index_sItem").eq(0).trigger("click",fn)
+			});
+		},
+		changeStyle(){
+		  $(".js_changeStyle").click(function(){
+		    rj.modal("风格切换", 
+          "./changeStyle.html",
+          function() {
+            //加载完成的回调
+            $("#changeStyle").find("input[name='style']").eq(0).prop("checked",true)
+            rj.resetPlug();
+          },
+          function() {
+            //确定按钮的回调 
+            let data = rj.form.get($("#changeStyle")[0]);
+            let src = {
+              cd:1,
+              al:2,
+              bp:3,
+              ct:4,
+            }
+            window.location.href = `./index${src[data.style]}.html`
+          },
+          function() {
+            //取消按钮的回调
+          },
+        );
+		  });
+		}
+	}
+   index.init();
+</script>
+	
+</body>
+</html>

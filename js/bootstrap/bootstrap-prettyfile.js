@@ -37,8 +37,10 @@
 					var files = $( this )[0].files,
 					info = '';
 
-					if ( files.length == 0 )
-						return false;
+					if ( files.length == 0 ){
+					  $wrap.find('.input-append input').val(info).blur();
+					  return false;
+					}
 
 					if ( !multiple || files.length == 1 ) {
 						var path = $( this ).val().split('\\');
@@ -48,7 +50,7 @@
 						info = files.length + ' files selected';
 					}
 
-					$wrap.find('.input-append input').val( info );
+					$wrap.find('.input-append input').val( info ).blur();
 				});
 			};
 

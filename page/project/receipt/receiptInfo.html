@@ -1,0 +1,162 @@
+<div class="p-m">
+  <div class="panel panel-white">
+    <div class="panel-heading">
+      <div class="panel-title">
+                  回单详情
+      </div>
+      <div class="panel-tools">
+           <a class="fz18 js_back" href="javascript:;" onclick="receiptInfo.back()" title="点击返回">
+              <i class="fa fa-reply"></i>
+          </a>
+      </div>
+    </div>
+    <div class="panel-body collapsed in" id="panelContent">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+          <li class="active"><a href="#tab1" data-toggle="tab"><span class="text-success">回复成功(5)</span></a></li>
+          <li><a href="#tab2" data-toggle="tab" ><span class="text-danger">回复失败(2)</span></a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="tab1">
+            <div class="form-group m-b-xs m-t">
+              <button type="button" class="btn btn-default btn-sm">
+                <i class="iconfont icon-xiazai"></i> 导出
+              </button>
+               </div>
+            <table id="table1"></table>
+          </div>
+          <div class="tab-pane fade" id="tab2">
+            <div class="form-group m-b-xs m-t">
+              <button type="button" class="btn btn-default btn-sm">
+                <i class="iconfont icon-xiazai"></i> 导出
+              </button>
+               </div>
+            <table id="table2"></table>
+          </div>
+        </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var receiptInfo = {
+    init(){
+      this.tip();
+    },
+    tip(){
+      $(".js_back").tooltip({
+              placement:"left",
+            }).tooltip('show');
+            setTimeout(function(){
+              $(".js_back").tooltip("hide");
+            },2000);
+    },
+    back(){
+      rj.load(".js_home_content","page/project/receipt/receipt.html")
+    },
+    tableInit(id) {
+      console.log(id)
+      let data = [
+                {
+                  "id":"9465156465",
+                    "field1": "field1",
+                    "field2": "field2",
+                    "field3": "field3",
+                    "field4": "field4",
+                    "field5": "field5",
+                    "field6": "field6",
+                    "field7": "field7",
+                }
+            ]
+      rj.table.init({
+          id: "#table1",
+          toolbar: false,
+          data:data,
+          columns: [
+          {
+              field: 'field1',
+              title: '回复工单任务名称'
+            }, 
+            {
+              field: 'field2',
+              title: '工单类型',
+            }, 
+            {
+              field: 'field3',
+              title: '工单数量',
+            }, 
+            {
+              field: 'field4',
+              title: '回复成功数量',
+              formatter: function(value, row, index) {
+                return `<span class="text-cuccess">启用</span>`
+              }
+            }, 
+            {
+              field: 'field5',
+              title: '回复失败数量',
+              formatter: function(value, row, index) {
+                return `<span class="text-danger">停用</span>`
+              },
+            },
+              {
+                field: 'field6',
+                title: '用户',
+              },
+              {
+                field: 'field7',
+                title: '回复时间',
+              }
+            ],
+          })
+      
+      
+      rj.table.init({
+          id: "#table2",
+          toolbar: false,
+          data:data,
+          columns: [
+          {
+              field: 'field1',
+              title: '回复工单任务名称'
+            }, 
+            {
+              field: 'field2',
+              title: '工单类型',
+            }, 
+            {
+              field: 'field3',
+              title: '工单数量',
+            }, 
+            {
+              field: 'field4',
+              title: '回复成功数量',
+              formatter: function(value, row, index) {
+                return `<span class="text-cuccess">启用</span>`
+              }
+            }, 
+            {
+              field: 'field5',
+              title: '回复失败数量',
+              formatter: function(value, row, index) {
+                return `<span class="text-danger">停用</span>`
+              },
+            },
+              {
+                field: 'field6',
+                title: '用户',
+              },
+              {
+                field: 'field7',
+                title: '回复时间',
+              }
+            ],
+          })
+      
+      
+      }
+  }
+  receiptInfo.init();
+</script>

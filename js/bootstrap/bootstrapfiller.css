@@ -346,4 +346,11 @@ fieldset[disabled] .navbar-white .btn-link:focus {
 .modal-xlg {
     width: 90%;
   }
-
+/*查询*/
+.form-inline .form-group{
+  float: left;
+  margin-right: 15px;
+}
+.form-inline .form-group:after{
+  content:".";display:block;clear:both;visibility:hidden;line-height:0;height:0;
+}
