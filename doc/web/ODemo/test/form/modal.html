@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Model</title>
+</head>
+<body>
+    <div class="p-md">
+        <div class="panel-body">
+            <h3 class="page-header">Model弹框测试</h3>
+            <button type="button" class="btn btn-info m-b" onclick="modal1()">弹框1</button>
+        </div>
+    </div>
+    <script>
+        function modal1(){
+            rj.modal({
+                backdrop: true,
+                size: "modal-lg",
+                title: "弹框测试",
+                content: "确定删除该内容嘛？",
+            })
+        }
+    </script>
+</body>
+</html>

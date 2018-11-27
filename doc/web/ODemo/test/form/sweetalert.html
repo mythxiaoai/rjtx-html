@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta cha rset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sweetalert</title>
+</head>
+<body>
+    <!-- 
+        简洁写法：
+            xalert(title,text,type,fn) 相当于 rj.alert(title,text,type,fn)
+                title: 提示标题内容
+                text: 标题下面的描述文字    null || "" || 描述语
+                type: 类型  （success / error / warning / info）
+                fn: 回调函数
+     -->
+     <h4 class="page-header">基本信息弹框</h4>
+     <button class="btn btn-success m-r btn-block" onclick="xalert('干得漂亮！','你点击了按钮！','success')">操作成功弹框</button>
+     <button class="btn btn-danger m-r btn-block" onclick="xalert('哎哟.....','出错了！','error')">操作错误弹框</button>
+     <button class="btn btn-warning m-r btn-block" onclick="xalert('警告提示','确认将操作失败！','warning')">警告弹框</button>
+     <button class="btn btn-info m-r btn-block" onclick="xalert('提示','默认提示框','info')">默认信息弹框1</button>
+     <button class="btn btn-info m-r btn-block" onclick="runAlert1()">默认信息弹框带回调函数</button>
+
+     <h4 class="page-header">sweetalert特殊项</h4>
+     <button class="btn btn-success m-r btn-block" onclick="xerror('操作错误','请重新操作')">错误提示框</button>
+     <button class="btn btn-danger m-r btn-block" onclick="xerrorDe()">系统错误特殊项</button>
+	 <button class="btn btn-info btn-block" onclick="xconfirmDe()">xconfirm是否删除</button>
+     <script>
+         /*
+            title: 提示标题内容
+            text: 标题下面的描述文字    null || "" || 描述语
+            type: 类型  （success / error / warning / info）
+            fn: 回调函数title: 提示标题内容
+            text: 标题下面的描述文字    null || "" || 描述语
+            type: 类型  （success / error / warning / info）
+            fn: 回调函数
+         */
+         function runAlert1(){
+            /*
+                简洁写法：xalert(title,text,type,fn) 相当于 rj.alert(title,text,type,fn)       
+            */
+            rj.alert('提示','默认提示框','info',function(){
+                alert("我是回调函数")
+            })
+         };
+         function xerrorDe(){
+             /*
+                简洁写法：xerror(title,text,type,fn) 相当于 rj.error(title,text,type,fn)
+            */
+             rj.error("系统错误",`va.lang.IllegalArgumentException: Cannot format given Object as a Number
+                        at java.text.DecimalFormat.format(DecimalFormat.java:507)
+                        at java.text.Format.format(Format.java:157)`)
+         };
+         function xconfirmDe(){
+             /*
+                简洁写法：xconfirm(title,text,type,fn) 相当于 rj.confirm(title,text,type,fn)
+            */
+           rj.confirm("确定删除吗？","你将无法恢复该文件！",null,function(){
+               xalert("已删除！","你的文件已经被删除。","success")
+           })
+         }
+     </script>
+</body>
+</html>

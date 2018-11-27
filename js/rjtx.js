@@ -297,9 +297,9 @@ rj.form.get($("#addOrUpdate")[0]);
 					json.title=title;
 					json.text=text;
 					json.type=type || "info",
-				swal(json,function(){
-				  if(fn!=null)fn();
-				});
+					swal(json,function(){
+						if(fn!=null)fn();
+					});
 			}
 			win.xalert=this.alert;
 			this.error=function(title,text,type,fn){
@@ -1229,6 +1229,7 @@ rj.form.get($("#addOrUpdate")[0]);
 		},
 		load(selector,url,callback){
 			let $this = this;
+			console.log("00")
 			$(selector).load(url,function(reponseText,status,res){
 				if(res.readyState==4){
 					if (res.status >= 200 && res.status < 300) {
@@ -1249,6 +1250,7 @@ rj.form.get($("#addOrUpdate")[0]);
 		},
 		fileinput:{
 		  init() {
+				console.log("...")
 		    if(!$.fn.fileinput)return false;
   	    $.fn.fileinput.defaults = $.extend(true, {}, $.fn.fileinput.defaults, $.fn.fileinputThemes["explorer-fa"], {
   	      theme: "explorer-fa",
@@ -1306,6 +1308,7 @@ rj.form.get($("#addOrUpdate")[0]);
   	    });
 	    },
 	    getFileType(vType,vName){
+				console.log(vType)
         let fileTypeSettings = {
             image: function (vType, vName) {
                 return (compare(vType, 'image.*') && !compare(vType, /(tiff?|wmf)$/i) ||

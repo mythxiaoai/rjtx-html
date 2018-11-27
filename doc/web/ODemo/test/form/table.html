@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <table id="table">
+
+    </table>
+    <script>
+        var tab_test = {
+            init(){
+                this.table();
+            },
+            table(){
+                let data = [
+		            {
+		                "username": "广州",
+		                "sex": "男",
+		                "home": "XXXxxxxxxxxxxxxxxxxxxxxx",
+		                "friend": "已婚"
+		            },
+		            {
+		                "username": "广州",
+		                "sex": "男",
+		                "home": "XXXxxxxxxxxxxxxxxxxxxxxx",
+		                "friend": "已婚"
+		            },
+		            {
+		                "username": "广州",
+		                "sex": "男",
+		                "home": "XXXxxxxxxxxxxxxxxxxxxxxx",
+		                "friend": "已婚"
+		            },
+		            {
+		                "username": "广州",
+		                "sex": "男",
+		                "home": "XXXxxxxxxxxxxxxxxxxxxxxx",
+		                "friend": "已婚"
+		            },
+		            {
+		                "username": "广州",
+		                "sex": "男",
+		                "home": "XXXxxxxxxxxxxxxxxxxxxxxx",
+		                "friend": "已婚"
+		            },
+		            {
+		                "username": "广州",
+		                "sex": "男",
+		                "home": "XXXxxxxxxxxxxxxxxxxxxxxx",
+		                "friend": "已婚"
+		            },
+		            {
+		                "username": "广州",
+		                "sex": "男",
+		                "home": "XXXxxxxxxxxxxxxxxxxxxxxx",
+		                "friend": "已婚"
+		            }
+		        ]
+                //table插件
+                rj.table.init({
+                    id: "#table",
+                    toolbar: false,
+                    data: data,     //
+                    striped:true,  //显示行间隔色 
+                    search: true,  
+                    columns: [
+                        {
+                            field: 'username',
+                            title: '姓名'
+                        },
+                        {
+                            field: 'sex',
+                            title: '性别'
+                        },
+                        {
+                            field: 'home',
+                            title: '家庭住址'
+                        },
+                        {
+                            field: 'friend',
+                            title: '是否结婚'
+                        }
+                    ]
+                })
+            }
+        };
+        tab_test.init()
+    </script>
+</body>
+</html>
