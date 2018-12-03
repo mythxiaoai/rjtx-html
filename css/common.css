@@ -330,11 +330,12 @@ body.stop-scrolling {overflow: auto;}
 
 /*面包屑导航*/
 .crumb{overflow:hidden;line-height:40px;font-size:1.3rem;}
-.crumb a{display:inline-block;float:left;height:40px;color:#551a8b;margin-right:8px;font-size:1.3rem;}
-.crumb a.disabled{color:#808080;background-color:#fff;border-color:#ccc;cursor:not-allowed;filter:alpha(opacity=65);opacity:.65;pointer-events:none;}
-.crumb a.disabled:hover{cursor:not-allowed;opacity:.65;}
-.crumb a:after{font:normal normal normal 14px/1 FontAwesome;content:"\f105";margin-left:8px;}
+.crumb a{display:inline-block;float:left;height:40px;color:#666;margin-right:8px;font-size:1.3rem;}
+.crumb a:after{font:normal normal normal 14px/1 FontAwesome;content:"\f105";margin-left:5px;}
 .crumb a:hover{opacity:.8;}
+.crumb a:last-child{color:#808080;background-color:#fff;border-color:#ccc;cursor:not-allowed;filter:alpha(opacity=65);opacity:.65;pointer-events:none;}
+.crumb a:last-child:after{content:""}
+.crumb a:last-child:hover{cursor:not-allowed;opacity:.65;}
 /*颜色插件*/
 input.color{width:0px!important}
 .ui-widget-content{right: 0;left: 0;margin: 0 auto;}
