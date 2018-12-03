@@ -5,6 +5,13 @@
     <title>润建前端模板平台</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+      if(localStorage.getItem("rj_style")){
+        let src = {cd:1,al:2,bp:3,ct:4};
+        if(localStorage.rj_style!="al")
+        window.location.href = `./index${src[localStorage.rj_style]}.html`;
+      }
+    </script>
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
     <!--字体图标 fa fa-*-->
     <link rel="stylesheet" href="fonts/font-awesome.css"/>
@@ -38,87 +45,208 @@
     <!--基础样式文件-->
     <link rel="stylesheet" href="css/common.css"/>
     <style>
-	/*header start*/
-  .home_hearder{position:fixed;left:0;top:0;width:100%;height:60px;z-index:1;}
-  .home_nav{height:60px;background:#409EFF}
-  .home_nav .home_sysinfo{display:inline-block;height:60px;float:left;padding:0 15px;line-height:60px;position:relative;}
-  .home_nav .home_sysinfo img{display:inline-block;position:relative;top:-4px;}
-  .home_nav .hone_sysname{color:#fff;font-size:18px;padding-left:5px;}
-  .home_nav .home_menu,.home_nav .home_menu>ul,.home_nav .home_menu>ul>li{display:inline-block;font-size:0;}
-  .home_nav .home_menu >ul>li>a{display:inline-block;color:#fff;height:60px;line-height:60px;font-size:14px;float:left;padding:0 15px;position:relative;transition:text-shadow,background-color .75s;}
-  .home_nav .home_menu >ul>li>a>i{display:block;height:35px;font-size:24px;text-align:center;line-height:45px;vertical-align:bottom;transition:text-shadow .75s;}
-  .home_nav .home_menu >ul>li>a>span{display:block;font-size:12px;padding:0 10px;line-height:18px;}
-  .home_nav .home_menu >ul>li:not(:last-child)>a::after{content:"";position:absolute;height:60%;background:#3A8EE5;width:1px;right:-0.5px;top:0;bottom:0;margin:auto 0;}
-  .home_nav .home_menu >ul>li>a.active{background-color:rgba(0,0,0,0.1);text-shadow:1px 1px #555;}
-  .home_nav .home_menu >ul>li>a.active>i{text-shadow:0px 0px 15px #fff,0px 0px 10px #fff,0px 0px 5px #fff;}
-  .home_nav .home_menu >ul>li>a:hover{background-color:rgba(0,0,0,0.1);text-shadow:1px 1px #555;}
-  .home_nav .home_menu >ul>li>a:hover>i{text-shadow:0px 0px 15px #fff,0px 0px 10px #fff,0px 0px 5px #fff;}
-  .icon-bg{color: #fff;position: relative;top: 0px;float: left;font-size: 30px;}
-  /*控制显示隐藏*/
-  .home_nav .home_menu >ul>li>a.active + .sub_menu{display:block;}
-  /*sub_menu start*/
-  .home_nav .home_menu >ul>li >.sub_menu{display:none;height:30px;position:absolute;background:#3A8EE5;left:0;right:0;top:60px;margin:0 auto;padding:0 20px;}
-  .home_nav .home_menu >ul>li >.sub_menu>li{display:inline-block;font-size:0;}
-  .home_nav .home_menu >ul>li >.sub_menu>li>a{display:inline-block;height:30px;line-height:30px;font-size:13px;float:left;padding:0 10px;color:#E5E0DB;transition:color .75s;}
-  .home_nav .home_menu >ul>li >.sub_menu>li>a:hover{color:#fff;}
-  .home_nav .home_menu >ul>li >.sub_menu>li>a.active{color:#fff;}
-  .home_nav .home_sysopts{display:inline-block;float:right;}
-  .home_nav .home_sysopts .home_sys_opts{display:inline-block;color:#fff;height:60px;line-height:60px;font-size:14px;padding:0 15px;}
-  .home_nav .home_sysopts .home_sys_opts:hover{background-color:rgba(0,0,0,0.1);}
-  /*end header*/
-  /*main-box start*/
-  .home_content{padding-top:90px;}
+      /*maincolor   #03a9f4*/
+  /*header start*/
+    .index_hearder{position:fixed;left:0;top:0;width:100%;height:50px;background: #252a2f;line-height: 50px;color: #fff;z-index: 10;}
+    .index_hearder a:hover{background-color:#191d21;}
+    .index_hearder .index_logo>a{float:left;display: inline-block;color: #fff;text-align: center;}
+    .index_hearder .index_logo .index_logo_img{height: 50px;width: 50px;}
+    .index_hearder .index_logo .index_logo_img i{font-size: 24px;}
+    .index_hearder .index_logo .index_logo_name{font-size:14px;padding: 0 12px;}
+    .index_hearder .index_sysopts{float: right;}
+    .index_hearder .index_sysopts .dropdown{height: 50px;}
+    .index_hearder .index_sysopts .dropdown >a{float: left;color: #fff;padding: 0 12px;}
+    /*end header*/
+   
+    .index_content{position:absolute;top:50px;left:0;height:calc(100% - 50px);width:100%;overflow:hidden;z-index: 9;}
+    /*index_c_left 左侧内容菜单 start*/
+    .index_content .index_c_left{position:absolute;height:100%;z-index: 9;}
+    .index_content .index_c_left .index_menus_main{width:50px;height:100%;overflow:hidden;background:#252a2f;border-top:1px solid hsla(0,0%,100%,.1);cursor:pointer;transition:width .2s linear;position:relative;z-index:1;}
+    .index_content .index_c_left .index_menus_main ul{width:250px;height:100%;overflow-y:auto;}
+    .index_content .index_c_left .index_menus_main ul li a{display:inline-block;float:left;width:230px;height:40px;color:#ccc;line-height:40px;text-align:center;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_main ul li a:hover{color:#fff;background-color:#191d21;}
+    .index_content .index_c_left .index_menus_main ul li a.active{background:#03a9f4;color:#fff;}
+    .index_content .index_c_left .index_menus_main ul li a i{font-size:16px;display:inline-block;width:50px;float:left;line-height: 40px;}
+    .index_content .index_c_left .index_menus_main ul li a span{display:inline-block;float:left;width:180px;padding-right:10px;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;}
+    /*index_menus_sub start*/
+    .index_content .index_c_left .index_menus_sub{width:180px;height:100%;position:absolute;left: 50px;top:0;background:#eaedf1;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_sub.min{left:-130px}
+    .index_content .index_c_left .index_menus_sub .title{height:81px;padding:0 30px;line-height:81px;font-weight:600;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;background:#D9DEE4;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box{overflow:hidden;width:180px;height:calc(100% - 81px);}
+    .index_content .index_c_left .index_menus_sub .index_menus_box>ul{width:200px;overflow:auto;height:100%;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li{font-size: 0;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a{display:inline-block;width:180px;height:30px;line-height:30px;text-align:center;transition:all .2s linear;padding:0 10px;font-size: 12px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level1{padding-left:30px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level2{padding-left:45px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level3{padding-left:60px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level4{padding-left:75px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level5{padding-left:90px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a:hover{background:#F4F6F8}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.active{background:#fff}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span{line-height: 30px;display:inline-block;float:left;width:100%;height: 30px;text-align:left;position: relative;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span>span{float: left;display:inline-block;width: 100%;height: 30px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span i{height: 30px;padding: 0 5px;line-height: 30px;display: inline-block;float: left;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span>i:first-child{width: 30px;position: absolute;left: -30px;height: 30px;line-height: 30px;line-height: 28px;text-align: center;font-size: 16px;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span>i.closed{transform:rotate(-90deg);}
+    /*按钮*/
+    .index_content .index_c_left .index_menus_sub .sub_icon_btn{position:absolute;height:50px;width:15px;right:0;top:0;bottom:0;margin:auto 0;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_sub .sub_icon_btn:before{position:absolute;height:50px;width:15px;right:0;top:0;bottom:0;margin:auto 0;content:"";border-bottom:12px solid transparent;border-left:none;border-right:15px solid rgba(0,0,0,0.2);border-top:12px solid transparent;}
+    .index_content .index_c_left .index_menus_sub .sub_icon{display:inline-block;line-height:50px;text-align:center;width:15px;height:50px;font-size:16px;color:#fff;position:relative;}
+    .index_content .index_c_left .index_menus_sub .sub_icon_btn:hover{opacity: .8;}
+    .index_content .index_c_left .index_menus_sub.min .sub_icon_btn{transform-origin:right;transform:rotateY(180deg);}
+    /*end index_c_left*/
+      
+    /*index_c_right内容右侧 strat*/
+    .index_c_right{padding-left:230px;width:100%;height:100%;}
+     .index_c_right .index_c_box{width:100%;height:100%;}
+    /*end index_c_right*/
     </style>
 </head>
 <body class="bg-gray">
-<div class="home_hearder animated fadeInDown">
-	<div class="home_nav">
-	  	<div class="home_sysinfo">
-			<i class="iconfont icon-bg">&#xe66e;</i>
-	  		<span class="hone_sysname">润建前端模板平台</span>
-	  	</div>
-	  	<div class="home_menu js_home_menus">
-	  		<ul>
-<!--	  			<li>
-	  				<a href="javascript:;" class="js_home_pItem">
-	  					<i class="fa fa-wpforms"></i>
-	  					<span>首页</span>
-	  				</a>
-	  				<ul class="sub_menu">
-	  					<li>
-	  						<a href="javascript:;" class="js_home_sItem" data-url="page/home/home.html">
-			  					<i class="iconfont icon-yonghuicon"></i>
-			  					<span>首页</span>
-			  				</a>
-	  					</li>
-	  				</ul>
-	  			</li>-->
-	  		</ul>
-	  	</div>
-	  	<div class="home_sysopts">
-	  		<div class="dropdown">
-		  		<a data-toggle="dropdown" class="dropdown-toggle home_sys_opts" href="javascript:;">
-		  			<i class="fa fa-user"></i> 管理员 <span class="caret"></span>
-		  		</a>
-		  		<ul class="dropdown-menu animated fadeInRight m-t-xs">
-	                <li><a class="js_changeStyle" href="javascript:;">修改风格</a>
-	                <li><a href="javascript:;">修改密码</a>
-	                </li>
-	                <li class="divider"></li>
-	                <li><a href="logout">安全退出</a>
-	                </li>
-	            </ul>
-				<a href="./login1.html" class="home_sys_opts">
-					<i class="fa fa-power-off"></i>
-					退出
-				</a>	
-	        </div>
-	  	</div>
-	</div>
+<div class="index_hearder">
+      <div class="index_logo">
+        <a href="#/" class="index_logo_img">
+          <i class="iconfont icon-bg icon-logo"></i>
+        </a>
+        <a href="#/" class="index_logo_name">
+                  润建前端模板平台
+        </a>
+      </div>
+      <style>
+        .index_search{
+          float: left;
+          position: relative;
+        }
+        .index_search >input{
+          margin-left: 30px;
+          line-height: 30px;
+          background-color: transparent;
+          border: none;
+          font-size: 12px;
+          width: 180px;
+        }
+        .index_search >ul{
+          display: none;
+          width: 180px;
+          background: #252a2f;
+          left: 30px;
+          position: absolute;
+          max-height: 254px;
+          cursor: default;
+          z-index: 9999;
+          overflow: hidden;
+          overflow-y: auto;
+        }
+        .index_search >ul>li{
+          float: left;
+          height: 30px;
+          width: 100%;
+          position: relative;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .index_search >ul>li>a{
+          display: inline-block;
+          width: 100%;
+          height: 30px;
+          line-height: 30px;
+          color: #fff;
+          padding:0 15px;
+          float: left;
+        }
+        .index_search >ul>li>a:hover{
+          color: #03a9f4;
+          background-color:transparent
+        }
+        .index_search >ul>li.active>a{
+          color: #03a9f4;
+          background-color: #191d21;
+        }
+      </style>
+      <div class="index_search">
+        <input class="js_sug_input" placeholder="搜索..."/>
+        <ul class="js_suggestion">
+        </ul>
+      </div>
+      <div class="index_sysopts">
+        <div class="dropdown">
+          <a data-toggle="dropdown" class="dropdown-toggle index_sys_opts" href="javascript:;">
+            <i class="fa fa-user"></i> 管理员 <span class="caret"></span>
+          </a>
+            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                <li><a class="js_changeStyle" href="javascript:;">修改风格</a>
+                <li><a href="javascript:;">修改密码</a>
+                </li>
+                <li class="divider"></li>
+                <li><a href="logout">安全退出</a>
+                </li>
+            </ul>
+        <a href="./login1.html" class="index_sys_opts">
+          <i class="fa fa-power-off"></i>
+          退出
+        </a>  
+        </div>
+  </div>
 </div>
 <!--主菜单  路由-->
-<div class="home_content animated fadeInRight js_home_content">
-  
+<div class="index_content">
+  <div class="index_c_left js_index_menus">
+    <div class="index_menus_main">
+      <ul class="js_menus_one">
+       <!-- <li>
+          <a href="javascript:;">
+            <i class="iconfont icon-add"></i>
+            <span>首页</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" class="active">
+            <i class="iconfont icon-add"></i>
+            <span>首页2</span>
+          </a>
+        </li>-->
+      </ul>
+    </div>
+    <div class="index_menus_sub">
+      <div class="sub_icon_btn">
+        <a href="javascript:;" class="sub_icon js_index_left_btn"><i class="fa fa-angle-left"></i></a>
+      </div>
+      <div class="title js_subTitle">标题</div>
+      <div class="index_menus_box js_submenus">
+        
+        <!--<ul>
+          <li>
+            <a href="javascript:;" class="level1">
+              <i class="fa fa-caret-right"></i>
+              <span>首页1</span>
+            </a>
+            <ul>
+              <li>
+                <a href="javascript:;" class="level2 active">
+                  <i class="fa fa-caret-right"></i>
+                  <span>首页1-1</span>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:;" class="level1">
+              <span>首页2</span>
+            </a>
+          </li>
+        </ul>-->
+        
+      </div>
+    </div>
+  </div>
+  <div class="index_c_right">
+      <div class="index_c_box animated fadeInRight js_index_content">
+        
+      </div>
+  </div>
+   
 </div>
 <!--jQuery-->
 <script type="text/javascript" src="js/jquery.js" ></script>
@@ -127,6 +255,8 @@
 <script type="text/javascript" src="js/colorpicker/js/evol-colorpicker.js" ></script>
 <!--bootstrap-->
 <script type="text/javascript" src="js/bootstrap/bootstrap.js" ></script>
+<!--拼音-->
+<script type="text/javascript" src="js/pinyin.js" ></script>
 <!--echart图表插件-->
 <script type="text/javascript" src="js/echart/echarts.js"></script>
 <script type="text/javascript" src="js/echart/guangdong.js"></script>
@@ -164,8 +294,387 @@
 <!--业务通用js-->
 <script type="text/javascript" src="js/rjtx.js" ></script>
 <script>
-  
+  var index = {
+    callback:null,
+    home:"page/ui/mobal.html",
+    menus:[],
+    init:async function(){
+      await this.initmenus();
+      //搜索
+      this.initsearch();
+      this.searchEvent();
+      //路由注册
+      this.hashUrl()
+      //菜单点击
+      this.menusClick()
+      //子菜单左侧抽拉
+      this.btnClick();
+      //主hover 因为有延迟优化所以需要自己写js
+      this.hovemain();
+      //切换风格
+      this.changeStyle();
+    },
+    searchEvent(){
+        $(".js_sug_input").on("focus",function(){
+           $(".js_suggestion").slideDown("fast");
+           $(".js_suggestion li").show().removeClass("active");
+        });
+      //显示隐藏
+          $(".js_sug_input").on("input",function(){
+            $(".js_suggestion").slideDown("fast");
+            let val = $(this).val().toLowerCase();
+            $(".js_suggestion li").show().removeClass("active");
+            $(".js_suggestion li").each(function(index,dom){
+              if($(dom).text().indexOf(val)==-1&&$(dom).data("pinyin").indexOf(val)==-1){
+                $(dom).hide();
+              }
+            });
+          });
+          //点击其他位置隐藏
+          $(window).on("click",function(e){
+            if(!($(e.target).closest(".index_search").length>0)){
+              $(".js_suggestion").hide();
+            }
+          });
+          //li点击
+          $(".js_suggestion").on("click","li",function(){
+            //$(this).find("a").trigger("click");
+            window.location.hash = $(this).find("a").attr("href");
+            $(".js_suggestion").slideUp("fast");
+            $(".js_sug_input").val("").blur();;
+          });
+          //键盘事件
+          $(".js_sug_input").on("keydown",function(e){
+            let activeLiDom = $(".js_suggestion li.active");
+            //enter
+            if(e.keyCode == 13){
+             activeLiDom.trigger("click");
+            }
+            //上
+            if(e.keyCode == 38){
+              e.preventDefault();
+              if(activeLiDom.length>=1){
+                let activeIndex = activeLiDom.index();
+                activeLiDom.removeClass("active");
+                for(let i=$(".js_suggestion li").length-1;i>=0;i--){
+                  let dom =$(".js_suggestion li").eq(i);
+                  if(i<activeIndex&&dom.not(":hidden").length>0){
+                    dom.addClass("active");
+                    $(".js_sug_input").val(dom.text().trim());
+                    //滚动条
+                    let top = $(dom).position().top
+                    let winT = $(".js_suggestion").outerHeight();
+                    if(top<0){
+                      $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop()-dom.outerHeight());
+                    }
+                    break;
+                  }
+                }
+              }else{
+                let lastDom = $(".js_suggestion li:not(:hidden):last");
+                let top = lastDom.position().top+lastDom.outerHeight();
+                let winT = $(".js_suggestion").outerHeight();
+                $(".js_suggestion li:not(:hidden):last").addClass("active");
+                if(top>winT){
+                  $(".js_suggestion").scrollTop(top-winT);
+                }
+              }
+            }
+            //下
+            if(e.keyCode == 40){
+              if(activeLiDom.length>=1){
+                let activeIndex = activeLiDom.index();
+                activeLiDom.removeClass("active");
+                $(".js_suggestion li").each(function(index,dom){
+                  if(index>activeIndex&&$(dom).not(":hidden").length>0){
+                    $(dom).addClass("active");
+                    $(".js_sug_input").val($(dom).text().trim());
+                    //滚动条
+                    let top = $(dom).position().top+$(dom).outerHeight();
+                    let winT = $(".js_suggestion").outerHeight();
+                    if((top-winT)>=0){
+                      $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop()+$(dom).outerHeight());
+                    }
+                    return false;
+                  }
+                });
+              }else{
+                $(".js_suggestion li:not(:hidden):first").addClass("active");
+                $(".js_suggestion").scrollTop(0);
+              }
+            }
+          });
+    },
+    initsearch(){
+      let data = [];
+      //拿到所有子菜单作为搜索源数据
+      data = getdata(this.menus);
+      let lisStr = "";
+      for(let li of data){
+        let hash = "#";
+         if(li.url.lastIndexOf(".")!=-1){
+            hash += li.url.slice(0,li.url.lastIndexOf("."));
+          }
+        lisStr+=` <li data-pinyin="${xa_pinyin.getCamelChars(li.name).toLowerCase()}"><a href="${hash}">${li.name}</a></li>`
+      }
+      $(".js_suggestion").html(lisStr);
+      function getdata(data,arr =[]){
+        for(let v of data){
+          if(v.children.length == 0){
+            arr.push(v)
+          }else{
+            getdata(v.children,arr);
+          }
+        }
+        return arr;
+      }
+    },
+    initmenus(){
+      let $this = this;
+      return  rj.ajax({
+        type:"get",
+        url:"js/data.js",
+        success(data){
+          data = data[0].menus;
+          data = simpleToPS(data);
+          $this.menus = data;
+           //一级菜单添加到左侧
+          let html1 =""
+          console.log(data)
+          data.map((v,i)=>{
+            html1 +=`<li>
+              <a href="javascript:;" class="js_index_noeItem"  data-index="${i}">
+                <i class="${v.icon}"></i>
+                <span class="js_name">${v.name}</span>
+              </a>
+            </li>`;
+          })
+          $(".js_menus_one").append(html1);
+        }
+      })
+    },
+    changeSub(url){
+          //二级菜单
+       //找到当前url主页的父index
+        let pIndex = this.findP(url,this.menus);
+        //父的css
+        $(".js_menus_one>li>a").removeClass("active").eq(pIndex).addClass("active");
+        //子菜单加载的内容
+        let subChildren = this.menus[pIndex];
+        //获取html
+        let shtml = this.getHTML(subChildren.children);
+        //添加到页面 js_subTitle js_submenus
+        $(".js_subTitle").text(subChildren.name);
+        $(".js_submenus").html(shtml);
+    },
+    findP(url,data,index){
+      let result;
+      for(let i=0,len=data.length;i<len;i++){
+        let v = data[i];
+        if(url==v.url){
+         return index;
+        }
+        if(v.children.length>0){
+          if(v.level ==1){
+           result= this.findP(url,v.children,i);
+          }else{
+           result=this.findP(url,v.children,index);
+          }
+        }
+        if(result===0||result){
+          return result;
+        }
+      }
+    },
+    getHTML(data){
+     let html="";
+     data.map(v=>{
+       let temp="";
+       if(v.children.length>0){
+          temp =  this.getHTML(v.children);
+          html+=`<li>
+                <a href="javascript:;" class="level${v.level-1} js_index_pItem">
+                  <span>
+                    <i class="fa fa-caret-down js_index_caret"></i>
+                    <span class="js_menuName">${v.icon?`<i class="${v.icon}"></i>`:""}${v.name}</span>
+                  </span>
+                </a>
+                ${temp}
+              </li>`
+       }else{
+         html+=`<li>
+              <a href="javascript:;" class="level${v.level-1} js_index_sItem" data-src="${v.url}">
+                <span>
+                  <span class="js_menuName">${v.icon?`<i class="${v.icon}"></i>`:""}${v.name}</span>
+                </span>
+              </a>
+            </li>`
+       }
+     });
+     html=`<ul>${html}</ul>`
+     return html;
+   },
+   hashUrl(){
+      let $this = this;
+      let run = function(){
+        let url = window.location.hash?window.location.hash.slice(1)+".html":$this.home;
+        if(url=="/.html"){
+          url = $this.home;
+        }
+        if(!url){
+          //默认页面设置
+          //二级菜单构建
+          console.log(url)
+          $this.changeSub($this.home);
+          $this.cssDeal($this.home);
+          rj.load(".js_index_content",$this.home,$this.callback||null);
+        }else{
+          //默认页面设置
+          //二级菜单构建
+          $this.changeSub(url);
+          $this.cssDeal(url);
+          rj.load(".js_index_content",url,$this.callback||null);
+        }
+      }
+      run()
+      window.onpopstate = run
+    },
+    jumpMenu(url,callback){
+      let hash = "";
+      if(url){
+        if(url.lastIndexOf(".")!=-1){
+          url = url.slice(0,url.lastIndexOf("."));
+          hash=url;
+        }
+      }
+      this.callback = callback||this.callback;
+      window.location.hash = "#"+hash;
+    },
+    cssDeal(url){
+      $(".js_index_sItem").each(function(index,dom){
+        if($(dom).data("src")==url){
+          //css
+          $(".js_index_sItem").removeClass("active")
+          $(dom).addClass("active");
+         //让他的每个父都是打开的.closed
+         $(dom).parents("li").find(">.js_index_pItem").find(".js_index_caret").each(function(index,dom){
+           if($(dom).hasClass("closed")){
+             $(dom).trigger("click");
+           }
+         });
+          return false;
+        }
+      });
+    },
+    menusClick(){
+      let $this = this;
+      //子点击
+      $(".js_index_menus").on("click",".js_index_sItem",function(e,fn){
+        let url = $(this).data("src")||"./doing.html";
+        $this.jumpMenu(url);
+      });
+      
+      //子中的父点击
+      $(".js_index_menus").on("click",".js_index_pItem",function(e,fn){
+        e.stopPropagation()
+        //改变小图片
+        //切换和收起
+        if($(this).find(".js_index_caret").hasClass("closed")){
+          $(this).find(".js_index_caret").removeClass("closed");
+          $(this).closest("li").find(">ul").slideDown("fast");
+        }else{
+          $(this).find(".js_index_caret").addClass("closed");
+          $(this).closest("li").find(">ul").slideUp("fast");
+        }
+      });
+      
+      //一级菜单点击
+      $(".js_index_menus").on("click",".js_index_noeItem",function(e,fn){
+        let src = findurl($this.menus[$(this).data("index")].children);
+        $this.changeSub(src);
+        $(".js_index_sItem").each(function(index,dom){
+          if($(dom).data("src")==src){
+             $(dom).trigger("click");
+             return false;
+           }
+        });
+        if($(".index_menus_sub").hasClass("min")){
+          $(".js_index_left_btn").trigger("click");
+        }
+        e.stopPropagation();
+      });
+      
+      function findurl(data){
+        for(let i=0,len=data.length;i<len;i++){
+          let v = data[i];
+          if(v.children.length>0){
+            return findurl(v.children);
+          }
+          if(v.url&&v.children.length==0){
+            return v.url;
+          }
+        }
+      }
+      
+    },
+    changeStyle(){
+      $(".js_changeStyle").click(function(){
+        rj.modal("风格切换", 
+          "./changeStyle.html",
+          function() {
+            //加载完成的回调
+            $("#changeStyle").find("input[name='style']").eq(1).prop("checked",true)
+            rj.resetPlug();
+          },
+          function() {
+            //确定按钮的回调 
+            let data = rj.form.get($("#changeStyle")[0]);
+            localStorage.rj_style=data.style;
+            let src = {
+              cd:1,
+              al:2,
+              bp:3,
+              ct:4,
+            }
+            window.location.href = `./index${src[data.style]}.html`
+          },
+          function() {
+            //取消按钮的回调
+          },
+        );
+      });
+    },
+    btnClick(){
+     $(".js_index_left_btn").click(function(){
+       if($(".index_menus_sub").hasClass("min")){
+         $(".index_menus_sub").removeClass("min");
+         $(".index_c_right").css("padding-left",230);
+       }else{
+          $(".index_menus_sub").addClass("min");
+          $(".index_c_right").css("padding-left",50);
+       }
+       
+     });
+    },
+    hovemain(){
+      let now = null;
+      let time =null;
+      $(".index_menus_main").mouseenter(function(){
+        now = Date.now();
+        time = setInterval(()=>{
+          if(Date.now()-now>300){
+            $(".index_menus_main").css("width",230);
+          }
+        },50);
+      });
+      
+      $(".index_menus_main").mouseleave(function(){
+        clearInterval(time);
+        $(".index_menus_main").css("width",50);
+      });
+    }
+  }
+  index.init();
 </script>
-	
 </body>
 </html>

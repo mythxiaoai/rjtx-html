@@ -5,6 +5,13 @@
     <title>润建前端模板平台</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+     <script>
+      if(localStorage.getItem("rj_style")){
+        let src = {cd:1,al:2,bp:3,ct:4};
+        if(localStorage.rj_style!="cd")
+        window.location.href = `./index${src[localStorage.rj_style]}.html`;
+      }
+    </script>
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
     <!--字体图标 fa fa-*-->
     <link rel="stylesheet" href="fonts/font-awesome.css"/>
@@ -74,7 +81,7 @@
 <div class="index_hearder animated fadeInDown">
 	<div class="index_nav">
 	  	<div class="index_sysinfo">
-			<i class="iconfont icon-bg">&#xe66e;</i>
+			<i class="iconfont icon-bg icon-logo"></i>
 	  		<span class="hone_sysname">润建前端模板平台</span>
 	  	</div>
 	  	<div class="index_menu js_index_menus">
@@ -174,52 +181,53 @@
    		index:"page/ui/mobal.html",
 		init(){
 		  this.changeStyle();
+		  this.initmenus();
+		},
+		initmenus(){
 		  let  $this = this;
-		  rj.ajax({
-		    type:"get",
-		    url:"js/data.js",
-		    success(data){
-		      data = data[0].menus;
-		      data = simpleToPS(data);
-		     $(".js_index_menus").append(getHTML(data));
-		     function getHTML(data){
-		       let html="";
-		       data.map(v=>{
-		         let temp="";
-		         if(v.children.length>0&&v.level<2){
-		            temp =  getHTML(v.children)
-		         }
-		         if(v.level==1){
-  		         html+=`<li>
+      rj.ajax({
+        type:"get",
+        url:"js/data.js",
+        success(data){
+          data = data[0].menus;
+          data = simpleToPS(data);
+         $(".js_index_menus").append(getHTML(data));
+         function getHTML(data){
+           let html="";
+           data.map(v=>{
+             let temp="";
+             if(v.children.length>0&&v.level<2){
+                temp =  getHTML(v.children)
+             }
+             if(v.level==1){
+               html+=`<li>
                     <a href="javascript:;" class="js_index_pItem">
                       <i class="${v.icon}"></i>
                       <span>${v.name}</span>
                     </a>
                     ${temp}
                   </li>`
-		         }else{
-		           html+=`<li>
+             }else{
+               html+=`<li>
                       <a href="javascript:;" class="js_index_sItem" data-url="${v.url}">
                         <i class="${v.icon}"></i>
                         <span>${v.name}</span>
                       </a>
                       ${temp}
                     </li>`
-		         }
-		       });
-		       if(data[0].level==1){
-		         html=`<ul>${html}</ul>`
-		       }else{
-		         html=`<ul class="sub_menu">${html}</ul>`
-		       }
-		       return html;
-		     }
-		      $this.hashUrl();
+             }
+           });
+           if(data[0].level==1){
+             html=`<ul>${html}</ul>`
+           }else{
+             html=`<ul class="sub_menu">${html}</ul>`
+           }
+           return html;
+         }
+          $this.hashUrl();
           $this.menusClick();
-		    }
-		  })
-			
-			
+        }
+      })
 		},
 		hashUrl(){
         let $this = this;
@@ -291,6 +299,7 @@
           function() {
             //确定按钮的回调 
             let data = rj.form.get($("#changeStyle")[0]);
+            localStorage.rj_style=data.style;
             let src = {
               cd:1,
               al:2,

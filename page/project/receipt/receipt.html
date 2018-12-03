@@ -70,7 +70,7 @@ var receipt = {
     },
     openInfo(id) {
       //查看详情
-      rj.load(".js_home_content","page/project/receipt/receiptInfo.html", function() {
+      rj.load(".js_index_content","page/project/receipt/receiptInfo.html", function() {
         receiptInfo.tableInit(id);
       })
     },
@@ -83,8 +83,8 @@ var receipt = {
           rj.resetPlug();
           
           //改变title
-          let ptext = $("select[name='project'] option:selected").text();
-          let ttext = $("select[name='type'] option:selected").text();
+          let ptext = $("select[name='project']option[selected='selected']").text();
+          let ttext = $("select[name='type'] option[selected='selected']").text();
           let text = ` ${ptext} | ${ttext} `
           $("#xa-modal .modal-title").text( $("#xa-modal .modal-title").text() + text);
         },

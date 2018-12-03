@@ -32,9 +32,16 @@
             {
                 "id": "11-1",
                 "name": "3级菜单",
-                "url": "page/project/config/project.html",
-                "icon": "iconfont icon-shezhi",
+                "url": "page/project/config/project1.html",
+                "icon": "",
                 "pid": "11"
+            },
+            {
+                "id": "11-1-1",
+                "name": "4级菜单",
+                "url": "page/project/config/project2.html",
+                "icon": "",
+                "pid": "11-1"
             },
             {
                 "id": "12",
