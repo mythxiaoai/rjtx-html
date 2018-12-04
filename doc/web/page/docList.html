@@ -173,7 +173,9 @@
                     initialPreview.push(rj.fileinput.getDealURL(file.url));
                     initialPreviewConfig.push(item);
                   }
+                  //文件上传插件
                   $(".file").fileinput({
+                    allowedPreviewTypes:false,
                     fileActionSettings:{showUpload:false},
                     uploadUrl:"/upload",
                     //initialPreviewDownloadUrl: '{data}',
@@ -195,7 +197,9 @@
                   });
               },
               sureback(){
-                 $("#addOrUpdate").validate({
+                 //表单验证
+                  $("#addOrUpdate").validate({
+                    debug:true,
                   submitHandler: function (formDom) {
                     let formJSON = rj.form.get(formDom);
                     formJSON.discription = editor1.txt.html();
@@ -242,6 +246,7 @@
                 editor2 = new E('.js_editor2')
                 editor2.create()
                 $(".file").fileinput({
+                  allowedPreviewTypes:false,
                   uploadUrl:"/upload",
                   uploadExtraData:()=>{
                     return {id:$("input[name='id']").val()}
@@ -249,7 +254,8 @@
                 });
             },
             sureback(){
-               $("#addOrUpdate").validate({
+                //表单验证
+                $("#addOrUpdate").validate({
                 rules: {
                     key: {
                         required: true,
