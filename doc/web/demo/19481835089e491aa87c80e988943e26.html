@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form id="addZtree" class="form-horizontal">
+        <div class="form-group">
+            <label for="inputZtree1" class="col-sm-2 control-label">ztree1</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="ztree1" name="inputZtree1" />
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label for="inputZtree2" class="col-sm-2 control-label">ztree2</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="ztree2" name="inputZtree2" />
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label for="inputZtree3" class="col-sm-2 control-label">ztree2</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="ztree3" name="inputZtree3" />
+            </div>
+        </div>
+        <div class=" form-group text-center">
+            <button class="btn btn-primary js_ztree1" type="button">Test1</button>
+        </div>
+    </form>
+    <script>
+        /*
+            1.结合ztree 来使用
+        */
+       var test1 = {
+            init(){
+                var zNodes1 =[
+                    {id:4, pId:0, name:"财务部"},
+                    {id:41, pId:4, name:"财务小组1"},
+                    {id:42, pId:4, name:"财务小组2"},
+                    {id:43, pId:4, name:"财务小组3"},
+                    {id:44, pId:4, name:"财务小组4"},
+                    {id:5, pId:0, name:"研发部"},
+                    {id:51, pId:5, name:"研发部1"},
+                    {id:52, pId:5, name:"研发部2"},
+                    {id:53, pId:5, name:"研发部3"},
+                    {id:54, pId:5, name:"研发部4"},
+                    {id:6, pId:0, name:"行政部"},
+                    {id:61, pId:6, name:"行政部1"},
+                    {id:62, pId:6, name:"行政部2"},
+                    {id:63, pId:6, name:"行政部3"},
+                    {id:64, pId:6, name:"行政部4"}
+                ];
+                var zNodes2 = [
+                    {id:1, pId:0, name:"北京"},
+                    {id:2, pId:0, name:"天津"},
+                    {id:3, pId:0, name:"上海"},
+                    {id:6, pId:0, name:"重庆"},
+                    {id:4, pId:0, name:"河北省", open:true},
+                    {id:41, pId:4, name:"石家庄"},
+                    {id:42, pId:4, name:"保定"},
+                    {id:43, pId:4, name:"邯郸"},
+                    {id:44, pId:4, name:"承德"},
+                    {id:5, pId:0, name:"广东省", open:true},
+                    {id:51, pId:5, name:"广州"},
+                    {id:52, pId:5, name:"深圳"},
+                    {id:53, pId:5, name:"东莞"},
+                    {id:54, pId:5, name:"佛山"},
+                    {id:6, pId:0, name:"福建省", open:true},
+                    {id:61, pId:6, name:"福州"},
+                    {id:62, pId:6, name:"厦门"},
+                    {id:63, pId:6, name:"泉州"},
+                    {id:64, pId:6, name:"三明"}
+                ]
+                var zNodes3 = [
+                    {id:"2018",pId:"",name:"2018"},
+                    {id:"1", pId:"2018", name:"1月"},
+                    {id:"2", pId:"2018", name:"2月"},
+                    {id:"3", pId:"2018", name:"3月"},
+                    {id:"4", pId:"2018", name:"4月"},
+                    {id:"5", pId:"2018", name:"5月"},
+                    {id:"6", pId:"2018", name:"6月"},
+                    {id:"7", pId:"2018", name:"7月"},
+                    {id:"8", pId:"2018", name:"8月"},
+                    {id:"9", pId:"2018", name:"9月"},
+                    {id:"10", pId:"2018", name:"10月"},
+                    {id:"11", pId:"2018", name:"11月"},
+                    {id:"12", pId:"2018", name:"12月"},
+                ]
+                
+                var data ={
+                    "inputZtree1": "",
+                    "inputZtree2": "",
+                    "inputZtree3": ""
+                }
+                rj.form.set($("#addZtree")[0],data)
+                //重置插件
+                rj.resetPlug();    
+                rj.ztree("ztreeRadio","#ztree1",zNodes1);
+                rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
+                rj.ztree("ztreeCheckbox","#ztree3",zNodes3)
+                $(".js_ztree1").click(()=>{
+                    let formJSON = rj.form.get($("#addZtree")[0]);
+                    alert(JSON.stringify(formJSON,null,4))
+                })
+            }
+
+            
+       };
+       test1.init()
+    </script>
+</body>
+</html>
