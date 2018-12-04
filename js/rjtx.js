@@ -1365,7 +1365,7 @@ rj.form.get($("#addOrUpdate")[0]);
             url:vurl,
             async:false,
             success(data){
-              result = data;
+              result = rj.util.pre(data);
             }
           })
         }
