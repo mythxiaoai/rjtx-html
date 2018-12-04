@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button type="button" class="btn btn-default" onclick="run()">点击运行ajax</button>
+    <pre class="js_result4"></pre>
+    <script>
+        //写法三
+        function run(){
+            (async ()=>{
+                try{
+                    let a = await rj.ajax("/demo/test1");
+                    console.log(a+"a");
+                    let b = await rj.ajax("/demo/test2",{
+                        loading: ".js_result4"
+                    });
+                    console.log(b+"b");
+                    let c = await rj.ajax("/demo/test3");
+                    console.log(c+"c")
+                }catch(e){
+                    console.log(e)
+                }
+            })()            
+        }
+
+
+
+        //写法二
+        // function run(){
+        //     Promise.all([
+        //         rj.ajax("/demo/test1"),
+        //         rj.ajax("/demo/test2"),
+        //         rj.ajax("/demo/test3")
+        //     ]).then(function(data){
+        //         console.log(JSON.stringify(data,null,4))
+        //     })    
+        // }
+
+        // //写法一
+        // function run(){
+        //     //异步处理
+        //     ajax1().then((ajax1Data)=>{
+        //         console.log(ajax1Data);
+        //         return ajax2()
+        //     }).then((ajax2Data)=>{
+        //         let str = JSON.stringify(ajax2Data,null,4);
+        //         console.log(str);
+        //         return ajax3()
+        //     }).then((ajax3Data)=>{
+        //         console.log( JSON.stringify(ajax3Data,null,4))
+        //     });
+        //     function ajax1(){
+        //         return rj.ajax("/demo/test1")
+        //     };
+        //     function ajax2(){
+        //         return rj.ajax("/demo/test2",{
+        //             loading: ".js_result4",
+        //             success(data){
+        //                 console.log(".....")
+        //             }
+        //         })
+        //     };
+        //     function ajax3(){
+        //         return rj.ajax({
+        //             url:"/demo/test3",
+        //             loading:".js_result4",
+        //             success(data){
+        //             //如果配置也写success 那么和then一样 都运行 建议写在then里
+        //             }
+        //         });
+        //     }
+        // }
+        
+        
+    </script>
+</body>
+</html>

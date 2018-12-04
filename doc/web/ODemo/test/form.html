@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" multiple="multiple" class="js_file" name="file_input" />
+    <button type="button" class="btn btn-default btn-sm " onclick="test1()">点击上传</button>
+    <pre class="js_reasult">
+
+    </pre>
+    <script>
+        function test1(){
+            console.log($(".js_file")[0].name,"-=======-"+$(".js_file")[0].type)
+            if($(".js_file")[0].files.length==0) {
+                rj.alert("上传失败","请选择文件","error")
+            };
+            var fileTest = new FormData();
+            for (let file of $(".js_file")[0].files){
+                console.log(file)
+            }
+            rj.fileinput.init({
+                showUpload: true,
+                
+            })
+            rj.fileinput.getFileType($(".js_file")[0].name,$(".js_file")[0].type)
+        }
+    </script>
+</body>
+</html>

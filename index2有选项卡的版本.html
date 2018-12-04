@@ -5,13 +5,6 @@
     <title>润建前端模板平台</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-      if(localStorage.getItem("rj_style")){
-        let src = {cd:1,al:2,bp:3,ct:4};
-        if(localStorage.rj_style!="al")
-        window.location.href = `./index${src[localStorage.rj_style]}.html`;
-      }
-    </script>
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
     <!--字体图标 fa fa-*-->
     <link rel="stylesheet" href="fonts/font-awesome.css"/>
@@ -45,7 +38,6 @@
     <!--基础样式文件-->
     <link rel="stylesheet" href="css/common.css"/>
     <style>
-      /*maincolor   #03a9f4*/
   /*header start*/
     .index_hearder{position:fixed;left:0;top:0;width:100%;height:50px;background: #252a2f;line-height: 50px;color: #fff;z-index: 10;}
     .index_hearder a:hover{background-color:#191d21;}
@@ -56,13 +48,6 @@
     .index_hearder .index_sysopts{float: right;}
     .index_hearder .index_sysopts .dropdown{height: 50px;}
     .index_hearder .index_sysopts .dropdown >a{float: left;color: #fff;padding: 0 12px;}
-    .index_search{float:left;position:relative}
-    .index_search >input{margin-left:30px;line-height:30px;background-color:transparent;border:none;font-size:12px;width:180px}
-    .index_search >ul{display:none;width:180px;background:#252a2f;left:30px;position:absolute;max-height:254px;cursor:default;z-index:9999;overflow:hidden;overflow-y:auto}
-    .index_search >ul>li{float:left;height:30px;width:100%;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .index_search >ul>li>a{display:inline-block;width:100%;height:30px;line-height:30px;color:#fff;padding:0 15px;float:left}
-    .index_search >ul>li>a:hover{color:#03a9f4;background-color:transparent}
-    .index_search >ul>li.active>a{color:#03a9f4;background-color:#191d21}
     /*end header*/
    
     .index_content{position:absolute;top:50px;left:0;height:calc(100% - 50px);width:100%;overflow:hidden;z-index: 9;}
@@ -72,7 +57,7 @@
     .index_content .index_c_left .index_menus_main ul{width:250px;height:100%;overflow-y:auto;}
     .index_content .index_c_left .index_menus_main ul li a{display:inline-block;float:left;width:230px;height:40px;color:#ccc;line-height:40px;text-align:center;transition:all .2s linear;}
     .index_content .index_c_left .index_menus_main ul li a:hover{color:#fff;background-color:#191d21;}
-    .index_content .index_c_left .index_menus_main ul li a.active{background:#03a9f4;color:#fff;}
+    .index_content .index_c_left .index_menus_main ul li a.active{background:#409EFF;color:#fff;}
     .index_content .index_c_left .index_menus_main ul li a i{font-size:16px;display:inline-block;width:50px;float:left;line-height: 40px;}
     .index_content .index_c_left .index_menus_main ul li a span{display:inline-block;float:left;width:180px;padding-right:10px;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;}
     /*index_menus_sub start*/
@@ -105,24 +90,54 @@
       
     /*index_c_right内容右侧 strat*/
     .index_c_right{padding-left:230px;width:100%;height:100%;}
-    .index_c_right .index_c_box{width:100%;height:100%;}
+      /*nav start*/
+    .index_c_right .nav{height:40px;background:#FAFAFA;position:relative;border-bottom:solid 2px #2f4050;}
+    .index_c_right .nav .nav_tabbox{position:relative;width:10000px;left:40px;}
+    .index_c_right .nav .nav_tabbox .nav_tabs{position:absolute;left:0;top:0;overflow:hidden;transition:left .75s;}
+    .index_c_right .nav .nav_tabbox .nav_tabs .nav_item{color:#999;display:inline-block;float:left;font-size:1.3rem;line-height:38px;padding:0 15px;border-right:1px solid #eee;transition:color,background-color .75s;}
+    .index_c_right .nav .nav_tabbox .nav_tabs>:first-child{background:#F2F2F2;color:#777;}
+    .index_c_right .nav .nav_tabbox .nav_tabs .nav_item:hover{display:block;background:#F2F2F2;color:#777;}
+    .index_c_right .nav .nav_tabbox .nav_tabs .nav_item.action{background-color:#293846;color:#a7b1c2;}
+    .index_c_right .nav .nav_tabbox .nav_tabs .nav_item.action:hover{display:block;color:#fff;}
+    .index_c_right .nav .nav_tabbox .nav_tabs .nav_item .fa{padding:0 3px;transition:transform .75s;line-height:38px;}
+    .index_c_right .nav .nav_tabbox .nav_tabs .nav_item .fa:hover{transform:rotate(180deg);}
+    .index_c_right .nav > a{display:inline-block;height:100%;width:40px;line-height:38px;text-align:center;background:#fff;border:0;position:absolute;border-right:solid 1px #eee;color:#999}
+    .index_c_right .nav >a:hover{background:#F2F2F2;color:#777;}
+    .index_c_right .nav .nav_left{left:0;top:0;z-index:2;}
+    .index_c_right .nav .nav_right{right:40px;top:0;border-left:solid 1px #eee;}
+    .index_c_right .nav .nav_flush{right:0px;top:0;}
+      /*end nav*/
+     .index_c_right .index_c_box{width:100%;height:calc(100% - 40px);}
     /*end index_c_right*/
     </style>
 </head>
 <body class="bg-gray">
+<ul class="dropdown-menu" id="js_contmenu">
+  <li>
+    <a class="js_remove" href="javascript:;">
+      关闭当前页
+    </a>
+  </li>
+  <li>
+    <a class="js_other" href="javascript:;">
+      关闭其他页
+    </a>
+  </li>
+  <li>
+    <a class="js_moveright" href="javascript:;">
+      关闭右侧页
+    </a>
+  </li>
+</ul>  
+
 <div class="index_hearder">
       <div class="index_logo">
         <a href="#/" class="index_logo_img">
           <i class="iconfont icon-bg icon-logo"></i>
         </a>
         <a href="#/" class="index_logo_name">
-                  润建前端模板平台
+              润建前端模板平台
         </a>
-      </div>
-      <div class="index_search">
-        <input class="js_sug_input" placeholder="搜索..."/>
-        <ul class="js_suggestion">
-        </ul>
       </div>
       <div class="index_sysopts">
         <div class="dropdown">
@@ -197,6 +212,21 @@
     </div>
   </div>
   <div class="index_c_right">
+      <div class="nav">
+        <a href="javascript:;" class="nav_left" id="js_navl" title="左滚动">
+          <i class="fa fa-arrow-left"></i>
+        </a>
+        <div class="nav_tabbox">
+          <div class="nav_tabs" id="js_nav">
+          </div>
+        </div>
+        <a href="javascript:;" class="nav_right" id="js_navr" title="右滚动">
+          <i class="fa fa-arrow-right"></i>
+        </a>
+        <a href="javascript:;" class="nav_flush" id="js_reflush" title="刷新页面">
+          <i class="fa fa-refresh"></i>
+        </a>
+      </div>
       <div class="index_c_box animated fadeInRight js_index_content">
         
       </div>
@@ -210,8 +240,6 @@
 <script type="text/javascript" src="js/colorpicker/js/evol-colorpicker.js" ></script>
 <!--bootstrap-->
 <script type="text/javascript" src="js/bootstrap/bootstrap.js" ></script>
-<!--拼音-->
-<script type="text/javascript" src="js/pinyin.js" ></script>
 <!--echart图表插件-->
 <script type="text/javascript" src="js/echart/echarts.js"></script>
 <script type="text/javascript" src="js/echart/guangdong.js"></script>
@@ -248,10 +276,11 @@
 <script type="text/javascript" src="js/util.js"></script>
 <!--业务通用js-->
 <script type="text/javascript" src="js/rjtx.js" ></script>
+<script type="text/javascript" src="js/index2.js" ></script>
 <script>
   var index = {
-    callback:null,
     home:"page/ui/mobal.html",
+    //home:"page/project/config/project2.html",
     menus:[],
     init:async function(){
       await this.initmenus();
@@ -259,15 +288,10 @@
       this.hashUrl()
       //菜单点击
       this.menusClick()
-      //搜索
-      this.initsearch();
-      this.searchEvent();
       //子菜单左侧抽拉
       this.btnClick();
       //主hover 因为有延迟优化所以需要自己写js
       this.hovemain();
-      //切换风格
-      this.changeStyle();
     },
     initmenus(){
       let $this = this;
@@ -356,23 +380,51 @@
    hashUrl(){
       let $this = this;
       let run = function(){
-        let url = window.location.hash?window.location.hash.slice(1)+".html":$this.home;
-        if(url=="/.html"){
-          url = $this.home;
-        }
-        if(!url){
+        let src = window.location.hash?window.location.hash.slice(1)+".html":$this.home;
+        //改变结构
+        $this.changeSub(src);
+        //css
+        $this.cssDeal(src);
+        //获取默认首页数据
+        let name = $(`.js_index_sItem[data-src='${src}']`).text().trim();
+        let json = {name:name,src:src,showclosebtn:false,active:true}
+        if(!window.location.hash||json.src==$this.home){
           //默认页面设置
-          //二级菜单构建
-          console.log(url)
-          $this.changeSub($this.home);
-          $this.cssDeal($this.home);
-          rj.load(".js_index_content",$this.home,$this.callback||null);
+          tabs.addtab(json,$this.callback||null);
         }else{
-          //默认页面设置
-          //二级菜单构建
-          $this.changeSub(url);
-          $this.cssDeal(url);
-          rj.load(".js_index_content",url,$this.callback||null);
+          //默认
+          let home ={
+            name:findName($this.home,$this.menus),
+            src:$this.home,
+            showclosebtn:false,
+            active:true
+          }
+          console.log(home)
+          tabs.addtab(home,$this.callback||null);
+          //当前
+          json.showclosebtn=true;
+          tabs.addtab(json,$this.callback||null);
+                  
+        function findName(src,data){
+          let res ="";
+          for(let v of data){
+            if(v.url==src){
+              return v.name
+            }
+            if(v.children.length>0){
+              res = findName(src,v.children)
+            }
+            if(res){
+              break;
+            }
+          }
+         return res;
+        }
+          
+          json.active=false;
+          tabs.addtab(json);
+          let name = $(`.js_index_sItem[data-src='${src}']`).text().trim()
+          tabs.addtab({name:name,src:src,active:true});
         }
       }
       run()
@@ -389,9 +441,11 @@
       this.callback = callback||this.callback;
       window.location.hash = "#"+hash;
     },
-    cssDeal(url){
+    cssDeal(src){
+      let $this =this;
+      //二级菜单构建
       $(".js_index_sItem").each(function(index,dom){
-        if($(dom).data("src")==url){
+        if($(dom).data("src")==src){
           //css
           $(".js_index_sItem").removeClass("active")
           $(dom).addClass("active");
@@ -413,6 +467,7 @@
         $this.jumpMenu(url);
       });
       
+      
       //子中的父点击
       $(".js_index_menus").on("click",".js_index_pItem",function(e,fn){
         e.stopPropagation()
@@ -429,7 +484,7 @@
       
       //一级菜单点击
       $(".js_index_menus").on("click",".js_index_noeItem",function(e,fn){
-        let src = $this.findurl($this.menus[$(this).data("index")].children);
+        let src = findurl($this.menus[$(this).data("index")].children);
         $this.changeSub(src);
         $(".js_index_sItem").each(function(index,dom){
           if($(dom).data("src")==src){
@@ -440,136 +495,20 @@
         if($(".index_menus_sub").hasClass("min")){
           $(".js_index_left_btn").trigger("click");
         }
-         $(".index_menus_main").trigger("mouseleave");
-        e.stopPropagation();
       });
-    },
-      //找到第一个url
-    findurl(data){
-      for(let i=0,len=data.length;i<len;i++){
-        let v = data[i];
-        if(v.children.length>0){
-          return this.findurl(v.children);
-        }
-        if(v.url&&v.children.length==0){
-          return v.url;
-        }
-      }
-    },
-    searchEvent(){
-        $(".js_sug_input").on("focus",function(){
-           $(".js_suggestion").slideDown("fast");
-           $(".js_suggestion li").show().removeClass("active");
-        });
-      //显示隐藏
-          $(".js_sug_input").on("input",function(){
-            $(".js_suggestion").slideDown("fast");
-            let val = $(this).val().toLowerCase();
-            $(".js_suggestion li").show().removeClass("active");
-            $(".js_suggestion li").each(function(index,dom){
-              if($(dom).text().indexOf(val)==-1&&$(dom).data("pinyin").indexOf(val)==-1){
-                $(dom).hide();
-              }
-            });
-          });
-          //点击其他位置隐藏
-          $(window).on("click",function(e){
-            if(!($(e.target).closest(".index_search").length>0)){
-              $(".js_suggestion").hide();
-            }
-          });
-          //li点击
-          $(".js_suggestion").on("click","li",function(){
-            //$(this).find("a").trigger("click");
-            window.location.hash = $(this).find("a").attr("href");
-            $(".js_suggestion").slideUp("fast");
-            $(".js_sug_input").val("").blur();;
-          });
-          //键盘事件
-          $(".js_sug_input").on("keydown",function(e){
-            let activeLiDom = $(".js_suggestion li.active");
-            //enter
-            if(e.keyCode == 13){
-             activeLiDom.trigger("click");
-            }
-            //上
-            if(e.keyCode == 38){
-              e.preventDefault();
-              if(activeLiDom.length>=1){
-                let activeIndex = activeLiDom.index();
-                activeLiDom.removeClass("active");
-                for(let i=$(".js_suggestion li").length-1;i>=0;i--){
-                  let dom =$(".js_suggestion li").eq(i);
-                  if(i<activeIndex&&dom.not(":hidden").length>0){
-                    dom.addClass("active");
-                    $(".js_sug_input").val(dom.text().trim());
-                    //滚动条
-                    let top = $(dom).position().top
-                    let winT = $(".js_suggestion").outerHeight();
-                    if(top<0){
-                      $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop()-dom.outerHeight());
-                    }
-                    break;
-                  }
-                }
-              }else{
-                let lastDom = $(".js_suggestion li:not(:hidden):last");
-                let top = lastDom.position().top+lastDom.outerHeight();
-                let winT = $(".js_suggestion").outerHeight();
-                $(".js_suggestion li:not(:hidden):last").addClass("active");
-                if(top>winT){
-                  $(".js_suggestion").scrollTop(top-winT);
-                }
-              }
-            }
-            //下
-            if(e.keyCode == 40){
-              if(activeLiDom.length>=1){
-                let activeIndex = activeLiDom.index();
-                activeLiDom.removeClass("active");
-                $(".js_suggestion li").each(function(index,dom){
-                  if(index>activeIndex&&$(dom).not(":hidden").length>0){
-                    $(dom).addClass("active");
-                    $(".js_sug_input").val($(dom).text().trim());
-                    //滚动条
-                    let top = $(dom).position().top+$(dom).outerHeight();
-                    let winT = $(".js_suggestion").outerHeight();
-                    if((top-winT)>=0){
-                      $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop()+$(dom).outerHeight());
-                    }
-                    return false;
-                  }
-                });
-              }else{
-                $(".js_suggestion li:not(:hidden):first").addClass("active");
-                $(".js_suggestion").scrollTop(0);
-              }
-            }
-          });
-    },
-    initsearch(){
-      let data = [];
-      //拿到所有子菜单作为搜索源数据
-      data = getdata(this.menus);
-      let lisStr = "";
-      for(let li of data){
-        let hash = "#";
-         if(li.url.lastIndexOf(".")!=-1){
-            hash += li.url.slice(0,li.url.lastIndexOf("."));
+      
+      function findurl(data){
+        for(let i=0,len=data.length;i<len;i++){
+          let v = data[i];
+          if(v.children.length>0){
+            return findurl(v.children);
           }
-        lisStr+=` <li data-pinyin="${xa_pinyin.getCamelChars(li.name).toLowerCase()}"><a href="${hash}">${li.name}</a></li>`
-      }
-      $(".js_suggestion").html(lisStr);
-      function getdata(data,arr =[]){
-        for(let v of data){
-          if(v.children.length == 0){
-            arr.push(v)
-          }else{
-            getdata(v.children,arr);
+          if(v.url&&v.children.length==0){
+            return v.url;
           }
         }
-        return arr;
       }
+      
     },
     changeStyle(){
       $(".js_changeStyle").click(function(){
@@ -577,13 +516,12 @@
           "./changeStyle.html",
           function() {
             //加载完成的回调
-            $("#changeStyle").find("input[name='style']").eq(1).prop("checked",true)
+            $("#changeStyle").find("input[name='style']").eq(0).prop("checked",true)
             rj.resetPlug();
           },
           function() {
             //确定按钮的回调 
             let data = rj.form.get($("#changeStyle")[0]);
-            localStorage.rj_style=data.style;
             let src = {
               cd:1,
               al:2,

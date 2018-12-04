@@ -297,9 +297,9 @@ rj.form.get($("#addOrUpdate")[0]);
 					json.title=title;
 					json.text=text;
 					json.type=type || "info",
-				swal(json,function(){
-				  if(fn!=null)fn();
-				});
+					swal(json,function(){
+						if(fn!=null)fn();
+					});
 			}
 			win.xalert=this.alert;
 			this.error=function(title,text,type,fn){

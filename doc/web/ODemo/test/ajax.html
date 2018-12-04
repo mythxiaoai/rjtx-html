@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax</title>
+</head>
+<body>
+    <input type="file" multiple="multiple" class="js_file1">
+    <button type="button" class="btn btn-default" onclick="run3()">点击运行ajax</button>
+    <pre class="js_result3">
+    
+    </pre>
+    <script>
+        //推荐写法
+		  function run3(){
+            //推荐写法
+		    // rj.ajax("/demo/test1").then((data)=>{
+		    //   $(".js_result3").html(JSON.stringify(data,null,4))
+            // })
+
+        //完整属性配置 loading过程加载  弹框提示 弹框提示内容 描述
+            // rj.ajax({
+            //     url: "/demo/resultEdit",//请求的接口地址
+            //     post: "post",//请求数据的类型 默认值为post
+            //     async: true,//是否进行异步 默认值为true
+            //     loading: ".js_result3",//loading过程
+            //     msg: true,//是否弹出消息
+            //     data:{
+            //         "data":"返回什么数据",
+            //         "msg":"完整属性配置测试弹框内容-msg",
+            //         "describe":"弹框内容描述",
+            //         "status": 0
+            //     },
+            //     success(data){
+            //         //请求成功之后返回的数据
+            //         $(".js_result3").html(JSON.stringify(data,null,4));
+            //     },
+            //     error(e){
+            //         console.log(e);
+            //     }
+            // })
+
+        
+		  }
+        
+    </script>
+</body>
+</html>

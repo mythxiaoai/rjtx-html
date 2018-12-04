@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" multiple="multiple" class="js_files">
+    <button onclick="run4(this)">点击上传</button>
+    <pre class="js_pre"></pre>
+    <progress id="progress" style="width: 100%"></progress>
+    <div id="pro1"></div>
+    <div id="pro2"></div>
+    <div id="pro3"></div>
+    <script>
+        function run4(dom){
+            if($(".js_files")[0].files.length == 0) return false;
+            console.log($(".js_files")[0].files.length)
+            console.log(dom);
+            $(dom).prop("disabled",true);
+            var fileDate = new FormData();
+            for(let file of $(".js_files")[0].files){
+                fileDate.append("flie",file)
+            }
+            rj.ajax({
+                url: "/demo/upload",//请求地址
+                data: fileDate,//要传输给后台的数据
+                upload: true,//是否进行上传
+                success: function(data) {
+                    $(dom).prop("disabled",false);
+                    let str = JSON.stringify(data);
+                    $(".js_pre").html(str)
+                },
+                progress(opt,e) {
+                    progress.value = opt.percent;
+                    pro1.innerHTML=opt.percent+"--百分比"+(opt.percent*100).toFixed(2)+"%";
+                    pro2.innerHTML=opt.time+"--ms";
+                    pro3.innerHTML=opt.fmtTime+"--格式化后的时间";
+                }
+
+            })
+        }
+        
+    </script>
+</body>
+</html>
