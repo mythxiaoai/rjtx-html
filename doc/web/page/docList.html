@@ -199,7 +199,6 @@
               sureback(){
                  //表单验证
                   $("#addOrUpdate").validate({
-                    debug:true,
                   submitHandler: function (formDom) {
                     let formJSON = rj.form.get(formDom);
                     formJSON.discription = editor1.txt.html();
