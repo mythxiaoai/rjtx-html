@@ -197,6 +197,7 @@
               sureback(){
                  $("#addOrUpdate").validate({
                   submitHandler: function (formDom) {
+                    alert("btn")
                     let formJSON = rj.form.get(formDom);
                     formJSON.discription = editor1.txt.html();
                     formJSON.args = editor2.txt.html();
