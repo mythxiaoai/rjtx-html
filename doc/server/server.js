@@ -13,10 +13,10 @@ let server =express()
 server.listen(8080)
 //连接数据库
 let createPool = mysql.createPool({
-  host:"192.168.130.168",
+  host:"192.168.110.240",
   port:3306,
   user:"root",
-  password:"123456",
+  password:"123",
   database:"rjtx_html"
 })
 
