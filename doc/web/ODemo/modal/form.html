@@ -1,0 +1,287 @@
+
+<form id="addOrUpdate" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">普通输入框</label>
+        <div class="col-sm-10">
+            <input type="file" class="form-control prettyFile" placeholder="请输入..." id="prettyFile">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">普通输入框</label>
+        <div class="col-sm-10">
+            <input type="text" autofocus="autofocus" class="form-control" placeholder="请输入..." name="input1">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+       	<label class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            <input type="password" class="form-control" placeholder="请输入..." name="input2">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">select</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="input3">
+                <option value="">--请选择--</option>
+                <option value="0" >男</option>
+                <option value="1" >女</option>
+            </select> 
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">多选</label>
+        <div class="col-sm-10">
+			<div class="checkbox-inline">
+				<label><input type="checkbox" class="icheck" value="html" name="input4">html</label>
+			</div>
+			<div class="checkbox-inline">
+				<label><input type="checkbox" class="icheck" value="css" name="input4">css</label>
+			</div>
+			<div class="checkbox-inline">
+				<label><input type="checkbox" class="icheck" value="js" name="input4">js</label>
+			</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">单选</label>
+        <div class="col-sm-10">
+        	<div class="radio-inline">
+				<label><input type="radio" name="input5" value="学习使我进步"  class="icheck">学习使我进步</label>
+			</div>
+			<div class="radio-inline">
+				<label><input type="radio" name="input5" value="学习使我快乐" class="icheck">学习使我快乐</label>
+			</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+   	<div class="form-group">
+        <label class="col-sm-2 control-label">文本域</label>
+        <div class="col-sm-10"><!--+2是为了border-->
+        	<textarea class="form-control" oninput="this.style.height=(this.scrollHeight+2)+'px'" name="input6">我是自适应文本域哦  不行多输入点~~~</textarea>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ztree1</label>
+        <div class="col-sm-10">
+			<input class="form-control" id="ztree1" name="input7" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ztree2</label>
+        <div class="col-sm-10">
+        	<input class="form-control" id="ztree2" name="input8" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ztree3</label>
+        <div class="col-sm-10">
+        	<input class="form-control" id="ztree3" name="input99" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">ztree4</label>
+        <div class="col-sm-10">
+        	<input class="form-control" id="ztree4" name="input98" type="text"/>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">分栏</label>
+        <div class="col-sm-5">
+       		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input9">
+         </div>
+         <div class="col-sm-5">
+      		<input type="text" autofocus="autofocus" class="form-control" placeholder="col-sm-5" name="input10">
+         </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">分栏1</label>
+        <div class="col-sm-10 rj_toggleRow" data-name="input11" >
+        	<div class="row m-b-xs rj_toggleRow_item">
+        		<div class="col-sm-5">
+		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey1">
+		         </div>
+		         <div class="col-sm-5">
+		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey2">
+		         </div>
+		         <div class="col-sm-2 p-none">
+		         	<div class="btn-group btn-group-xs m-t-xs">
+		         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
+		         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+		         	</div>
+		         </div>
+        	</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">分栏2</label>
+        <div class="col-sm-10 rj_toggleRow" data-name="input12">
+        	<div class="row m-b-xs rj_toggleRow_item">
+        		<div class="col-sm-5">
+		       		<input type="text" class="form-control rj_toggleRow_input" placeholder="账号" name="inputKey3">
+		         </div>
+		         <div class="col-sm-5">
+		      		<input type="text" class="form-control rj_toggleRow_input" placeholder="密码" name="inputKey4">
+		         </div>
+		         <div class="col-sm-2 p-none">
+		         	<div class="btn-group btn-group-xs m-t-xs">
+		         		<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
+		         		<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+		         	</div>
+		         </div>
+        	</div>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-default m-r " type="button" onclick="rj.toggleRow.init()">初始化rj_toggleRow</button>
+            <button class="btn btn-default m-r " type="button" onclick="rj.toggleRow.destroy()">销毁rj_toggleRow</button>
+            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+            <button class="btn btn-primary js_sure" type="button">确定</button>
+        </div>
+    </div>
+</form>
+<script>
+	var formDemo={
+		init(){
+			var zNodes1 =[
+				{id:4, pId:0, name:"财务部"},
+				{id:41, pId:4, name:"财务小组1"},
+				{id:42, pId:4, name:"财务小组2"},
+				{id:43, pId:4, name:"财务小组3"},
+				{id:44, pId:4, name:"财务小组4"},
+				{id:5, pId:0, name:"研发部"},
+				{id:51, pId:5, name:"研发部1"},
+				{id:52, pId:5, name:"研发部2"},
+				{id:53, pId:5, name:"研发部3"},
+				{id:54, pId:5, name:"研发部4"},
+				{id:6, pId:0, name:"行政部"},
+				{id:61, pId:6, name:"行政部1"},
+				{id:62, pId:6, name:"行政部2"},
+				{id:63, pId:6, name:"行政部3"},
+				{id:64, pId:6, name:"行政部4"}
+			 ];
+			var zNodes2 =[
+				{id:1, pId:0, name:"北京"},
+				{id:2, pId:0, name:"天津"},
+				{id:3, pId:0, name:"上海"},
+				{id:6, pId:0, name:"重庆"},
+				{id:4, pId:0, name:"河北省", open:true},
+				{id:41, pId:4, name:"石家庄"},
+				{id:42, pId:4, name:"保定"},
+				{id:43, pId:4, name:"邯郸"},
+				{id:44, pId:4, name:"承德"},
+				{id:5, pId:0, name:"广东省", open:true},
+				{id:51, pId:5, name:"广州"},
+				{id:52, pId:5, name:"深圳"},
+				{id:53, pId:5, name:"东莞"},
+				{id:54, pId:5, name:"佛山"},
+				{id:6, pId:0, name:"福建省", open:true},
+				{id:61, pId:6, name:"福州"},
+				{id:62, pId:6, name:"厦门"},
+				{id:63, pId:6, name:"泉州"},
+				{id:64, pId:6, name:"三明"}
+			 ];
+			var zNodes3 =[
+        {id:"", pId:0, name:"全部"},
+        {id:"2018", pId:"", name:"2018"},
+        {id:"1", pId:"2018", name:"1月"},
+        {id:"2", pId:"2018", name:"2月"},
+        {id:"3", pId:"2018", name:"3月"},
+        {id:"4", pId:"2018", name:"4月"},
+        {id:"5", pId:"2018", name:"5月"},
+        {id:"6", pId:"2018", name:"6月"},
+        {id:"7", pId:"2018", name:"7月"},
+       ];
+			 var zNodes4 =[
+        {id:"", pId:0, name:"全部"},
+        {id:"润建", pId:0, name:"润建"},
+        {id:"怡创", pId:0, name:"怡创"},
+        {id:"宜通", pId:0, name:"宜通"},
+        {id:"华苏", pId:0, name:"华苏"},
+        {id:"华星", pId:0, name:"华星"},
+        {id:"南建", pId:0, name:"南建"},
+        {id:"拓明", pId:0, name:"拓明"},
+        {id:"中通服", pId:0, name:"中通服"},
+       ];
+			 //回显
+			 var data = 
+			 {
+			    "input1": "a",
+			    "input2": "b",
+			    "input3": "1",
+			    "input4": "html,js",
+			    "input5": "学习使我进步",
+			    "input6": "c",
+			    "input7": "43",
+			    "input8": "41,42,43",
+			    "input9": "d",
+			    "input10": "e",
+			    "input11": "[{\"inputKey1\":\"f\",\"inputKey2\":\"g\"}]",
+			    "input12": "[{\"inputKey3\":\"h\",\"inputKey4\":\"i\"},{\"inputKey3\":\"\",\"inputKey4\":\"j\"}]"
+			}
+			rj.form.set($("#addOrUpdate")[0],data);
+			 //重置插件
+			rj.resetPlug();
+			rj.ztree("ztreeRadio","#ztree1",zNodes1);
+			rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
+			rj.ztree("ztreeCheckbox","#ztree3",zNodes3);
+			var treeObj = rj.ztree("ztreeCheckbox","#ztree4",zNodes4,{
+			callback:{
+			  onCheck: function(e, treeId, treeNode){
+                var html =[];//页面显示的值
+                var ids =[];//数据库传入的值
+                if(treeNode.id==""){
+                  if(treeNode.checked){
+                    treeObj.checkAllNodes(true);
+                    let nodes = treeObj.getNodes();
+                    nodes.map((v,i)=>{
+                      if(i!=0){
+                        ids.push(v.id);
+                        html.push(v.name);
+                      }
+                    });
+                  }else{
+                    treeObj.checkAllNodes(false);
+                    ids = [];
+                    html = [];
+                  }
+                }else{
+                  var nodes = treeObj.getCheckedNodes(true);
+                  $.each(nodes, function(index,node){
+                    if(node.id !=""){
+                      html.push(node.name);
+                      ids.push(node.id);
+                    }else{
+                      treeObj.checkNode(node,false,true,false);
+                    }
+                  });
+                }
+                let len = ids.length;
+                ids = ids.join(",");
+                //search标签的处理
+                html=$("<div>").html(html.join(",")).text().replace(/( )/gi,"").trim();
+                $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(len>0?`${html}(${len}个)`:"").prev().val(ids);
+              }
+			  }
+			});
+			$(".js_sure").click(()=>{
+				let formJSON = rj.form.get($("#addOrUpdate")[0]);
+				alert(JSON.stringify(formJSON,null,4))
+			});
+		}
+	}
+	formDemo.init();
+</script>
