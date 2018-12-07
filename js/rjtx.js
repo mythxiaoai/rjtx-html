@@ -393,10 +393,6 @@ rj.form.get($("#addOrUpdate")[0]);
 						}
 						var html=divDom[0].outerHTML;
 						divDom.remove();
-						console.log(value);
-						console.log(row);
-						console.log(index);
-						console.log("=======")
 						return html;
 					}
 				}
@@ -1377,6 +1373,9 @@ rj.form.get($("#addOrUpdate")[0]);
       }
 		},
 		util:{
+		  // init(){
+		    
+		  // },
 		  pre(str){
         return str.replace(/[<>"&]/g,function(val,index,allText){
           switch(val){
