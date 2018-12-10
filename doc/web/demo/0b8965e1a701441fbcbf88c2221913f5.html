@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="p-md container panel-white">
+        <div class="panel-body">
+            <h2 class="page-header">resetPlug测试</h2>
+            <a href="javascript:;" type="button" onclick="resetmodal()" class="btn btn-info m-b">点击测试</a>
+        </div>
+    </div>
+    <script>
+        /*
+            对页面加载中的插件进行重置，load单页会用到重现渲染表单插件
+            resetPlug：重置插件
+            主要处理的插件有
+                1.iCheck   需要选框有ickeck的class
+                2.tip tittle
+                3.file框
+                4.新增删除行抽取(rj_toggleRow)
+        */
+        function resetmodal(){
+            // 在load的页面里进行了插件的Reset操作
+           rj.modal({
+               size: "modal-lg",
+               url: "./ODemo/resetPlug/resetform.html",
+               title: "标题",
+           })
+       }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="p-md container">
+        <div class="panel-body">
+            <h2 class="page-header">url标准弹框</h2>
+            <a href="javascript:;" type="button" onclick="modal2()" class="btn btn-info m-b">点击测试</a>
+        </div>
+    </div>
+    <script>
+        /*
+            backdrop: true,//点击其他地方关闭
+            keyboard: true,//键盘esc关闭
+            show: true,//立即显示
+            size:"",//modal-sm|modal-lg//尺寸大小调整
+            title:"标题",//标题
+            url:null,//加载内容的请求地址
+            surebtn:true,//显示确认按钮
+            surebtnText:"确定",//显示确认按钮
+            cancelbtn:true,//显示取消按钮
+            cancelbtnText:"取消",//显示确认按钮
+            content:false,//弹层的内容  可以是html
+            loadback:null,//加载完成或运行的回调
+            sureback:null,//点击确定的回调
+            cancelback:null,//取消运行的回调
+        */
+       function modal2(){
+           rj.modal({
+               size: "modal-lg",
+               url: "./ODemo/modal/form.html",
+               title: "标题",
+               loadback(){
+				    console.log("执行完成")
+                },
+                sureback(dom) {
+                    rj.modal('hide');
+                    console.log()
+                }
+           })
+       }
+    </script>
+</body>
+</html>
