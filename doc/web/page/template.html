@@ -162,9 +162,11 @@
             $(".js_tittle").html(data.title);
             //初始化概述
             $(".js_discription").html(data.discription);
+            if(!data.discription)$(".js_discription").prev().remove();
             //初始化参数
             $(".js_args").html(data.args);
             $(".js_args table").addClass("table table-bordered table-striped table-hover");
+            if($(data.args).text().length==0)$(".js_args").prev().remove();
             //初始化事例
             let html = ""
             $.each(data.res, function(index,val) {
@@ -185,6 +187,7 @@
               $this.opts.urlArr.push("./../web/demo/"+val.file_name);
             });
              $(".js_res").html(html);
+             if(data.res.length==0)$(".js_res").prev().remove();
             $this.codeMirrorInit()
             $this.contentInit()
             $this.runClick()

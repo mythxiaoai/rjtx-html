@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="p-md contanier">
+        <div class="panel-body">
+            <h2 class="page-header">参数调用弹框</h2>
+            <button class="btn btn-info m-b" type="button" onclick="modal3()">弹框测试</button>
+        </div>
+    </div>
+    <script>
+        function modal3(){
+            rj.modal("新增用户", "./ODemo/modal/form.html",
+			()=> {
+				console.log("加载完成");
+			},
+			() => {
+				console.log("确认");
+			},
+			() => {
+				console.log("取消");
+			});
+        }
+    </script>
+</body>
+</html>

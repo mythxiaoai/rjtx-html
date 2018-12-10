@@ -221,7 +221,7 @@ rj.ztree("ztreeCheckbox","#ztree2",zNodes)
 调用:
 rj.form.get(formDom);
 rj.form.set(formDom,data);
-get方法将form里的表单元素序列化成{"username":"小艾","hobby":"2,3"}格式  
+get方法将form里的表单元素序列化成{"username":"小艾","age":"55"}格式  
 注:表单输入控件  name和value其中有一项没值都不会序列化
 set方法讲这些值通过name的属性与data的key一一匹配赋值回显，包括ztree和toggleRow组件都生效
 事例:
@@ -582,55 +582,55 @@ rj.form.get($("#addOrUpdate")[0]);
         }
       }
     },
-		toggleAnimate(pos){
-			$(pos.triggerDom).click(function(){
-				var $this = this;
-				if(!this.mark){
-					$.each(pos.targetDom, function(index,value) {
-						//样式
-						if(pos.targetToggleClass&&pos.targetToggleClass[index]){
-							$(value).addClass(pos.targetToggleClass[index][0]).removeClass(pos.targetToggleClass[index][1]);
-						}
-						//属性
-						if(pos.targetToggleAttr&&pos.targetToggleAttr[index]){
-							var Obj ={};
-							$.each(pos.targetToggleAttr[index], function(key,val){
-								Obj[key]=pos.targetToggleAttr[index][key][0];
-							});
-							$(value).animate(Obj,"400","swing",function(){
-								$this.mark=true;
-							});
-						}
-					});
-					//方法
-					if(pos.targetToggleFunction)pos.targetToggleFunction[0]();
-					//这个自带选择器 只适合本项目公用方法抽取
-					$(this).removeClass(pos.triggerToggleClass[1]).addClass(pos.triggerToggleClass[0])
+		// toggleAnimate(pos){
+		// 	$(pos.triggerDom).click(function(){
+		// 		var $this = this;
+		// 		if(!this.mark){
+		// 			$.each(pos.targetDom, function(index,value) {
+		// 				//样式
+		// 				if(pos.targetToggleClass&&pos.targetToggleClass[index]){
+		// 					$(value).addClass(pos.targetToggleClass[index][0]).removeClass(pos.targetToggleClass[index][1]);
+		// 				}
+		// 				//属性
+		// 				if(pos.targetToggleAttr&&pos.targetToggleAttr[index]){
+		// 					var Obj ={};
+		// 					$.each(pos.targetToggleAttr[index], function(key,val){
+		// 						Obj[key]=pos.targetToggleAttr[index][key][0];
+		// 					});
+		// 					$(value).animate(Obj,"400","swing",function(){
+		// 						$this.mark=true;
+		// 					});
+		// 				}
+		// 			});
+		// 			//方法
+		// 			if(pos.targetToggleFunction)pos.targetToggleFunction[0]();
+		// 			//这个自带选择器 只适合本项目公用方法抽取
+		// 			$(this).removeClass(pos.triggerToggleClass[1]).addClass(pos.triggerToggleClass[0])
 					
-				}else{
-					$.each(pos.targetDom, function(index,value) {
-						//样式
-						if(pos.targetToggleClass&&pos.targetToggleClass[index]){
-							$(value).addClass(pos.targetToggleClass[index][1]).removeClass(pos.targetToggleClass[index][0]);
-						}
-						//属性
-						if(pos.targetToggleAttr&&pos.targetToggleAttr[index]){
-							var Obj ={};
-							$.each(pos.targetToggleAttr[index], function(key,val){
-								Obj[key]=pos.targetToggleAttr[index][key][1];
-							});
-							$(value).animate(Obj,"400","swing",function(){
-								$this.mark=false;
-							});
-						}
-					});
-					//方法
-					if(pos.targetToggleFunction)pos.targetToggleFunction[1]();
-					//这个自带选择器 只适合本项目公用方法抽取
-					$(this).removeClass(pos.triggerToggleClass[0]).addClass(pos.triggerToggleClass[1])
-				}
-			});
-		},
+		// 		}else{
+		// 			$.each(pos.targetDom, function(index,value) {
+		// 				//样式
+		// 				if(pos.targetToggleClass&&pos.targetToggleClass[index]){
+		// 					$(value).addClass(pos.targetToggleClass[index][1]).removeClass(pos.targetToggleClass[index][0]);
+		// 				}
+		// 				//属性
+		// 				if(pos.targetToggleAttr&&pos.targetToggleAttr[index]){
+		// 					var Obj ={};
+		// 					$.each(pos.targetToggleAttr[index], function(key,val){
+		// 						Obj[key]=pos.targetToggleAttr[index][key][1];
+		// 					});
+		// 					$(value).animate(Obj,"400","swing",function(){
+		// 						$this.mark=false;
+		// 					});
+		// 				}
+		// 			});
+		// 			//方法
+		// 			if(pos.targetToggleFunction)pos.targetToggleFunction[1]();
+		// 			//这个自带选择器 只适合本项目公用方法抽取
+		// 			$(this).removeClass(pos.triggerToggleClass[0]).addClass(pos.triggerToggleClass[1])
+		// 		}
+		// 	});
+		// },
 		modal(params) {
 			let $this = this;//用到this中的load全局处理
 			let opts, defaults, htmlBox;
@@ -1020,7 +1020,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				let $this = this;
 				$this._instances = [];
 				$.each($(".rj_toggleRow"), function(index,rowDom) {
-				  $this._instances.push($this.getInstance(rowDom));
+				  $this._instances.push($this._getInstance(rowDom));
 				});
 			},
 			destroy(){
@@ -1028,7 +1028,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			    ins.destroy();
 			  }
 			},
-			getInstance(rowDom){
+			_getInstance(rowDom){
 			  class  Togglerow{
 			    constructor(rowDom){
 			      this.rowDom = rowDom
@@ -1373,9 +1373,9 @@ rj.form.get($("#addOrUpdate")[0]);
       }
 		},
 		util:{
-		  init(){
+		  // init(){
 		    
-		  },
+		  // },
 		  pre(str){
         return str.replace(/[<>"&]/g,function(val,index,allText){
           switch(val){
@@ -1383,7 +1383,7 @@ rj.form.get($("#addOrUpdate")[0]);
               return "&lt;";
             case ">":
               return "&gt;";
-            case "\"":
+            case "\"" :
               return "&quot;";
             case "&":
               return "&amp;";
