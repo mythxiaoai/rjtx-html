@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form id="addZtree" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">ztree1</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="ztree1" name="inputZtree1" type="text"/>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">ztree2</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="ztree2" name="inputZtree2" type="text"/>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">ztree3</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="ztree3" name="inputZtree3" type="text"/>
+            </div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">ztree4</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="ztree4" name="inputZtree4" type="text"/>
+            </div>
+        </div>
+        <div class=" form-group text-center">
+            <button class="btn btn-primary js_ztree1" type="button">Test1</button>
+        </div>
+    </form>
+    <script>
+        /*
+            1.结合ztree 来使用
+        */
+       var test1 = {
+            init(){
+                var zNodes1 =[
+                    {id:4, pId:0, name:"财务部"},
+                    {id:41, pId:4, name:"财务小组1"},
+                    {id:42, pId:4, name:"财务小组2"},
+                    {id:43, pId:4, name:"财务小组3"},
+                    {id:44, pId:4, name:"财务小组4"},
+                    {id:5, pId:0, name:"研发部"},
+                    {id:51, pId:5, name:"研发部1"},
+                    {id:52, pId:5, name:"研发部2"},
+                    {id:53, pId:5, name:"研发部3"},
+                    {id:54, pId:5, name:"研发部4"},
+                    {id:6, pId:0, name:"行政部"},
+                    {id:61, pId:6, name:"行政部1"},
+                    {id:62, pId:6, name:"行政部2"},
+                    {id:63, pId:6, name:"行政部3"},
+                    {id:64, pId:6, name:"行政部4"}
+                ];
+                var zNodes2 = [
+                    {id:1, pId:0, name:"北京"},
+                    {id:2, pId:0, name:"天津"},
+                    {id:3, pId:0, name:"上海"},
+                    {id:6, pId:0, name:"重庆"},
+                    {id:4, pId:0, name:"河北省", open:true},
+                    {id:41, pId:4, name:"石家庄"},
+                    {id:42, pId:4, name:"保定"},
+                    {id:43, pId:4, name:"邯郸"},
+                    {id:44, pId:4, name:"承德"},
+                    {id:5, pId:0, name:"广东省", open:true},
+                    {id:51, pId:5, name:"广州"},
+                    {id:52, pId:5, name:"深圳"},
+                    {id:53, pId:5, name:"东莞"},
+                    {id:54, pId:5, name:"佛山"},
+                    {id:6, pId:0, name:"福建省", open:true},
+                    {id:61, pId:6, name:"福州"},
+                    {id:62, pId:6, name:"厦门"},
+                    {id:63, pId:6, name:"泉州"},
+                    {id:64, pId:6, name:"三明"}
+                ]
+                var zNodes3 = [
+                    {id:"2018",pId:"",name:"2018"},
+                    {id:"1", pId:"2018", name:"1月"},
+                    {id:"2", pId:"2018", name:"2月"},
+                    {id:"3", pId:"2018", name:"3月"},
+                    {id:"4", pId:"2018", name:"4月"},
+                    {id:"5", pId:"2018", name:"5月"},
+                    {id:"6", pId:"2018", name:"6月"},
+                    {id:"7", pId:"2018", name:"7月"},
+                    {id:"8", pId:"2018", name:"8月"},
+                    {id:"9", pId:"2018", name:"9月"},
+                    {id:"10", pId:"2018", name:"10月"},
+                    {id:"11", pId:"2018", name:"11月"},
+                    {id:"12", pId:"2018", name:"12月"},
+                ]
+                var zNodes4 =[
+                    {id:"", pId:0, name:"全部"},
+                    {id:"润建", pId:0, name:"润建"},
+                    {id:"怡创", pId:0, name:"怡创"},
+                    {id:"宜通", pId:0, name:"宜通"},
+                    {id:"华苏", pId:0, name:"华苏"},
+                    {id:"华星", pId:0, name:"华星"},
+                    {id:"南建", pId:0, name:"南建"},
+                    {id:"拓明", pId:0, name:"拓明"},
+                    {id:"中通服", pId:0, name:"中通服"},
+                ];
+                var data ={
+                    "inputZtree1": "",
+                    "inputZtree2": "",
+                    "inputZtree3": "",
+                    "inputZtree4": ""
+                }
+                rj.form.set($("#addZtree")[0],data)
+                //重置插件
+                rj.resetPlug();    
+                rj.resetPlug();
+			rj.ztree("ztreeRadio","#ztree1",zNodes1);
+			rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
+			rj.ztree("ztreeCheckbox","#ztree3",zNodes3);
+			var treeObj = rj.ztree("ztreeCheckbox","#ztree4",zNodes4,{
+			callback:{
+                onCheck: function(e, treeId, treeNode){
+                    var html =[];//页面显示的值
+                    var ids =[];//数据库传入的值
+                    if(treeNode.id==""){
+                    if(treeNode.checked){
+                        treeObj.checkAllNodes(true);
+                        let nodes = treeObj.getNodes();
+                        nodes.map((v,i)=>{
+                        if(i!=0){
+                            ids.push(v.id);
+                            html.push(v.name);
+                        }
+                        });
+                    }else{
+                        treeObj.checkAllNodes(false);
+                        ids = [];
+                        html = [];
+                    }
+                    }else{
+                    var nodes = treeObj.getCheckedNodes(true);
+                    $.each(nodes, function(index,node){
+                        if(node.id !=""){
+                        html.push(node.name);
+                        ids.push(node.id);
+                        }else{
+                        treeObj.checkNode(node,false,true,false);
+                        }
+                    });
+                    }
+                    let len = ids.length;
+                    ids = ids.join(",");
+                    //search标签的处理
+                    html=$("<div>").html(html.join(",")).text().replace(/( )/gi,"").trim();
+                    $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(len>0?`${html}(${len}个)`:"").prev().val(ids);
+                }
+                }
+                });
+                $(".js_ztree1").click(()=>{
+                    let formJSON = rj.form.get($("#addZtree")[0]);
+                    alert(JSON.stringify(formJSON,null,4))
+                })
+            }
+
+            
+       };
+       test1.init()
+    </script>
+</body>
+</html>
