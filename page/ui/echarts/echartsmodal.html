@@ -1,0 +1,461 @@
+<div class="p-m">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">饼图</div>
+                </div>
+                <div class="panel-body">
+                    <div id="echart1" style="height: 340px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">环形图</div>
+                </div>
+                <div class="panel-body">
+                    <div id="echart2" style="height: 340px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">雷达图</div>
+                </div>
+                <div class="panel-body">
+                    <div id="echart3" style="height: 340px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">条形图</div>
+                </div>
+                <div class="panel-body">
+                    <div id="echart4" style="height: 340px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">柱状图</div>
+                </div>
+                <div class="panel-body">
+                    <div id="echart5" style="height: 340px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">南丁格尔玫瑰图</div>
+                </div>
+                <div class="panel-body">
+                    <div id="echart6" style="height: 340px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <div class="panel-title">柱状图</div>
+                </div>
+                <div class="panel-body">
+                    <div id="echart7" style="height: 500px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var echartDemo = {
+        init(){
+            this.chart1();
+            this.chart2();
+            this.chart3();
+            this.chart4();
+            this.chart5();
+            this.chart6();
+            this.chart7();
+        },
+        chart1(){
+            var chart1 = echarts.init($("#echart1")[0]);
+			let option = {
+                title : {
+                    text: '小区健康度',
+                    x:'center',
+                    bottom:"15",
+                    textStyle:{
+                        fontSize:12,
+                        fontWeight: 'normal',
+                    }
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: '15',
+                    top:'15',
+                    data: ['健康等级A','健康等级B','健康等级C','健康等级D'],
+                },
+                color:['#9FE6B8','#32C5E9','#FFDB5C','#FFAE8B'],
+                series : [
+                    {
+                        name: '健康度',
+                        type: 'pie',
+                        radius : '50%',
+                        data:[
+                            {value:335, name:'健康等级A'},
+                            {value:310, name:'健康等级B'},
+                            {value:234, name:'健康等级C'},
+                            {value:135, name:'健康等级D'},
+                        ],
+                        
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+			};
+            chart1.setOption(option)
+            //窗口变动，表格刷新
+			 $(window).resize(function(){chart1.resize();});
+        },
+        chart2(){
+            var chart2 = echarts.init($("#echart2")[0]);
+			let option = {
+                title : {
+                    text: '故障分类',
+                    x:'center',
+                    bottom:"15",
+                    textStyle:{
+                        fontSize:12,
+                        fontWeight: 'normal',
+                    }
+                },
+                color:['#32C5E9','#FFDB5C','#FFAE8B','#9FE6B8'],
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: '15',
+                    y:'15',
+                    data:['干路故障','合路故障','支路故障','无故障']
+                },
+                series: [
+                    {
+                        name:'故障分类',
+                        type:'pie',
+                        radius: ['30%', '55%'],
+                        data:[
+                            {value:335, name:'干路故障'},
+                            {value:310, name:'合路故障'},
+                            {value:234, name:'支路故障'},
+                            {value:135, name:'无故障'},
+                        ]
+                    }
+                ]
+			};
+            chart2.setOption(option)
+			 $(window).resize(function(){chart2.resize();});
+        },
+        chart3(){
+            var chart3 = echarts.init($("#echart3")[0]);
+			let option = {
+                title : {
+                    text: '导入数据和解析数据的信息',
+                    x:'center',
+                    textStyle:{
+                        fontSize:12,
+                        fontWeight: 'normal',
+                    },
+                    bottom:15
+                },
+                tooltip: {},
+                legend: {
+                    orient: 'vertical',
+                    left: '15',
+                    top: '15',
+                    data: ['数量分布'],
+                },
+                color:["#32C5E9"],
+                radar: {
+                    // shape: 'circle',
+                    name: {
+                        textStyle: {
+                            color: '#1784bd',
+                            padding:-10,
+                        }
+                    },
+                    radius:"60%",
+                    indicator: [
+                        { name: '宏站小区\n(36731)', max: 48527},
+                        { name: '室分小区\n(11796)', max: 48527},
+                        { name: '有效分析小区\n(8459)', max: 48527},
+                        { name: '良好覆盖率小区\n(6297)', max: 48527},
+                        { name: 'MRS数据缺失小区\n(3337)', max: 48527},
+                        { name: '差覆盖小区\n(2157)', max: 48527},
+                        { name: 'MRS数据异常小区\n(5)', max: 48527},
+                    ]
+                },
+                series: [{
+                    name: '导入数据和解析数据的信息',
+                    type: 'radar',
+                    // areaStyle: {normal: {}},
+                    data : [
+                        {
+                            value : [36731, 11796, 8459, 6297,3337,2157,5],
+                            name : '数量分布'
+                        }
+                    ]
+                }] 
+			};
+            chart3.setOption(option)
+			 $(window).resize(function(){chart3.resize();});
+        },
+        chart4(){
+            var chart4 = echarts.init($("#echart4")[0]);
+			let option = {
+                title : {
+                    text: '问题细分',
+                    x:'center',
+                    textStyle:{
+                        fontSize:12,
+                        fontWeight: 'normal',
+                    },
+                    bottom:15
+                },
+                color: ['#3398DB'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    top:"5%",
+                    containLabel: true
+                },
+                xAxis : [
+                {
+                        type : 'value',
+                        splitLine: {lineStyle:'none'},
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'category',
+                        data : ["参数异常小区","受零话务影响小区","故障类小区"],
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                    
+                ],
+                series : [
+                    {
+                        name:'问题细分',
+                        type:'bar',
+                        barWidth: '50%',
+                        label: {
+                            normal: {
+                                show: true
+                            }
+                        },
+                        data:[838, 2157, 1947],
+                    }
+                ]
+			};
+            chart4.setOption(option)
+            //窗口变动，表格刷新
+			 $(window).resize(function(){chart4.resize();});
+        },
+        chart5(){
+            var chart5 = echarts.init($("#echart5")[0]);
+			let option = {
+                title : {
+                    text: '室内小区全网MRS分布情况',
+                    x:'center',
+                    textStyle:{
+                        fontSize:12,
+                        fontWeight: 'normal',
+                    },
+                    bottom:15
+                },
+                color: ['#3398DB'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    },
+                    formatter: "{a} <br/>{b}覆盖率"
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    top:"5%",
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : ["[100~90]%","(90~80]%","(80~70]%","(70~60]%","(60~50]%","(50~0]%"],
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        splitLine: {lineStyle:'none'},
+                    }
+                ],
+                series : [
+                    {
+                        name:'分布情况',
+                        type:'bar',
+                        barWidth: '50%',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top'
+                            }
+                        },
+                        data:[838, 2157, 1947,856,1567,125],
+                    }
+                ]   
+			};
+            chart5.setOption(option)
+            $(window).resize(function(){chart5.resize();});
+        },
+        chart6(){
+            var chart6 = echarts.init($("#echart6")[0]);
+			let option = {
+                title : {
+                    text: '预判结果呈现',
+                    x:'center',
+                    textStyle:{
+                        fontSize:12,
+                        fontWeight: 'normal',
+                    },
+                    bottom:15
+                },
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                color:['#9FE6B8','#32C5E9','#FFDB5C','#FFAE8B'],
+                legend: {
+                    orient: 'vertical',
+                    left: '15',
+                    top: '15',
+                    data: ['良好小区','预防小区','隐患小区']
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'预判结果呈现',
+                        type:'pie',
+                        radius: ['20%', '60%'],
+                        roseType : 'area',
+                        data:[
+                            {value:15, name:'良好小区'},
+                            {value:5, name:'预防小区'},
+                            {value:10, name:'隐患小区'},
+                        ]
+                    }
+                ] 
+			};
+            chart6.setOption(option)
+            $(window).resize(function(){chart6.resize();});
+        },
+        chart7(){
+            var chart7 = echarts.init($("#echart7")[0]);
+			let option = {
+			    title: {
+			        text: '世界人口总量',
+			        subtext: '数据来自网络'
+			    },
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'shadow'
+			        }
+			    },
+			    legend: {
+			        data: ['2011年',"2012年"],
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '4%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    yAxis: {
+			        type: 'value',
+			        boundaryGap: [0, 0.01],
+			    },
+			    xAxis: {
+			        type: 'category',
+			        data: ['弱覆盖','室分外泄', '疑似天馈接反', '主瓣过弱', '上瓣过强', '后瓣过强 ', '水平旁瓣过强','高干扰','性能劣化','上瓣过强(MRO)','水平旁瓣过强(MRO)','后瓣过强(MRO)','主瓣过弱(MRO)','天线波瓣异常'],
+			    	axisLabel:{
+		    			interval:0,
+		    			rotate:40,
+			    	},
+			    },
+			    series: [
+			        {
+			            name: '2011年',
+			            type: 'bar',
+			            data: [18, 0, 29, 104, 131, 630,56,52,15,0,9,90,70,99],
+			            barCategoryGap:"30%",
+			            barGap:"10%",
+			        	label: {
+		                    show: true,
+		                    position: 'top'
+			            },
+			        },
+			      	{
+			            name: '2012年',
+			            type: 'bar',
+			            data: [23, 31, 121, 134, 681,56,52,15,90,80,77,88,33],
+			        	barCategoryGap:"30%",
+			        	barGap:"10%",
+			        	label: {
+		                    show: true,
+		                    position: 'top'
+			            },
+			        }
+			    ]
+			};
+            chart7.setOption(option)
+            $(window).resize(function(){chart7.resize();});
+        },
+    };
+    echartDemo.init()
+
+
+</script>

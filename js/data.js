@@ -105,6 +105,13 @@
                 "url": "page/ui/mobal.html",
                 "icon": "fa fa-wpforms",
                 "pid": "30"
+            },
+            {
+                "id": "31",
+                "name": "ECharts",
+                "url": "page/ui/echarts/echartsmodal.html",
+                "icon": "fa fa-wpforms",
+                "pid": "30"
             }
         ],
         "auth": {}

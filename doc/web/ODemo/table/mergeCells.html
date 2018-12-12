@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <table id="tablemergeCells">
+
+    </table>
+    <script>
+        /*
+            概述：
+                --fmt 对象   包含格式化表格的一些方法
+                    --VHcenter水平垂直居中
+            调用方法：
+                rj.table.fmt.VHcenter
+        */
+        var table_fmt = {
+            init(){
+                this.table();
+            },
+            table(){
+                let data = [
+                    {
+                        "id": "广州",
+                        "name":"项目1",
+                        "num": "33"
+                    },
+                    {
+                        "id": "广州",
+                        "name":"项目2",
+                        "num": "44"
+                    },
+                    {
+                        "id": "广州",
+                        "name":"项目3",
+                        "num": "55"
+                    },
+                    {
+                        "id": "广州",
+                        "name":"项目4",
+                        "num": "66"
+                    },
+                    {
+                        "id": "深圳",
+                        "name":"项目1",
+                        "num": "23"
+                    },
+                    {
+                        "id": "贵州",
+                        "name":"项目1",
+                        "num": "552"
+                    },
+                    {
+                        "id": "北京",
+                        "name":"项目1",
+                        "num": "12"
+                    },
+                    {
+                        "id": "北京",
+                        "name":"项目1",
+                        "num": "33"
+                    }
+                ]
+                
+                rj.table.init({
+                    id: "#tablemergeCells",//table表格的ID
+                    toolbar: false,
+                    data:data,
+                    columns:[
+                        {
+                            field: 'id',
+                            title: '地区',
+                            formatter: rj.table.fmt.VHcenter  //居中显示
+                        },
+                        {
+                            field: 'name',
+                            title: '名称',
+                        },
+                        {
+                            field: 'num',
+                            title: '名称2',
+					}
+                    ],
+                    onLoadSuccess:function(data){
+                        console.log(data)
+                        rj.table.mergeCells("#tablemergeCells","id",data)
+                    }
+                })
+                rj.table.mergeCells("#tablemergeCells", "id", data);
+                //将相同的数据合并为同一个字段
+                //rj.table.mergeCells(tableId,field,data)
+                /*
+                    tableId: table表格的选择器
+                    field:  指定那个字段要进行合并
+                    data:   数据
+                */
+            }
+        }
+        table_fmt.init()
+    </script>
+</body>
+</html>
