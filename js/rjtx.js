@@ -252,6 +252,7 @@ rj.form.get($("#addOrUpdate")[0]);
 			this.sweetAlert();
 			//表格插件初始化 只用初始化一次
 			this.table.tableFmt();
+			//文件上传插件
 			this.fileinput.init();
 			this.resetPlug();
 		},
