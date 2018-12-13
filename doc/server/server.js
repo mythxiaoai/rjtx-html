@@ -10,7 +10,7 @@ const docList = require("./docList.js");
 const demo = require("./demo.js");
 //1.监听的端口
 let server =express()
-server.listen(80)
+server.listen(8099)
 //连接数据库
 let createPool = mysql.createPool({
   host:"192.168.110.240",
