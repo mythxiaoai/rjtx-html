@@ -72,6 +72,13 @@
                 "pid": "20"
             },
             {
+               "id": "23-10",
+                "name": "test4",
+                "url": "page/sys/auth/authority.html",
+                "icon": "glyphicon glyphicon-menu-hamburger",
+                "pid": "23"
+            },
+            {
                 "id": "21",
                 "name": "用户管理",
                 "url": "page/sys/user/user.html",
