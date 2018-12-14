@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
       if(localStorage.getItem("rj_style")){
-        let src = {cd:1,al:2,bp:3,ct:4};
-        if(localStorage.rj_style!="bp")
+        let src = {bp:"",cd:1,al:2,ct:3};
+        if(localStorage.rj_style!="ct")
         window.location.href = `./index${src[localStorage.rj_style]}.html`;
       }
     </script>
@@ -47,82 +47,85 @@
     <!--基础样式文件-->
     <link rel="stylesheet" href="css/common.css"/>
     <style>
-      /*.index_menus start*/
-      .index_menus{position: fixed;height: 100%;width:220px;background:rgb(47, 64, 80);z-index: 1;white-space: nowrap;}
-      .index_menus .user_info{height: 200px;padding:50px;width: 100%;background:#263949;color: #fff;}
-      .index_menus .user_info .userfont{color: #fff;}
-      .index_menus .index_menus_box{height:calc(100% - 200px);width: 220px;overflow: hidden;}
-      .index_menus .menu_items{width: 240px;height:100%;overflow: auto;}
-      .index_menus .menu_items ul li{font-size: 0;}
-      .index_menus .menu_items ul li a{border-left: 4px solid transparent;transition: border-color 0.75s;color:#ccc;display:inline-block;width:220px;height:30px;line-height:30px;text-align:center;transition:all .2s linear;padding:0 10px;font-size: 12px;position: relative;}
-      .index_menus .menu_items ul li a.level1{padding-left:15px;}
-      .index_menus .menu_items ul li a.level2{padding-left:30px;}
-      .index_menus .menu_items ul li a.level3{padding-left:45px;}
-      .index_menus .menu_items ul li a.level4{padding-left:60px;}
-      .index_menus .menu_items ul li a.level5{padding-left:75px;}
-      .index_menus .menu_items a:hover{color: #fff;background-color: #293846;}
-      .index_menus .menu_items a.active{border-color: #03a9f4;background: #293846;color: #fff;}
-      .index_menus .menu_items a>span{line-height: 30px;display:inline-block;float:left;width:100%;height: 30px;padding-right: 20px;text-align:left;position: relative;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;}
-      .index_menus .menu_items a>span i{height: 30px;padding: 0 10px;line-height: 30px;display: inline-block;float: left;}
-      .index_menus .menu_items a>i{width: 30px;position: absolute;right: 10px;height: 30px;line-height: 30px;line-height: 28px;text-align: center;font-size: 16px;transition:all .2s linear;}
-      .index_menus .menu_items a>i.closed{transform:rotate(90deg);}
-      .index_menus .menu_items>ul>li>a{height:45px;line-height:45px;}
-      .index_menus .menu_items>ul>li>a>span{height:45px;line-height:45px;}
-      .index_menus .menu_items>ul>li>a i{height:45px;line-height:45px;}
-      /*end index_menus*/
-     /*index_content start*/
-      .index_content{height: 100%;width: 100%;position: fixed;top: 0;padding-left: 220px;}
-      .index_content .index_hearder{height: 60px;width: 100%;line-height: 60px;top: 0;left: 0;border-bottom: 1px solid #e7eaec;}
-      .index_hearder a:hover{background-color: #eee;}
-      .index_hearder .index_logo>a{float:left;display: inline-block;color: #999c9e;text-align: center;}
-      .index_hearder .index_logo .index_logo_img{height: 50px;width: 50px;}
-      .index_hearder .index_logo .index_logo_img i{font-size: 24px;}
-      .index_hearder .index_logo .index_logo_name{font-size:14px;padding: 0 12px;}
-      .index_hearder .index_sysopts{float: right;}
-      .index_hearder .index_sysopts .dropdown{height: 50px;}
-      .index_hearder .index_sysopts .dropdown >a{float: left;color: #999c9e;padding: 0 12px;}
-      .index_search{float:left;position:relative}
-      .index_search >input{margin-left:30px;line-height:30px;background-color:transparent;border:none;font-size:12px;width:180px}
-      .index_search >ul{display:none;width:180px;background:#f3f3f4;left:30px;position:absolute;max-height:240px;cursor:default;z-index:9999;overflow:hidden;overflow-y:auto}
-      .index_search >ul>li{float:left;height:30px;width:100%;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-      .index_search >ul>li>a{display:inline-block;width:100%;height:30px;line-height:30px;color:#333;padding:0 15px;float:left}
-      .index_search >ul>li>a:hover{color:#03a9f4;background-color:transparent}
-      .index_search >ul>li.active>a{color:#03a9f4;background-color:#ccc}
-      .index_content .index_c_box{top: 60px;height: calc(100% - 60px);width: 100%;overflow: auto;}
-      /*end index_content*/
+      /*maincolor   #03a9f4*/
+  /*header start*/
+    .index_hearder{position:fixed;left:0;top:0;width:100%;height:50px;background: #252a2f;line-height: 50px;color: #fff;z-index: 10;}
+    .index_hearder a:hover{background-color:#191d21;}
+    .index_hearder .index_logo>a{float:left;display: inline-block;color: #fff;text-align: center;}
+    .index_hearder .index_logo .index_logo_img{height: 50px;width: 50px;}
+    .index_hearder .index_logo .index_logo_img i{font-size: 24px;}
+    .index_hearder .index_logo .index_logo_name{font-size:14px;padding: 0 12px;}
+    .index_hearder .index_sysopts{float: right;}
+    .index_hearder .index_sysopts .dropdown{height: 50px;}
+    .index_hearder .index_sysopts .dropdown >a{float: left;color: #fff;padding: 0 12px;}
+    .index_search{float:left;position:relative}
+    .index_search >input{margin-left:30px;line-height:30px;background-color:transparent;border:none;font-size:12px;width:180px}
+    .index_search >ul{display:none;width:180px;background:#252a2f;left:30px;position:absolute;max-height:254px;cursor:default;z-index:9999;overflow:hidden;overflow-y:auto}
+    .index_search >ul>li{float:left;height:30px;width:100%;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .index_search >ul>li>a{display:inline-block;width:100%;height:30px;line-height:30px;color:#fff;padding:0 15px;float:left}
+    .index_search >ul>li>a:hover{color:#03a9f4;background-color:transparent}
+    .index_search >ul>li.active>a{color:#03a9f4;background-color:#191d21}
+    /*end header*/
+   
+    .index_content{position:absolute;top:50px;left:0;height:calc(100% - 50px);width:100%;overflow:hidden;z-index: 9;}
+    /*index_c_left 左侧内容菜单 start*/
+    .index_content .index_c_left{position:absolute;height:100%;z-index: 9;}
+    .index_content .index_c_left .index_menus_main{width:50px;height:100%;overflow:hidden;background:#252a2f;border-top:1px solid hsla(0,0%,100%,.1);cursor:pointer;transition:width .2s linear;position:relative;z-index:1;}
+    .index_content .index_c_left .index_menus_main ul{width:250px;height:100%;overflow-y:auto;}
+    .index_content .index_c_left .index_menus_main ul li a{display:inline-block;float:left;width:230px;height:40px;color:#ccc;line-height:40px;text-align:center;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_main ul li a:hover{color:#fff;background-color:#191d21;}
+    .index_content .index_c_left .index_menus_main ul li a.active{background:#03a9f4;color:#fff;}
+    .index_content .index_c_left .index_menus_main ul li a i{font-size:16px;display:inline-block;width:50px;float:left;line-height: 40px;}
+    .index_content .index_c_left .index_menus_main ul li a span{display:inline-block;float:left;width:180px;padding-right:10px;text-align:left;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;}
+    /*index_menus_sub start*/
+    .index_content .index_c_left .index_menus_sub{width:180px;height:100%;position:absolute;left: 50px;top:0;background:#eaedf1;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_sub.min{left:-130px}
+    .index_content .index_c_left .index_menus_sub .title{height:81px;padding:0 30px;line-height:81px;font-weight:600;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;background:#D9DEE4;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box{overflow:hidden;width:180px;height:calc(100% - 81px);}
+    .index_content .index_c_left .index_menus_sub .index_menus_box>ul{width:200px;overflow:auto;height:100%;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li{font-size: 0;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a{display:inline-block;width:180px;height:30px;line-height:30px;text-align:center;transition:all .2s linear;padding:0 10px;font-size: 12px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level1{padding-left:30px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level2{padding-left:45px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level3{padding-left:60px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level4{padding-left:75px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.level5{padding-left:90px;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a:hover{background:#F4F6F8}
+    .index_content .index_c_left .index_menus_sub .index_menus_box a.active{background:#fff}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span{line-height: 30px;display:inline-block;float:left;width:100%;height: 30px;text-align:left;position: relative;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span>span{float: left;display:inline-block;width: 100%;height: 30px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;word-break:break-all;word-wrap:break-word;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span i{height: 30px;padding: 0 5px;line-height: 30px;display: inline-block;float: left;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span>i:first-child{width: 30px;position: absolute;left: -30px;height: 30px;line-height: 30px;line-height: 28px;text-align: center;font-size: 16px;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_sub .index_menus_box ul li a>span>i.closed{transform:rotate(-90deg);}
+    /*按钮*/
+    .index_content .index_c_left .index_menus_sub .sub_icon_btn{position:absolute;height:50px;width:15px;right:0;top:0;bottom:0;margin:auto 0;transition:all .2s linear;}
+    .index_content .index_c_left .index_menus_sub .sub_icon_btn:before{position:absolute;height:50px;width:15px;right:0;top:0;bottom:0;margin:auto 0;content:"";border-bottom:12px solid transparent;border-left:none;border-right:15px solid rgba(0,0,0,0.2);border-top:12px solid transparent;}
+    .index_content .index_c_left .index_menus_sub .sub_icon{display:inline-block;line-height:50px;text-align:center;width:15px;height:50px;font-size:16px;color:#fff;position:relative;}
+    .index_content .index_c_left .index_menus_sub .sub_icon_btn:hover{opacity: .8;}
+    .index_content .index_c_left .index_menus_sub.min .sub_icon_btn{transform-origin:right;transform:rotateY(180deg);}
+    /*end index_c_left*/
+      
+    /*index_c_right内容右侧 strat*/
+    .index_c_right{padding-left:230px;width:100%;height:100%;}
+    .index_c_right .index_c_box{width:100%;height:100%;overflow: auto;}
+    /*end index_c_right*/
     </style>
 </head>
 <body class="bg-gray">
-<div class="index_menus">
-  <div class="user_info text-center ">
-    <i class="iconfont icon-logo" style="font-size: 55px;"></i>
-    <div class="dropdown">
-      <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
-                   <span class="block m-t-xs"><strong class="fw700 userfont">adminstror</strong>
-                   <span class="text-muted text-xs block">超级管理员<b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                    <li><a href="jascript:;">修改密码</a></li>
-                    <li><a href="jascript:;">信箱</a></li>
-                    <li class="divider"></li>
-                    <li><a href="jascript:;">安全退出</a></li>
-                </ul>
-              </div>
-  </div>
-  <div class="index_menus_box">
-    <div  class="js_index_menus menu_items">
-      
-    </div>
-  </div>
-</div>
-<div class="index_content">
-    <div class="index_hearder">
-       <div class="index_search">
+<div class="index_hearder">
+      <div class="index_logo">
+        <a href="#/" class="index_logo_img">
+          <i class="iconfont icon-bg icon-logo"></i>
+        </a>
+        <a href="#/" class="index_logo_name">
+                  润建前端模板平台
+        </a>
+      </div>
+      <div class="index_search">
         <input class="js_sug_input" placeholder="搜索..."/>
         <ul class="js_suggestion">
         </ul>
       </div>
-      
       <div class="index_sysopts">
         <div class="dropdown">
           <a data-toggle="dropdown" class="dropdown-toggle index_sys_opts" href="javascript:;">
@@ -138,15 +141,69 @@
             </ul>
         <a href="./login1.html" class="index_sys_opts">
           <i class="fa fa-power-off"></i>
-            退出
+          退出
         </a>  
         </div>
+  </div>
+</div>
+<!--主菜单  路由-->
+<div class="index_content">
+  <div class="index_c_left js_index_menus">
+    <div class="index_menus_main">
+      <ul class="js_menus_one">
+       <!-- <li>
+          <a href="javascript:;">
+            <i class="iconfont icon-add"></i>
+            <span>首页</span>
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" class="active">
+            <i class="iconfont icon-add"></i>
+            <span>首页2</span>
+          </a>
+        </li>-->
+      </ul>
+    </div>
+    <div class="index_menus_sub">
+      <div class="sub_icon_btn">
+        <a href="javascript:;" class="sub_icon js_index_left_btn"><i class="fa fa-angle-left"></i></a>
       </div>
-      
-    </div>
-    <div class="index_c_box animated fadeInRight js_index_content">
+      <div class="title js_subTitle">标题</div>
+      <div class="index_menus_box js_submenus">
         
+        <!--<ul>
+          <li>
+            <a href="javascript:;" class="level1">
+              <i class="fa fa-caret-right"></i>
+              <span>首页1</span>
+            </a>
+            <ul>
+              <li>
+                <a href="javascript:;" class="level2 active">
+                  <i class="fa fa-caret-right"></i>
+                  <span>首页1-1</span>
+                </a>
+              </li>
+             
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:;" class="level1">
+              <span>首页2</span>
+            </a>
+          </li>
+        </ul>-->
+        
+      </div>
     </div>
+  </div>
+  <div class="index_c_right">
+      <div class="index_c_box animated fadeInRight js_index_content">
+        
+      </div>
+  </div>
+   
 </div>
 <!--jQuery-->
 <script type="text/javascript" src="js/jquery.js" ></script>
@@ -207,6 +264,10 @@
       //搜索
       this.initsearch();
       this.searchEvent();
+      //子菜单左侧抽拉
+      this.btnClick();
+      //主hover 因为有延迟优化所以需要自己写js
+      this.hovemain();
       //切换风格
       this.changeStyle();
     },
@@ -219,12 +280,52 @@
           data = data[0].menus;
           data = simpleToPS(data);
           $this.menus = data;
-          console.log(data);
-           //获取html
-          let html = $this.getHTML(data);
-          $(".js_index_menus").html(html);
+           //一级菜单添加到左侧
+          let html1 =""
+          data.map((v,i)=>{
+            html1 +=`<li>
+              <a href="javascript:;" class="js_index_noeItem"  data-index="${i}">
+                <i class="${v.icon}"></i>
+                <span class="js_name">${v.name}</span>
+              </a>
+            </li>`;
+          })
+          $(".js_menus_one").append(html1);
         }
       })
+    },
+    changeSub(url){
+          //二级菜单
+       //找到当前url主页的父index
+        let pIndex = this.findP(url,this.menus);
+        //父的css
+        $(".js_menus_one>li>a").removeClass("active").eq(pIndex).addClass("active");
+        //子菜单加载的内容
+        let subChildren = this.menus[pIndex];
+        //获取html
+        let shtml = this.getHTML(subChildren.children);
+        //添加到页面 js_subTitle js_submenus
+        $(".js_subTitle").text(subChildren.name);
+        $(".js_submenus").html(shtml);
+    },
+    findP(url,data,index){
+      let result;
+      for(let i=0,len=data.length;i<len;i++){
+        let v = data[i];
+        if(url==v.url){
+         return index;
+        }
+        if(v.children.length>0){
+          if(v.level ==1){
+           result= this.findP(url,v.children,i);
+          }else{
+           result=this.findP(url,v.children,index);
+          }
+        }
+        if(result===0||result){
+          return result;
+        }
+      }
     },
     getHTML(data){
      let html="";
@@ -233,16 +334,20 @@
        if(v.children.length>0){
           temp =  this.getHTML(v.children);
           html+=`<li>
-                <a href="javascript:;" class="level${v.level} js_index_pItem">
-                    <span>${v.icon?`<i class="${v.icon} fa-w"></i>`:""}${v.name}</span>
-                    <i class="fa fa-angle-down js_index_caret fa-w"></i>
+                <a href="javascript:;" class="level${v.level-1} js_index_pItem">
+                  <span>
+                    <i class="fa fa-caret-down js_index_caret"></i>
+                    <span class="js_menuName">${v.icon?`<i class="${v.icon}"></i>`:""}${v.name}</span>
+                  </span>
                 </a>
                 ${temp}
               </li>`
        }else{
          html+=`<li>
-              <a href="javascript:;" class="level${v.level} js_index_sItem" data-src="${v.url}">
-                  <span>${v.icon?`<i class="${v.icon} fa-w"></i>`:""}${v.name}</span>
+              <a href="javascript:;" class="level${v.level-1} js_index_sItem" data-src="${v.url}">
+                <span>
+                  <span class="js_menuName">${v.icon?`<i class="${v.icon}"></i>`:""}${v.name}</span>
+                </span>
               </a>
             </li>`
        }
@@ -260,11 +365,14 @@
         if(!url){
           //默认页面设置
           //二级菜单构建
+          console.log(url)
+          $this.changeSub($this.home);
           $this.cssDeal($this.home);
           rj.load(".js_index_content",$this.home,$this.callback||null);
         }else{
           //默认页面设置
           //二级菜单构建
+          $this.changeSub(url);
           $this.cssDeal(url);
           rj.load(".js_index_content",url,$this.callback||null);
         }
@@ -289,8 +397,6 @@
           //css
           $(".js_index_sItem").removeClass("active")
           $(dom).addClass("active");
-          //滚动到看的见的位置
-          dom.scrollIntoView(false);
          //让他的每个父都是打开的.closed
          $(dom).parents("li").find(">.js_index_pItem").find(".js_index_caret").each(function(index,dom){
            if($(dom).hasClass("closed")){
@@ -322,8 +428,25 @@
           $(this).closest("li").find(">ul").slideUp("fast");
         }
       });
+      
+      //一级菜单点击
+      $(".js_index_menus").on("click",".js_index_noeItem",function(e,fn){
+        let src = $this.findurl($this.menus[$(this).data("index")].children);
+        $this.changeSub(src);
+        $(".js_index_sItem").each(function(index,dom){
+          if($(dom).data("src")==src){
+             $(dom).trigger("click");
+             return false;
+           }
+        });
+        if($(".index_menus_sub").hasClass("min")){
+          $(".js_index_left_btn").trigger("click");
+        }
+         $(".index_menus_main").trigger("mouseleave");
+        e.stopPropagation();
+      });
     },
-    //找到第一个url
+      //找到第一个url
     findurl(data){
       for(let i=0,len=data.length;i<len;i++){
         let v = data[i];
@@ -456,25 +579,49 @@
           "./changeStyle.html",
           function() {
             //加载完成的回调
-            $("#changeStyle").find("input[name='style']").eq(2).prop("checked",true)
+            $("#changeStyle").find("input[name='style']").eq(3).prop("checked",true)
             rj.resetPlug();
           },
           function() {
             //确定按钮的回调 
             let data = rj.form.get($("#changeStyle")[0]);
             localStorage.rj_style=data.style;
-            let src = {
-              cd:1,
-              al:2,
-              bp:3,
-              ct:4,
-            }
+            let src = {bp:"",cd:1,al:2,ct:3};
             window.location.href = `./index${src[data.style]}.html`
           },
           function() {
             //取消按钮的回调
           }
         );
+      });
+    },
+    btnClick(){
+     $(".js_index_left_btn").click(function(){
+       if($(".index_menus_sub").hasClass("min")){
+         $(".index_menus_sub").removeClass("min");
+         $(".index_c_right").css("padding-left",230);
+       }else{
+          $(".index_menus_sub").addClass("min");
+          $(".index_c_right").css("padding-left",50);
+       }
+       
+     });
+    },
+    hovemain(){
+      let now = null;
+      let time =null;
+      $(".index_menus_main").mouseenter(function(){
+        now = Date.now();
+        time = setInterval(()=>{
+          if(Date.now()-now>300){
+            $(".index_menus_main").css("width",230);
+          }
+        },50);
+      });
+      
+      $(".index_menus_main").mouseleave(function(){
+        clearInterval(time);
+        $(".index_menus_main").css("width",50);
       });
     }
   }

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <script>
       if(localStorage.getItem("rj_style")){
-        let src = {cd:1,al:2,bp:3,ct:4};
+        let src = {bp:"",cd:1,al:2,ct:3};
         if(localStorage.rj_style!="cd")
         window.location.href = `./index${src[localStorage.rj_style]}.html`;
       }
@@ -295,19 +295,14 @@
           "./changeStyle.html",
           function() {
             //加载完成的回调
-            $("#changeStyle").find("input[name='style']").eq(0).prop("checked",true)
+            $("#changeStyle").find("input[name='style']").eq(1).prop("checked",true)
             rj.resetPlug();
           },
           function() {
             //确定按钮的回调 
             let data = rj.form.get($("#changeStyle")[0]);
             localStorage.rj_style=data.style;
-            let src = {
-              cd:1,
-              al:2,
-              bp:3,
-              ct:4,
-            }
+            let src = {bp:"",cd:1,al:2,ct:3};
             window.location.href = `./index${src[data.style]}.html`
           },
           function() {
