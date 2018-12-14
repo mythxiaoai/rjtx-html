@@ -23,12 +23,7 @@
 						<div class="panel-heading">
 							<div class="panel-title">
 								<i class="iconfont icon-dept"></i> 组织结构
-	                    	</div>
-	                    	<div class="panel-tools">
-	                            <a class="toggleIcon js_icon" href="javascript:;" draggable="false">
-	                            	<i class="fa fa-angle-left"></i>
-	                            </a>
-	                        </div>
+            	</div>
 						</div>
 						<div class="panel-body collapsed in input-group-sm">
 							<ul class="xztree" id="ztree1"></ul>
@@ -72,8 +67,6 @@
 		init:function(){
 			//部门树
 			this.dept();
-			//左右切换
-			this.toggle();
 			//表格初始化
 			//this.tableInit();
 			//上传用户
@@ -379,20 +372,6 @@
         		}
         	}});
         	ztreeObj.expandAll(true);
-		},
-		toggle:function(){
-			rj.toggleAnimate({
-				triggerDom:".js_icon",
-				targetDom:[".js_leftResearch",".js_rightContent"],
-				triggerToggleClass:["active",""],
-				targetToggleAttr:[{"marginLeft":["-24%","0"]},{"width":["98%","74%"]}],
-				targetToggleClass:[["shake-horizontal-slow shake-constant shake-constant--hover",""]],
-				targetToggleFunction:[function (){
-					$(".panel-body").css("overflow","hidden");
-				},function (){
-					$(".panel-body").css("overflow","visible");
-				}]
-			});
 		},
 		_flush:function(){
 			$("#table").bootstrapTable('refresh');

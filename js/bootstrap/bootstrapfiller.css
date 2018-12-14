@@ -182,29 +182,6 @@ fieldset[disabled] .navbar-white .btn-link:focus {
 .panel-tools .collapse-link.collapsed .fa.fa-chevron-up:before {
 	content: "\f078"
 }
-.panel-tools .toggleIcon{
-	position:absolute;
-	color:#0B8AFF;
-	width:20px;
-	background-color:#eee;
-	text-align:center;
-	line-height:40px;
-	font-size:18px;
-	right:0;
-	top:-1px;
-	bottom:-1px;
-	margin:auto 0;
-}
-.panel-tools .toggleIcon.active{
-	right:-20px;
-}
-.panel-tools .toggleIcon.active i:before {
-    content: "\f105";
-}
-.panel-tools .toggleIcon:hover{
-	opacity: .8;
-}
-
 	
 .panel-white {
   border-color: #e7eaec;
