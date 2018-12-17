@@ -362,20 +362,11 @@
         if(url=="/.html"){
           url = $this.home;
         }
-        if(!url){
-          //默认页面设置
-          //二级菜单构建
-          console.log(url)
-          $this.changeSub($this.home);
-          $this.cssDeal($this.home);
-          rj.load(".js_index_content",$this.home,$this.callback||null);
-        }else{
-          //默认页面设置
-          //二级菜单构建
-          $this.changeSub(url);
-          $this.cssDeal(url);
-          rj.load(".js_index_content",url,$this.callback||null);
-        }
+        //默认页面设置
+        //二级菜单构建
+        $this.changeSub(url);
+        $this.cssDeal(url);
+        rj.load(".js_index_content",url,$this.callback||null);
       }
       run()
       window.onpopstate = run

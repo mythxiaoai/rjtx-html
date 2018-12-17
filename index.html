@@ -95,7 +95,7 @@
 <body class="bg-gray">
 <div class="index_menus">
   <div class="user_info text-center ">
-    <i class="iconfont icon-logo" style="font-size: 55px;"></i>
+    <i class="iconfont icon-logo" style="font-size: 48px;"></i>
     <div class="dropdown">
       <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
                    <span class="block m-t-xs"><strong class="fw700 userfont">adminstror</strong>
@@ -219,7 +219,6 @@
           data = data[0].menus;
           data = simpleToPS(data);
           $this.menus = data;
-          console.log(data);
            //获取html
           let html = $this.getHTML(data);
           $(".js_index_menus").html(html);
@@ -257,17 +256,10 @@
         if(url=="/.html"){
           url = $this.home;
         }
-        if(!url){
-          //默认页面设置
-          //二级菜单构建
-          $this.cssDeal($this.home);
-          rj.load(".js_index_content",$this.home,$this.callback||null);
-        }else{
-          //默认页面设置
-          //二级菜单构建
-          $this.cssDeal(url);
-          rj.load(".js_index_content",url,$this.callback||null);
-        }
+        //默认页面设置
+        //二级菜单构建
+        $this.cssDeal(url);
+        rj.load(".js_index_content",url,$this.callback||null);
       }
       run()
       window.onpopstate = run
