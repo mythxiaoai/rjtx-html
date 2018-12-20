@@ -295,6 +295,8 @@
       })
     },
     changeSub(url){
+        //当前有就不加载了
+        if($(`.js_index_sItem[data-src='${url}']`).length>0)return false;
           //二级菜单
        //找到当前url主页的父index
         let pIndex = this.findP(url,this.menus);
