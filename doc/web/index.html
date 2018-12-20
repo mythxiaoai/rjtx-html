@@ -6,7 +6,7 @@
 	    <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0">
 		<meta name="Keywords" content="">
 		<meta name="description" content="">
-		<title>RJTX Documentation</title>
+		<title>RJTX API</title>
 		<link rel="shortcut icon" href="../../img/logo.ico" type="image/x-icon"/>
 		  <link rel="stylesheet" href="../../fonts/font-awesome.css"/>
 	    <!--字体图标 iconfont icon-*-->
@@ -449,10 +449,26 @@
   				  $this.cssDeal();
   				  //ajax
   				  rj.load(".js_home_content","./page/template.html",function(){
-              $this.callback&&$this.callback();
-              template.init(key);
-            });
-          }
+						$this.callback&&$this.callback();
+						rj.ajax({
+							id:".js_home_content",
+							url:"/list",
+							sync:false,
+							data:{key:key},
+							success(data){
+								if(data.length>0){
+									template.init(key);
+								}else{
+									//如果父元素没有就找第一个子
+									if($(`.js_menu_item[data-url='${key}']`).closest("li").find(">ul").length>0){
+										key = $(`.js_menu_item[data-url='${key}']`).closest("li").find(">ul").find(".js_menu_item").data("url");
+										window.location.hash = "#"+key;
+									}
+								}
+							}
+						});
+				});
+			   }
 			},
 			jumpMenu(url,callback){
 				let hash = "";
@@ -493,7 +509,7 @@
 						$(this).siblings(".js_menu_item").find(".value").text("{");
 					}else{
 						$(this).css("transform","rotate(0deg)");
-						$(this).siblings("ul").slideUp("fast")
+						$(this).siblings("ul").slideUp("fast");
 						this.mark=false;
 						$(this).siblings(".js_menu_item").find(".value").text("{ ... }");
 					}

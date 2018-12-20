@@ -51,27 +51,28 @@
         .menubox{position: fixed;height: 100%;z-index: 10;width: 80px;}
         /*复用*/
         .index_menu{height: 100%;background-color: #038ef4}
-        .index_menu .menu-logo{color:#fff;display: inline-block;text-align: center;width: 80px;padding: 14px 0;border-bottom: 1px solid #1370ea;}
+        .index_menu .menu-logo{margin-left: 6px;color:#fff;display: inline-block;text-align: center;width: 66px;padding: 14px 0;border-bottom: 1px solid #1370ea;}
         .index_menu .menu-logo>i{background: -webkit-linear-gradient(-30deg, rgba(255,255,255,0) 40%, rgba(255,255,255,1) 48%, rgba(255,255,255,1) 52%, rgba(255,255,255,0) 60% ) no-repeat;animation: move 5s ease-out infinite;}
         .index_menu .system-info{text-align: center;font-size:1.2em;font-weight:600;padding: 18px 5px;color:#fff;background-color: #038ef4;border-bottom: 1px solid #1370ea;}
-        .index_menu .menu-items>li{position: relative;background-color: #038ef4}
+        .index_menu .menu-items>li{position: relative;background-color: #038ef4;}
         .index_menu .menu-items>li>a{padding: 12px 0;display: block;text-align: center;color:#e5eeff;border-bottom: 1px solid #1370ea; margin: 0 6px;}
         .index_menu .menu-items>li:hover{color: #fff;background-color: #0274d1}
         .index_menu .menu-items>li>a:hover{color: #fff;}
         .index_menu .menu-items>li>a>i{font-size: 2.2em;}
         .index_menu .menu-items>li>a>span{display: block;padding: 3px 5px 0 5px;white-space: nowrap;text-overflow: ellipsis;overflow: hidden;}
         /*sub start*/
-        .index_menu .menu-items ul{z-index:-1;box-shadow:0 8px 16px rgba(0,0,0,0.18); position: absolute;left: -600px;width: 120px;top: 0;transition: left 0.75s ease-in-out;background: #fff;}
+        .index_menu .menu-items ul{z-index:-1;box-shadow:0 8px 16px rgba(0,0,0,0.18); position: absolute;left: -600px;width: 131px;top: 0;transition: left 0.75s ease-in-out;background: #fff;}
         .index_menu .menu-items>li:hover>ul{left: 100%;}
-        .index_menu .menu-items ul>li{position: relative;}
-        .index_menu .menu-items ul>li>a{display: block;color: #999; }
-        .index_menu .menu-items ul>li>a>span{display:block;padding: 10px 28px;border-left: 4px solid transparent;    overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-        .index_menu .menu-items ul>li>a>.icstyle{position: absolute;top: 2px; bottom: 0; left:0;margin: auto;padding: 10px 8px;font-size: 14px;}
-        .index_menu .menu-items ul>li>a>.dayu{position: absolute;top: 2px; bottom: 0; right:0;margin: auto;padding: 10px 8px;font-size: 14px;}
+        .index_menu .menu-items ul>li{position: relative;border-left: 4px solid transparent;}
+        .index_menu .menu-items ul>li>a{display: block;color: #999;height: 36px;}
+        .index_menu .menu-items ul>li>a>span{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;width: 89%;display: inline-block; margin-left: 4px;line-height: 36px;height: 36px;}
+        .index_menu .menu-items ul>li>a>span>.icstyle{margin-right: 5px;line-height: 30px;}
+        .index_menu .menu-items ul>li>a>.dayu{position: absolute;top: 3px; bottom: 0; right:0;margin: auto;padding: 9px 8px;font-size: 14px;}
         /*sub 多*/
         .index_menu .menu-items ul li:hover>ul{left: 100%;}
-			  .index_menu .menu-items ul li:hover>a>span{color:#3285FF; border-left: 4px solid #3285FF;}
+			  .index_menu .menu-items ul li:hover{color:#3285FF; border-left: 4px solid #3285FF;}
 			  .index_menu .menu-items ul li:hover>a>i{color:#3285FF;}
+        .index_menu .menu-items ul li:hover>a>span{color:#3285FF;}
        /*index_content start*/
       .index_content{height: 100%;width: 100%;position: fixed;top: 0;padding-left: 80px;}
       .index_content .index_hearder{background: #f3f3f4;height: 60px;width: 100%;line-height: 60px;top: 0;left: 0;border-bottom: 1px solid #e7eaec;}
@@ -85,7 +86,7 @@
       .index_hearder .index_sysopts .dropdown >a{float: left;color: #555555;padding: 0 12px;}
       .index_search{float:left;position:relative}
       .index_search >input{margin-left:30px;line-height:30px;background-color:transparent;border:none;font-size:12px;width:180px}
-      .index_search >ul{display:none;width:180px;background:rgba(247, 247, 247, 0.84);left:30px;position:absolute;max-height:240px;cursor:default;z-index:9999;overflow:hidden;overflow-y:auto}
+      .index_search >ul{display:none;width:180px;background:rgba(247, 247, 247, 0.95);left:30px;position:absolute;max-height:240px;cursor:default;z-index:9999;overflow:hidden;overflow-y:auto}
       .index_search >ul>li{float:left;height:30px;width:100%;position:relative;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
       .index_search >ul>li>a{display:inline-block;width:100%;height:30px;line-height:30px;color:#333;padding:0 15px;float:left}
       .index_search >ul>li>a:hover{color:#03a9f4;background-color:transparent}
@@ -98,35 +99,43 @@
   <div class="menubox">
     <div class="index_menu" id="js_menuBox">
       <div class="menu-logo">
-          <i class="iconfont icon-logo" style="font-size: 38px;"></i>
+          <i class="iconfont icon-logo" style="font-size: 36px;"></i>
       </div>
       <div>
         <ul class="menu-items js_index_menus">
           <!-- <li>
-            <a href="doing.html" class="menu-item js_menu" data-id="1">
-              <i class="fa fa-pie-chart fa-fw"></i>
-                <span>首页</span>
-            </a>
-            <ul class="sub-menu">
-              <li>
-                <a href="javascript:;" class="sub-item">
-                  <span>a</span>
-                  <i class="fa fa-angle-right"></i>
-                </a>
-                <ul class="sub-menu">
-                  <li>
-                    <a href="doing.html" class="sub-item js_menu" data-id="4">
-                      <span>c</span>
+            <a href="javascript:;" class=" js_index_pItem">
+                      
+                      <span><i class="fa fa-wpforms fa-fw icstyle"></i>UI元素</span>
+                      
                     </a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="doing.html" class="sub-item js_menu" data-id="3">
-                    <span>c</span>
+            <ul class="sub_menu"><li>
+                <a href="javascript:;" class=" js_index_pItem">
+                  
+                  <span><i class="glyphicon glyphicon-menu-hamburger fa-fw icstyle"></i>菜单管理</span>
+                  <i class="fa fa-angle-right dayu"></i>
                 </a>
-              </li>
-            </ul>
+                <ul class="sub_menu"><li>
+                  <a href="javascript:;" class="js_index_sItem sub-item" data-src="page/sys/auth/authority.html">
+                    
+                    <span><i class="glyphicon glyphicon-menu-hamburger fa-fw icstyle"></i>test4</span>
+                  </a>
+                </li></ul>
+              </li><li>
+                  <a href="javascript:;" class="js_index_sItem sub-item" data-src="page/sys/user/user.html">
+                    
+                    <span><i class="iconfont icon-jiaoseguanli fa-fw icstyle"></i>用户管理</span>
+                  </a>
+                </li><li>
+                  <a href="javascript:;" class="js_index_sItem sub-item" data-src="page/sys/role/role.html">
+                   
+                    <span>角色管理</span>
+                  </a>
+                </li><li>
+                  <a href="javascript:;" class="js_index_sItem sub-item" data-src="page/sys/dept/dept.html">
+                    <span><i class="iconfont icon-OA_shujukuguanli fa-fw icstyle"></i>项目管理</span>
+                  </a>
+                </li></ul>
           </li> -->
         </ul>        
       </div>
@@ -143,7 +152,7 @@
         <div class="index_sysopts">
           <div class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle index_sys_opts" href="javascript:;">
-              <i class="fa fa-user"></i> 管理员 <span class="caret"></span>
+              <i class="iconfont icon-yonghu"></i> 管理员 <span class="caret"></span>
             </a>
               <ul class="dropdown-menu animated fadeInRight m-t-xs">
                   <li><a class="js_changeStyle" href="javascript:;">修改风格</a>
@@ -154,7 +163,7 @@
                   </li>
               </ul>
           <a href="./login1.html" class="index_sys_opts">
-            <i class="fa fa-power-off"></i>
+            <i class="iconfont icon-tuichu1"></i>
               退出
           </a>  
           </div>
@@ -244,15 +253,14 @@
         },
         getHTML(data){
           let html="";
-          data.map(v=>{
+          data.map((v,i)=>{
              let temp="";
              if(v.children.length>0){
                 temp =  this.getHTML(v.children);
-                console.log(v.level)
                 html+=`<li>
-                    <a href="javascript:;" class=" js_index_pItem">
-                      ${v.icon?`<i class="${v.icon} fa-fw icstyle"></i>`:""}
-                      <span>${v.name}</span>
+                    <a href="javascript:;" class=" js_index_pItem js_index_noeItem"  data-index="${i}">
+                      ${v.level<=1?`<i class="${v.icon} fa-fw "></i>`:""}
+                      <span>${v.level>1?`<i class="${v.icon} fa-fw icstyle"></i>`:""}${v.name}</span>
                       ${v.level>1?`<i class="fa fa-angle-right dayu"></i>`:""}
                     </a>
                     ${temp}
@@ -260,8 +268,7 @@
              }else{
                html+=`<li>
                       <a href="javascript:;" class="js_index_sItem sub-item " data-src="${v.url}">
-                        ${v.icon?`<i class="${v.icon} fa-fw icstyle"></i>`:""}
-                        <span>${v.name}</span>
+                        <span>${v.level>1?`<i class="${v.icon} fa-fw icstyle"></i>`:""}${v.name}</span>
                       </a>
                     </li>`
              }
@@ -298,6 +305,67 @@
           $(".js_index_menus").on("click",".js_index_pItem",function(e,fn){
             e.stopPropagation()
           });
+          //一级菜单点击
+          $(".js_index_menus").on("click",".js_index_noeItem",function(e,fn){
+            let src = $this.findurl($this.menus[$(this).data("index")].children);
+            $this.changeSub(src);
+            $(".js_index_sItem").each(function(index,dom){
+              if($(dom).data("src")==src){
+                $(dom).trigger("click");
+                return false;
+              }
+            });
+            if($(".index_menus_sub").hasClass("min")){
+              $(".js_index_left_btn").trigger("click");
+            }
+            $(".index_menus_main").trigger("mouseleave");
+            e.stopPropagation();
+          });
+        },
+        changeSub(url){
+          //二级菜单
+          //找到当前url主页的父index
+            let pIndex = this.findP(url,this.menus);
+            //父的css
+            $(".js_menus_one>li>a").removeClass("active").eq(pIndex).addClass("active");
+            //子菜单加载的内容
+            let subChildren = this.menus[pIndex];
+            //获取html
+            let shtml = this.getHTML(subChildren.children);
+            //添加到页面 js_subTitle js_submenus
+            $(".js_subTitle").text(subChildren.name);
+            $(".js_submenus").html(shtml);
+        },
+        findP(url,data,index){
+          let result;
+          for(let i=0,len=data.length;i<len;i++){
+            let v = data[i];
+            if(url==v.url){
+            return index;
+            }
+            if(v.children.length>0){
+              if(v.level ==1){
+              result= this.findP(url,v.children,i);
+              }else{
+              result=this.findP(url,v.children,index);
+              }
+            }
+            if(result===0||result){
+              return result;
+            }
+          }
+        },
+         //找到第一个url
+        findurl(data){
+          for(let i=0,len=data.length;i<len;i++){
+            let v = data[i];
+            if(v.children.length>0){
+              return this.findurl(v.children);
+            }
+            if(v.url&&v.children.length==0){
+              return v.url;
+            }
+          }
         },
         jumpMenu(url,callback){
           let hash = "";
