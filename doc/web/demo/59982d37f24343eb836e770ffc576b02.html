@@ -7,43 +7,51 @@
     <title>Document</title>
 </head>
 <body>
-    <form id="addZtree" class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-2 control-label">ztree1</label>
-            <div class="col-sm-10">
-                <input class="form-control" id="ztree1" name="inputZtree1" type="text"/>
-            </div>
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <div class="panel-title">ztree推荐写法</div>
         </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">ztree2</label>
-            <div class="col-sm-10">
-                <input class="form-control" id="ztree2" name="inputZtree2" type="text"/>
-            </div>
+        <div class="panel-body">
+            <form id="addZtree" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">ztree1</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="ztree1" name="inputZtree1" type="text"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">ztree2</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="ztree2" name="inputZtree2" type="text"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">ztree3</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="ztree3" name="inputZtree3" type="text"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">ztree4</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" id="ztree4" name="inputZtree4" type="text"/>
+                    </div>
+                </div>
+                <div class=" form-group text-center">
+                    <button class="btn btn-primary js_ztree1" type="button">Test1</button>
+                </div>
+            </form>
         </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">ztree3</label>
-            <div class="col-sm-10">
-                <input class="form-control" id="ztree3" name="inputZtree3" type="text"/>
-            </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">ztree4</label>
-            <div class="col-sm-10">
-                <input class="form-control" id="ztree4" name="inputZtree4" type="text"/>
-            </div>
-        </div>
-        <div class=" form-group text-center">
-            <button class="btn btn-primary js_ztree1" type="button">Test1</button>
-        </div>
-    </form>
+    </div>
+
     <script>
         /*
             1.结合ztree 来使用
         */
-       var test1 = {
+       var ztree_test1 = {
             init(){
                 var zNodes1 =[
                     {id:4, pId:0, name:"财务部"},
@@ -118,7 +126,6 @@
                 rj.form.set($("#addZtree")[0],data)
                 //重置插件
                 rj.resetPlug();    
-                rj.resetPlug();
 			rj.ztree("ztreeRadio","#ztree1",zNodes1);
 			rj.ztree("ztreeCheckbox","#ztree2",zNodes2);
 			rj.ztree("ztreeCheckbox","#ztree3",zNodes3);
@@ -169,7 +176,7 @@
 
             
        };
-       test1.init()
+       test1.ztree_test1()
     </script>
 </body>
 </html>

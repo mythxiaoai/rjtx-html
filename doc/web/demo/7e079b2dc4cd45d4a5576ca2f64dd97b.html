@@ -7,11 +7,15 @@
     <title>Document</title>
 </head>
 <body>
+    <ul class="js_utiletest" style="display:none">
+        <li>fad</li>
+    </ul>
     <div class="js_box"></div>
     <script>
         var untilTest = {
             init(){
-                var html = `<p>2222</p>`
+                var html = $(".js_utiletest").html();
+                console.log(html)
                 $(".js_box").html(rj.util.pre(html))
             }
         }    
