@@ -179,56 +179,56 @@
 			 $(window).resize(function(){chart2.resize();});
         },
         chart3(){
-            var chart3 = echarts.init($("#echart3")[0]);
-			let option = {
-                title : {
-                    text: '导入数据和解析数据的信息',
-                    x:'center',
-                    textStyle:{
-                        fontSize:12,
-                        fontWeight: 'normal',
-                    },
-                    bottom:15
+          var chart3 = echarts.init($("#echart3")[0]);
+			    let option = {
+            title : {
+                text: '导入数据和解析数据的信息',
+                x:'center',
+                textStyle:{
+                    fontSize:12,
+                    fontWeight: 'normal',
                 },
-                tooltip: {},
-                legend: {
-                    orient: 'vertical',
-                    left: '15',
-                    top: '15',
-                    data: ['数量分布'],
+                bottom:15
+            },
+            tooltip: {},
+            legend: {
+                orient: 'vertical',
+                left: '15',
+                top: '15',
+                data: ['数量分布'],
+            },
+            color:["#32C5E9"],
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#1784bd',
+                        padding:-10,
+                    }
                 },
-                color:["#32C5E9"],
-                radar: {
-                    // shape: 'circle',
-                    name: {
-                        textStyle: {
-                            color: '#1784bd',
-                            padding:-10,
-                        }
-                    },
-                    radius:"60%",
-                    indicator: [
-                        { name: '宏站小区\n(36731)', max: 48527},
-                        { name: '室分小区\n(11796)', max: 48527},
-                        { name: '有效分析小区\n(8459)', max: 48527},
-                        { name: '良好覆盖率小区\n(6297)', max: 48527},
-                        { name: 'MRS数据缺失小区\n(3337)', max: 48527},
-                        { name: '差覆盖小区\n(2157)', max: 48527},
-                        { name: 'MRS数据异常小区\n(5)', max: 48527},
-                    ]
-                },
-                series: [{
-                    name: '导入数据和解析数据的信息',
-                    type: 'radar',
-                    // areaStyle: {normal: {}},
-                    data : [
-                        {
-                            value : [36731, 11796, 8459, 6297,3337,2157,5],
-                            name : '数量分布'
-                        }
-                    ]
-                }] 
-			};
+                radius:"60%",
+                indicator: [
+                    { name: '宏站小区\n(36731)', max: 48527},
+                    { name: '室分小区\n(11796)', max: 48527},
+                    { name: '有效分析小区\n(8459)', max: 48527},
+                    { name: '良好覆盖率小区\n(6297)', max: 48527},
+                    { name: 'MRS数据缺失小区\n(3337)', max: 48527},
+                    { name: '差覆盖小区\n(2157)', max: 48527},
+                    { name: 'MRS数据异常小区\n(5)', max: 48527},
+                ]
+            },
+            series: [{
+                name: '导入数据和解析数据的信息',
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data : [
+                    {
+                        value : [36731, 11796, 8459, 6297,3337,2157,5],
+                        name : '数量分布'
+                    }
+                ]
+            }] 
+			   };
             chart3.setOption(option)
 			 $(window).resize(function(){chart3.resize();});
         },
