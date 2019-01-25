@@ -116,7 +116,7 @@
             {
                 "id": "31",
                 "name": "ECharts",
-                "url": "page/ui/echarts/echartsmodal.html",
+                "url": "page/ui/echarts/echarts.html",
                 "icon": "fa fa-wpforms",
                 "pid": "30"
             }
