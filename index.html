@@ -47,6 +47,43 @@
     <!--基础样式文件-->
     <link rel="stylesheet" href="css/common.css"/>
     <style>
+      /*white
+        主色调:#fff
+        深色调:#003180
+        次色调:#03a9f4
+        主色Text:#9e9e9e
+        次要Text:#03a9f4
+      * */
+      .index_skin.white {background:#f2f7fc;}
+      .index_skin.white .index_menus .user_info{background: #fff;border-bottom: 1px solid rgba(0, 0, 0, 0.05);}
+      .index_skin.white .index_menus .user_info .icon-logo{color: #003180;}
+      .index_skin.white .index_menus{background: rgb(255, 255, 255);box-shadow: 0px 6px 15px 0px rgba(226, 226, 226, 0.5294117647058824);}
+      .index_skin.white .index_menus .user_info .userfont{color: #1e92f5;background: linear-gradient(to right, #001458, #3f68ff);-webkit-background-clip: text;color: transparent;}
+      .index_skin.white .text-muted{color: #9e9e9e;}
+      .index_skin.white .index_menus .menu_items a.active{border-color: #03a9f4;background: #f2f7fc;color: #03a9f4;}
+      .index_skin.white .index_menus .menu_items a:hover{background: #f2f7fc;color:#03a9f4;}
+      .index_skin.white .index_menus .menu_items ul li a{color:#9e9e9e;}
+      .index_skin.white .index_content .index_hearder{border-bottom: 1px solid #e7eaec; z-index: 11;}
+
+      /*bulue
+        主色调:#0072ff , #00c6ff
+        深色调:#0072ff
+        次色调:#03a9f4
+        主色Text:#fff
+        次要Text:#757575
+        不可用Text:##BDBDBD
+      * */
+      .index_skin.blue {background:#f2f7fc;}
+      .index_skin.blue .index_menus .user_info{background: #0072ff;}
+      .index_skin.blue .index_menus .user_info .icon-logo{color: #fff;}
+      .index_skin.blue .index_menus{background: rgb(255, 255, 255);box-shadow: 0px 6px 15px 0px rgba(226, 226, 226, 0.5294117647058824);}
+      .index_skin.blue .index_menus .user_info .userfont{color: #fff;}
+      .index_skin.blue .text-muted{color: #fff;}
+      .index_skin.blue .index_menus .menu_items a.active{border-color: #f2f7fc;background: #f2f7fc;color: #03a9f4;}
+      .index_skin.blue .index_menus .menu_items a:hover{background: #f2f7fc;color:#03a9f4;}
+      .index_skin.blue .index_menus .menu_items ul li a{color:#fff;}
+      .index_skin.blue .index_content .index_hearder{border-bottom: 1px solid #e7eaec; z-index: 11;}
+      .index_skin.blue .index_menus .index_menus_box{background: linear-gradient(#0072ff , #00c6ff)}
       /*.index_menus start*/
       .index_menus{position: fixed;height: 100%;width:220px;background:rgb(47, 64, 80);z-index: 1;white-space: nowrap;}
       .index_menus .user_info{height: 200px;padding:50px;width: 100%;background:#263949;color: #fff;}
@@ -72,7 +109,7 @@
       /*end index_menus*/
      /*index_content start*/
       .index_content{height: 100%;width: 100%;position: fixed;top: 0;padding-left: 220px;}
-      .index_content .index_hearder{height: 60px;width: 100%;line-height: 60px;top: 0;left: 0;border-bottom: 1px solid #e7eaec;}
+      .index_content .index_hearder{height: 55px;width: 100%;line-height: 55px;top: 0;left: 0;border-bottom: 1px solid #e7eaec;background: #fff;}
       .index_hearder a:hover{background-color: #eee;}
       .index_hearder .index_logo>a{float:left;display: inline-block;color: #999c9e;text-align: center;}
       .index_hearder .index_logo .index_logo_img{height: 50px;width: 50px;}
@@ -80,7 +117,7 @@
       .index_hearder .index_logo .index_logo_name{font-size:14px;padding: 0 12px;}
       .index_hearder .index_sysopts{float: right;}
       .index_hearder .index_sysopts .dropdown{height: 50px;}
-      .index_hearder .index_sysopts .dropdown >a{float: left;color: #999c9e;padding: 0 12px;}
+      .index_hearder .index_sysopts .dropdown >a{float: left;color: #464646;padding: 0 12px;}
       .index_search{float:left;position:relative}
       .index_search >input{margin-left:30px;line-height:30px;background-color:transparent;border:none;font-size:12px;width:180px}
       .index_search >ul{display:none;width:180px;background:#f3f3f4;left:30px;position:absolute;max-height:240px;cursor:default;z-index:9999;overflow:hidden;overflow-y:auto}
@@ -92,7 +129,7 @@
       /*end index_content*/
     </style>
 </head>
-<body class="bg-gray">
+<body class="bg-gray index_skin blue">
 <div class="index_menus">
   <div class="user_info text-center ">
     <i class="iconfont icon-logo" style="font-size: 48px;"></i>
