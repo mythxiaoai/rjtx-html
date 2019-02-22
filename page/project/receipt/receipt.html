@@ -110,7 +110,8 @@ var receipt = {
       rj.table.init({
           id: "#table",
           toolbar: false,
-          data:data,
+          url:'data.json', 
+          method: 'get',
           columns: [
           {
               field: 'field1',

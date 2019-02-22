@@ -8,11 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-      if(localStorage.getItem("rj_style")){
-        let src = {cd:1,al:2,bp:3,ct:4,ne:"news"};
-        if(localStorage.rj_style!="bp")
-        window.location.href = `./index${src[localStorage.rj_style]}.html`;
-      }
+      // if(localStorage.getItem("rj_style")){
+      //   let src = {cd:1,al:2,bp:3,ct:4};
+      //   if(localStorage.rj_style!="bp")
+      //   window.location.href = `./index${src[localStorage.rj_style]}.html`;
+      // }
     </script>
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
     <!--字体图标 fa fa-*-->
@@ -255,7 +255,7 @@
       let $this = this;
       return  rj.ajax({
         type:"get",
-        url:"js/data.js",
+        url:"js/newdata.js",
         success(data){
           data = data[0].menus;
           data = simpleToPS(data);
@@ -496,7 +496,7 @@
             //确定按钮的回调 
             let data = rj.form.get($("#changeStyle")[0]);
             localStorage.rj_style=data.style;
-            let src = {bp:"",cd:1,al:2,ct:3,ne:"news"};
+            let src = {bp:"",cd:1,al:2,ct:3,ne:4};
             window.location.href = `./index${src[data.style]}.html`
           },
           function() {
