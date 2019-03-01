@@ -1,0 +1,450 @@
+<div class="p-m">
+    <div class="row">
+        <div class="col-md-12">
+            <div class=" panel">
+                <div class="panel-heading">
+                    <div class="panel-title">普通表格1</div>
+                </div>
+                <div class="panel-body">
+                    <table id="table1"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class=" panel">
+                <div class="panel-heading">
+                    <div class="panel-title">合并列表格</div>
+                </div>
+                <div class="panel-body">
+                    <table id="table4"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class=" panel">
+                <div class="panel-heading">
+                    <div class="panel-title">合并行表格</div>
+                </div>
+                <div class="panel-body">
+                    <table id="table2">
+                        <thead>
+                            <tr>
+                                <th data-field="file0" rowspan="2" data-valign="middle">项目编号</th>
+                                <th data-field="file1" rowspan="2" data-valign="middle">项目名称</th>
+                                <th colspan="2" class="js_pro1"  data-align = "center">完成情况</th>
+                            </tr>
+                            <tr>
+                                <th data-field="file2"  data-align = "center">总数</th>
+                                <th data-field="file3"  data-align = "center">总完成数</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class=" panel">
+                <div class="panel-heading">
+                    <div class="panel-title">带操作表格</div>
+                </div>
+                <div class="panel-body">
+                    <table id="table3"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class=" panel">
+                <div class="panel-heading">
+                    <div class="panel-title">树状表</div>
+                </div>
+                <div class="panel-body">
+                    <table id="tabeltree"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var tableExample = {
+        init(){
+            this.tableInit();
+            this.tabelOne();
+            this.tableThree();
+            this.tabelFour();
+            this.tabelTree();
+        },
+        tableInit(){
+			rj.table.init({
+				id:"#table2",
+                toolbar:false,
+                showRefresh: true,
+				pagination:false,//不显示分页
+				url:'',
+				uniqueId:"id",//作用是在tr上面加上主键  方便做修改和删除操作
+				sortName: "createDate", //主键创建时间
+				data:[
+                    {
+                        file0:1,
+                        file1: "项目一",
+                        file2: 23,
+                        file3: 10,
+                    },
+                    {
+                        file0:1,
+                        file1: "项目二",
+                        file2: 321,
+                        file3: 111,
+                    },{
+                        file0:1,
+                        file1: "项目三",
+                        file2: 232,
+                        file3: 112,
+                    },{
+                        file0:1,
+                        file1: "项目四",
+                        file2: 33,
+                        file3: 11,
+                    },{
+                        file0:1,
+                        file1: "项目五",
+                        file2: 22,
+                        file3: 11,
+                    },
+                ],
+			});
+        },
+        tabelOne(){
+            let data = [
+                {
+                    "id": 1,
+                    "name": "Test1Test1Test1Test1Test1",
+                    "num": "122",
+                    "month": "1月"
+                },{
+                    "id": 2,
+                    "name": "Test2Test2Test2Test2Test2",
+                    "num": "64",
+                    "month": "1月"
+                },{
+                    "id": 3,
+                    "name": "Test3Test3Test3Test3Test3",
+                    "num": "33",
+                    "month": "1月"
+                },{
+                    "id": 4,
+                    "name": "Test4Test4Test4Test4Test4",
+                    "num": "55",
+                    "month": "1月"
+                },{
+                    "id": 5,
+                    "name": "Test5Test5Test5Test5Test5",
+                    "num": "11",
+                    "month": "1月"
+                },{
+                    "id": 6,
+                    "name": "Test6Test6Test6Test6Test6",
+                    "num": "22",
+                    "month": "1月"
+                },
+            ]
+            rj.table.init({
+                id: "#table1",
+                toolbar:false,
+                data:data,
+                pagination:true,
+                striped: true, //隔行变色效果
+                columns: [
+                    {
+                        field: 'id',
+                        title: '编号',
+                    },
+                    {
+                        field: 'name',
+                        title: '名称'
+                    },
+                    {
+                        field: 'num',
+                        title: '数量',
+                    },
+                    {
+                        field: 'month',
+                        title: '月份',
+                    }
+                ]
+            })
+        },
+        tableThree(){
+            let data = [
+                {
+                    "authName": "控制台",
+                    "priority": 3,
+                    "url": "http://127.0.0.1:5500/rjtx-html/index.html",
+                    "createDate": "2018-01-10",
+                    "remark": "测试",
+                    "isEnabled": 0,
+                    "authType": 0,
+                },
+                {
+                    "authName": "控制台",
+                    "priority": 3,
+                    "url": "http://127.0.0.1:5500/rjtx-html/index.html",
+                    "createDate": "2018-01-10",
+                    "remark": "测试",
+                    "isEnabled": 0,
+                    "authType": 0,
+                },
+                {
+                    "authName": "控制台",
+                    "priority": 3,
+                    "url": "http://127.0.0.1:5500/rjtx-html/index.html",
+                    "createDate": "2018-01-10",
+                    "remark": "测试",
+                    "isEnabled": 0,
+                    "authType": 0,
+                },
+                {
+                    "authName": "控制台",
+                    "priority": 3,
+                    "url": "http://127.0.0.1:5500/rjtx-html/index.html",
+                    "createDate": "2018-01-10",
+                    "remark": "测试",
+                    "isEnabled": 0,
+                    "authType": 0,
+                }
+            ]
+            rj.table.init({
+                id: "#table3",
+                toolbar: false,
+                data: data,
+                columns: [
+                    {
+                        checkbox: true, 
+                    },
+                    {
+                        field: 'authName',
+                        title: '菜单名称',
+                    }, {
+                        field: 'priority',
+                        title: '菜单优先级',
+                    },{
+                        field: 'url',
+                        title: '访问链接',
+                        
+                    }, {
+                        field: 'createDate',
+                        title: '创建时间',
+                        formatter:function(value,row,index){
+                            var newTime = new Date(value);
+                            
+                            return newTime.getFullYear() + "-" + (newTime.getMonth() + 1) + "-" + newTime.getDate();
+                        }
+                    },{
+                        field: 'remark',
+                        title: '备注'
+                    },{
+                        field: 'isEnabled',
+                        title: '是否停用',
+                        formatter:function(value,row,index){
+                            return value==0?"<span class='text-success'>启用</span>":"<span class='text-danger'>未启用<span>";
+                        }
+                    },{
+                        field: 'authType',
+                        title: '权限类型',
+                        formatter:function(value,row,index){
+                            return value==0?"菜单权限":"功能权限";
+                        }
+                    },{
+                        title: '操作',
+                        formatter:function(value,row,index){ 
+                            var str = row.isEnabled==0?'停用':'启用';
+                            var status =row.isEnabled==0?1:0;
+                            return "<a href='javascript:;'  class='btn btn-warning btn-xs m-r-xs ' id='"+value+"' onclick='auth.changestuts(this.id,"+status+")'>"+str+"</a>"+
+                            "<a href='javascript:;' id='"+value+"' onclick='auth.addOrUpdate(\"修改\",this.id)' class='btn btn-info btn-xs m-r-xs' )'>修改</a>"+
+                            "<a href='javascript:;' id='"+value+"' onclick='auth.delOne(this.id)' class='btn btn-danger btn-xs'>删除</a>";
+                        }
+                    }
+                ],
+            })
+        },
+        tabelFour(){
+            let data = [
+                {
+                    "id": "广州",
+                    "name":"项目1",
+                    "num": "33"
+                },
+                {
+                    "id": "广州",
+                    "name":"项目2",
+                    "num": "44"
+                },
+                {
+                    "id": "广州",
+                    "name":"项目3",
+                    "num": "55"
+                },
+                {
+                    "id": "广州",
+                    "name":"项目4",
+                    "num": "66"
+                },
+                {
+                    "id": "深圳",
+                    "name":"项目1",
+                    "num": "23"
+                },
+                {
+                    "id": "贵州",
+                    "name":"项目1",
+                    "num": "552"
+                },
+                {
+                    "id": "北京",
+                    "name":"项目1",
+                    "num": "12"
+                },
+                {
+                    "id": "北京",
+                    "name":"项目1",
+                    "num": "33"
+                }
+            ]
+            rj.table.init({
+                id: "#table4",//table表格的ID
+                toolbar: false,
+                data:data,
+                columns:[
+                    {
+                        field: 'id',
+                        title: '地区',
+                        formatter: rj.table.fmt.VHcenter  //居中显示
+                    },
+                    {
+                        field: 'name',
+                        title: '名称',
+                    },
+                    {
+                        field: 'num',
+                        title: '名称2',
+                }
+                ],
+                onLoadSuccess:function(data){
+                    rj.table.mergeCells("#table4","id",data)
+                }
+            })
+            rj.table.mergeCells("#table4","id",data)
+        },
+        tabelTree(){
+            let data = [
+                {
+                    "id": 1,
+                    "pid": 0,
+                    "name": "系统管理",
+                    "permissionValue": "open:system:get"
+                },
+                {
+                    "id": 2,
+                    "pid": 0,
+                    "name": "字典管理",
+                    "permissionValue": "open:dict:get"
+                },
+                {
+                    "id": 20,
+                    "pid": 1,
+                    "name": "新增系统",
+                    "permissionValue": "open:system:add"
+                },
+                {
+                    "id": 21,
+                    "pid": 1,
+                    "name": "编辑系统",
+                    "permissionValue": "open:system:edit"
+                },
+                {
+                    "id": 22,
+                    "pid": 1,
+                    "name": "删除系统",
+                    "permissionValue": "open:system:delete"
+                },
+                {
+                    "id": 33,
+                    "pid": 2,
+                    "name": "系统环境",
+                    "permissionValue": "open:env:get"
+                },
+                {
+                    "id": 333,
+                    "pid": 33,
+                    "name": "新增环境",
+                    "permissionValue": "open:env:add"
+                },
+                {
+                    "id": 3333,
+                    "pid": 33,
+                    "name": "编辑环境",
+                    "permissionValue": "open:env:edit"
+                },
+                    {
+                    "id": 233332,
+                    "pid": 33,
+                    "name": "删除环境",
+                    "permissionValue": "open:env:delete"
+                }
+
+            ]
+            $('#tabeltree').bootstrapTable({
+                toolbar: false,
+                url: 'page/ui/json/treegrid.json',
+                sidePagination: 'server',
+                idField: 'id',
+                treeShowField: 'name',
+                parentIdField: 'pid',
+                columns: [
+                    {
+                        checkbox: true
+                    },
+                    {
+                        field: 'name',
+                        title: '分类id',
+                    },
+                    {
+                        field: 'permissionValue',
+                        title: '分类名称',
+                        align: 'center',
+                    },
+                    {
+                        field:'button',
+                        title:'操作',
+                        events:'operateEvents',
+                        formatter:'Editor'
+                    }
+                ],
+                //onClickRow 点击某一行触发的时间
+                onClickRow: function (row, $element) { curRow = row; },
+                //onLoadSuccess : 远程数据加载成功时触发成功
+                onLoadSuccess: function(data) {
+                    console.log(1)
+                    $('#tabeltree').treegrid({
+                        treeColumn: 1,
+                        onChange: function() {
+                        $("#tabeltree").bootstrapTable('resetWidth');
+                        }
+                    });
+                }
+
+            });
+
+            
+        }
+    }
+    tableExample.init()
+</script>

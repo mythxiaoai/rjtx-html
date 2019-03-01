@@ -58,6 +58,34 @@
                 "pid": "10"
             },
             {
+                "id": "30",
+                "name": "UI元素",
+                "url": "",
+                "icon": "fa fa-wpforms",
+                "pid": ""
+            },
+            {
+                "id": "31",
+                "name": "弹层",
+                "url": "page/ui/mobal.html",
+                "icon": "fa fa-wpforms",
+                "pid": "30"
+            },
+            {
+                "id": "31",
+                "name": "ECharts",
+                "url": "page/ui/echarts/echarts.html",
+                "icon": "fa fa-wpforms",
+                "pid": "30"
+            },
+            {
+                "id": "32",
+                "name": "Table",
+                "url": "page/ui/table/table.html",
+                "icon": "iconfont icon-ditu1",
+                "pid": "30"
+            },
+            {
                 "id": "20",
                 "name": "系统管理",
                 "url": "",
@@ -98,27 +126,6 @@
                 "url": "page/sys/dept/dept.html",
                 "icon": "iconfont icon-OA_shujukuguanli",
                 "pid": "20"
-            },
-            {
-                "id": "30",
-                "name": "UI元素",
-                "url": "",
-                "icon": "fa fa-wpforms",
-                "pid": ""
-            },
-            {
-                "id": "31",
-                "name": "弹层",
-                "url": "page/ui/mobal.html",
-                "icon": "fa fa-wpforms",
-                "pid": "30"
-            },
-            {
-                "id": "31",
-                "name": "ECharts",
-                "url": "page/ui/echarts/echarts.html",
-                "icon": "fa fa-wpforms",
-                "pid": "30"
             }
         ],
         "auth": {}
