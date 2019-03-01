@@ -331,7 +331,7 @@ rj.form.get($("#addOrUpdate")[0]);
 		},
 		table:{
 			init(opts){
-				return $(opts.id).bootstrapTable($.extend({},$.fn.bootstrapTable.defaults,{
+				return $(opts.id).bootstrapTable('destroy').bootstrapTable($.extend({},$.fn.bootstrapTable.defaults,{
 			        //url请求后台的URL（*）
 			        //sortName排序的字段
 			        //undefinedText当字段为空的时候用 - 替换
