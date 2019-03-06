@@ -965,9 +965,7 @@ rj.form.get($("#addOrUpdate")[0]);
         backShow(ids){
           var treeObj = $.fn.zTree.getZTreeObj(opts.id);
           if(type=="ztreeCheckbox"){
-            var nodes = treeObj.transformToArray(treeObj.getNodes()).filter(node=>{
-              return !node.isParent;
-            })
+            var nodes = treeObj.transformToArray(treeObj.getNodes());
             for (var i=0, l=nodes.length; i < l; i++) {
               let arr = ids.split(",");
               for (let id of arr) {
@@ -1229,24 +1227,28 @@ rj.form.get($("#addOrUpdate")[0]);
 			}
 		},
 		load(selector,url,callback){
-			let $this = this;
-			$(selector).load(url,function(reponseText,status,res){
-				if(res.readyState==4){
-					if (res.status >= 200 && res.status < 300) {
-						if(res.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
-            			 	window.top.location.href="login.html"
-		            	}
-						callback&&callback();
-					}else{
-	                	//这里是为了跳转登陆超时  返回无权限页面403
-	                	if(res.responseText.indexOf("3292b1da35a94a3b8b4c4964f8e48c05")!=-1){
-	            			document.write(res.responseText);
-		            	}else{
-		            		xalert("出错啦~",res.responseText,"error");
-		            	}
-					}
-				}
-			});
+      let $this = this;
+      return new Promise((reslove,reject)=>{
+        $(selector).load(url,function(reponseText,status,res){
+          if(res.readyState==4){
+            if (res.status >= 200 && res.status < 300) {
+              if(res.responseText.indexOf("71754E4154114EF882C92FCFDC7DE0E1")!=-1){
+                  window.top.location.href="login.html"
+                }
+              callback&&callback();
+              reslove();
+            }else{
+                //这里是为了跳转登陆超时  返回无权限页面403
+                if(res.responseText.indexOf("3292b1da35a94a3b8b4c4964f8e48c05")!=-1){
+                document.write(res.responseText);
+              }else{
+                xalert("出错啦~",res.responseText,"error");
+              }
+              reject();
+            }
+          }
+        });
+      });
 		},
 		fileinput:{
 		  init() {
