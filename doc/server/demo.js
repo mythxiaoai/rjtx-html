@@ -36,7 +36,10 @@ server.use("/demo/upload",(req,res)=>{
   result.msg="上传成功";
   res.send(result);
 })
+
+
 server.use("/demo/test1",(req,res)=>{
+  res.setHeader("Access-Control-Allow-Origin","*");
   //装载数据
   let param = req.body;
   let files = req.files;
@@ -47,6 +50,7 @@ server.use("/demo/test1",(req,res)=>{
   },param.time||2000);
 })
 server.use("/demo/test2",(req,res)=>{
+  res.setHeader("Access-Control-Allow-Origin","*");
   //装载数据
   let param = req.body;
   let files = req.files;
@@ -57,6 +61,7 @@ server.use("/demo/test2",(req,res)=>{
   },param.time||2000);
 })
 server.use("/demo/test3",(req,res)=>{
+  res.setHeader("Access-Control-Allow-Origin","*");
   //装载数据
   let param = req.body;
   let files = req.files;
@@ -67,6 +72,7 @@ server.use("/demo/test3",(req,res)=>{
   },param.time||2000);
 })
 server.use("/demo/resultEdit",(req,res)=>{
+  res.setHeader("Access-Control-Allow-Origin","*");
   //装载数据
   let param = req.body;
   let files = req.files;

@@ -216,6 +216,11 @@ textarea{overflow:auto; }
 ::-ms-scrollbar-track{background-color:#F5F5F5}
 ::-ms-scrollbar{width:6px;background-color:#F5F5F5}
 ::-ms-scrollbar-thumb{background-color:#999}
+::-webkit-scrollbar-track-piece{background-color:#fff;-webkit-border-radius:3px}
+::-webkit-scrollbar{width:12px;height:10px}
+::-webkit-scrollbar-thumb{height:30px;background-color:#999;-webkit-border-radius:7px;outline:2px solid #fff;outline-offset:-2px;border:2px solid #fff}
+::-webkit-scrollbar-thumb:hover{height:30px;background-color:#9f9f9f;-webkit-border-radius:8px}
+
 
 /*hr*/
 .hr-line-solid{border-bottom: 1px solid #e7eaec !important;}

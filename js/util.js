@@ -205,3 +205,91 @@ function simpleToPS(data,optObj){
     return result;
  }
 
+//根据文件类型和文件名获取文件类型
+function getFileType(vType, vName) {
+  let fileTypeSettings = {
+      image: function (vType, vName) {
+          return (compare(vType, 'image.*') && !compare(vType, /(tiff?|wmf)$/i) ||
+              compare(vName, /\.(gif|png|jpe?g)$/i));
+      },
+      html: function (vType, vName) {
+          return compare(vType, 'text/html') || compare(vName, /\.(htm|html)$/i);
+      },
+      doc: function (vType, vName) {
+          return compare(vType, /(word|office)$/i) ||
+              compare(vName, /\.(docx?)$/i);
+      },
+      xls: function (vType, vName) {
+          return compare(vType, /(excel|office)$/i) ||
+              compare(vName, /\.(xlsx?)$/i);
+      },
+      ppt: function (vType, vName) {
+          return compare(vType, /(powerpoint|office)$/i) ||
+              compare(vName, /\.(pptx?|potx?)$/i);
+      },
+      zip: function (vType, vName) {
+          return compare(vName, /(zip|rar|tar|gzip|gz|7z)$/i);
+      },
+      gdocs: function (vType, vName) {
+          return compare(vType, /(word|excel|powerpoint|office|iwork-pages|tiff?)$/i) ||
+              compare(vName, /\.(docx?|xlsx?|pptx?|pps|potx?|rtf|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i);
+      },
+      text: function (vType, vName) {
+          return compare(vType, 'text.*') || compare(vName, /\.(xml|javascript)$/i) ||
+              compare(vName, /\.(txt|md|csv|nfo|ini|json|php|js|css)$/i);
+      },
+      video: function (vType, vName) {
+          return (compare(vType, /(ogg|mp4|mp?g|mov|webm|3gp)$/i) ||
+              compare(vName, /\.(og?|mp4|webm|mp?g|mov|3gp|avi|rmvb)$/i));
+      },
+      audio: function (vType, vName) {
+          return (compare(vName, /(ogg|mp3|mp?g|wav)$/i) ||
+              compare(vName, /\.(og?|mp3|mp?g|wav)$/i));
+      },
+      flash: function (vType, vName) {
+          return compare(vType, 'application/x-shockwave-flash', true) || compare(vName, /\.(swf)$/i);
+      },
+      pdf: function (vType, vName) {
+          return compare(vType, 'application/pdf', true) || compare(vName, /\.(pdf)$/i);
+      },
+      obj: function () {
+          return true;
+      },
+      other: function () {
+          return true;
+      }
+    }
+
+    function compare(input, str, exact) {
+        return input !== undefined && (exact ? input === str : input.match(str));
+    }
+
+    for (let key in fileTypeSettings) {
+        let result = fileTypeSettings[key](vType, vName);
+        if (result) return key
+    }
+}
+
+//根据文件类型和文件名获取对应图标
+function getIconByfile(vType, vName){
+  var icon = {
+      'doc': '<i class="fa fa-file-word-o text-primary"></i>',
+      'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+      'ppt': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+      'pdf': '<i class="fa fa-file-pdf-o text-danger"></i>',
+      'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+      'html': '<i class="fa fa-file-code-o text-info"></i>',
+      'text': '<i class="fa fa-file-text-o text-info"></i>',
+      'video': '<i class="fa fa-file-video-o text-warning"></i>',
+      'audio': '<i class="fa fa-file-audio-o text-warning"></i>',
+      'image': '<i class="fa fa-file-photo-o text-danger"></i>',
+      'gif': '<i class="fa fa-file-photo-o text-muted"></i>',
+      'png': '<i class="fa fa-file-photo-o text-primary"></i>',
+      "obj": '<i class="fa fa-file-o"></i>',
+      "other": '<i class="fa fa-file-o"></i>'
+  }
+  return icon[getFileType(vType, vName)];
+}
+
+
+
