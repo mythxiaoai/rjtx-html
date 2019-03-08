@@ -1,0 +1,173 @@
+<div class="panel">
+    <div class="panel-heading"><div class="panel-title">任务情况图</div></div>
+    <div class="panel-body">
+		<div class="p-m">
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="timer">时间</label>
+					<input type="text" class="form-control js_timer" id="timer" placeholder="2019-02">
+				</div>
+						
+			</form>
+			<div class="btn-group pull-right">
+				<button class="btn btn-default btn-sm" onclick="taskmap.echarts('option1','axis','bar')"><i class="iconfont icon-histogram"></i></button>
+				<button class="btn btn-default btn-sm" onclick="taskmap.echarts('option1','axis','line')"><i class="iconfont icon-zhexiantu"></i></button>
+				<button class="btn btn-default btn-sm" onclick="taskmap.echarts('option2')"><i class="iconfont icon-bingzhuangtu"></i></button>
+				<button class="btn btn-default btn-sm" onclick="taskmap.echarts('option3')"><i class="iconfont icon-leida"></i></button>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="js_echart1" style="height: 325px"></div>
+		</div>
+	</div>
+
+</div>
+<script>
+    var taskmap = {
+        init(){
+			this.choose_time();
+			this.echarts('option1','axis','bar');
+		},
+		choose_time(){
+			$(".js_timer").datetimepicker({
+				showClear: true,
+				format: 'YYYY-MM',
+				locale: 'zh-CN',
+				viewMode: "days",
+				maxDate: moment()
+			})
+		},
+		echarts(option,opt,type){
+                echarts.dispose($(".js_echart1")[0]);
+                var myChart = echarts.init($(".js_echart1")[0]);
+                var option1 = {
+                    // 提示框
+                    tooltip: {
+                        trigger: opt,
+                        //指示器类型
+                        axisPointer: {
+                            type: 'shadow'//阴影指示器
+                        },
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '8%',
+						bottom: '3%',
+                        containLabel: true
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: '数量',
+                    },
+                    xAxis: {
+                        type: 'category',
+                        name: '状态',
+                        data: [ '已发布','已完成','已领取','待审核','待评审','已超时'],
+                        axisLabel:{
+                            interval:0,
+                            alignWithLabel: true
+                        },
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    },
+                    series: [
+                        {
+                            type: type,
+                            data: [
+                                '55','12','13','99','200','100'
+                            ],
+                            barCategoryGap:"30%",
+                            barGap:"10%",
+                            barWidth: 25,
+                            label: {
+                                show: true,
+                                position: 'top'
+                            },
+                        }
+                    ]
+                    
+                };
+                var option2 = {
+                        tooltip : {
+                            trigger: 'item',
+                            formatter: "{a} <br/>{b} : {c} ({d}%)"
+                        },
+                        legend: {
+                            orient: 'vertical',
+                            left: 'left',
+                            top: 15,
+                            data: [ '已发布','已完成','已领取','待审核','待评审','已超时']
+                        },
+                        series : [
+                            {
+                                name: '访问来源',
+                                type: 'pie',
+                                radius : '55%',
+                                center: ['50%', '55%'],
+                                data:[
+                                    {value:55, name:'已发布'},
+                                    {value:12, name:'已完成'},
+                                    {value:13, name:'已领取'},
+                                    {value:99, name:'待审核'},
+                                    {value:200, name:'待评审'},
+                                    {value:100, name:'已超时'}
+                                ],
+                                itemStyle: {
+                                    emphasis: {
+                                        shadowBlur: 10,
+                                        shadowOffsetX: 0,
+                                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        ]
+                    };
+                var option3 = {
+                    tooltip: {},
+                    legend: {
+                        data: ['预算分配（Allocated Budget）']
+                    },
+                    radar: {
+                        // shape: 'circle',
+                        name: {
+                            textStyle: {
+                                color: '#fff',
+                                backgroundColor: '#999',
+                                borderRadius: 3,
+                                padding: [3, 5]
+                        }
+                        },
+                        indicator: [
+                        { name: '已发布', max: 200},
+                        { name: '已完成', max: 200},
+                        { name: '已领取', max: 200},
+                        { name: '待审核', max: 200},
+                        { name: '待评审', max: 200},
+                        { name: '已超时', max: 200}
+                        ]
+                    },
+                    series: [{
+                        name: '任务情况分析',
+                        type: 'radar',
+                        data : [
+                            {
+                                value : ['55','12','13','99','200','100'],
+                                name : '任务情况分析'
+                            }
+                        ]
+                    }]
+                };
+                if(option == "option1"){
+                    myChart.setOption(option1);
+                }else if(option == "option2"){
+                    myChart.setOption(option2);
+                }else if(option == "option3") {
+                    myChart.setOption(option3);
+                }
+                $(window).resize(function(){myChart.resize();});
+            }
+           
+    }
+    taskmap.init()
+</script>

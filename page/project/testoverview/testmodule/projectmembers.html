@@ -1,0 +1,311 @@
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-title">项目成员概况</div>
+        <div class="panel-tools memtools"><a onclick="pro_memeber.viewDetails()" >更多 <i class="iconfont icon-jinru2"></i></a></div>
+    </div> 
+    <div class="panel-body tablemember">
+        <table id="membertable"></table>
+    </div>
+</div>
+<script>
+    var pro_memeber = {
+        init(){
+            this.table();
+        },
+        table(){
+            let data = [
+               {
+                   "name": '林启文',
+                   "tasknum": 33,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 22
+               },
+               {
+                   "name": '吴亦凡',
+                   "tasknum": 45,
+                   "tasking": 5,
+                   "overtime": 0,
+                   "finish": 32
+               },
+               {
+                   "name": '张亮',
+                   "tasknum": 66,
+                   "tasking": 7,
+                   "overtime": 0,
+                   "finish": 23
+               },
+               {
+                   "name": '小艾',
+                   "tasknum": 89,
+                   "tasking": 32,
+                   "overtime": 0,
+                   "finish": 43
+               },
+               {
+                   "name": '王二蛋',
+                   "tasknum": 67,
+                   "tasking": 12,
+                   "overtime": 0,
+                   "finish": 43
+               },
+               {
+                   "name": '小丹',
+                   "tasknum": 44,
+                   "tasking": 5,
+                   "overtime": 0,
+                   "finish": 31
+               },
+               {
+                   "name": '红红',
+                   "tasknum": 23,
+                   "tasking": 6,
+                   "overtime": 0,
+                   "finish": 12
+               },
+               {
+                   "name": '黑黑',
+                   "tasknum": 42,
+                   "tasking": 2,
+                   "overtime": 0,
+                   "finish": 22
+               },
+               {
+                   "name": '圆圆',
+                   "tasknum": 53,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 33
+               },
+               {
+                   "name": '琪琪',
+                   "tasknum": 77,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 44
+               },
+               {
+                   "name": '静静',
+                   "tasknum": 56,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 22
+               },
+               {
+                   "name": '赖莎莎',
+                   "tasknum": 75,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 33
+               },
+               {
+                   "name": '曾运达',
+                   "tasknum": 64,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 11
+               },
+               {
+                   "name": '庞振钧',
+                   "tasknum": 54,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 22
+               }
+           ] 
+            rj.table.init({
+                id: "#membertable",
+                toolbar: false,
+                data: data,
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 5, // 每页显示条数
+                queryParams: function (param) { 
+                    return{
+                        pageSize:params.limit,
+                        pageNum : params.offset,        
+                    }
+                },
+                columns: [
+                    {
+                        field: 'name',
+                        title: '姓名',
+                        sortable:true,
+                    },
+                    {
+                        field: 'tasknum',
+                        title: '领取任务数',
+                        sortable:true,
+                    },
+                    {
+                        field: 'tasking',
+                        title: '进行任务数',
+                        sortable:true,
+                    },
+                    {
+                        field: 'overtime',
+                        title: '超时任务数',
+                        sortable:true,
+                    }, 
+                    {
+                        field: 'finish',
+                        title: '完成任务数',
+                        sortable:true,
+                    }
+                ]
+            })
+        },
+        viewDetails(title){
+            var $this = this;
+            console.log("111")
+            rj.load(".js_content_width","page/project/testoverview/testmodule/showtabel.html",
+                ()=>{
+                    let data = [
+               {
+                   "name": '林启文',
+                   "tasknum": 33,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 22
+               },
+               {
+                   "name": '吴亦凡',
+                   "tasknum": 45,
+                   "tasking": 5,
+                   "overtime": 0,
+                   "finish": 32
+               },
+               {
+                   "name": '张亮',
+                   "tasknum": 66,
+                   "tasking": 7,
+                   "overtime": 0,
+                   "finish": 23
+               },
+               {
+                   "name": '小艾',
+                   "tasknum": 89,
+                   "tasking": 32,
+                   "overtime": 0,
+                   "finish": 43
+               },
+               {
+                   "name": '王二蛋',
+                   "tasknum": 67,
+                   "tasking": 12,
+                   "overtime": 0,
+                   "finish": 43
+               },
+               {
+                   "name": '小丹',
+                   "tasknum": 44,
+                   "tasking": 5,
+                   "overtime": 0,
+                   "finish": 31
+               },
+               {
+                   "name": '红红',
+                   "tasknum": 23,
+                   "tasking": 6,
+                   "overtime": 0,
+                   "finish": 12
+               },
+               {
+                   "name": '黑黑',
+                   "tasknum": 42,
+                   "tasking": 2,
+                   "overtime": 0,
+                   "finish": 22
+               },
+               {
+                   "name": '圆圆',
+                   "tasknum": 53,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 33
+               },
+               {
+                   "name": '琪琪',
+                   "tasknum": 77,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 44
+               },
+               {
+                   "name": '静静',
+                   "tasknum": 56,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 22
+               },
+               {
+                   "name": '赖莎莎',
+                   "tasknum": 75,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 33
+               },
+               {
+                   "name": '曾运达',
+                   "tasknum": 64,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 11
+               },
+               {
+                   "name": '庞振钧',
+                   "tasknum": 54,
+                   "tasking": 4,
+                   "overtime": 0,
+                   "finish": 22
+               }
+           ] 
+                    rj.table.init({
+                        id: "#tabelshow",
+                        toolbar: false,
+                        data: data,
+                        pagination: true, //分页
+                        sidePagination: "client", //服务端处理分页
+                        pageNumber:1, // 默认显示第几页
+                        pageSize: 10, // 每页显示条数
+                        queryParams: function (param) { 
+                            return{
+                                pageSize:params.limit,
+                                pageNum : params.offset,        
+                            }
+                        },
+                        columns: [
+                            {
+                                field: 'name',
+                                title: '姓名',
+                                sortable:true,
+                            },
+                            {
+                                field: 'tasknum',
+                                title: '领取任务数',
+                                sortable:true,
+                            },
+                            {
+                                field: 'tasking',
+                                title: '进行任务数',
+                                sortable:true,
+                            },
+                            {
+                                field: 'overtime',
+                                title: '超时任务数',
+                                sortable:true,
+                            }, 
+                            {
+                                field: 'finish',
+                                title: '完成任务数',
+                                sortable:true,
+                            }
+                        ]
+                    })
+                }
+            )
+        }
+    }  
+    pro_memeber.init();
+</script>

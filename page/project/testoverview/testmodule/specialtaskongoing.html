@@ -1,0 +1,227 @@
+<div class="panel">
+    <div class="panel-heading">
+        <div class="panel-title">进行中的专项任务</div>
+        <div class="panel-tools memtools"><a onclick="spe_ongoing.viewDetails('进行中的专项任务')">更多 <i class="iconfont icon-jinru2"></i></a></div>
+    </div>
+    <div class="panel-body tablemember">
+        <table id="goingtable"></table>
+    </div>
+</div>
+<script>
+    var spe_ongoing = { 
+        init(){
+            this.table();
+        },
+        table(){
+            let data = [
+                {
+                    "name": "任务0231912391239",
+                    "overtime": "2019-01-01",
+                    "consumetime": 40,
+                    "isFinish": 0
+                },
+                {
+                    "name": "任务492834822123812",
+                    "overtime": "2019-01-13",
+                    "consumetime": 2,
+                    "isFinish": 1
+                },
+                {
+                    "name": "任务123153252523423",
+                    "overtime": "2019-01-12",
+                    "consumetime": 12,
+                    "isFinish": 0
+                },
+                {
+                    "name": "任务4929492349234",
+                    "overtime": "2019-01-16",
+                    "consumetime": 14,
+                    "isFinish": 1
+                },
+                {
+                    "name": "任务120120312399324",
+                    "overtime": "2019-01-24",
+                    "consumetime": 14,
+                    "isFinish": 0
+                },
+                {
+                    "name": "任务1203012312030123",
+                    "overtime": "2019-01-21",
+                    "consumetime": 13,
+                    "isFinish": 1
+                },
+                {
+                    "name": "任务234234235235",
+                    "overtime": "2019-01-05",
+                    "consumetime": 7,
+                    "isFinish": 0
+                },
+                {
+                    "name": "任务56355234324",
+                    "overtime": "2019-01-08",
+                    "consumetime": 2,
+                    "isFinish": 1
+                },
+                {
+                    "name": "任务123124524524",
+                    "overtime": "2018-01-09",
+                    "consumetime": 12,
+                    "isFinish": 0
+                },
+                {
+                    "name": "任务12311231224",
+                    "overtime": "2018-12-11",
+                    "consumetime": 40,
+                    "isFinish": 1
+                },
+
+            ]
+            rj.table.init({
+                id: "#goingtable",
+                toolbar: false,
+                data: data,
+                pagination: false,
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 5, // 每页显示条数  
+                columns: [
+                    {
+                        field: 'name',
+                        title: '专项任务名称',
+                        sortable:true,
+                    },
+                    {
+                        field: 'overtime',
+                        title: '超时时间',
+                        sortable:true,
+                    },
+                    {
+                        field: 'consumetime',
+                        title: '耗时',
+                        sortable:true,
+                    },
+                    {
+                        field: 'isFinish',
+                        title: '是否完成',
+                        formatter:function(value,row,index){ 
+                            if(value==0){
+                                return `<span class="text-success">已完成</span>`
+                            }else{
+                                return `<span class="text-danger">未完成</span>`
+                            }
+                        }
+                    }
+                ]
+            })
+        },
+        viewDetails(title){
+            var $this = this;
+            rj.load(".js_content_width","page/project/testoverview/testmodule/showtabel.html",
+                ()=>{
+                    let data = [
+                        {
+                            "name": "任务0231912391239",
+                            "overtime": "2019-01-01",
+                            "consumetime": 40,
+                            "isFinish": 0
+                        },
+                        {
+                            "name": "任务492834822123812",
+                            "overtime": "2019-01-13",
+                            "consumetime": 2,
+                            "isFinish": 1
+                        },
+                        {
+                            "name": "任务123153252523423",
+                            "overtime": "2019-01-12",
+                            "consumetime": 12,
+                            "isFinish": 0
+                        },
+                        {
+                            "name": "任务4929492349234",
+                            "overtime": "2019-01-16",
+                            "consumetime": 14,
+                            "isFinish": 1
+                        },
+                        {
+                            "name": "任务120120312399324",
+                            "overtime": "2019-01-24",
+                            "consumetime": 14,
+                            "isFinish": 0
+                        },
+                        {
+                            "name": "任务1203012312030123",
+                            "overtime": "2019-01-21",
+                            "consumetime": 13,
+                            "isFinish": 1
+                        },
+                        {
+                            "name": "任务234234235235",
+                            "overtime": "2019-01-05",
+                            "consumetime": 7,
+                            "isFinish": 0
+                        },
+                        {
+                            "name": "任务56355234324",
+                            "overtime": "2019-01-08",
+                            "consumetime": 2,
+                            "isFinish": 1
+                        },
+                        {
+                            "name": "任务123124524524",
+                            "overtime": "2018-01-09",
+                            "consumetime": 12,
+                            "isFinish": 0
+                        },
+                        {
+                            "name": "任务12311231224",
+                            "overtime": "2018-12-11",
+                            "consumetime": 40,
+                            "isFinish": 1
+                        },
+                    ]
+                    rj.table.init({
+                        id: "#tabelshow",
+                        toolbar: false,
+                        data: data,
+                        pagination: false,
+                        pagination: true, //分页
+                        sidePagination: "client", //服务端处理分页
+                        pageNumber:1, // 默认显示第几页
+                        pageSize: 10, // 每页显示条数  
+                        columns: [
+                            {
+                                field: 'name',
+                                title: '专项任务名称',
+                                sortable:true,
+                            },
+                            {
+                                field: 'overtime',
+                                title: '超时时间',
+                                sortable:true,
+                            },
+                            {
+                                field: 'consumetime',
+                                title: '耗时',
+                                sortable:true,
+                            },
+                            {
+                                field: 'isFinish',
+                                title: '是否完成',
+                                formatter:function(value,row,index){ 
+                                    if(value==0){
+                                        return `<span class="text-success">已完成</span>`
+                                    }else{
+                                        return `<span class="text-danger">未完成</span>`
+                                    }
+                                }
+                            }
+                        ]
+                    })
+                }
+            )
+        }
+    }  
+    spe_ongoing.init() 
+</script>

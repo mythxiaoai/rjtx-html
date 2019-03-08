@@ -1,0 +1,99 @@
+<div class="js_index_content"  style="position: relative;height: 100%;overflow-x: hidden;">
+    <div class="panel-body">
+        <div class="panel-title pantitle">任务总览</div>
+        <div class="panel-tools">
+            <select class="form-control" id="">
+                <option value="">自定义模板</option>
+                <option value="1">模板一</option>
+                <option value="2">模板二</option>
+            </select>
+        </div>
+    </div>
+    <div class="p-m js_content" style="position: relative;height: 100%" >
+        <div class="js_width colstyle">
+            <div class="js_drag paneldrag js_taskmap" id="drag1" data-id="darg01"></div>
+            <div class="js_drag paneldrag js_taskquality" id="drag2" data-id="darg02"></div>
+            <div class="js_drag paneldrag js_projectmemebers" id="drag3" data-id="darg03"></div>
+            <div class="js_drag paneldrag js_projectongoing" id="drag4" data-id="darg04"></div>
+        </div>
+    </div>
+</div>
+
+<style lang="">
+    .pantitle{line-height: 32px;font-size: 16px;}
+    .tablemember .fixed-table-pagination{display: none !important;}
+    .memtools a{cursor: pointer;}
+    .memtools .iconfont{font-size: 12px;}
+    .colstyle{position: relative;height: 100%;width: 100%;}
+    .colstyle .panel{margin-bottom:0;}
+    .paneldrag{position:absolute;left:0; width:calc(50% - 10px);background-color: #fff;}
+    .t1{overflow: hidden; top: 50px !important; height: 39px;}
+    .t2{overflow: hidden; height: 39px;}
+    .panel-heading{cursor: move;}
+    .hitcl{background-color: #f2f2f2}
+    .panel-default>.panel-heading{background-color: transparent;}
+</style>
+<script>
+    var tesOver = {
+        init:async function(){
+            await rj.load(".js_taskmap","page/project/testoverview/testmodule/taskbrowsemap.html");
+            await rj.load(".js_taskquality","page/project/testoverview/testmodule/teskquality.html");
+            await rj.load(".js_projectmemebers","page/project/testoverview/testmodule/projectmembers.html");
+            await rj.load(".js_projectongoing","page/project/testoverview/testmodule/specialtaskongoing.html");
+            this.drag(); 
+            this.initWidth();    
+        },
+        initWidth(){
+            $(window).on("resize",function () { 
+                if(timeWind)clearTimeout(timeWind);
+                timeWind = setTimeout(function () { 
+                    $(".js_drag").xdrag("resetPosition");
+                },300)
+            })
+        },
+        drag(){
+            var len = $(".js_width").children().length;
+            var dragDom = $(".js_width").children();
+            var arrDrag = [];
+            var time = null;
+            var now = null;
+            for(var i=0;i<len;i++){
+                arrDrag.push(dragDom[i].getAttribute("data-id"))
+            }
+            $(".js_drag").xdrag({
+                proxyChild:".panel-heading",
+                ghost: true,
+                moveOut:true,
+                showType:"top",
+                hitClass:'hitcl',
+                ghostStyle:{border:"none"},
+                callbackStar(){
+                    now = Date.now();
+                    time = setInterval(()=>{
+                        if(Date.now() - now >200){
+                                $(".js_drag").find(".panel-body").removeClass("in show").addClass("hidden")
+                                $(".js_drag").xdrag("resetPosition");  
+                                clearInterval(time)
+                        }
+                    },50)
+                    
+                },
+                callbackEnd:function(json){
+                    clearInterval(time)
+                    $(".js_drag").find(".panel-body").removeClass("hidden").addClass("in show")
+                    $(".js_drag").xdrag("resetPosition");
+                    var allDom = $(".js_width").children();
+                    var arr= []
+                    for(var i=0;i<len;i++){
+                        arr.push(allDom[i].getAttribute("data-id"))
+                    }
+                },
+            });
+            $(".panel-body").children().on("mousedown",function(e){
+                e.stopPropagation();
+            });
+        }
+        
+    }
+    tesOver.init()
+</script>

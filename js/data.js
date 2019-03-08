@@ -58,6 +58,13 @@
                 "pid": "10"
             },
             {
+                "id": "15",
+                "name": "任务总览",
+                "url": "page/project/testoverview/testoverview.html",
+                "icon": "iconfont icon-feiji",
+                "pid": "10"
+            },
+            {
                 "id": "30",
                 "name": "UI元素",
                 "url": "",

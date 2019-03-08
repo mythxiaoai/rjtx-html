@@ -1,0 +1,142 @@
+
+<div class="js_testover_main testover-ovflow testover-main">
+    <div class="panel-body">
+        <div class="panel-title testover-pantitle">任务总览</div>
+        <div class="panel-tools">
+            <select class="form-control" id="">
+                <option value="">自定义模板</option>
+                <option value="1">模板一</option>
+                <option value="2">模板二</option>
+            </select>
+        </div>
+    </div>
+    <div class="js_content_width testover-ovflow p-m">
+        <div class="testover-col js_connectedSortable p-l p-t">
+            <div class="testover-col-md js_sortindex js_taskmap" data-id="drag1" data-order="order1"></div>
+            <div class="testover-col-md js_sortindex js_projectmemebers" data-id="drag2" data-order="order2"></div>
+        </div>
+        <div class="testover-col js_connectedSortable testover-m-l p-l p-t">
+            <div class="testover-col-md js_sortindex js_taskquality" data-id="drag3" data-order="order3"></div>
+            <div class="testover-col-md js_sortindex js_projectongoing" data-id="drag4" data-order="order4"></div>
+        </div>
+    </div>
+</div>
+
+<style lang="">
+    .pantitle{line-height: 32px;font-size: 16px;}
+    .tablemember .fixed-table-pagination{display: none !important;}
+    .memtools a{cursor: pointer;}
+    .memtools .iconfont{font-size: 12px;}
+    .testover-main{position: absolute;width: 100%;height: 100%;}
+    .testover-ovflow{overflow-x: hidden}
+    .testover-col-md{overflow: hidden;}
+    .testover-col{width:49%;vertical-align: top;height: 100%;display: inline-table;min-height: 800px;}
+    .testover-m-l{margin-left:10px;}
+    .testover-placeholder {background-color: rgba(0,0,0,.075);height: 40px;width: 100%;margin-bottom: 15px; box-shadow: inset 0 2px 6px rgba(0,0,0,.075)}
+    .testover-placeholder .panel-title{color:rgb(100, 100, 100)}
+    .testover-b-n{border:none;}
+    .testover-b-r{ border-radius: 5px}
+</style>
+<script>
+    var testOver = {
+        init: async function(){
+            await rj.load(".js_taskmap","page/project/testoverview/testmodule/taskbrowsemap.html");
+            await rj.load(".js_taskquality","page/project/testoverview/testmodule/teskquality.html");
+            await rj.load(".js_projectmemebers","page/project/testoverview/testmodule/projectmembers.html");
+            await rj.load(".js_projectongoing","page/project/testoverview/testmodule/specialtaskongoing.html");
+            this.sortdrag();
+        },
+        sortdrag(){
+            var len = $(".js_content_width").find(".js_index").length;
+            var oldArr = [];
+            var downpagY,movepagY;
+            var dothisTop;
+            var $this = this;
+            $(".js_connectedSortable").find(".panel-heading").mousedown(function(e){
+                dothisTop= this.offsetTop;
+                downpagY = $this.getXY(e);
+                document.onmousemove = function(e){ 
+                    $(".js_connectedSortable").find(".panel-body").animate({height:"hide"},0).removeClass("in");
+                    movepagY = $this.getXY(e);
+                };
+                //鼠标松开的时候，释放拖动
+                document.onmouseup = function(e){
+                        this.onmousemove = null;
+                        this.onmouseup = null;
+                }
+            })
+            $(".js_connectedSortable").sortable({
+                connectWith: ".js_connectedSortable",
+                containment : ".js_testover_main",
+                handle: ".panel-heading",
+                // revert: true,
+                placeholder: "testover-placeholder ui-corner-all",
+                opacity: "0.9",
+                start:function(event, ui){
+                    var val = $($(ui.helper)[0]).find(".panel-title").text();
+                    oldArr = [];
+                    $(".testover-placeholder:first").prepend(`<div class="panel-heading"><div class="panel-title">${val}</div></div>`);
+                    // $(".js_connectedSortable").find(".panel-body").slideUp("fast").removeClass("in");
+                    $(".panel-heading").addClass("testover-b-n");
+                    $(".panel").addClass("testover-b-r");
+                    $(".js_content_width").find(".js_sortindex").each(function () { 
+                        var json = {
+                            "id":  $(this).attr("data-id"),
+                            "order": $(this).attr("data-order")
+                        }
+                        oldArr.push(json)
+                    })
+                },
+                sort: function (event,ui) { 
+                    $($(ui.helper)[0]).css({
+                        top: movepagY.y - downpagY.y + dothisTop
+                    })
+                },
+                stop:function(){
+                    var sortArr = [];
+                    $(".js_connectedSortable").find(".panel-body").slideDown("fast").addClass("in");
+                    $(".panel-heading").removeClass("testover-b-n");
+                    $(".panel").removeClass("testover-b-r");
+                    $(".js_content_width").find(".js_sortindex").each(function (index) { 
+                        var json1 = {
+                            "id":  $(this).attr("data-id"),
+                            "order": oldArr[index].id
+                        }
+                        sortArr.push(json1)
+                    })
+                    console.log(sortArr)
+                }
+
+            }).disableSelection();
+            $(".js_sortindex").find(".panel-heading").mouseover(function(){
+                $(this).css({
+                    "cursor": "move"
+                })
+            })
+        },
+        getXY(e){
+			var ev = e || window.event;
+			var x=0,y=0;
+			if(ev.pageX){
+				x = ev.pageX;
+				y = ev.pageY;
+			}else{
+				//拿到scrollTop 和scrollLeft
+				var sleft = 0,stop = 0;
+				//ie678---
+				if(document.documentElement){
+					stop =document.documentElement.scrollTop;
+					sleft = document.documentElement.scrollLeft;
+				}else{
+				//ie9+ 谷歌 
+					stop = document.body.scrollTop;
+					sleft = document.body.scrollLeft;
+				}	
+				x = ev.clientX + sleft;
+				y = ev.clientY + stop;
+			}
+			return {x:x,y:y};
+		}
+    };
+    testOver.init();
+</script>

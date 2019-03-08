@@ -1,0 +1,83 @@
+<div class="panel">
+    <div class="panel-heading"><div class="panel-title">任务质检情况</div></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="js_echart2" style="height:250px"></div>
+            </div>
+            <div class="col-md-6">
+                    <div class="js_echart3" style="height:250px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var taskquality = {
+        init(){
+            this.echart3();
+            this.echart2();
+        },
+        echart2(){
+            var chart1 = echarts.init($(".js_echart2")[0]);
+			let option = {
+                color:['#FF9F7F','#42A5F5'],
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    data:['超时完成','按时完成'],
+                    bottom: 25
+                },
+                series: [
+                    {
+                        name:'故障分类',
+                        type:'pie',
+                        radius: ['30%', '55%'],
+                        center: ['50%', '38%'],
+                        data:[
+                            {value:20, name:'超时完成'},
+                            {value:200, name:'按时完成'},
+                        ]
+                    }
+                ]
+			};
+            chart1.setOption(option)
+			 $(window).resize(function(){chart1.resize();});
+        },
+        echart3(){
+            var chart2 = echarts.init($(".js_echart3")[0]);
+			let option = {
+                color:['#9e9e9e','#37A2DA'],
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    data:['评审不通过','评审通过'],
+                    bottom: 25
+                },
+                grid:{
+                   
+                },
+                series: [
+                    {
+                        name:'故障分类',
+                        type:'pie',
+                        radius: ['30%', '55%'],
+                        center: ['50%', '38%'],
+                        data:[
+                            {value:30, name:'评审不通过'},
+                            {value:110, name:'评审通过'},
+ 
+                        ]
+                    }
+                ]
+			};
+            chart2.setOption(option)
+			 $(window).resize(function(){chart2.resize();});
+        },
+    
+    };
+    taskquality.init()
+</script>

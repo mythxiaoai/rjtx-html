@@ -1,0 +1,88 @@
+
+<div class="js_index_content">
+    <div class="panel-body">
+        <div class="panel-title testover_pantitle">任务总览</div>
+        <div class="panel-tools">
+            <select class="form-control" id="">
+                <option value="">自定义模板</option>
+                <option value="1">模板一</option>
+                <option value="2">模板二</option>
+            </select>
+        </div>
+    </div>
+    <div class="js_content_width testover_content_main">
+        <div class="col-main js_connectedSortable">
+            <div class="col-main-md js_index js_taskmap" data-id="drag1" data-order="order1"></div>
+            <div class="col-main-md js_index js_projectmemebers" data-id="drag2" data-order="order2"></div>
+        </div>
+        <div class="col-main js_connectedSortable">
+            <div class="col-main-md js_index js_taskquality" data-id="drag3" data-order="order3"></div>
+            <div class="col-main-md js_index js_projectongoing" data-id="drag4" data-order="order4"></div>
+        </div>
+    </div>
+</div>
+
+<style lang="">
+    .pantitle{line-height: 32px;font-size: 16px;}
+    .tablemember .fixed-table-pagination{display: none !important;}
+    .memtools a{cursor: pointer;}
+    .memtools .iconfont{font-size: 12px;}
+    .js_index_content{overflow: hidden;}
+    .testover_content_main{overflow: hidden;padding: 15px;}
+    .col-main,.col-side{width: 49%;vertical-align: top;height: 100%;box-sizing: border-box;display: inline-block;min-height: 800px;}
+    .portlet-placeholder {background-color: #dadada;margin: 0 5px;height: 40px;width: 99%;}
+    .col-main-md{padding: 5px;width: 100%;}
+    .testover_content_main .panel {margin-bottom: 0;}
+</style>
+<script>
+    var testOver = {
+        init: async function(){
+            await rj.load(".js_taskmap","page/project/testoverview/testmodule/taskbrowsemap.html");
+            await rj.load(".js_taskquality","page/project/testoverview/testmodule/teskquality.html");
+            await rj.load(".js_projectmemebers","page/project/testoverview/testmodule/projectmembers.html");
+            await rj.load(".js_projectongoing","page/project/testoverview/testmodule/specialtaskongoing.html");
+            this.sortdrag();
+        },
+        sortdrag(){
+            var len = $(".js_content_width").find(".js_index").length;
+            var oldArr = [];
+            $(".js_connectedSortable").sortable({
+                connectWith: ".js_connectedSortable",
+                containment : ".index_content",
+                handle: ".panel-heading",
+                placeholder:"portlet-placeholder ui-corner-all",
+                dropOnEmpty: true,
+                cursor: "move",
+                scroll :false,
+                revert: true,
+                delay: 150,
+                opacity: "0.6",
+                start:function(event, ui){
+                $(".js_connectedSortable").sortable( 'refreshPositions' )
+                    var val = $($(ui.helper)[0]).find(".panel-title").text();
+                    $(".portlet-placeholder:first").prepend(`<div class="panel-heading"><div class="panel-title">${val}</div></div>`);
+                    $(".js_connectedSortable").find(".panel-body").addClass("hidden").removeClass("in show");
+                    $(".js_content_width").find(".js_index").each(function () { 
+                        var json = {
+                            "id":  $(this).attr("data-id"),
+                            "order": $(this).attr("data-order")
+                        }
+                        oldArr.push(json)
+                    })
+                },
+                stop:function(){
+                    var sortArr = [];
+                    $(".js_connectedSortable").find(".panel-body").removeClass("hidden").addClass("in show").show("blind","slow");
+                    $(".js_content_width").find(".js_index").each(function (index) { 
+                        var json1 = {
+                            "id":  $(this).attr("data-id"),
+                            "order": oldArr[index].id
+                        }
+                        sortArr.push(json1)
+                    })
+                }
+            }).disableSelection();
+        }
+    };
+    testOver.init();
+</script>
