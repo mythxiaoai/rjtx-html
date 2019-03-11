@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
       if(localStorage.getItem("rj_style")){
-        let src = {cd:1,al:2,bp:3,ct:4,ne:"news"};
+        let src = {bp:"",cd:1,al:2,ct:3};
         if(localStorage.rj_style!="bp")
         window.location.href = `./index${src[localStorage.rj_style]}.html`;
       }
@@ -498,7 +498,7 @@
             //确定按钮的回调 
             let data = rj.form.get($("#changeStyle")[0]);
             localStorage.rj_style=data.style;
-            let src = {bp:"",cd:1,al:2,ct:3,ne:"news"};
+            let src = {bp:"",cd:1,al:2,ct:3};
             window.location.href = `./index${src[data.style]}.html`
           },
           function() {

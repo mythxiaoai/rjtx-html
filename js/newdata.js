@@ -46,7 +46,7 @@
                 "icon": "fa fa-cubes",
                 "pid": "2"
             },{
-                "id": "22",
+                "id": "23",
                 "name": "表单选择器",
                 "url": "newpage/forms/form_datetimepicker.html",
                 "icon": "fa fa-cubes",
@@ -72,6 +72,20 @@
                 "url": "",
                 "icon": "fa fa-magic",
                 "pid": "" 
+            },
+            {
+                "id": "6",
+                "name": "表格",
+                "url": "",
+                "icon": "fa fa-magic",
+                "pid": "" 
+            },
+            {
+                "id": "61",
+                "name": "bootstrap-table",
+                "url": "newpage/table/table.html",
+                "icon": "fa fa-magic",
+                "pid": "6" 
             }
         ]
     }
