@@ -965,7 +965,9 @@ rj.form.get($("#addOrUpdate")[0]);
         backShow(ids){
           var treeObj = $.fn.zTree.getZTreeObj(opts.id);
           if(type=="ztreeCheckbox"){
-            var nodes = treeObj.transformToArray(treeObj.getNodes());
+            var nodes = treeObj.transformToArray(treeObj.getNodes()).filter(node=>{
+              return !node.isParent;
+            });
             for (var i=0, l=nodes.length; i < l; i++) {
               let arr = ids.split(",");
               for (let id of arr) {
