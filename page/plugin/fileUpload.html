@@ -190,7 +190,7 @@
        console.log(`上传${file.name}成功`)
       });
       //删除--共同绑定
-      $(".js_xupload_remove").on('click',function(){
+      $("body").on('click',".js_xupload_remove",function(){
         console.log("删除的文件id是"+$(this).data("id"))
         $(this).closest("li").fadeOut();
       });
