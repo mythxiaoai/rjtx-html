@@ -25,7 +25,7 @@
             {
                 "id": "101",
                 "name": "文件上传",
-                "url": "page/plugin/fileUpload.html",
+                "url": "page/plugin/xupload/fileUpload.html",
                 "icon": "",
                 "pid": "100"
             },
