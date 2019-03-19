@@ -16,6 +16,20 @@
                 "pid": "0"
             },
             {
+                "id": "100",
+                "name": "插件",
+                "url": "",
+                "icon": "iconfont icon-mianji fa-fw",
+                "pid": ""
+            },
+            {
+                "id": "101",
+                "name": "文件上传",
+                "url": "page/plugin/fileUpload.html",
+                "icon": "",
+                "pid": "100"
+            },
+            {
                 "id": "10",
                 "name": "项目",
                 "url": "",
