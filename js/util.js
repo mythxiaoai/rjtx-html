@@ -1,4 +1,32 @@
 /*工具类*/
+
+/**
+ * 将form里的表单元素序列化成{"username":"小艾","hobby":"2,3"}格式
+ * @param {Object} formDom
+ */
+function getFromJson(formDom){
+	var formElements = formDom.elements;
+	var json = {};
+	for(var i=0,len=formElements.length;i<len;i++){
+		var type = formElements[i].type.toLowerCase();
+		if(type!="button" && type!="submit" && type!="reset"){
+			if(type=="checkbox" && formElements[i].checked){
+				var value = json[formElements[i].name]||formElements[i].value;
+				if(formElements[i].name in json){
+					value +=","+formElements[i].value;	
+				}
+				json[formElements[i].name] = value;
+			}else if(type=="radio" && formElements[i].checked){
+				json[formElements[i].name] = formElements[i].value;
+			}
+
+			if(type!="radio" && type!="checkbox"){
+				json[formElements[i].name] = formElements[i].value;
+			}
+		}
+	}
+	return json;
+};
 /**
  * 放在传参脚本攻击
  * @param {Object} str

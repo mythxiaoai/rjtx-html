@@ -319,6 +319,9 @@ removeFile(id)根据id删除对应文件
     },
     destroy(){
       $(".js_xupload_box").unbind("click");
+      this.opts.ins.map(ins=>{
+      	ins.destroy();
+      });
       this.opts = {
         dom:"",
         data:[],

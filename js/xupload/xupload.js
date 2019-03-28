@@ -266,6 +266,7 @@ response
       }
       this.opts = $.extend(true, {}, this._default,opts);
       this.ins = WebUploader.create(this.opts);
+      xuploadbox.destroy();
       xuploadbox.init(this.ins);
       //暴露出去
       this.ins.xuploadbox = xuploadbox;

@@ -1,4 +1,4 @@
-.xupload{display:none;position:fixed;overflow:hidden;width:633px;bottom:0px;right:15px;z-index:999;border-top-left-radius:7px;border-top-right-radius:7px;border:1px solid #e2e2e2;box-shadow:0 0 10px #ccc;margin-bottom:-2px;background-color: rgba(255,255,255,.9);}
+.xupload{display:none;position:fixed;overflow:hidden;width:633px;bottom:0px;right:15px;z-index:99999;border-top-left-radius:7px;border-top-right-radius:7px;border:1px solid #e2e2e2;box-shadow:0 0 10px #ccc;margin-bottom:-2px;background-color: rgba(255,255,255,1);}
 .xupload .xupload-header{border-top-left-radius:7px;border-top-right-radius:7px;height:44px;line-height:44px;font-weight:200;position:relative;user-select:none;padding:0 15px;border-bottom:1px solid #f7faff;}
 .xupload .xupload-header .xupload-header-title{padding-right:50px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#666;line-height:44px;font-size:14px;font-weight:200;}
 .xupload .xupload-header .xupload-control{position:absolute;right:12px;top: 0;}

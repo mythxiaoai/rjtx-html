@@ -281,7 +281,7 @@ rj.form.get($("#addOrUpdate")[0]);
 				this.toggleRow.init();
 			}
 			//上传大文件
-			if(Xupload)Xupload.autorun();
+			if(window.Xupload)Xupload.autorun();
 		},
 		sweetAlert(){
 			if(!window.swal){return false};
