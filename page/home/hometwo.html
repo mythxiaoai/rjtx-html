@@ -406,9 +406,7 @@
         },
         showechart(name){
             let chartRight = $(".js_rightchart")[0];
-            
             let chart2 = echarts.init(chartRight);
-            let chartData = null;
             let newdata = "";
             this.data.forEach(json=>{
                 if(json["地市"] == name && json["类别"] == "中端"){
