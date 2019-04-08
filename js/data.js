@@ -16,6 +16,13 @@
                 "pid": "0"
             },
             {
+                "id": "1",
+                "name": "主页2",
+                "url": "page/home/hometwo.html",
+                "icon": "iconfont icon-shouye",
+                "pid": "0"
+            },
+            {
                 "id": "100",
                 "name": "插件",
                 "url": "",

@@ -1,0 +1,564 @@
+<div class="p-m">
+    <div class="row">
+        <div class="col-md-8" style="padding-right: 0px;">
+            <div class="panel" style="height: 450px;overflow: hidden;">
+                <div class="panel-heading"><div class="panel-title">项目工单指标情况</div></div>
+                <div class="panel-body p-t-lg">
+                    <table id="table"></table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="panel">
+                <div class="panel-heading"><div class="panel-title">项目中端工单考核指标</div></div>
+                <div class="panel-body">
+                    <div class="js_linechart" style="height: 378px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-m panel-body">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="js_leftchart" style="height: 370px;"></div>
+            </div>
+            <div class="col-md-5" style="border-left: 1px solid #eee;">
+                <div class="js_rightchart" style="height: 370px;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var homeTwo = {
+        data:[
+            {
+                "工单规范率":"65.17%",
+                "及时接单量":1254,
+                "日均派单量":"418",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"100.00%",
+                "及时处理量":42,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"佛山市",
+                "月份":"2019-04",
+                "派单量":1254,
+                "月工单目标量":0,
+                "类别":"中端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"0.00%",
+                "及时接单量":62,
+                "日均派单量":"31",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"0.00%",
+                "及时处理量":0,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"佛山市",
+                "月份":"2019-04",
+                "派单量":62,
+                "月工单目标量":0,
+                "类别":"低端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"82.08%",
+                "及时接单量":1810,
+                "日均派单量":"603",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"100.00%",
+                "及时处理量":592,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"广州市",
+                "月份":"2019-04",
+                "派单量":1810,
+                "月工单目标量":0,
+                "类别":"中端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"0.00%",
+                "及时接单量":166,
+                "日均派单量":"56",
+                "公司":"润建",
+                "评估完成率":"35.33%",
+                "评估通过量":59,
+                "日工单目标量":0,
+                "评估完成量":59,
+                "处理及时率":"0.00%",
+                "及时处理量":0,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"35.33%",
+                "地市":"广州市",
+                "月份":"2019-04",
+                "派单量":167,
+                "月工单目标量":0,
+                "类别":"低端",
+                "接单及时率":"99.40%"
+            },
+            {
+                "工单规范率":"78.60%",
+                "及时接单量":351,
+                "日均派单量":"117",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"100.00%",
+                "及时处理量":263,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"深圳市",
+                "月份":"2019-04",
+                "派单量":351,
+                "月工单目标量":0,
+                "类别":"中端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"91.18%",
+                "及时接单量":131,
+                "日均派单量":"44",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"100.00%",
+                "及时处理量":50,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"清远市",
+                "月份":"2019-04",
+                "派单量":131,
+                "月工单目标量":0,
+                "类别":"中端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"0.00%",
+                "及时接单量":8,
+                "日均派单量":"3",
+                "公司":"润建",
+                "评估完成率":"25.00%",
+                "评估通过量":2,
+                "日工单目标量":0,
+                "评估完成量":2,
+                "处理及时率":"0.00%",
+                "及时处理量":0,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"25.00%",
+                "地市":"清远市",
+                "月份":"2019-04",
+                "派单量":8,
+                "月工单目标量":0,
+                "类别":"低端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"75.00%",
+                "及时接单量":229,
+                "日均派单量":"115",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"100.00%",
+                "及时处理量":33,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"潮州市",
+                "月份":"2019-04",
+                "派单量":229,
+                "月工单目标量":0,
+                "类别":"中端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"77.52%",
+                "及时接单量":185,
+                "日均派单量":"62",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"100.00%",
+                "及时处理量":45,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"茂名市",
+                "月份":"2019-04",
+                "派单量":185,
+                "月工单目标量":0,
+                "类别":"中端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"85.71%",
+                "及时接单量":73,
+                "日均派单量":"24",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"100.00%",
+                "及时处理量":11,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"阳江市",
+                "月份":"2019-04",
+                "派单量":73,
+                "月工单目标量":0,
+                "类别":"中端",
+                "接单及时率":"100.00%"
+            },
+            {
+                "工单规范率":"0.00%",
+                "及时接单量":14,
+                "日均派单量":"5",
+                "公司":"润建",
+                "评估完成率":"0.00%",
+                "评估通过量":0,
+                "日工单目标量":0,
+                "评估完成量":0,
+                "处理及时率":"0.00%",
+                "及时处理量":0,
+                "派单目标完成率":"0.00%",
+                "评估通过率":"0.00%",
+                "地市":"阳江市",
+                "月份":"2019-04",
+                "派单量":14,
+                "月工单目标量":0,
+                "类别":"低端",
+                "接单及时率":"100.00%"
+            }
+        ],
+        init(){
+            this.tableInit();
+            this.linechart(this.data);
+            this.hoverChart(this.data);
+            let firstdat=[];
+            this.data.map(v=>{
+                if(v["类别"] == "中端"){
+                    firstdat.push(v["地市"]);
+                }
+            });
+            this.showechart(firstdat[0]);
+        },
+        tableInit(){
+            var $this = this;
+            rj.table.init({
+                id: "#table",
+                toolbar: false,
+                data: $this.data,               
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageSize: 7, // 每页显示条数  
+                columns: [
+                    {
+                        field: '地市',
+                        sortable:true,
+                        title: '项目'
+                    },{
+                        field: '公司',
+                        sortable:true,
+                        title: '单位'
+                    },{
+                        field: '类别',
+                        sortable:true,
+                        title: '工单类型'
+                    },{
+                        field: '月份',
+                        sortable:true,
+                        title: '时间'
+                    },{
+                        field: '接单及时率',
+                        sortable:true,
+                        title: '接单及时率'
+                    },{
+                        field: '处理及时率',
+                        sortable:true,
+                        title: '处理及时率'
+                    },{
+                        field: '评估完成率',
+                        sortable:true,
+                        title: '评估完成率'
+                    },{
+                        field: '评估通过量',
+                        sortable:true,
+                        title: '评估通过率'
+                    },{
+                        field: '工单规范率',
+                        sortable:true,
+                        title: '工单规范率'
+                    },{
+                        field: '派单目标完成率',
+                        sortable:true,
+                        title: '工单量完成目标率',
+                        formatter: function (value,row,index) {
+                            return `
+                            
+                            <div class="progress item_progress">
+                                <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${value};min-width: 2em;">
+                                        ${value}
+                                </div>
+                            </div>                       
+                            `
+                        }
+                    }
+                ]
+            })
+        },
+        hoverChart(res){
+            let $this = this;
+            let newdata = res;
+            let chartLeft = $(".js_leftchart")[0];
+            let area= [],data=[],showdata="";
+            newdata.map(v=>{
+                if(v["类别"] == "中端"){
+                    showdata = v;
+                    area.push(v["地市"]);
+                    data.push(v["派单量"])
+                }
+            });
+            let option = {
+                    title: {
+                        text: '项目中端工单量',
+                        x: 'center',
+                        top: 10
+                    },
+                    color: ['#3398DB'],
+                    tooltip : {
+                        trigger: 'axis',
+                        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    grid: {
+                        left: '5%',
+                        right: '6%',
+                        bottom: '3%',
+                        containLabel: true,
+                        bottom: 10 
+                    },
+                    xAxis : [
+                        {   
+                            name : '项目',
+                            type : 'category',
+                            data: area,
+                            axisLabel: {
+                                interval:0,
+                                rotate:40
+                            },      
+                            axisTick: {
+                                alignWithLabel: true
+                            }
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            name : '工单量',                    
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'工单量',
+                            type:'bar',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    position: 'top'
+                                }
+                            },
+                            barWidth: '40%',
+                            data: data
+                        }
+                    ]
+                };
+            let chart1 = echarts.init(chartLeft);
+            chart1.setOption(option);
+            $(window).resize(function(){chart1.resize();});
+            chart1.on('mouseover', function (ev) { 
+                echarts.dispose($(".js_rightchart")[0]);
+                $this.showechart(ev.name);
+            })
+        },
+        showechart(name){
+            let chartRight = $(".js_rightchart")[0];
+            
+            let chart2 = echarts.init(chartRight);
+            let chartData = null;
+            let newdata = "";
+            this.data.forEach(json=>{
+                if(json["地市"] == name && json["类别"] == "中端"){
+                    newdata = json;
+                }
+            });
+            let option = {
+                title: {
+                    text: newdata["地市"],
+                    subtext: '项目中端工单量详细分布图',
+                    top: 10
+                },
+                tooltip: {
+                  
+                },
+                legend: {
+                    data: ['项目完成情况'],
+                    top: 35
+                },
+                color:["#32C5E9"],
+                radar: {
+                    name: {
+                        textStyle: {
+                            color: '#32C5E9',
+                            borderRadius: 3,
+                            padding: [3, 5]
+                        }
+                    },
+                    radius:"50%",
+                    indicator: [
+                        { name: '接单及时率\n'+newdata["接单及时率"], max: 100},
+                        { name: '处理及时率\n'+newdata["处理及时率"], max: 100},
+                        { name: '评估完成率\n'+newdata["评估完成率"], max: 100},
+                        { name: '评估通过率\n'+newdata["评估通过率"], max: 100},
+                        { name: '工单规范率\n'+newdata["工单规范率"], max: 100},
+                        { name: '目标完成率\n'+newdata["派单目标完成率"], max: 100}
+                    ],
+                    center: ["50%", "60%"]
+                },
+                series: [{
+                    name: '工单分布',
+                    type: 'radar',
+                    data : [
+                        {
+                            value : [parseInt(newdata["接单及时率"]),
+                             parseInt(newdata["处理及时率"]), 
+                             parseInt(newdata["评估完成率"]), 
+                             parseInt(newdata["评估通过率"]), 
+                             parseInt(newdata["工单规范率"]), 
+                             parseInt(newdata["派单目标完成率"])],
+                            name : '项目完成情况'
+                        }
+                    ]
+                }]
+            };
+            chart2.setOption(option);
+            $(window).resize(function(){chart2.resize();});
+        },
+        linechart(res){
+            var newdata = res;
+            let mylineChart = echarts.init($(".js_linechart")[0]);
+            let option = {
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {    
+                            type: 'line'  
+                        },
+                        formatter: function (param) {  
+                            let xname = param[0].axisValue;
+                            let res="";
+                            param.map(v=>{
+                                res += v.marker+`${v.seriesName}：${v.value}%<br/>`
+                            });
+                            return `${param[0].axisValue}<br/>`+res;
+                        }
+                    },
+                    legend: {
+                        data:['接单及时率','处理及时率','工单规范率'],
+                        top:10
+                    },
+                    grid: {
+                        top: '20%',
+                        left: '5%',
+                        right: '10%',
+                        height: '75%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        name : '项目名称',
+                        type: 'category',
+                        boundaryGap: false,
+                        axisLabel: {
+                            interval:0,
+                            rotate:40
+                        },
+                        data:newdata.map(v=>v["地市"])
+                    },
+                    yAxis: {
+                        name : '百分比(%)',
+                        axisLabel: {  
+                            show: true,  
+                            interval: 'auto',  
+                            formatter: '{value} %'  
+                        },  
+                        show: true,
+                    },
+                    series: [
+                        {
+                            name:'接单及时率',
+                            type:'line',
+                            data: newdata.map(v=>parseInt(v["接单及时率"])),
+                            symbolSize: 10,
+                            lineStyle: {
+                                normal: {
+                                    width: 2,
+                                }
+                            },
+                        },
+                        {
+                            name:'处理及时率',
+                            type:'line',
+                            data: newdata.map(v=>parseInt(v["处理及时率"])),
+                            symbolSize: 10,
+                            lineStyle: {
+                                normal: {
+                                    width: 2,
+                                }
+                            },
+                        },
+                        {
+                            name:'工单规范率',
+                            type:'line',
+                            data: newdata.map(v=>parseInt(v["工单规范率"])),
+                            symbolSize: 10,
+                            lineStyle: {
+                                normal: {
+                                    width: 2,
+                                }
+                            },
+                        }
+                    ]
+                };
+            mylineChart.setOption(option);
+            $(window).resize(function(){mylineChart.resize();});
+        }
+    }
+    homeTwo.init();
+</script>
+<style>
+    #table .item_progress{margin-bottom:0px;height: 15px;}
+    #table .item_progress .progress-bar{line-height: 15px;}
+</style>
+
