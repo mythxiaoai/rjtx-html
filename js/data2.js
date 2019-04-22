@@ -6,7 +6,8 @@
                 "name": "首页",
                 "url": "",
                 "icon": "iconfont icon-shouye1",
-                "pid": ""
+                "pid": "",
+                "order":0
             },{
                 "id": "01",
                 "name": "首页",
@@ -19,7 +20,8 @@
                 "name": "统计图表",
                 "url": "",
                 "icon": "iconfont icon-zhexiantu",
-                "pid": ""
+                "pid": "",
+                "order":10
             },{
                 "id": "10",
                 "name": "百度Echart",
@@ -32,7 +34,8 @@
                 "name": "表单",
                 "url": "",
                 "icon": "iconfont icon-bingzhuangtu",
-                "pid": "" 
+                "pid": "" ,
+                "order":20
             },{
                 "id": "21",
                 "name": "基本表单",
@@ -57,13 +60,14 @@
                 "name": "插件",
                 "url": "",
                 "icon": "iconfont icon-mianji",
-                "pid": "" 
+                "pid": "",
+                "order":1
             },
             {
                 "id": "31",
                 "name": "文件上传",
                 "url": "plug/plugin/xupload/fileUpload.html",
-                "icon": "fa fa-wpforms",
+                "icon": "iconfont icon-shangchuan",
                 "pid": "3"
             },
             {
@@ -74,11 +78,26 @@
                 "pid": "3"
             },
             {
+                "id": "33",
+                "name": "sweetAlert",
+                "url": "plug/plugin/sweetAlert/sweetAlert.html",
+                "icon": "fa fa-wpforms",
+                "pid": "3"
+            },
+            {
+                "id": "34",
+                "name": "loading",
+                "url": "plug/plugin/loading/loading.html",
+                "icon": "fa fa-wpforms",
+                "pid": "3"
+            },
+            {
                 "id": "4",
                 "name": "UI元素",
                 "url": "",
                 "icon": "iconfont icon-dengji",
-                "pid": "" 
+                "pid": "",
+                "order":40
             },
             {
                 "id": "41",
@@ -88,18 +107,12 @@
                 "pid": "4" 
             },
             {
-                "id": "5",
-                "name": "CSS动画",
-                "url": "",
-                "icon": "fa fa-magic",
-                "pid": "" 
-            },
-            {
                 "id": "6",
                 "name": "表格",
                 "url": "",
                 "icon": "fa fa-magic",
-                "pid": "" 
+                "pid": "",
+                "order":50
             },
             {
                 "id": "61",

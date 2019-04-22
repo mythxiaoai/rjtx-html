@@ -57,10 +57,12 @@ removeFile(id)根据id删除对应文件
     minBox(){
       this.opts.status = "min";
       $(".js_xupload_box").stop(true,true).animate({height:44},"fast");
+      $(".js_xupload_box .js_mins").addClass("glyphicon-unchecked").removeClass("glyphicon-minus");
     },
     bigEvent(){
       this.opts.status = "nomal";
-      $(".js_xupload_box").stop(true,true).animate({height:429},"fast");
+      $(".js_xupload_box").stop(true,true).animate({height:429},"fast")
+      $(".js_xupload_box .js_mins").addClass("glyphicon-minus").removeClass("glyphicon-unchecked");
     },
     closeBox(){
       if(this.opts.status != "close"){
@@ -255,10 +257,8 @@ removeFile(id)根据id删除对应文件
         let $this =this;
         $(".js_xupload_box").on("click",".js_mins",function(){
           if(mark){
-            $(this).addClass("glyphicon-unchecked").removeClass("glyphicon-minus");
             $this.minBox()
           }else{
-            $(this).addClass("glyphicon-minus").removeClass("glyphicon-unchecked");
             $this.bigEvent()
           }
           mark=!mark;
