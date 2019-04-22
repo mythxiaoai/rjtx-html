@@ -20,10 +20,10 @@
     <div class="p-m panel-body">
         <div class="row">
             <div class="col-md-7">
-                <div class="js_leftchart" style="height: 370px;"></div>
+                <div class="js_leftchart" style="height: 400px;"></div>
             </div>
             <div class="col-md-5" style="border-left: 1px solid #eee;">
-                <div class="js_rightchart" style="height: 370px;"></div>
+                <div class="js_rightchart" style="height: 400px;"></div>
             </div>
         </div>
     </div>
@@ -391,18 +391,24 @@
                                     position: 'top'
                                 }
                             },
-                            barWidth: '40%',
+                            barWidth: '30%',
                             data: data
                         }
                     ]
                 };
             let chart1 = echarts.init(chartLeft);
             chart1.setOption(option);
-            $(window).resize(function(){chart1.resize();});
             chart1.on('mouseover', function (ev) { 
                 echarts.dispose($(".js_rightchart")[0]);
                 $this.showechart(ev.name);
-            })
+            });
+            $(window).resize(function(){
+                chart1.resize();
+                if($(".js_rightchart")[0]){
+                    echarts.init($(".js_rightchart")[0]).resize();
+                }
+            });
+
         },
         showechart(name){
             let chartRight = $(".js_rightchart")[0];
@@ -420,50 +426,56 @@
                     top: 10
                 },
                 tooltip: {
-                  
+                    formatter: function (param) {  
+                        return `
+                            ${param.marker}${newdata["地市"]}项目完成情况<br/>
+                            接单及时率：${newdata["接单及时率"]}<br/>
+                            处理及时率：${newdata["处理及时率"]}<br/>
+                            评估完成率：${newdata["评估完成率"]}<br/>
+                            评估通过率：${newdata["评估通过率"]}<br/>
+                            工单规范率：${newdata["工单规范率"]}<br/>
+                            派单目标完成率：${newdata["派单目标完成率"]}<br/>
+                        `
+                    }
                 },
                 legend: {
                     data: ['项目完成情况'],
                     top: 35
                 },
-                color:["#32C5E9"],
+                color:["#59c4e6"],
                 radar: {
                     name: {
                         textStyle: {
-                            color: '#32C5E9',
+                            color: '#59c4e6',
                             borderRadius: 3,
                             padding: [3, 5]
                         }
                     },
                     radius:"50%",
                     indicator: [
-                        { name: '接单及时率\n'+newdata["接单及时率"], max: 100},
-                        { name: '处理及时率\n'+newdata["处理及时率"], max: 100},
-                        { name: '评估完成率\n'+newdata["评估完成率"], max: 100},
-                        { name: '评估通过率\n'+newdata["评估通过率"], max: 100},
-                        { name: '工单规范率\n'+newdata["工单规范率"], max: 100},
-                        { name: '目标完成率\n'+newdata["派单目标完成率"], max: 100}
+                        { name: '接单及时率\n'+newdata["接单及时率"], max: 100, color:'#3fb1e3'},
+                        { name: '处理及时率\n'+newdata["处理及时率"], max: 100, color:'#6be6c1'},
+                        { name: '评估完成率\n'+newdata["评估完成率"], max: 100, color:'#ffb980'},
+                        { name: '评估通过率\n'+newdata["评估通过率"], max: 100, color:'#d87a80'},
+                        { name: '工单规范率\n'+newdata["工单规范率"], max: 100,color:'#626c91'},
+                        { name: '目标完成率\n'+newdata["派单目标完成率"], max: 100, color:'#dc69aa'}
                     ],
                     center: ["50%", "60%"]
                 },
                 series: [{
                     name: '工单分布',
                     type: 'radar',
+                    itemStyle: {normal: {areaStyle: {type: 'default',opacity: 0.5 }}},
                     data : [
                         {
-                            value : [parseInt(newdata["接单及时率"]),
-                             parseInt(newdata["处理及时率"]), 
-                             parseInt(newdata["评估完成率"]), 
-                             parseInt(newdata["评估通过率"]), 
-                             parseInt(newdata["工单规范率"]), 
-                             parseInt(newdata["派单目标完成率"])],
+                            value : [20,60,30, 40,80,90,],
                             name : '项目完成情况'
                         }
                     ]
                 }]
             };
             chart2.setOption(option);
-            $(window).resize(function(){chart2.resize();});
+            
         },
         linechart(res){
             var newdata = res;
@@ -483,6 +495,7 @@
                             return `${param[0].axisValue}<br/>`+res;
                         }
                     },
+                    color:['#3fb1e3', '#6be6c1', '#626c91'],
                     legend: {
                         data:['接单及时率','处理及时率','工单规范率'],
                         top:10
@@ -502,7 +515,16 @@
                             interval:0,
                             rotate:40
                         },
-                        data:newdata.map(v=>v["地市"])
+                        data:newdata.map(v=>v["地市"]),
+                        // 设置图标背景的表格
+                        splitLine: {
+                            show: true,
+                            lineStyle:{
+                                color: '#ddd',
+                                width: 1,
+                                type: 'solid'
+                            }
+                        }
                     },
                     yAxis: {
                         name : '百分比(%)',
@@ -512,40 +534,48 @@
                             formatter: '{value} %'  
                         },  
                         show: true,
+                        splitLine: {
+                            show: true,
+                            lineStyle:{
+                                color: '#ddd',
+                                width: 1,
+                                type: 'solid'
+                            }
+                        }
                     },
                     series: [
                         {
                             name:'接单及时率',
                             type:'line',
                             data: newdata.map(v=>parseInt(v["接单及时率"])),
-                            symbolSize: 10,
+                            symbolSize: 8,
                             lineStyle: {
                                 normal: {
-                                    width: 2,
+                                    width: 3,
                                 }
-                            },
+                            }
                         },
                         {
                             name:'处理及时率',
                             type:'line',
                             data: newdata.map(v=>parseInt(v["处理及时率"])),
-                            symbolSize: 10,
+                            symbolSize: 8,
                             lineStyle: {
                                 normal: {
-                                    width: 2,
+                                    width: 3,
                                 }
-                            },
+                            }
                         },
                         {
                             name:'工单规范率',
                             type:'line',
                             data: newdata.map(v=>parseInt(v["工单规范率"])),
-                            symbolSize: 10,
+                            symbolSize: 8,
                             lineStyle: {
                                 normal: {
-                                    width: 2,
+                                    width: 3,
                                 }
-                            },
+                            }
                         }
                     ]
                 };
