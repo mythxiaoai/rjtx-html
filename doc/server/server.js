@@ -10,13 +10,13 @@ const docList = require("./docList.js");
 const demo = require("./demo.js");
 //1.监听的端口
 let server =express()
-server.listen(8099)
+server.listen(7301)
 //连接数据库
 let createPool = mysql.createPool({
-  host:"192.168.110.240",
-  port:3306,
+  host:"47.106.249.138",
+  port:3308,
   user:"root",
-  password:"123",
+  password:"123456",
   database:"rjtx_html"
 })
 

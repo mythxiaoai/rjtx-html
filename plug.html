@@ -7,13 +7,6 @@
     <meta name="force-rendering" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-      // if(localStorage.getItem("rj_style")){
-      //   let src = {cd:1,al:2,bp:3,ct:4};
-      //   if(localStorage.rj_style!="bp")
-      //   window.location.href = `./index${src[localStorage.rj_style]}.html`;
-      // }
-    </script>
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
     <!--字体图标 fa fa-*-->
     <link rel="stylesheet" href="fonts/font-awesome.css"/>
@@ -168,7 +161,6 @@
             <i class="iconfont icon-yonghu"></i> 管理员 <span class="caret"></span>
           </a>
             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                <li><a class="js_changeStyle" href="javascript:;">修改风格</a>
                 <li><a href="javascript:;">修改密码</a>
                 </li>
                 <li class="divider"></li>
@@ -251,18 +243,32 @@
       //搜索
       this.initsearch();
       this.searchEvent();
-      //切换风格
-      this.changeStyle();
     },
     initmenus(){
       let $this = this;
       return  rj.ajax({
         type:"get",
-        url:"js/newdata.js",
+        url:"js/data2.js",
         success(data){
           data = data[0].menus;
           data = simpleToPS(data);
-          $this.menus = data;
+          //排序
+          $this.menus = sortAll(data)
+          function sortAll(data){
+            data = data.sort((a,b)=>{
+              if(a.order===0||a.order){
+                return a.order*1-b.order*1;
+              }else{
+                return 0;
+              }
+            })
+            data.map((item,index)=>{
+              if(item.children.length>0){
+                item.children = sortAll(item.children);
+              }
+            })
+            return data;
+          }
            //获取html
           let html = $this.getHTML(data);
           $(".js_index_menus").html(html);
@@ -341,7 +347,7 @@
       let $this = this;
       //子点击
       $(".js_index_menus").on("click",".js_index_sItem",function(e,fn){
-        let url = $(this).data("src")||"./doing.html";
+        let url = $(this).data("src")||"doing.html";
         $this.jumpMenu(url);
       });
       
@@ -485,28 +491,6 @@
         }
         return arr;
       }
-    },
-    changeStyle(){
-      $(".js_changeStyle").click(function(){
-        rj.modal("风格切换", 
-          "./changeStyle.html",
-          function() {
-            //加载完成的回调
-            $("#changeStyle").find("input[name='style']").eq(0).prop("checked",true)
-            rj.resetPlug();
-          },
-          function() {
-            //确定按钮的回调 
-            let data = rj.form.get($("#changeStyle")[0]);
-            localStorage.rj_style=data.style;
-            let src = {bp:"",cd:1,al:2,ct:3,ne:4};
-            window.location.href = `./index${src[data.style]}.html`
-          },
-          function() {
-            //取消按钮的回调
-          }
-        );
-      });
     }
   }
   index.init();

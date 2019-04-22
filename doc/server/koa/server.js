@@ -9,7 +9,7 @@ const delDirFile = require("./lib/delDirFile.js");
 const cors = require('koa2-cors');
 
 let server = new koa();
-let port = 9016;
+let port = 7302;
 server.listen(port,()=>{
   console.log(`listening at http://localhost:${port}/index.html`)
 });

@@ -7,13 +7,6 @@
     <meta name="force-rendering" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <script>
-      if(localStorage.getItem("rj_style")){
-        let src = {bp:"",cd:1,al:2,ct:3};
-        if(localStorage.rj_style!="cd")
-        window.location.href = `./index${src[localStorage.rj_style]}.html`;
-      }
-    </script>
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
     <!--字体图标 fa fa-*-->
     <link rel="stylesheet" href="fonts/font-awesome.css"/>
@@ -87,7 +80,7 @@
 <body class="bg-gray">
 <div class="index_hearder animated fadeInDown">
 	<div class="index_nav">
-	  	<a class="index_sysinfo" href="doc/web/index.html">
+	  	<a class="index_sysinfo" href="javascript:;">
 			  <i class="iconfont icon-bg icon-logo"></i>
 	  		<span class="hone_sysname">润建前端界面系统</span>
 	  	</a>
@@ -193,7 +186,7 @@
  var index = {
    		callback:null,
    		//设置首页
-   		index:"page/ui/mobal.html",
+   		index:"page/home/home.html",
 		init(){
 		  this.changeStyle();
 		  this.initmenus();
@@ -206,6 +199,24 @@
         success(data){
           data = data[0].menus;
           data = simpleToPS(data);
+          //排序
+          data = sortAll(data)
+          function sortAll(data){
+            data = data.sort((a,b)=>{
+              if(a.order===0||a.order){
+                return a.order*1-b.order*1;
+              }else{
+                return 0;
+              }
+            })
+            data.map((item,index)=>{
+              if(item.children.length>0){
+                item.children = sortAll(item.children);
+              }
+            })
+            
+            return data;
+          }
          $(".js_index_menus").append(getHTML(data));
          function getHTML(data){
            let html="";
@@ -293,7 +304,7 @@
 				//css
 				$this.cssDeal()
 				//模拟
-				let url = $(this).data("url")||"./doing.html";
+				let url = $(this).data("url")||"doing.html";
 				$this.jumpMenu(url);
 			});
 			//父点击
@@ -302,19 +313,42 @@
 				$(this).closest("li").find(".js_index_sItem").eq(0).trigger("click",fn)
 			});
 		},
-		changeStyle(){
-		  $(".js_changeStyle").click(function(){
-		    rj.modal("风格切换", 
+    changeStyle(){
+      //color
+      let color = localStorage.rj_color;
+      $(".js_skin").addClass(color);
+      $(".js_changeStyle").click(function(){
+        rj.modal("风格切换", 
           "./changeStyle.html",
           function() {
             //加载完成的回调
-            $("#changeStyle").find("input[name='style']").eq(1).prop("checked",true)
+            //主题
+            let style = localStorage.rj_style;
+            if(style){
+               $("#changeStyle").find(`input[name='style'][value=${style}]`).prop("checked",true);
+            }else{
+               $("#changeStyle").find(`input[name='style']`).eq(0).prop("checked",true);
+            }
+            //色调
+           let color = localStorage.rj_color;
+           if(color){
+            $("#changeStyle").find(`input[name='color'][value=${color}]`).prop("checked",true);
+           }else{
+            $("#changeStyle").find(`input[name='color']`).eq(0).prop("checked",true);
+           }
             rj.resetPlug();
+            //监听
+           $("#changeStyle").find(`input[name='color']`).on('ifChecked', function(event){
+              let color = $(this).val();
+              $(".js_skin").removeClass("nomal blue white").addClass(color);
+            });
+            
           },
           function() {
-            //确定按钮的回调 
+            //确定按钮的回调
             let data = rj.form.get($("#changeStyle")[0]);
             localStorage.rj_style=data.style;
+            localStorage.rj_color=data.color;
             let src = {bp:"",cd:1,al:2,ct:3};
             window.location.href = `./index${src[data.style]}.html`
           },
@@ -322,8 +356,8 @@
             //取消按钮的回调
           }
         );
-		  });
-		}
+      });
+    }
 	}
    index.init();
 </script>

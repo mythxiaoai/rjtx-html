@@ -1,12 +1,12 @@
 [
     {
-        "menus": [
-            {
+        "menus": [{
                 "id": "0",
                 "name": "首页",
                 "url": "",
                 "icon": "iconfont icon-shouye1",
-                "pid": ""
+                "pid": "",
+                "order":"20"
             },
             {
                 "id": "1",
@@ -23,25 +23,12 @@
                 "pid": "0"
             },
             {
-                "id": "100",
-                "name": "插件",
-                "url": "",
-                "icon": "iconfont icon-mianji fa-fw",
-                "pid": ""
-            },
-            {
-                "id": "101",
-                "name": "文件上传",
-                "url": "page/plugin/xupload/fileUpload.html",
-                "icon": "",
-                "pid": "100"
-            },
-            {
                 "id": "10",
                 "name": "项目",
                 "url": "",
                 "icon": "iconfont icon-icon-project",
-                "pid": ""
+                "pid": "",
+                "order":"30"
             },
             {
                 "id": "13",
@@ -86,39 +73,12 @@
                 "pid": "10"
             },
             {
-                "id": "30",
-                "name": "UI元素",
-                "url": "",
-                "icon": "fa fa-wpforms",
-                "pid": ""
-            },
-            {
-                "id": "31",
-                "name": "弹层",
-                "url": "page/ui/mobal.html",
-                "icon": "fa fa-wpforms",
-                "pid": "30"
-            },
-            {
-                "id": "31",
-                "name": "ECharts",
-                "url": "page/ui/echarts/echarts.html",
-                "icon": "fa fa-wpforms",
-                "pid": "30"
-            },
-            {
-                "id": "32",
-                "name": "Table",
-                "url": "page/ui/table/table.html",
-                "icon": "iconfont icon-ditu1",
-                "pid": "30"
-            },
-            {
                 "id": "20",
                 "name": "系统管理",
                 "url": "",
                 "icon": "iconfont icon-shezhi",
-                "pid": ""
+                "pid": "",
+                "order":"40"
             },
             {
                 "id": "23",
@@ -126,13 +86,6 @@
                 "url": "page/sys/auth/authority.html",
                 "icon": "glyphicon glyphicon-menu-hamburger",
                 "pid": "20"
-            },
-            {
-               "id": "23-10",
-                "name": "test4",
-                "url": "page/sys/auth/authority.html",
-                "icon": "glyphicon glyphicon-menu-hamburger",
-                "pid": "23"
             },
             {
                 "id": "21",

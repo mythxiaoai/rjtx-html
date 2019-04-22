@@ -3,7 +3,7 @@
 		<h2 class="page-header">url标准弹框</h2>
 		<a href="javscript:;" type="button" onclick="modal1()" class="btn btn-danger m-b">弹层</a>
 <pre>
-rj.modal({size: "modal-lg",url: "./page/ui/form.html",title: "我是标题1",sureback(dom) {console.log(dom)}});
+rj.modal({size: "modal-lg",url: "plug/plugin/mobal/form.html",title: "我是标题1",sureback(dom) {console.log(dom)}});
 </pre>
 		<h2 class="page-header">普通弹窗</h2>
 		<a href="javscript:;" type="button" onclick="modal2()" class="btn btn-danger m-b">弹层1</a>
@@ -14,7 +14,7 @@ rj.modal({size: "modal-lg",url: "./page/ui/form.html",title: "我是标题1",sur
 		<a href="javscript:;" type="button" onclick="modal3()" class="btn btn-danger m-b">弹层1</a>
 	
 <pre>
-rj.modal("新增用户","./page/ui/form.html",
+rj.modal("新增用户","plug/plugin/mobal/form.html",
 	win=>{console.log("加载完成");},
 	win=>{console.log("确认");},
 	win=>{
@@ -44,7 +44,7 @@ cancelback:null,//取消运行的回调
 	function modal1() {
 		rj.modal({
 			size: "modal-lg",
-			url: "./page/ui/form.html",
+			url: "plug/plugin/mobal/form.html",
 			title: "我是标题1",
 			loadback(){
 				console.log("执行完成")
@@ -65,7 +65,7 @@ cancelback:null,//取消运行的回调
 
 	//推荐用这种
 	function modal3() {
-		rj.modal("新增用户", "./page/ui/form.html",
+		rj.modal("新增用户", "plug/plugin/mobal/form.html",
 			()=> {
 				console.log("加载完成");
 			},

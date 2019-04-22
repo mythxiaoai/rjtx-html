@@ -7,13 +7,6 @@
     <meta name="force-rendering" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script>
-      if(localStorage.getItem("rj_style")){
-        let src = {bp:"",cd:1,al:2,ct:3};
-        if(localStorage.rj_style!="bp")
-        window.location.href = `./index${src[localStorage.rj_style]}.html`;
-      }
-    </script>
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
     <!--字体图标 fa fa-*-->
     <link rel="stylesheet" href="fonts/font-awesome.css"/>
@@ -134,21 +127,21 @@
       /*end index_content*/
     </style>
 </head>
-<body class="bg-gray index_skin">
+<body class="bg-gray js_skin">
 <div class="index_menus">
   <div class="user_info text-center ">
     <i class="iconfont icon-logo" style="font-size: 48px;"></i>
     <div class="dropdown">
       <a data-toggle="dropdown" class="dropdown-toggle" href="javascript:;">
                    <span class="block m-t-xs"><strong class="fw700 userfont">adminstror</strong>
-                   <span class="text-muted text-xs block">超级管理员<b class="caret"></b>
+                  <!-- <span class="text-muted text-xs block">超级管理员<b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight m-t-xs">
                     <li><a href="jascript:;">修改密码</a></li>
                     <li><a href="jascript:;">信箱</a></li>
                     <li class="divider"></li>
                     <li><a href="jascript:;">安全退出</a></li>
-                </ul>
+                </ul> -->
               </div>
   </div>
   <div class="index_menus_box">
@@ -175,7 +168,7 @@
                 <li><a href="javascript:;">修改密码</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="logout">安全退出</a>
+                <li><a href="javascript:;">安全退出</a>
                 </li>
             </ul>
         <a href="./login1.html" class="index_sys_opts">
@@ -246,7 +239,7 @@
 <script>
   var index = {
     callback:null,
-    home:"page/ui/mobal.html",
+    home:"page/home/home.html",
     menus:[],
     init:async function(){
       await this.initmenus();
@@ -268,10 +261,28 @@
         success(data){
           data = data[0].menus;
           data = simpleToPS(data);
-          $this.menus = data;
-           //获取html
+          //排序
+          $this.menus = sortAll(data)
+          function sortAll(data){
+            data = data.sort((a,b)=>{
+              if(a.order===0||a.order){
+                return a.order*1-b.order*1;
+              }else{
+                return 0;
+              }
+            })
+            data.map((item,index)=>{
+              if(item.children.length>0){
+                item.children = sortAll(item.children);
+              }
+            })
+            
+            return data;
+          }
+          //获取html
           let html = $this.getHTML(data);
           $(".js_index_menus").html(html);
+          
         }
       })
     },
@@ -347,7 +358,7 @@
       let $this = this;
       //子点击
       $(".js_index_menus").on("click",".js_index_sItem",function(e,fn){
-        let url = $(this).data("src")||"./doing.html";
+        let url = $(this).data("src")||"doing.html";
         $this.jumpMenu(url);
       });
       
@@ -493,18 +504,41 @@
       }
     },
     changeStyle(){
+      //color
+      let color = localStorage.rj_color;
+      $(".js_skin").addClass(color);
       $(".js_changeStyle").click(function(){
         rj.modal("风格切换", 
           "./changeStyle.html",
           function() {
             //加载完成的回调
-            $("#changeStyle").find("input[name='style']").eq(0).prop("checked",true)
+            //主题
+            let style = localStorage.rj_style;
+            if(style){
+               $("#changeStyle").find(`input[name='style'][value=${style}]`).prop("checked",true);
+            }else{
+               $("#changeStyle").find(`input[name='style']`).eq(0).prop("checked",true);
+            }
+            //色调
+           let color = localStorage.rj_color;
+           if(color){
+            $("#changeStyle").find(`input[name='color'][value=${color}]`).prop("checked",true);
+           }else{
+            $("#changeStyle").find(`input[name='color']`).eq(0).prop("checked",true);
+           }
             rj.resetPlug();
+            //监听
+           $("#changeStyle").find(`input[name='color']`).on('ifChecked', function(event){
+              let color = $(this).val();
+              $(".js_skin").removeClass("nomal blue white").addClass(color);
+            });
+            
           },
           function() {
-            //确定按钮的回调 
+            //确定按钮的回调
             let data = rj.form.get($("#changeStyle")[0]);
             localStorage.rj_style=data.style;
+            localStorage.rj_color=data.color;
             let src = {bp:"",cd:1,al:2,ct:3};
             window.location.href = `./index${src[data.style]}.html`
           },

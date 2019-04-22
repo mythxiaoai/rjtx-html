@@ -1,58 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  	<head>
-      <meta charset="UTF-8">
-      <title>润建前端界面系统</title>
-      <meta name="renderer" content="webkit"/>
-      <meta name="force-rendering" content="webkit"/>
-      <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script>
-        if(localStorage.getItem("rj_style")){
-          let src = {bp:"",cd:1,al:2,ct:3};
-          if(localStorage.rj_style!="ct")
-          window.location.href = `./index${src[localStorage.rj_style]}.html`;
-        }
-      </script>
-      <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
-      <!--字体图标 fa fa-*-->
-      <link rel="stylesheet" href="fonts/font-awesome.css"/>
-      <!--字体图标 iconfont icon-*-->
-      <link rel="stylesheet" href="fonts/iconfont.css"/>
-      <!--bootstrap-->
-      <link rel="stylesheet" href="js/bootstrap/bootstrap.css"/>
-      <!--bootstrap过滤样式-->
-      <link rel="stylesheet" href="js/bootstrap/bootstrapfiller.css"/>
-      <!--checkbox/radio修饰-->
-      <link rel="stylesheet" href="js/icheck/skins/all.css"/>
-      <!--loading加载动画-->
-      <link rel="stylesheet" href="js/loading/loading.css"/>
-      <!--sweetalert弹框提示-->
-      <link rel="stylesheet" href="js/sweetalert/sweetalert.css"/>
-      <!--通用动画样式-->
-      <link rel="stylesheet" href="css/animate.css"/>
-      <!--时间插件-->
-      <link rel="stylesheet" href="js/bootstrapDatetimepicker/bootstrap-datetimepicker.css" />
-      <!--bootstrap表格-->
-      <link rel="stylesheet" href="js/bootstrapTable/bootstrap-table.css" />
-      <!--treegrid插件-->
-	    <link rel="stylesheet" href="js/bootstrapTable/extensions/treegrid/jquery.treegrid.css" />   
-      <!--ztree树插件-->
-      <link rel="stylesheet" href="js/ztree/css/awesomeStyle/awesome.css" type="text/css">
-      <link rel="stylesheet" href="js/ztree/css/zTreeStyle/zTreeStyle.css" />
-      <!--颜色插件-->
-      <link rel="stylesheet" href="js/colorpicker/css/jquery-ui.css" />
-      <link rel="stylesheet" href="js/colorpicker/css/evol-colorpicker.css" />
-      <!--文件上传插件-->
-      <link href="./js/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />
-      <link href="./js/fileinput/themes/explorer-fa/theme.css" rel="stylesheet">
-      <!--大文件上传插件-->
-      <link rel="stylesheet" href="js/xupload/webuploader.css">
-      <link rel="stylesheet" href="js/xupload/xupload.css">
-      <!--基础样式文件-->
-      <link rel="stylesheet" href="css/common.css"/>
-		  <style>
-        .showsub{overflow:visible!important;}
+  <head>
+    <meta charset="UTF-8">
+    <title>润建前端界面系统</title>
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon" />
+    <!--字体图标 fa fa-*-->
+    <link rel="stylesheet" href="fonts/font-awesome.css" />
+    <!--字体图标 iconfont icon-*-->
+    <link rel="stylesheet" href="fonts/iconfont.css" />
+    <!--bootstrap-->
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css" />
+    <!--bootstrap过滤样式-->
+    <link rel="stylesheet" href="js/bootstrap/bootstrapfiller.css" />
+    <!--checkbox/radio修饰-->
+    <link rel="stylesheet" href="js/icheck/skins/all.css" />
+    <!--loading加载动画-->
+    <link rel="stylesheet" href="js/loading/loading.css" />
+    <!--sweetalert弹框提示-->
+    <link rel="stylesheet" href="js/sweetalert/sweetalert.css" />
+    <!--通用动画样式-->
+    <link rel="stylesheet" href="css/animate.css" />
+    <!--时间插件-->
+    <link rel="stylesheet" href="js/bootstrapDatetimepicker/bootstrap-datetimepicker.css" />
+    <!--bootstrap表格-->
+    <link rel="stylesheet" href="js/bootstrapTable/bootstrap-table.css" />
+    <!--treegrid插件-->
+    <link rel="stylesheet" href="js/bootstrapTable/extensions/treegrid/jquery.treegrid.css" />
+    <!--ztree树插件-->
+    <link rel="stylesheet" href="js/ztree/css/awesomeStyle/awesome.css" type="text/css">
+    <link rel="stylesheet" href="js/ztree/css/zTreeStyle/zTreeStyle.css" />
+    <!--颜色插件-->
+    <link rel="stylesheet" href="js/colorpicker/css/jquery-ui.css" />
+    <link rel="stylesheet" href="js/colorpicker/css/evol-colorpicker.css" />
+    <!--文件上传插件-->
+    <link href="./js/fileinput/css/fileinput.css" rel="stylesheet" type="text/css" />
+    <link href="./js/fileinput/themes/explorer-fa/theme.css" rel="stylesheet">
+    <!--大文件上传插件-->
+    <link rel="stylesheet" href="js/xupload/webuploader.css">
+    <link rel="stylesheet" href="js/xupload/xupload.css">
+    <!--基础样式文件-->
+    <link rel="stylesheet" href="css/common.css" />
+    <style>
+      .showsub{overflow:visible!important;}
         .menubox{position: fixed;height: 100%;z-index: 10;width: 80px;}
         /*复用*/
         .index_menu{height: 100%;background-color: #038ef4}
@@ -99,16 +92,16 @@
       .index_content .index_c_box{top: 60px;height: calc(100% - 60px);width: 100%;overflow: auto;}
       /*end index_content*/
       </style>
-	</head>
-<body class="bg-gray">
-  <div class="menubox">
-    <div class="index_menu" id="js_menuBox">
-      <div class="menu-logo">
+  </head>
+  <body class="bg-gray">
+    <div class="menubox">
+      <div class="index_menu" id="js_menuBox">
+        <div class="menu-logo">
           <i class="iconfont icon-logo" style="font-size: 36px;"></i>
-      </div>
-      <div>
-        <ul class="menu-items js_index_menus">
-          <!-- <li>
+        </div>
+        <div>
+          <ul class="menu-items js_index_menus">
+            <!-- <li>
             <a href="javascript:;" class=" js_index_pItem">
                       
                       <span><i class="fa fa-wpforms fa-fw icstyle"></i>UI元素</span>
@@ -142,102 +135,102 @@
                   </a>
                 </li></ul>
           </li> -->
-        </ul>        
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="index_content">
+    <div class="index_content">
       <div class="index_hearder">
-         <div class="index_search">
-          <input class="js_sug_input" placeholder="搜索..."/>
+        <div class="index_search">
+          <input class="js_sug_input" placeholder="搜索..." />
           <ul class="js_suggestion">
           </ul>
         </div>
-        
+
         <div class="index_sysopts">
           <div class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle index_sys_opts" href="javascript:;">
               <i class="iconfont icon-yonghu"></i> 管理员 <span class="caret"></span>
             </a>
-              <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                  <li><a class="js_changeStyle" href="javascript:;">修改风格</a>
-                  <li><a href="javascript:;">修改密码</a>
-                  </li>
-                  <li class="divider"></li>
-                  <li><a href="logout">安全退出</a>
-                  </li>
-              </ul>
-          <a href="./login1.html" class="index_sys_opts">
-            <i class="iconfont icon-tuichu1"></i>
+            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+              <li><a class="js_changeStyle" href="javascript:;">修改风格</a>
+              <li><a href="javascript:;">修改密码</a>
+              </li>
+              <li class="divider"></li>
+              <li><a href="logout">安全退出</a>
+              </li>
+            </ul>
+            <a href="./login1.html" class="index_sys_opts">
+              <i class="iconfont icon-tuichu1"></i>
               退出
-          </a>  
+            </a>
           </div>
         </div>
-        
+
       </div>
       <div class="index_c_box animated fadeInRight js_index_content">
-          
+
       </div>
-  </div>
-<!--jQuery-->
-<script type="text/javascript" src="js/jquery.js" ></script>
-<!--颜色插件  jquery-ui 与boostartp样式有冲突，注意引入顺序-->
-<script type="text/javascript" src="js/colorpicker/js/jquery-ui.min.js" ></script>
-<script type="text/javascript" src="js/colorpicker/js/evol-colorpicker.js" ></script>
-<!--bootstrap-->
-<script type="text/javascript" src="js/bootstrap/bootstrap.js" ></script>
-<!--拼音-->
-<script type="text/javascript" src="js/pinyin.js" ></script>
-<!--echart图表插件-->
-<script type="text/javascript" src="js/echart/echarts.js"></script>
-<script type="text/javascript" src="js/echart/guangdong.js"></script>
-<!--bootstrap 文件上传-->
-<script type="text/javascript" src="js/bootstrap/bootstrap-prettyfile.js" ></script>
-<!--checkbox/radio修饰-->
-<script type="text/javascript" src="js/icheck/icheck.js" ></script>
-<!--loading加载-->
-<script type="text/javascript" src="js/loading/loading.js" ></script>
-<!--sweetalert提示框-->
-<script type="text/javascript" src="js/sweetalert/sweetalert-dev.js" ></script>
-<!--tip 错误操作提示框-->
-<script type="text/javascript" src="js/tip.js" ></script>
-<!--时间插件-->
-<script type="text/javascript" src="js/bootstrapDatetimepicker/moment-with-locales.js" ></script>
-<script type="text/javascript" src="js/bootstrapDatetimepicker/bootstrap-datetimepicker.min.js" ></script>
-<!--bootstrap表格-->
-<script type="text/javascript" src="js/bootstrapTable/bootstrap-table.js" ></script>
-<script type="text/javascript" src="js/bootstrapTable/locale/bootstrap-table-zh-CN.js" ></script>
-<script type="text/javascript" src="js/bootstrapTable/extensions/treegrid/bootstrap-table-treegrid.js"></script>
-<script type="text/javascript" src="js/bootstrapTable/extensions/treegrid/jquery.treegrid.min.js"></script>
-<!--验证插件-->
-<script type="text/javascript" src="js/jQueryValidation/jquery.validate.js" ></script>
-<script type="text/javascript" src="js/jQueryValidation/jquery.validate.messages_zh.js"></script>
-<!--ztree树插件-->
-<script type="text/javascript" src="js/ztree/js/jquery.ztree.core.js" ></script>
-<script type="text/javascript" src="js/ztree/js/jquery.ztree.exedit.js" ></script>
-<script type="text/javascript" src="js/ztree/js/jquery.ztree.excheck.js" ></script>
-<script type="text/javascript" src="js/ztree/js/jquery.ztree.exhide.js" ></script>
-<script type="text/javascript" src="js/ztree/js/ztree.search.js" ></script>
-<!--文件上传插件-->
-<script src="js/fileinput/js/fileinput.js" type="text/javascript"></script>
-<script src="js/fileinput/themes/explorer-fa/theme.js"></script>
-<script src="js/fileinput/js/locales/zh.js" type="text/javascript"></script>
-<!--大文件上传插件-->
-<script type="text/javascript" src="js/xupload/webuploader.js"></script>
-<script type="text/javascript" src="js/xupload/xuploadbox.js"></script>
-<script type="text/javascript" src="js/xupload/xupload.js"></script>
-<!--工具js-->
-<script type="text/javascript" src="js/util.js"></script>
-<!--业务通用js-->
-<script type="text/javascript" src="js/rjtx.js" ></script>
-<!-- 拖拽插件js -->
-<script type="text/javascript" src="js/xdrag-1.3.js"></script>
-		<script>
+    </div>
+    <!--jQuery-->
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <!--颜色插件  jquery-ui 与boostartp样式有冲突，注意引入顺序-->
+    <script type="text/javascript" src="js/colorpicker/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/colorpicker/js/evol-colorpicker.js"></script>
+    <!--bootstrap-->
+    <script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
+    <!--拼音-->
+    <script type="text/javascript" src="js/pinyin.js"></script>
+    <!--echart图表插件-->
+    <script type="text/javascript" src="js/echart/echarts.js"></script>
+    <script type="text/javascript" src="js/echart/guangdong.js"></script>
+    <!--bootstrap 文件上传-->
+    <script type="text/javascript" src="js/bootstrap/bootstrap-prettyfile.js"></script>
+    <!--checkbox/radio修饰-->
+    <script type="text/javascript" src="js/icheck/icheck.js"></script>
+    <!--loading加载-->
+    <script type="text/javascript" src="js/loading/loading.js"></script>
+    <!--sweetalert提示框-->
+    <script type="text/javascript" src="js/sweetalert/sweetalert-dev.js"></script>
+    <!--tip 错误操作提示框-->
+    <script type="text/javascript" src="js/tip.js"></script>
+    <!--时间插件-->
+    <script type="text/javascript" src="js/bootstrapDatetimepicker/moment-with-locales.js"></script>
+    <script type="text/javascript" src="js/bootstrapDatetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <!--bootstrap表格-->
+    <script type="text/javascript" src="js/bootstrapTable/bootstrap-table.js"></script>
+    <script type="text/javascript" src="js/bootstrapTable/locale/bootstrap-table-zh-CN.js"></script>
+    <script type="text/javascript" src="js/bootstrapTable/extensions/treegrid/bootstrap-table-treegrid.js"></script>
+    <script type="text/javascript" src="js/bootstrapTable/extensions/treegrid/jquery.treegrid.min.js"></script>
+    <!--验证插件-->
+    <script type="text/javascript" src="js/jQueryValidation/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/jQueryValidation/jquery.validate.messages_zh.js"></script>
+    <!--ztree树插件-->
+    <script type="text/javascript" src="js/ztree/js/jquery.ztree.core.js"></script>
+    <script type="text/javascript" src="js/ztree/js/jquery.ztree.exedit.js"></script>
+    <script type="text/javascript" src="js/ztree/js/jquery.ztree.excheck.js"></script>
+    <script type="text/javascript" src="js/ztree/js/jquery.ztree.exhide.js"></script>
+    <script type="text/javascript" src="js/ztree/js/ztree.search.js"></script>
+    <!--文件上传插件-->
+    <script src="js/fileinput/js/fileinput.js" type="text/javascript"></script>
+    <script src="js/fileinput/themes/explorer-fa/theme.js"></script>
+    <script src="js/fileinput/js/locales/zh.js" type="text/javascript"></script>
+    <!--大文件上传插件-->
+    <script type="text/javascript" src="js/xupload/webuploader.js"></script>
+    <script type="text/javascript" src="js/xupload/xuploadbox.js"></script>
+    <script type="text/javascript" src="js/xupload/xupload.js"></script>
+    <!--工具js-->
+    <script type="text/javascript" src="js/util.js"></script>
+    <!--业务通用js-->
+    <script type="text/javascript" src="js/rjtx.js"></script>
+    <!-- 拖拽插件js -->
+    <script type="text/javascript" src="js/xdrag-1.3.js"></script>
+    <script>
       var index = {
-        callback:null,
-        home:"page/home/home.html",  
-        menus:[],
-        init:async function(){
+        callback: null,
+        home: "page/home/home.html",
+        menus: [],
+        init: async function() {
           await this.initmenus();
           //路由注册
           this.hashUrl();
@@ -249,28 +242,45 @@
           //切换风格
           this.changeStyle();
         },
-        initmenus(){
+        initmenus() {
           let $this = this;
-          return  rj.ajax({
-            type:"get",
-            url:"js/data.js",
-            success(data){
+          return rj.ajax({
+            type: "get",
+            url: "js/data.js",
+            success(data) {
               data = data[0].menus;
               data = simpleToPS(data);
-              $this.menus = data;
+              $this.menus = sortAll(data)
+              function sortAll(data){
+                data = data.sort((a,b)=>{
+                  if(a.order===0||a.order){
+                    return a.order*1-b.order*1;
+                  }else{
+                    return 0;
+                  }
+                })
+                data.map((item,index)=>{
+                  if(item.children.length>0){
+                    item.children = sortAll(item.children);
+                  }
+                })
+                
+                return data;
+              }
               //获取html
               let html = $this.getHTML(data);
               $(".js_index_menus").html(html);
             }
           })
         },
-        getHTML(data){
-          let html="";
-          data.map((v,i)=>{
-             let temp="";
-             if(v.children.length>0){
-                temp =  this.getHTML(v.children);
-                html+=`<li>
+        getHTML(data) {
+          let html = "";
+          data.map((v, i) => {
+            let temp = "";
+            if (v.children.length > 0) {
+              temp = this.getHTML(v.children);
+              html +=
+                `<li>
                     <a href="javascript:;" class=" js_index_pItem js_index_noeItem"  data-index="${i}">
                       ${v.level<=1?`<i class="${v.icon} fa-fw "></i>`:""}
                       <span>${v.level>1?`<i class="${v.icon} fa-fw icstyle"></i>`:""}${v.name}</span>
@@ -278,276 +288,306 @@
                     </a>
                     ${temp}
                   </li>`
-             }else{
-               html+=`<li>
+            } else {
+              html +=
+                `<li>
                       <a href="javascript:;" class="js_index_sItem sub-item " data-src="${v.url}">
                         <span>${v.level>1?`<i class="${v.icon} fa-fw icstyle"></i>`:""}${v.name}</span>
                       </a>
                     </li>`
-             }
-           });
-           if(data[0].level==1){
-           }else{
-             html=`<ul class="sub_menu">${html}</ul>`
-           }
-           return html;
+            }
+          });
+          if (data[0].level == 1) {} else {
+            html = `<ul class="sub_menu">${html}</ul>`
+          }
+          return html;
         },
-        hashUrl(){
+        hashUrl() {
           let $this = this;
-          let run = function(){
-            let url = window.location.hash?window.location.hash.slice(1)+".html":$this.home;
-            if(url=="/.html"){
+          let run = function() {
+            let url = window.location.hash ? window.location.hash.slice(1) + ".html" : $this.home;
+            if (url == "/.html") {
               url = $this.home;
             }
             //默认页面设置
             //二级菜单构建
             $this.cssDeal(url);
-            rj.load(".js_index_content",url,$this.callback||null);
+            rj.load(".js_index_content", url, $this.callback || null);
           }
           run()
           window.onpopstate = run
         },
-        menusClick(){
+        menusClick() {
           let $this = this;
           //子点击
-          $(".js_index_menus").on("click",".js_index_sItem",function(e,fn){
-            let url = $(this).data("src")||"./doing.html";
+          $(".js_index_menus").on("click", ".js_index_sItem", function(e, fn) {
+            let url = $(this).data("src") || "doing.html";
             $this.jumpMenu(url);
           });
           //子中的父点击
-          $(".js_index_menus").on("click",".js_index_pItem",function(e,fn){
+          $(".js_index_menus").on("click", ".js_index_pItem", function(e, fn) {
             e.stopPropagation()
           });
           //一级菜单点击
-          $(".js_index_menus").on("click",".js_index_noeItem",function(e,fn){
+          $(".js_index_menus").on("click", ".js_index_noeItem", function(e, fn) {
             let src = $this.findurl($this.menus[$(this).data("index")].children);
             $this.changeSub(src);
-            $(".js_index_sItem").each(function(index,dom){
-              if($(dom).data("src")==src){
+            $(".js_index_sItem").each(function(index, dom) {
+              if ($(dom).data("src") == src) {
                 $(dom).trigger("click");
                 return false;
               }
             });
-            if($(".index_menus_sub").hasClass("min")){
+            if ($(".index_menus_sub").hasClass("min")) {
               $(".js_index_left_btn").trigger("click");
             }
             $(".index_menus_main").trigger("mouseleave");
             e.stopPropagation();
           });
         },
-        changeSub(url){
+        changeSub(url) {
           //二级菜单
           //找到当前url主页的父index
-            let pIndex = this.findP(url,this.menus);
-            //父的css
-            $(".js_menus_one>li>a").removeClass("active").eq(pIndex).addClass("active");
-            //子菜单加载的内容
-            let subChildren = this.menus[pIndex];
-            //获取html
-            let shtml = this.getHTML(subChildren.children);
-            //添加到页面 js_subTitle js_submenus
-            $(".js_subTitle").text(subChildren.name);
-            $(".js_submenus").html(shtml);
+          let pIndex = this.findP(url, this.menus);
+          //父的css
+          $(".js_menus_one>li>a").removeClass("active").eq(pIndex).addClass("active");
+          //子菜单加载的内容
+          let subChildren = this.menus[pIndex];
+          //获取html
+          let shtml = this.getHTML(subChildren.children);
+          //添加到页面 js_subTitle js_submenus
+          $(".js_subTitle").text(subChildren.name);
+          $(".js_submenus").html(shtml);
         },
-        findP(url,data,index){
+        findP(url, data, index) {
           let result;
-          for(let i=0,len=data.length;i<len;i++){
+          for (let i = 0, len = data.length; i < len; i++) {
             let v = data[i];
-            if(url==v.url){
-            return index;
+            if (url == v.url) {
+              return index;
             }
-            if(v.children.length>0){
-              if(v.level ==1){
-              result= this.findP(url,v.children,i);
-              }else{
-              result=this.findP(url,v.children,index);
+            if (v.children.length > 0) {
+              if (v.level == 1) {
+                result = this.findP(url, v.children, i);
+              } else {
+                result = this.findP(url, v.children, index);
               }
             }
-            if(result===0||result){
+            if (result === 0 || result) {
               return result;
             }
           }
         },
-         //找到第一个url
-        findurl(data){
-          for(let i=0,len=data.length;i<len;i++){
+        //找到第一个url
+        findurl(data) {
+          for (let i = 0, len = data.length; i < len; i++) {
             let v = data[i];
-            if(v.children.length>0){
+            if (v.children.length > 0) {
               return this.findurl(v.children);
             }
-            if(v.url&&v.children.length==0){
+            if (v.url && v.children.length == 0) {
               return v.url;
             }
           }
         },
-        jumpMenu(url,callback){
+        jumpMenu(url, callback) {
           let hash = "";
-          if(url){
-            if(url.lastIndexOf(".")!=-1){
-              url = url.slice(0,url.lastIndexOf("."));
-              hash=url;
+          if (url) {
+            if (url.lastIndexOf(".") != -1) {
+              url = url.slice(0, url.lastIndexOf("."));
+              hash = url;
             }
           }
-          this.callback = callback||this.callback;
-          window.location.hash = "#"+hash;
+          this.callback = callback || this.callback;
+          window.location.hash = "#" + hash;
         },
-        cssDeal(url){
-          $(".js_index_sItem").each(function(index,dom){
-            if($(dom).data("src")==url){
+        cssDeal(url) {
+          $(".js_index_sItem").each(function(index, dom) {
+            if ($(dom).data("src") == url) {
               //css
               $(".js_index_sItem").removeClass("active")
               $(dom).addClass("active");
               //滚动到看的见的位置
               dom.scrollIntoView(false);
-            //让他的每个父都是打开的.closed
-            $(dom).parents("li").find(">.js_index_pItem").find(".js_index_caret").each(function(index,dom){
-              if($(dom).hasClass("closed")){
-                $(dom).trigger("click");
-              }
-            });
+              //让他的每个父都是打开的.closed
+              $(dom).parents("li").find(">.js_index_pItem").find(".js_index_caret").each(function(index, dom) {
+                if ($(dom).hasClass("closed")) {
+                  $(dom).trigger("click");
+                }
+              });
               return false;
             }
           });
         },
-        searchEvent(){
-            $(".js_sug_input").on("focus",function(){
-              $(".js_suggestion").slideDown("fast");
-              $(".js_suggestion li").show().removeClass("active");
-            });
+        searchEvent() {
+          $(".js_sug_input").on("focus", function() {
+            $(".js_suggestion").slideDown("fast");
+            $(".js_suggestion li").show().removeClass("active");
+          });
           //显示隐藏
-              $(".js_sug_input").on("input",function(){
-                $(".js_suggestion").slideDown("fast");
-                let val = $(this).val().toLowerCase();
-                $(".js_suggestion li").show().removeClass("active");
-                $(".js_suggestion li").each(function(index,dom){
-                  if($(dom).text().indexOf(val)==-1&&$(dom).data("pinyin").indexOf(val)==-1){
-                    $(dom).hide();
+          $(".js_sug_input").on("input", function() {
+            $(".js_suggestion").slideDown("fast");
+            let val = $(this).val().toLowerCase();
+            $(".js_suggestion li").show().removeClass("active");
+            $(".js_suggestion li").each(function(index, dom) {
+              if ($(dom).text().indexOf(val) == -1 && $(dom).data("pinyin").indexOf(val) == -1) {
+                $(dom).hide();
+              }
+            });
+          });
+          //点击其他位置隐藏
+          $(window).on("click", function(e) {
+            if (!($(e.target).closest(".index_search").length > 0)) {
+              $(".js_suggestion").hide();
+            }
+          });
+          //li点击
+          $(".js_suggestion").on("click", "li", function() {
+            //$(this).find("a").trigger("click");
+            window.location.hash = $(this).find("a").attr("href");
+            $(".js_suggestion").slideUp("fast");
+            $(".js_sug_input").val("").blur();;
+          });
+          //键盘事件
+          $(".js_sug_input").on("keydown", function(e) {
+            let activeLiDom = $(".js_suggestion li.active");
+            //enter
+            if (e.keyCode == 13) {
+              activeLiDom.trigger("click");
+            }
+            //上
+            if (e.keyCode == 38) {
+              e.preventDefault();
+              if (activeLiDom.length >= 1) {
+                let activeIndex = activeLiDom.index();
+                activeLiDom.removeClass("active");
+                for (let i = $(".js_suggestion li").length - 1; i >= 0; i--) {
+                  let dom = $(".js_suggestion li").eq(i);
+                  if (i < activeIndex && dom.not(":hidden").length > 0) {
+                    dom.addClass("active");
+                    $(".js_sug_input").val(dom.text().trim());
+                    //滚动条
+                    let top = $(dom).position().top
+                    let winT = $(".js_suggestion").outerHeight();
+                    if (top < 0) {
+                      $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop() - dom.outerHeight());
+                    }
+                    break;
+                  }
+                }
+              } else {
+                let lastDom = $(".js_suggestion li:not(:hidden):last");
+                let top = lastDom.position().top + lastDom.outerHeight();
+                let winT = $(".js_suggestion").outerHeight();
+                $(".js_suggestion li:not(:hidden):last").addClass("active");
+                if (top > winT) {
+                  $(".js_suggestion").scrollTop(top - winT);
+                }
+              }
+            }
+            //下
+            if (e.keyCode == 40) {
+              if (activeLiDom.length >= 1) {
+                let activeIndex = activeLiDom.index();
+                activeLiDom.removeClass("active");
+                $(".js_suggestion li").each(function(index, dom) {
+                  if (index > activeIndex && $(dom).not(":hidden").length > 0) {
+                    $(dom).addClass("active");
+                    $(".js_sug_input").val($(dom).text().trim());
+                    //滚动条
+                    let top = $(dom).position().top + $(dom).outerHeight();
+                    let winT = $(".js_suggestion").outerHeight();
+                    if ((top - winT) >= 0) {
+                      $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop() + $(dom).outerHeight());
+                    }
+                    return false;
                   }
                 });
-              });
-              //点击其他位置隐藏
-              $(window).on("click",function(e){
-                if(!($(e.target).closest(".index_search").length>0)){
-                  $(".js_suggestion").hide();
-                }
-              });
-              //li点击
-              $(".js_suggestion").on("click","li",function(){
-                //$(this).find("a").trigger("click");
-                window.location.hash = $(this).find("a").attr("href");
-                $(".js_suggestion").slideUp("fast");
-                $(".js_sug_input").val("").blur();;
-              });
-              //键盘事件
-              $(".js_sug_input").on("keydown",function(e){
-                let activeLiDom = $(".js_suggestion li.active");
-                //enter
-                if(e.keyCode == 13){
-                activeLiDom.trigger("click");
-                }
-                //上
-                if(e.keyCode == 38){
-                  e.preventDefault();
-                  if(activeLiDom.length>=1){
-                    let activeIndex = activeLiDom.index();
-                    activeLiDom.removeClass("active");
-                    for(let i=$(".js_suggestion li").length-1;i>=0;i--){
-                      let dom =$(".js_suggestion li").eq(i);
-                      if(i<activeIndex&&dom.not(":hidden").length>0){
-                        dom.addClass("active");
-                        $(".js_sug_input").val(dom.text().trim());
-                        //滚动条
-                        let top = $(dom).position().top
-                        let winT = $(".js_suggestion").outerHeight();
-                        if(top<0){
-                          $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop()-dom.outerHeight());
-                        }
-                        break;
-                      }
-                    }
-                  }else{
-                    let lastDom = $(".js_suggestion li:not(:hidden):last");
-                    let top = lastDom.position().top+lastDom.outerHeight();
-                    let winT = $(".js_suggestion").outerHeight();
-                    $(".js_suggestion li:not(:hidden):last").addClass("active");
-                    if(top>winT){
-                      $(".js_suggestion").scrollTop(top-winT);
-                    }
-                  }
-                }
-                //下
-                if(e.keyCode == 40){
-                  if(activeLiDom.length>=1){
-                    let activeIndex = activeLiDom.index();
-                    activeLiDom.removeClass("active");
-                    $(".js_suggestion li").each(function(index,dom){
-                      if(index>activeIndex&&$(dom).not(":hidden").length>0){
-                        $(dom).addClass("active");
-                        $(".js_sug_input").val($(dom).text().trim());
-                        //滚动条
-                        let top = $(dom).position().top+$(dom).outerHeight();
-                        let winT = $(".js_suggestion").outerHeight();
-                        if((top-winT)>=0){
-                          $(".js_suggestion").scrollTop($(".js_suggestion").scrollTop()+$(dom).outerHeight());
-                        }
-                        return false;
-                      }
-                    });
-                  }else{
-                    $(".js_suggestion li:not(:hidden):first").addClass("active");
-                    $(".js_suggestion").scrollTop(0);
-                  }
-                }
-              });
+              } else {
+                $(".js_suggestion li:not(:hidden):first").addClass("active");
+                $(".js_suggestion").scrollTop(0);
+              }
+            }
+          });
         },
-        initsearch(){
+        initsearch() {
           let data = [];
           //拿到所有子菜单作为搜索源数据
           data = getdata(this.menus);
           let lisStr = "";
-          for(let li of data){
+          for (let li of data) {
             let hash = "#";
-            if(li.url.lastIndexOf(".")!=-1){
-                hash += li.url.slice(0,li.url.lastIndexOf("."));
-              }
-            lisStr+=` <li data-pinyin="${xa_pinyin.getCamelChars(li.name).toLowerCase()}"><a href="${hash}">${li.name}</a></li>`
+            if (li.url.lastIndexOf(".") != -1) {
+              hash += li.url.slice(0, li.url.lastIndexOf("."));
+            }
+            lisStr +=
+              ` <li data-pinyin="${xa_pinyin.getCamelChars(li.name).toLowerCase()}"><a href="${hash}">${li.name}</a></li>`
           }
           $(".js_suggestion").html(lisStr);
-          function getdata(data,arr =[]){
-            for(let v of data){
-              if(v.children.length == 0){
+
+          function getdata(data, arr = []) {
+            for (let v of data) {
+              if (v.children.length == 0) {
                 arr.push(v)
-              }else{
-                getdata(v.children,arr);
+              } else {
+                getdata(v.children, arr);
               }
             }
             return arr;
           }
         },
-        changeStyle(){
-        $(".js_changeStyle").click(function(){
-          rj.modal("风格切换", 
-            "./changeStyle.html",
-            function() {
-              //加载完成的回调
-              $("#changeStyle").find("input[name='style']").eq(2).prop("checked",true)
-              rj.resetPlug();
-            },
-            function() {
-              //确定按钮的回调 
-              let data = rj.form.get($("#changeStyle")[0]);
-              localStorage.rj_style=data.style;
-              let src = {bp:"",cd:1,al:2,ct:3};
-              window.location.href = `./index${src[data.style]}.html`
-            },
-            function() {
-              //取消按钮的回调
-            }
-          );
-        });
-      },
+        changeStyle() {
+          //color
+          let color = localStorage.rj_color;
+          $(".js_skin").addClass(color);
+          $(".js_changeStyle").click(function() {
+            rj.modal("风格切换",
+              "./changeStyle.html",
+              function() {
+                //加载完成的回调
+                //主题
+                let style = localStorage.rj_style;
+                if (style) {
+                  $("#changeStyle").find(`input[name='style'][value=${style}]`).prop("checked", true);
+                } else {
+                  $("#changeStyle").find(`input[name='style']`).eq(0).prop("checked", true);
+                }
+                //色调
+                let color = localStorage.rj_color;
+                if (color) {
+                  $("#changeStyle").find(`input[name='color'][value=${color}]`).prop("checked", true);
+                } else {
+                  $("#changeStyle").find(`input[name='color']`).eq(0).prop("checked", true);
+                }
+                rj.resetPlug();
+                //监听
+                $("#changeStyle").find(`input[name='color']`).on('ifChecked', function(event) {
+                  let color = $(this).val();
+                  $(".js_skin").removeClass("nomal blue white").addClass(color);
+                });
+
+              },
+              function() {
+                //确定按钮的回调
+                let data = rj.form.get($("#changeStyle")[0]);
+                localStorage.rj_style = data.style;
+                localStorage.rj_color = data.color;
+                let src = {
+                  bp: "",
+                  cd: 1,
+                  al: 2,
+                  ct: 3
+                };
+                window.location.href = `./index${src[data.style]}.html`
+              },
+              function() {
+                //取消按钮的回调
+              }
+            );
+          });
+        }
       };
       index.init()
-		</script>
-	</body>
+    </script>
+  </body>
 </html>

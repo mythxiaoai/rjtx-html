@@ -161,8 +161,8 @@
   提示合并成功
 </pre>
     <script>
-      //http://localhost:9016/uploadFile  因为怕后期要改  也部署在一台服务器上 换个端口就可以访问
-      let url = location.origin.slice(0,-5)+":9016/uploadFile";
+      //http://localhost:7302/uploadFile  因为怕后期要改  也部署在一台服务器上 换个端口就可以访问
+      let url = location.origin.slice(0,-5)+":7302/uploadFile";
       $("#js_xupload2").data("server",url);
       //整体是load  所以需要调用这个静态方法  让data-形式的初始化生效
       Xupload.autorun();
