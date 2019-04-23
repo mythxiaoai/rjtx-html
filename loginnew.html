@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0">
+    <title> 登录</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="js/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="js/bootstrap/bootstrapfiller.css" />
+    <link rel="stylesheet" href="fonts/font-awesome.min.css"/>
+    <link rel="stylesheet" href="js/slider/jquery.slider.css"/>
+    <link rel="stylesheet" href="js/sweetalert/sweetalert.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="fonts/iconfont.css">
+
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>if(window.top !== window.self){ window.top.location = window.location;}
+    function IEVersion() {
+        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+        var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器
+        var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器
+        var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+        if(isIE) {
+            var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+            reIE.test(userAgent);
+            var fIEVersion = parseFloat(RegExp["$1"]);
+            if(fIEVersion == 7) {
+                return 7;
+            } else if(fIEVersion == 8) {
+                return 8;
+            } else if(fIEVersion == 9) {
+                return 9;
+            } else if(fIEVersion == 10) {
+                return 10;
+            } else {
+                return 6;//IE版本<=7
+            }
+        } else if(isEdge) {
+            return 'edge';//edge
+        } else if(isIE11) {
+            return 11; //IE11
+        }else{
+            return -1;//不是ie浏览器
+        }
+    }
+    </script>
+    <style>
+        body{word-wrap: break-word;;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;min-width: 960px;}
+        .floor-img{position:fixed;width:120%;height:120%;background-color:#1454CF;background:url(img/logo-bg.jpg) no-repeat;background-position: center bottom;background-size: cover; background-attachment:fixed;z-index:-1;}/*-webkit-filter:blur(2px);-moz-filter:blur(2px);-ms-filter:blur(2px);filter:blur(2px);*/
+        .mbox{position:absolute;width:350px;top:20vh;left:0;right:0;margin:0 auto;background-color:rgba(255,255,252,0.3);padding:30px 15px;border-radius:3px;}
+        .system-mark{width:321px;height:40px;position:relative;margin-bottom: 15px;}
+        .system-mark .fontstyle {height:40px}
+        .system-mark .fontstyle>div{float: left;}
+        .system-mark .fontstyle .imgstyle{height:30px;width:30px;background:url(img/logo.png) no-repeat;background-size:cover;position: relative;top: 5px; margin-right: 14px;}
+        .system-mark .fontstyle .rightspan{font-size:22px;font-weight:600;height:40px;line-height:40px;color:#fff;}/*letter-spacing: 3px;*/
+        .form-group{position:relative;}
+        .form-control{background-color:rgba(255,255,255,0.4);border-color:#fff;color:#777;padding-right:34px;}
+        .form-control:focus{border-color:#e5e6e7!important;color:#fff;background-color:rgba(0,0,0,0.3)}
+        .ui-slider-wrap{background-color:transparent!important;outline:1px solid #fff;}
+        .ui-slider-wrap .ui-slider-btn{border:none;}
+        .ui-slider-bg{background-color:rgba(122,194,60,0.5)!important;}
+        .subBtn{width:100%;outline:none;border:1px solid #fff;border-radius:1px;color:#fff;text-shadow:1px 1px 3px #aaa;font-weight:600;display:block;padding:6px 12px;transition:all 0.75s;width:100%;font-size:14px;box-shadow:none;background-color:transparent;}
+        .subBtn:hover{background-color:rgba(0,0,0,0.2);}
+        .icon-p{position:absolute;color:#39aef5;right:0;top:0;height:34px;width:34px;line-height:34px;text-align:center;}
+        .footer{height:30px;width:100%;position:absolute;left:0;bottom:0;}
+        .copy{color:rgba(255,255,255,0.8);line-height:30px;text-align:center;}
+        .icon-bg{color: #fff;position: relative;top: 4px;margin-right: 9px;float: left;font-size: 30px;}
+        /*
+         *更新记录
+         */
+        .panel{background:rgba(255,255,255,.2);}
+        .panel-title{border-left-color:rgba(255,255,255,.5);color:#fff;white-space: inherit;}
+        .panel-body .panel-body{color:#fff;text-shadow: 1px 1px #333;}
+        .panel-default > .panel-heading{background: rgba(255,255,255,.2)}
+        ol{list-style:decimal;padding-left:40px;font-size:13px;}
+        .panel-body {background-color: transparent;}
+        /*极验验证CSS*/
+        .geetest_panel_footer{display: none!important}
+        .geetest_wind.geetest_panel .geetest_panel_box.geetest_panelshowslide{
+            height: 240px!important;
+        }
+        .geetest_panel{display: none;}
+
+    </style>
+</head>
+<body id="mybody" class="p-absolute">
+<input type="hidden" value="71754E4154114EF882C92FCFDC7DE0E1" />
+<div class="floor-img"></div>
+<div class="mbox animated fadeInDown">
+    <div class="system-mark">
+        <div class="fontstyle">
+            <!-- <div class="imgstyle"></div> -->
+            <i class="iconfont icon-bg icon-logo"></i>
+            <div class="rightspan">智能网优作业管理系统</div>
+        </div>
+    </div>
+    <form method="post" class="login-form m-b-lg" role="form" action="/login.do">
+        <div class="form-group">
+            <input type="text" name="userName" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="用户名">
+            <i class="fa fa-user icon-p"></i>
+        </div>
+        <div class="form-group">
+            <input type="password" name="password" class="form-control " autocomplete="off" placeholder="密码">
+            <i class="fa fa-lock icon-p"></i>
+        </div>
+        <div class="form-group">
+            <input id="geetest_challenge" type="hidden" name="geetest_challenge" class="form-control " autocomplete="off" placeholder="geetest_challenge">
+            <i class="fa fa-lock icon-p"></i>
+        </div>
+        <div class="form-group">
+            <input id="geetest_validate" type="hidden" name="geetest_validate" class="form-control " autocomplete="off" placeholder="geetest_validate">
+            <i class="fa fa-lock icon-p"></i>
+        </div>
+        <div class="form-group">
+            <input id="geetest_seccode" type="hidden" name="geetest_seccode" class="form-control " autocomplete="off" placeholder="geetest_seccode">
+            <i class="fa fa-lock icon-p"></i>
+        </div>
+        <div class="form-group">
+            <font class="text-danger text-shadow">
+                <p id="tips" th:text="${msg}"></p>
+            </font>
+        </div>
+        <!-- <button type="submit" class="subBtn">登 录</button>-->
+        <input id="subBtnId" class="subBtn" type="submit" value="登 录" />
+    </form>
+    <!-- <div class="footer">
+        <div class="copy text-center">
+            &copy;2017-2019 润建通信股份有限公司 版权所有
+        </div>
+    </div> -->
+</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
+<script type="text/javascript" src="js/tip.js"></script>
+<!--工具js-->
+<script type="text/javascript" src="js/util.js"></script>
+<!--业务通用js-->
+<script type="text/javascript" src="js/slider/jquery.slider.min.js"></script>
+<script type="text/javascript" src="js/sweetalert/sweetalert.min.js"></script>
+<script type="text/javascript" src="js/jQueryValidation/jquery.validate.js" ></script>
+<script type="text/javascript" src="js/jQueryValidation/jquery.validate.messages_zh.js"></script>
+<script type="text/javascript" src="js/gt.js"></script>
+<!-- <script>
+    if(IEVersion()>-1){
+        swal({
+            title:"提示",
+            text:'<p> 抱歉~,此网页不支持IE浏览器<p/>'+
+                '<p>推荐使用谷歌浏览器~ <a href="/web/download.do?filename=70.0.3538.67_chrome_installer.exe" class="btn btn-link btn-sm m-b-xs m-t-xs">点击下载</a><p/>',
+            type:"warning",
+            html:true
+        });
+    }
+</script>
+<script type="text/javascript" src="js/rjtx.js"></script>
+<script type="text/javascript">
+    let login ={
+        init(){
+            this.initEnter();
+            this.register();
+        },
+        initEnter(){
+            $(document).keydown(function(e) {
+                if(e.keyCode == 13) {
+                    $("form").trigger("submit");
+                }
+            });
+        },
+        register(){
+            let $this =this;
+            rj.ajax({
+                url:"/gt/register-slide",
+                type:"get",
+                dataType: "json",
+                success:function(data){
+                    $this.initGeetest(data);
+                }
+            });
+        },
+        initGeetest(data){
+            // 调用 initGeetest 进行初始化
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+            initGeetest({
+                // 以下 4 个配置参数为必须，不能缺少
+                gt: data.gt,
+                challenge: data.challenge,
+                offline: !data.success, // 表示用户后台检测极验服务器是否宕机
+                new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+                product: "bind", // 产品形式，包括：float，popup
+                width: "300px",
+                https: true
+                // 更多配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
+            }, this.handler.bind(this));
+
+        },
+        handler(captchaObj){
+            let $this =this;
+            // 调用之前先通过前端表单校验
+            this.formCheck(captchaObj);
+            captchaObj.onReady(function () {
+                $("#wait").hide();
+            }).onSuccess(function () {
+                var result = captchaObj.getValidate();
+                $(".subBtn").text("登陆中...");
+                $("#geetest_challenge").val(result.geetest_challenge);
+                $("#geetest_validate").val(result.geetest_validate);
+                $("#geetest_seccode").val(result.geetest_seccode);
+                $("form")[0].submit()
+            });
+        },
+        formCheck(captchaObj){
+            let $this = this;
+            $("form").validate({
+                rules: {
+                    userName: {
+                        required: true
+                    },
+                    password: {
+                        required: true
+                    },
+                },
+                messages: {
+                    userName : {
+                        required:v_icon+"请输入用户名~"
+                    },
+                    password : {
+                        required:v_icon+"请输入密码~"
+                    }
+                },
+                submitHandler(){
+                    captchaObj.verify();
+                }
+            });
+        }
+    }
+    login.init();
+</script> -->
+</body>
+
+</html>
