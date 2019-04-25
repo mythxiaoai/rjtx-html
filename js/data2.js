@@ -107,6 +107,13 @@
                 "pid": "4" 
             },
             {
+                "id": "41",
+                "name": "按钮",
+                "url": "plug/ui/button.html",
+                "icon": "iconfont icon-dengji",
+                "pid": "4" 
+            },
+            {
                 "id": "6",
                 "name": "表格",
                 "url": "",
