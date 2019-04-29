@@ -78,7 +78,7 @@
                 "url": "",
                 "icon": "iconfont icon-shezhi",
                 "pid": "",
-                "order":"40"
+                "order":"50"
             },
             {
                 "id": "23",
@@ -107,6 +107,21 @@
                 "url": "page/sys/dept/dept.html",
                 "icon": "iconfont icon-OA_shujukuguanli",
                 "pid": "20"
+            },
+            {
+                "id": "30",
+                "name": "专项作业",
+                "url": "",
+                "icon": "iconfont icon-nav2-1",
+                "pid": "",
+                "order":"40"
+            },
+            {
+                "id": "30",
+                "name": "任务信息库",
+                "url": "page/task/jobmanager/informationbase.html",
+                "icon": "iconfont icon-nav2-1",
+                "pid": "30"
             }
         ],
         "auth": {}
