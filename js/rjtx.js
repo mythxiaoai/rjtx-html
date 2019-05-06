@@ -1382,7 +1382,8 @@ rj.form.get($("#addOrUpdate")[0]);
 		util:{
 		  // init(){
 		    
-		  // },
+			// },
+			//转义字符
 		  pre(str){
         return str.replace(/[<>"&]/g,function(val,index,allText){
           switch(val){
@@ -1396,7 +1397,12 @@ rj.form.get($("#addOrUpdate")[0]);
               return "&amp;";
           }
         });
-      }
+			},
+			//反转
+			repre(str){
+				var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'}; 
+				return str.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];}); 
+			}
 		}
 	};
 	rjtx.init();

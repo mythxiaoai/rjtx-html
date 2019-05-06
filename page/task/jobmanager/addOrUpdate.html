@@ -193,9 +193,14 @@
             this.time();
         },
         editor(){
-            //富文本编辑
             var E = window.wangEditor;
             var editor = new E('#editor');
+            editor.customConfig.onchange = function (html) {
+                // html 即变化之后的内容
+                $("#editor1").val(rj.util.pre(html));
+                console.log($("#editor1").val())
+                console.log(rj.util.repre($("#editor1").val()))
+            }
             editor.create();
             //是否申请物资
             $("#goodstype").change(function () {  
@@ -209,8 +214,9 @@
             })
         },
         addTask(){
-            console.log("q");
+            console.log("q"); //富文本编辑
             
+            //富文本编辑
             $("#addTaskdata").validate({
                 rules:{
                     taskname:{required: true,digits: true},
@@ -225,12 +231,10 @@
                     province:{required: true},
                     city:{required: true},
                     area:{required: true},
-                    editor:{required: true}
+                    editor1:{required: true}
                 },
                 messages: {},
                 submitHandler: function(){
-                    console.log(1)
-                    console.log($("#editor").text())
                      var data = rj.form.get($("#addTaskdata")[0]);
                      console.log(data)
                 }
