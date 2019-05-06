@@ -224,6 +224,7 @@
                 // html 即变化之后的内容
                 $("#editor1").val(rj.util.pre(html));
                 console.log($("#editor1").val())
+                //反转转义
                 console.log(rj.util.repre($("#editor1").val()))
             }
             editor.create();
@@ -239,7 +240,6 @@
             })
         },
         addTask(){
-            console.log("q"); //富文本编辑
             //富文本编辑
             $("#addTaskdata").validate({
                 rules:{
