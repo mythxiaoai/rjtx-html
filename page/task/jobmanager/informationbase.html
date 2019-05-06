@@ -38,20 +38,31 @@
                             <li class="active"><a href="#tasktab1" data-toggle="tab">新增任务</a></li>
                             <li><a href="#tasktab2" data-toggle="tab">审核任务</a></li>
                             <li><a href="#tasktab3" data-toggle="tab">评审任务</a></li>
+                            <li><a href="#tasktab4" data-toggle="tab">评审任务</a></li>
                         </ul>
                         <div class="tab-content">
-                            <button onclick="information.addOrUpdate('新增任务')" type="button" class="btn btn-default  m-t btn-md"><i class="iconfont icon-add"></i> 新增</button>
-                            
-                            <div class="form-group m-b-xs  m-t pull-right">
-                                <button type="button" class="btn btn-default m-r">任务模板下载
-                                    <i class="iconfont icon-xiazai"></i> 
-                                </button>
-                                <button type="button" class="btn btn-default">上传任务
-                                    <i class="iconfont icon-shangchuan "></i> 
-                                </button>
-                            </div>
                             <div class="tab-pane fade in active" id="tasktab1">
+                                <button onclick="information.addOrUpdate('新增任务')" type="button" class="btn btn-default  m-t btn-md"><i class="iconfont icon-add"></i> 新增</button>
+                                <div class="form-group m-b-xs  m-t pull-right">
+                                    <button type="button" class="btn btn-default m-r ">任务模板下载
+                                        <i class="iconfont icon-xiazai"></i> 
+                                    </button>
+                                    <button type="button" class="btn btn-default js_taskImport">上传任务
+                                        <i class="iconfont icon-shangchuan "></i> 
+                                    </button>
+                                </div>
                                 <table id="table1"></table>
+                            </div>
+                            <div class="tab-pane fade" id="tasktab2">
+                                <button type="button" class="btn btn-default  m-t btn-md">批量审核</button>
+                                <table id="table2"></table>
+                            </div>
+                            <div class="tab-pane fade" id="tasktab3">
+                                <table id="table3"></table>
+                            </div>
+                            <div class="tab-pane fade" id="tasktab4">
+                                <button type="button" class="btn btn-default  m-t btn-md">批量评审</button>
+                                <table id="table4"></table>
                             </div>
                         </div>
                     </div>
@@ -65,10 +76,42 @@
     var information = {
         init(){
             this.tab1_table();
+            this.tab2_table();
+            this.tab3_table();
+            this.tab4_table();
+            this.taskUpdate();
         },
         addOrUpdate(title,id){
             //新增 page/task/jobmanager/addOrUpdate.html
             rj.load(".js_info_content","page/task/jobmanager/addOrUpdate.html");
+        },
+        taskUpdate(){
+            //上传任务
+            $(".js_taskImport").click(()=>{
+                rj.modal("上传任务","./page/task/jobmanager/importTask.html",
+                    ()=>{
+                        rj.resetPlug();
+                    },
+                    $("#imporTask").validate({
+                        rules: {
+				            input1: {
+				                required: true
+				            },
+				            file: {
+				                required: true
+				            },
+				        },
+				        messages: {
+				             file: {
+				                required:v_icon+"请选择上传的文件~"
+				            }
+				        },
+                        submitHandler: function (){
+                            //获取form表单的数据
+                        }
+                    })
+                )
+            })
         },
         tab1_table(){
             rj.table.init({
@@ -189,7 +232,243 @@
                         }
 					}
                 ]
-            })
+            });
+        },
+        tab2_table(){
+            rj.table.init({
+                id:"#table2",
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 10, // 每页显示条数  
+                data: [
+                    {
+                       "id":0,
+                       "name": "1",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "integral": 10,
+                       "auditresu": 1
+                    }
+                    
+                ],
+                columns: [
+                    {
+						checkbox: true 
+					},
+                    {
+						field: 'id',
+                        title: 'id',
+                        sortable:true
+                    },
+                    {
+						field: 'name',
+						title: '任务名称',
+                        sortable:true
+                    },
+                    {
+						field: 'attribute',
+						title: '任务属性',
+                        sortable:true
+                    },
+                    {
+						field: 'type',
+						title: '任务类型',
+                        sortable:true
+                    },
+                    {
+						field: 'limittime',
+						title: '处理时限',
+                        sortable:true
+                    },
+                    {
+						field: 'createtime',
+						title: '创建时间',
+                        sortable:true
+                    },
+                    {
+						field: 'integral',
+						title: '积分任务',
+                        sortable:true
+                    },
+                    {
+						field: 'auditresu',
+						title: '审核结果',
+                        sortable:true,
+                        formatter: function(value,row,index) {
+                            if(value == 0){
+                                return `<span class="text-success">通过</span>`
+                            }else{
+                                return `<span class="text-danger">不通过</span>`
+                            }
+                        }
+					}
+                ]
+            });
+        },
+        tab3_table(){
+            rj.table.init({
+                id:"#table3",
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 10, // 每页显示条数  
+                data: [
+                    {
+                       "id":0,
+                       "name": "rwerwer",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "integral": 10,
+                       "auditresu": 1
+                    },
+                    {
+                       "id":1,
+                       "name": "阿打算打算打算多",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "integral": 10,
+                       "auditresu": 0
+                    },
+                    {
+                       "id":2,
+                       "name": "每日指标通报",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "integral": 10,
+                       "auditresu": 0
+                    }
+                    
+                ],
+                columns: [
+                    {
+						field: 'id',
+                        title: 'id',
+                        sortable:true
+                    },
+                    {
+						field: 'name',
+						title: '任务名称',
+                        sortable:true
+                    },
+                    {
+						field: 'attribute',
+						title: '任务属性',
+                        sortable:true
+                    },
+                    {
+						field: 'type',
+						title: '任务类型',
+                        sortable:true
+                    },
+                    {
+						field: 'limittime',
+						title: '处理时限',
+                        sortable:true
+                    },
+                    {
+						field: 'createtime',
+						title: '创建时间',
+                        sortable:true
+                    },
+                    {
+						field: 'integral',
+						title: '积分任务',
+                        sortable:true
+                    },
+                    {
+						field: 'auditresu',
+						title: '审核结果',
+                        sortable:true,
+                        formatter: function(value,row,index) {
+                            if(value == 0){
+                                return `<span class="text-success">通过</span>`
+                            }else{
+                                return `<span class="text-danger">不通过</span>`
+                            }
+                        }
+					}
+                ]
+            });
+        },
+        tab4_table(){
+            rj.table.init({
+                id:"#table4",
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 10, // 每页显示条数  
+                data: [
+                    {
+                       "id":0,
+                       "name": "test2",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "integral": 10,
+                       "auditresu": 1
+                    }
+                    
+                ],
+                columns: [
+                    {
+						field: 'id',
+                        title: 'id',
+                        sortable:true
+                    },
+                    {
+						field: 'name',
+						title: '任务名称',
+                        sortable:true
+                    },
+                    {
+						field: 'attribute',
+						title: '任务属性',
+                        sortable:true
+                    },
+                    {
+						field: 'type',
+						title: '任务类型',
+                        sortable:true
+                    },
+                    {
+						field: 'limittime',
+						title: '处理时限',
+                        sortable:true
+                    },
+                    {
+						field: 'createtime',
+						title: '创建时间',
+                        sortable:true
+                    },
+                    {
+						field: 'integral',
+						title: '积分任务',
+                        sortable:true
+                    },
+                    {
+						field: 'auditresu',
+						title: '审核结果',
+                        sortable:true,
+                        formatter: function(value,row,index) {
+                            if(value == 0){
+                                return `<span class="text-success">通过</span>`
+                            }else{
+                                return `<span class="text-danger">不通过</span>`
+                            }
+                        }
+					}
+                ]
+            });
         }
     };
     information.init();
