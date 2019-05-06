@@ -8,50 +8,23 @@
         </div>
     </div>
     <div class="panel-body">
-        <form id="addOrupdate" class="form-horizontal">
+        <form id="addTaskdata" class="form-horizontal">
             <div class="col-md-6" >
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="">任务名称</label>
                     <div class="col-md-5">
-                        <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入任务名称" name="input1">
+                        <input type="text"  name="taskname" class="form-control" placeholder="请输入任务名称" name="input1">
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">任务类型</label>
                     <div class="col-md-3">
-                        <select class="form-control " name="type">
+                        <select class="form-control " name="tasktype">
                             <option value="">--请选择--</option>
                             <option value="1">打卡上刊登</option>
                             <option value="2">康师傅扣水电</option>
                         </select>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">位置信息</label>
-                    <div class="col-md-9 ">
-                        <div class="col-md-5" style="padding-left:0">
-                            <select class="form-control" name="areacity">
-                                <option value="">--请选择市--</option>
-                                <option value="1">广州市</option>
-                                <option value="2">深圳市</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <select class="form-control" name="areacontry">
-                                <option value="">请选择区/镇/县</option>
-                                <option value="1">白云区</option>
-                                <option value="2">天河区</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">详细位置</label>
-                    <div class="col-md-7">
-                        <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="经度" name="input1">
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -76,11 +49,34 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">是否申请物资</label>
                     <div class="col-md-3">
-                        <select class="form-control" name="type">
-                            <option value="">--请选择--</option>
+                        <select class="form-control" name="goodstype" id="goodstype">
                             <option value="1">是</option>
                             <option value="2" selected>否</option>
                         </select>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">位置信息</label>
+                    <div class="col-md-9 ">
+                        <div class="col-md-4" style="padding-left:0">
+                            <select class="form-control" name="province" id="province">
+                                <option value="">省份</option>
+                                <option value="1">广东省</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="city" id="city">
+                                <option value="">地级市</option>
+                                <option value="1">广州市</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="area" id="area">
+                                <option value="">市、县级市、县</option>
+                                <option value="1">天河区</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -90,7 +86,7 @@
                     <label class="col-md-3 control-label">任务属性</label>
                     <div class="col-md-5">
                         <select class="form-control " name="taskcontri">
-                            <option value="">--请选择--</option>
+                            <option value="">请选择指派对象</option>
                             <option value="1">实施任务</option>
                             <option value="2">限时任务</option>
                         </select>
@@ -100,33 +96,29 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label ">领取超时时间</label>
                     <div class="col-md-6">
-                        <input class="form-control js_receviet fz12" placeholder="请选择月份"/>
+                        <input class="form-control js_time fz12" placeholder="请选择月份" name="relasetime"/>
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group"> 
                     <label class="col-md-3 control-label ">任务超时时间</label>
                     <div class="col-md-6">
-                        <input class="form-control js_limitet fz12" placeholder="请选择月份"/>
+                        <input class="form-control js_time fz12" placeholder="请选择月份" name="overtime"/>
                     </div>
                 </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">获取经纬度</label>
-                    <div class="col-md-9">
-                        <div class="col-md-3" style="padding-left:0">
-                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="经度" name="input1">
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="纬度" name="input1">
-                        </div>
-                    </div>
-                </div>
+
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="">任务积分</label>
                     <div class="col-md-5">
-                        <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入任务名称" name="input1">
+                        <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入任务名称" name="ingetral">
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">物资信息</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="请输入物资信息" name="information" id="information" disabled>
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -141,10 +133,29 @@
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
+            </div>
+            <div class="col-md-12">
                 <div class="form-group">
-                    <label class="control-label col-md-3">物资信息</label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control" placeholder="请输入物资信息" name="information">
+                    <label class="col-md-1 control-label" style="margin-left: 50px;">详细位置</label>
+                    <div class="col-md-7">
+                        <div class="col-md-6 " style="padding-left: 0px;">
+                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="详细地址" name="infoadd" id="infoadd">
+                        </div>
+                        <div class="col-md-3 m-b">
+                            <a class="btn btn-default btn-sm js_map"><i class="iconfont icon-zuobiaoicon"></i>获取经纬度</a>
+                        </div>
+                        <div id="allmap" class=""></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-1 control-label" style="margin-left: 50px;">经纬度</label>
+                    <div class="col-md-10">
+                        <div class="col-md-3" style="padding-left:0">
+                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_j" placeholder="经度" name="longitude" disabled>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_w" placeholder="纬度" name="latitude" disabled>
+                        </div>
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -153,9 +164,10 @@
                 <div class="form-group">
                     <label class="col-md-1 control-label" style="margin-left: 50px;">任务详情</label>
                     <div class="col-md-10">
-                        <div id="editor">
+                        <div id="editor" name="editor">
                             <p>请编辑任务详情</p>
                         </div>
+                        <input type="hidden" id="editor1" name="editor1" value="$oridata.get('detail', '')" >
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -167,13 +179,7 @@
                 </div>
             </div>
             <div class="form-group m-b-xs p-r pull-right">
-                <button type="button" class="btn btn-default m-r">任务模板下载
-                    <i class="iconfont icon-xiazai"></i> 
-                </button>
-                <button type="button" class="btn btn-default m-r">上传任务
-                    <i class="iconfont icon-shangchuan "></i> 
-                </button>
-                <button type="button" class="btn btn-info js_search m-r">发布任务 </button>
+                <button type="submit" class="btn btn-info m-r js_release">发布任务 </button>
             </div>
         </form>
     </div>
@@ -182,11 +188,175 @@
     var addtask = {
         init(){
             this.editor();
+            this.mapAnalysis();
+            this.addTask();
+            this.time();
         },
         editor(){
+            //富文本编辑
             var E = window.wangEditor;
             var editor = new E('#editor');
-            editor.create()
+            editor.create();
+            //是否申请物资
+            $("#goodstype").change(function () {  
+                var opt = $("#goodstype").val();
+                if(opt == 1){
+                    $('#information').removeAttr("disabled");
+                }else if(opt == 2){
+                    $("#information").attr("disabled","disabled")
+                    $("#information").val("");
+                }
+            })
+        },
+        addTask(){
+            console.log("q");
+            
+            $("#addTaskdata").validate({
+                rules:{
+                    taskname:{required: true,digits: true},
+                    tasktype:{required: true},
+                    infoadd:{required: true},
+                    handler:{required: true},
+                    looker:{required: true},
+                    taskcontri:{required: true},
+                    relasetime:{required: true},
+                    overtime:{required: true},
+                    ingetral:{required: true},
+                    province:{required: true},
+                    city:{required: true},
+                    area:{required: true},
+                    editor:{required: true}
+                },
+                messages: {},
+                submitHandler: function(){
+                    console.log(1)
+                    console.log($("#editor").text())
+                     var data = rj.form.get($("#addTaskdata")[0]);
+                     console.log(data)
+                }
+            })
+        },
+        mapAnalysis(){
+            // 百度地图API功能
+			var map = new BMap.Map("allmap",{minZoom:4});
+			map.enableScrollWheelZoom(true);//允许拖放
+			// 创建地址解析器实例
+			var localPv = this.getLocalPosition();//
+			map.centerAndZoom(new BMap.Point(106.478927,38.565005),1)
+            $(".js_map").click(function(){
+                $("#addTaskdata").validate({
+                    rules:{
+                        province:{required: true,digits: true},
+                        city:{required: true},
+                        area:{required: true}
+                    },
+                    messages: {},
+                    submitHandler: function(){
+                        var data = getFormJson($("#addTaskdata")[0]);
+                        console.log(data)
+                    }
+                })
+				if(!$("#province").val()){
+					alert("请选择省份~");
+					return;
+				}else if(!$("#city").val()){
+					alert("请选择城市~");
+					return;
+				}else if(!$("#area").val()){
+					alert("请选择地区~");
+					return;
+				};
+                var addstr=$("#province").val()+$("#city").find("option:selected").text()+$("#area").find("option:selected").text()+($("#infoadd").val()||"");
+                console.log($("#province").find("option:selected").text())
+				//写锚点的同时 清除下;
+				map.clearOverlays();
+				//获取解析器
+				var myGeo = new BMap.Geocoder();
+				myGeo.getPoint(addstr, function(point){
+					if (point) {
+						//1.zoom层级的缩放
+						//2.移动到point点
+						//3.添加覆盖物
+						//4.在页面上显示金纬度坐标
+						//5.为覆盖物添加拖拽
+						map.setZoom(19); 
+						map.panTo(point);
+						var mark =new BMap.Marker(point);
+						map.addOverlay(mark);
+						$(".js_j").val("经度:"+point.lng);
+						$(".js_w").val("经度:"+point.lat);
+						mark.enableDragging();
+						var opts = {
+							width : 200,     // 信息窗口宽度
+							height: 100,     // 信息窗口高度
+							title : "海底捞王府井店" , // 信息窗口标题
+							offset:new BMap.Size(0,-20)
+						}
+						mark.setAnimation(BMAP_ANIMATION_DROP);
+						mark.addEventListener("dragend",function(e){
+							//event{type, target, pixel, point}
+							myGeo.getLocation(e.point,function(rs){
+								//1.改变值和上面的输入框
+								//addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber
+								var addComp = rs.addressComponents;
+								if(addComp.province){
+									$("#province").val(addComp.province);
+								}
+								if(addComp.city){
+									$("#city").val(addComp.city);
+								}
+								if(addComp.district){
+									$("#area").val(addComp.district);
+								}
+								if(addComp.street){
+									$("#infoadd").val(addComp.street+addComp.streetNumber);
+								}
+								//alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+							});
+							$(".js_j").text("经度:"+e.point.lng);
+							$(".js_w").text("经度:"+e.point.lat);
+							
+						});
+						
+					}else{
+						alert("您选择地址没有解析到结果!");
+					}
+				});
+			});
+        },
+        getLocalPosition(){
+            var json ={};
+            /**
+             * json.country="国家";
+             * */
+            json.country="中国";
+            /**
+             * json.province="省";
+             * */
+            json.province="广东";
+            /**
+             * json.city="市";
+             * */
+            json.city="广州";
+                $.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js', function(_result) {
+                if (remote_ip_info.ret == '1') {
+                    //alert(JSON.stringify(remote_ip_info));
+                    json.country=remote_ip_info.country;
+                    json.province=remote_ip_info.province;
+                    json.city=remote_ip_info.city;
+                } else {
+                    xalert("获取当前地理位置失败~已跳转默认地址");
+                }
+                });
+            return json;
+        },
+        time(){
+            $(".js_time").datetimepicker({
+                showClear: true,
+                format: 'YYYY年MM月DD日 HH:mm:ss',
+                locale: 'zh-CN',
+                viewMode: "days"
+            });
         }
         
     };
@@ -195,4 +365,5 @@
 </script>
 <style lang="">
     .redx{font-size:14px;color:red; font-weight: normal; padding-right: 5px;}
+    #allmap{width: 800px;height: 300px;margin: 5px;}
 </style>
