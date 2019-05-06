@@ -29,6 +29,13 @@
                 </div>
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
+                    <label class="col-md-3 control-label ">领取超时时间</label>
+                    <div class="col-md-6">
+                        <input class="form-control js_time fz12" placeholder="请选择月份" name="relasetime"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
                     <label class="control-label col-md-3">审核人</label>
                     <div class="col-md-6">
                         <input type="text" class="form-control" placeholder="请输入审核人名字" name="handler">
@@ -56,30 +63,6 @@
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">位置信息</label>
-                    <div class="col-md-9 ">
-                        <div class="col-md-4" style="padding-left:0">
-                            <select class="form-control" name="province" id="province">
-                                <option value="">省份</option>
-                                <option value="1">广东省</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control" name="city" id="city">
-                                <option value="">地级市</option>
-                                <option value="1">广州市</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control" name="area" id="area">
-                                <option value="">市、县级市、县</option>
-                                <option value="1">天河区</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -93,10 +76,10 @@
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label ">领取超时时间</label>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label ">项目名称</label>
                     <div class="col-md-6">
-                        <input class="form-control js_time fz12" placeholder="请选择月份" name="relasetime"/>
+                        <input class="form-control" id="ztree1" name="parentId" type="text" />
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -106,7 +89,6 @@
                         <input class="form-control js_time fz12" placeholder="请选择月份" name="overtime"/>
                     </div>
                 </div>
-
                 <div class="hr-line-dashed"></div>
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="">任务积分</label>
@@ -130,6 +112,32 @@
                             <option value="1">Nacy</option>
                             <option value="2">Jack</option>
                         </select>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-md-1 control-label" style="margin-left: 50px;">位置信息</label>
+                    <div class="col-md-8">
+                        <div class="col-md-4" style="padding-left:0">
+                            <select class="form-control" name="province" id="province">
+                                <option value="">省份</option>
+                                <option value="1">广东省</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="city" id="city">
+                                <option value="">地级市</option>
+                                <option value="1">广州市</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control" name="area" id="area">
+                                <option value="">市、县级市、县</option>
+                                <option value="1">天河区</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -174,12 +182,14 @@
             </div>
             <div class="form-group">
                 <label class="col-md-1 control-label" style="margin-left: 50px;">选择文件</label>
-                <div class="col-md-5">
-                    <input type="file" class="form-control prettyFile" name="file"  accept=".zip,.xls,.xlsx,.csv" multiple="multiple">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <div id="js_xupload"></div>
+                    </div>
                 </div>
             </div>
-            <div class="form-group m-b-xs p-r pull-right">
-                <button type="submit" class="btn btn-info m-r js_release">发布任务 </button>
+            <div class="form-group m-b-xs text-center">
+                <button type="submit" class="btn btn-primary m-r js_release js_sure1">发布任务 </button>
             </div>
         </form>
     </div>
@@ -191,6 +201,21 @@
             this.mapAnalysis();
             this.addTask();
             this.time();
+            this.fileLoad();
+            this.ztree1();
+        },
+        ztree1(){
+            var zNodes1 =[
+                {id:4, pId:0, name:"项目管理"},
+                {id:41, pId:4, name:"项目管理"},
+                {id:5, pId:0, name:"系统管理"},
+                {id:51, pId:5, name:"角色管理"},
+                {id:52, pId:5, name:"用户管理"},
+                {id:53, pId:5, name:"菜单管理"},
+                {id:54, pId:5, name:"权限管理"},
+                {id:6, pId:0, name:"首页"},
+            ];
+            rj.ztree("ztreeRadio","#ztree1",zNodes1); 
         },
         editor(){
             var E = window.wangEditor;
@@ -215,7 +240,6 @@
         },
         addTask(){
             console.log("q"); //富文本编辑
-            
             //富文本编辑
             $("#addTaskdata").validate({
                 rules:{
@@ -231,7 +255,8 @@
                     province:{required: true},
                     city:{required: true},
                     area:{required: true},
-                    editor1:{required: true}
+                    editor1:{required: true},
+                    ztree1:{required: true}
                 },
                 messages: {},
                 submitHandler: function(){
@@ -361,8 +386,47 @@
                 locale: 'zh-CN',
                 viewMode: "days"
             });
+        },
+        fileLoad(){
+            let url = "http://gd.rjtx.ink:7302/uploadFile";
+            //url = "http://localhost:7302/uploadFile";
+            $("#js_xupload2").data("server",url);
+            //整体是load  所以需要调用这个静态方法  让data-形式的初始化生效
+            Xupload.autorun();
+            var xupload = new Xupload({
+                pick: {
+                id: "#js_xupload"
+                },
+                //因为该服务器网速比较差,单线程上传比较靠谱...
+                threads:1,
+                server:url,
+                backshowlist:[
+                {
+                id:"0",
+                name:"回显数据(不同后缀对应不同icon).txt",
+                size:15982
+                },{
+                id:"1",
+                name:"回显数据(不同后缀对应不同icon).png",
+                size:13547
+                }
+                ]
+            })
+            
+            //上传
+            $(".js_sure1").click(()=>{
+                xupload.upload();
+            });
+            
+            xupload.on('uploadSuccess',file=>{
+            console.log(`上传${file.name}成功`)
+            });
+            //删除--共同绑定
+            $("body").on('click',".js_xupload_remove",function(){
+                console.log("删除的文件id是"+$(this).data("id"))
+                $(this).closest("li").fadeOut();
+            });
         }
-        
     };
     addtask.init()
 
