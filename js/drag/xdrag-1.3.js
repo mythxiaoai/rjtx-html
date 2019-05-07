@@ -1,8 +1,45 @@
 /**
- * 版本：1.3
- * 2019-03-01
- * 新增initPosition,callbackStar和showType属性属性配置
- */
+
+时间：2019年3月2日
+版本：1.3
+作者：小艾
+依赖：jquery
+描述：js拖拽插件，支持x,y,镜像,排序等
+用法
+ $(".js_drag").xdrag(options);
+
+配置项:
+属性          类型        默认值       解释
+width        Number     原始大小   初始的宽度
+height       Number     原始大小   初始的高度
+initPosition Boolean    true      是否需要初始化计算top和left位置排版  默认为true
+space        Number     15        拖拽之间相隔多大距离  单位px
+dir          String     u('x|y')  方向 x||y
+proxyChild   selector   u         作用域子选择器上 ".childrenElement"
+ghost        Boolean    false     是否开启镜像包  括拖拽碰撞恢复
+ghostStyle   String     undefined 镜像样式  默认`border：1px dashed #19ACFF`
+ghostClass   String     undefined 镜像class
+hitClass     String     undefined 碰撞的class  当元素与另外一个元素发生碰撞的class   不要带.哦
+callbackStar FN         undefined mousedown触发的回调函数   回调参数Object {dom:当前dom元素jQuery对象}
+callbackDur  FN         undefined mousemove触发的回调函数   回调参数Object{dom:当前dom元素jQuery对象，l:位移的横坐标,t:位移的纵坐标,lr/tr,横纵坐标相对于父定位元素的比率}
+callbackEnd  FN         undefined mouseup停止拖拽后的回调函数返回参数 {dom:同上,l：同上,t:同上}
+showType     String     "line"    line|top 两种值  当盒子高度不一致的情况下   line  每行平行   top  向上吸顶
+moveOut      Boolean    false     拖动的范围是否允许超过当前元素的相对定位父元素  默认只能在父定位元素盒子中拖拽  true 则不限制
+
+方法:
+$(".js_drag").xdrag("MethodName");
+  |-destroy() 销毁
+  |-resetPosition(doms) 重置位置
+  doms 可为空   当ajax执行完删除后 需要调用该方法
+
+注意事项：
+该插件是js的鼠标拖拽事件  非h5的darg  请在使用前注意页面定位布局
+
+-------------------------------------------------
+版本：1.3
+2019-03-01
+新增initPosition,callbackStar和showType属性属性配置
+*/
 
 ;(function($) {
   function Xdrag(ele, opts) {
@@ -55,7 +92,7 @@
           "z-index": $this.zIndex++
         });
         //ghost镜像初始化
-        $this.ghost.init($dom, $this);
+         $this.opts.ghost&&$this.ghost.init($dom, $this);
         $(document).on("mousemove", function(e) {
           var stepL = e.pageX - l;
           var stepT = e.pageY - t;
@@ -64,7 +101,7 @@
           //限制
           $this.moveOut($dom, stepL, stepT);
           //镜像 移动
-          $this.ghost.move($dom, $this);
+          $this.opts.ghost&&$this.ghost.move($dom, $this);
           //回调函数
           $this.callbackDur($dom);
           //防止与光标选中事件冲突
@@ -72,7 +109,7 @@
         })
         $(document).on("mouseup", function(e) {
           //镜像结束
-          $this.ghost.over($dom, $this);
+          $this.opts.ghost&&$this.ghost.over($dom, $this);
           //回调函数
           $this.callbackEnd($dom,$this);
           $(document).unbind("mousemove mouseup");
@@ -243,7 +280,7 @@
             this.changeDom = null;
           }
           this.ghostDom.remove();
-          $this.resetPosition();
+          //$this.resetPosition();
         }
       }
     },
@@ -383,15 +420,15 @@
   }
   var xdrag;
   $.fn.xdrag = function(opts) {
-    if(typeof arguments[0] == "object"){
-      //创建Xdrag的实体
+    if(typeof arguments[0]=="string"&&arguments.length==1){
+      //方法注册resetPosition
+      xdrag[opts](this);
+    }else{
+       //创建Xdrag的实体
       xdrag = new Xdrag(this, opts);
       //初始化
       xdrag.init();
       //让其可以继续连点
-    }else if(typeof arguments[0]=="string"&&arguments.length==1){
-      //方法注册resetPosition
-      xdrag[opts](this);
     }
     return this;
   };
