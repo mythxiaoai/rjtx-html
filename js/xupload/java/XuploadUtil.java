@@ -93,7 +93,7 @@ public class XuploadUtil {
      * @Param [md5, saveName]
      * @return void
      **/
-    public String mergeBlock(String md5,String saveName,String savePath) throws Exception{
+    public String mergeBlock(String saveName,String savePath,String md5) throws Exception{
         //分片文件夹路径
         String path = savePath+md5;
         File dir = new File(path);
