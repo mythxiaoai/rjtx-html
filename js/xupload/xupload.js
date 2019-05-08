@@ -6,9 +6,13 @@
 依赖：webuploader  http://fex.baidu.com/webuploader/doc/index.html
 引用顺序
    css:
-         |-webuploader.css
-         |-xupload.css.css
+         |-font-awesome.min.css   //字体文件
+         |-bootstrap.css          //bootstartp样式
+         |-webuploader.css        //百度上传样式文件
+         |-xupload.css            //上传样式
+         |-animate.css            //动画样式
    js:
+         |-jquery.js
          |-webuploader.js
          |-xuploadbox.js//多个实例公用一个弹出盒子对象
          |-xupload.js//上传插件webuploader包裹js
@@ -21,7 +25,6 @@
    6.支持截屏后的图片粘贴即可添加到上传列表
    7.支持文件拖拽
 调用方式
-
 1.js调用
   var xupload = new Xupload({
       pick: {
@@ -30,15 +33,14 @@
       server: '/uploadFile'
     })
 //上传  xupload.upload();
-
-
 2.标签调用方式
 <div id="js_xupload3" class="js_xupload" data-server="/uploadFile"></div>
-需要手动调用上传方法的对象实例挂载在dom.xupload对象上
+如果页面标签是后生成可通过Xupload.autorun() 静态方法重新初始化
+实例:需要手动调用上传方法的对象实例挂载在dom.xupload对象上
 //上传 dom.xupload.upload();
 
 参数配置:
-uploadSuccessHtml:Fn(file) 每个文件成功后回显到页面上的回显选项html  默认值为  回调参数为file
+uploadSuccessHtml:Fn(file) 每个文件成功后回显到页面上的html  默认值为  回调参数为file
  uploadSuccessHtml:function(file){
     return `
        <li class="list-group-item animated fadeIn">
@@ -48,37 +50,40 @@ uploadSuccessHtml:Fn(file) 每个文件成功后回显到页面上的回显选�
           <span class="file-size">(${WebUploader.formatSize(file.size)})</span>
         </div>
         <div class="file-opts">
-          <a href="javascript:;" class="js_upload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
+          <a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
         </div>
       </li>
     `
   },
- backshowList:[Object]  页面初始化需要回显的对象  其中需要有3个key需要有
+ backshowlist:[Object]  页面初始化需要回显的对象  其中需要有3个key需要有
  {
-   id:文件id  用来做操作的传参  默认模板里的  $(".js_upload_remove").data("id")可获取到  也可以通过该值做代理事件触发传值
+   id:文件id  用来做操作的传参  默认模板里的  $(".js_xupload_remove").data("id")可获取到  也可以通过该值做代理事件触发传值
    name:文件名   注：icon是根据文件名后缀变化的哦~
    size:文件大小
  }
-其他配置
+
+静态方法
+Xupload.autorun() 初始化标签属性用
+
+注:xupload  dom.xupload  是上传实例对象  与webuploader实例一样可调用方法和绑定执行事件
 可以参考http://fex.baidu.com/webuploader/doc/index.html#WebUploader_Uploader_option
 
-注意事项:
-可同时存在多个上传事例，但是拖拽和粘贴事件都是触发在body上，已做处理  该事件只会在最后生成的实例上有效
 
-
-事件监听和方法调用都可调用WebUploader的事件完成
-xupload.on('uploadSuccess',file=>{
+ 事件监听和方法调用都可调用WebUploader的事件完成
+ xupload.on('uploadSuccess',file=>{
   console.log("上传成功")
 });
  
-整个执行过程如下：
-1.检查分片
-2.上传分片
-3.合并分片
+ 
+ 断点续传的执行过程
+  1.检查分片
+  2.上传分片(过滤掉已经上传过的分片)
+  3.分片合并
+  
  
  1.检查分片
- 请求
  http://localhost:8086/uploadFile-checkblock
+ 
  request
  {
    验证md5
@@ -87,18 +92,16 @@ xupload.on('uploadSuccess',file=>{
   saveName: 31449889e8fff191b8828ecb1d159e5c.jpeg
  }
  
- 返回
  response
  返回三种情况
  [] 没上传
  "all"  已经上传过了
  [0,1,2,3,5]  上传部分
  
- 2.上传分片
+ 1.检查分片
  
- 请求
  http://localhost:8086/uploadFile
- 没有达到最小分片大小 直接上传
+ 没有达到分片最小size
    request
    {
   id: WU_FILE_0
@@ -108,7 +111,6 @@ xupload.on('uploadSuccess',file=>{
   size: 87904
   file: (binary)
    }
-	 
  达到分片最小分片size
  {
    md5: 28e9e2f90bff1ecaf0581885fe39d38b
@@ -123,7 +125,7 @@ xupload.on('uploadSuccess',file=>{
     file: (binary)
  }
  
- 返回reqonse
+ reqonse
  
  文件未分割，上传成功
  
@@ -131,10 +133,9 @@ xupload.on('uploadSuccess',file=>{
  
  
  3.文件合并
- 
- 请求
  http://localhost:8086/uploadFile-mergeblock
-没有达到分片最小size  不会发送请求
+  没有达到分片最小size  不会发送请求
+
 request
 {
   md5: 28e9e2f90bff1ecaf0581885fe39d38b
@@ -255,16 +256,17 @@ response
                 <span class="file-size">(${WebUploader.formatSize(file.size)})</span>
               </div>
               <div class="file-opts">
-                <a href="javascript:;" class="js_upload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
+                <a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
               </div>
             </li>
           `
         },
         //需要   name type size id  四个key
-        backshowList:[]
+        backshowlist:[]
       }
       this.opts = $.extend(true, {}, this._default,opts);
-      
+			//参数保护
+			this.paramProtect();
       this.ins = WebUploader.create(this.opts);
       xuploadbox.init(this.ins);
       //暴露出去
@@ -275,13 +277,11 @@ response
       this.selfInit();
       return this.ins;
     }
-    
+		
     selfInit() {
       //重构html
       this.rehtml();
       this.$inputShow = this.$inputBox.find(".js_fileChoose input");
-      //事件初始化
-      
       //重置整个list
       let cb = ()=>xuploadbox.relist();
       //只重置li
@@ -302,6 +302,19 @@ response
       this.uploadError(cbli);
       this.uploadSuccess(cb);
     }
+		
+		paramProtect(){
+			//因为事件挂载在全局的body上的  粘贴和拖拽 会导致事件重复绑定
+			//去除已经添加实例的粘贴和拖拽事件
+				console.log(xuploadbox.opts.ins)
+			if(xuploadbox.opts.ins.length>0){
+				 xuploadbox.opts.ins.map(v=>{
+					v._widgets[0].dnd.off("drop");
+					v._widgets[1].paste.off("paste");
+				}) 
+			}
+		}
+		
     rehtml() {
         let text = this.ins.options.pick.label;
       /*
@@ -340,16 +353,16 @@ response
         ;
         //ul
         let lidoms="";
-        if(this.opts.backshowList.length>0){
-          for(let file of this.opts.backshowList){
+        if(this.opts.backshowlist.length>0){
+          for(let file of this.opts.backshowlist){
             lidoms +=this.opts.uploadSuccessHtml(file);
           }
         }
-      this.$inputBox.after(`
-       <ul class="list-group xupload-show js_xupload-show">
-        ${lidoms}
-        </ul>  
-      `);
+        this.$inputBox.after(`
+         <ul class="list-group xupload-show js_xupload-show">
+          ${lidoms}
+          </ul>  
+        `);
     }
     getFiles(){
       return this.ins.getFiles().filter(v=>{
@@ -454,16 +467,20 @@ response
           this.$inputShow.val("");
         }
     }
-    
+    static autorun(){
+       if($(".js_xupload").length > 0) {
+        $(".js_xupload").each(function() {
+          let opts = $(this).data();
+          opts.pick = {};
+          opts.pick.id = this;
+          this.xupload = new Xupload(opts)
+        });
+      }
+    }
   }
-  if($(".js_xupload").length > 0) {
-    $(".js_xupload").each(function() {
-      let opts = $(this).data();
-      opts.pick = {};
-      opts.pick.id = this;
-      this.xupload = new Xupload(opts)
-    });
-  }
+  
+ Xupload.autorun();
+  
   window.Xupload = Xupload;
   
 })();
