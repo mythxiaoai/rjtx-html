@@ -1,26 +1,4 @@
 //此js只做盒子的css部分 属于公共模块   通过fileid调用回调函数执行操作
-/*
-文件上传插件
-时间:2019-03-10
-作者：myth小艾
-版本：v1.0.0
-全局暴露对象xuploadbox  多个上传文件实例 对应一个box
-调用方法:
-autoShow()    自动显示
-bigEvent()    放大窗口
-closeBox()    关闭窗口
-destroy()     销毁，取消事件绑定
-getFileType(vType, vName)  根据文件类型和文件名称，获取文件类型
-getIconByfile(vType, vName)根据文件类型和文件名称，获取icon的class
-getInsByFileId(fileid) 根据文件ID 获取上传实例
-init()        初始化--不会重复创建
-minBox()      缩小窗口
-progress(file)上传进度的回调
-push(files)   添加文件数组
-reli(id)      根据文件id重置li
-relist()      重置整个list
-removeFile(id)根据id删除对应文件
- * */
 ;(()=>{
   let xuploadbox = {
     opts:{
@@ -57,12 +35,10 @@ removeFile(id)根据id删除对应文件
     minBox(){
       this.opts.status = "min";
       $(".js_xupload_box").stop(true,true).animate({height:44},"fast");
-      $(".js_xupload_box .js_mins").addClass("glyphicon-unchecked").removeClass("glyphicon-minus");
     },
     bigEvent(){
       this.opts.status = "nomal";
-      $(".js_xupload_box").stop(true,true).animate({height:429},"fast")
-      $(".js_xupload_box .js_mins").addClass("glyphicon-minus").removeClass("glyphicon-unchecked");
+      $(".js_xupload_box").stop(true,true).animate({height:429},"fast");
     },
     closeBox(){
       if(this.opts.status != "close"){
@@ -257,8 +233,10 @@ removeFile(id)根据id删除对应文件
         let $this =this;
         $(".js_xupload_box").on("click",".js_mins",function(){
           if(mark){
+            $(this).addClass("glyphicon-unchecked").removeClass("glyphicon-minus");
             $this.minBox()
           }else{
+            $(this).addClass("glyphicon-minus").removeClass("glyphicon-unchecked");
             $this.bigEvent()
           }
           mark=!mark;
@@ -319,9 +297,6 @@ removeFile(id)根据id删除对应文件
     },
     destroy(){
       $(".js_xupload_box").unbind("click");
-      this.opts.ins.map(ins=>{
-      	ins.destroy();
-      });
       this.opts = {
         dom:"",
         data:[],
