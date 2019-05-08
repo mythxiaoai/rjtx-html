@@ -8,7 +8,6 @@
    css:
          |-font-awesome.min.css   //字体文件
          |-bootstrap.css          //bootstartp样式
-         |-webuploader.css        //百度上传样式文件
          |-xupload.css            //上传样式
          |-animate.css            //动画样式
    js:

@@ -15,13 +15,15 @@
       </div>
   <h2 class="page-header">xupload</h2>
   <pre>
+    文件上传插件
+    时间:2019-03-10
+    作者：myth小艾
     版本：v1.0.0
     依赖：webuploader  http://fex.baidu.com/webuploader/doc/index.html
     引用顺序
        css:
              |-font-awesome.min.css   //字体文件
              |-bootstrap.css          //bootstartp样式
-             |-webuploader.css        //百度上传样式文件
              |-xupload.css            //上传样式
              |-animate.css            //动画样式
        js:
@@ -47,13 +49,27 @@
         })
     //上传  xupload.upload();
     2.标签调用方式
-      &lt;div id="js_xupload3" class="js_xupload" data-server="/uploadFile"&gt;&lt;/div&gt;
+    <div id="js_xupload3" class="js_xupload" data-server="/uploadFile"></div>
     如果页面标签是后生成可通过Xupload.autorun() 静态方法重新初始化
     实例:需要手动调用上传方法的对象实例挂载在dom.xupload对象上
     //上传 dom.xupload.upload();
     
     参数配置:
     uploadSuccessHtml:Fn(file) 每个文件成功后回显到页面上的html  默认值为  回调参数为file
+     uploadSuccessHtml:function(file){
+        return `
+           <li class="list-group-item animated fadeIn">
+            <div class="file-info">
+              <i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"></i>
+              <span class="file-name">${file.name}</span>
+              <span class="file-size">(${WebUploader.formatSize(file.size)})</span>
+            </div>
+            <div class="file-opts">
+              <a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
+            </div>
+          </li>
+        `
+      },
      backshowlist:[Object]  页面初始化需要回显的对象  其中需要有3个key需要有
      {
        id:文件id  用来做操作的传参  默认模板里的  $(".js_xupload_remove").data("id")可获取到  也可以通过该值做代理事件触发传值
@@ -74,7 +90,7 @@
     });
      
      
-     文件上传断点续传的执行过程
+     断点续传的执行过程
       1.检查分片
       2.上传分片(过滤掉已经上传过的分片)
       3.分片合并
@@ -143,6 +159,7 @@
     
     response
     提示合并成功
+    
   </pre>
 </div>
   
