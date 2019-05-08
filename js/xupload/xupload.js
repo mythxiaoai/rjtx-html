@@ -35,7 +35,7 @@
 //上传  xupload.upload();
 2.标签调用方式
 <div id="js_xupload3" class="js_xupload" data-server="/uploadFile"></div>
-如果页面标签是异步执行后生成可通过Xupload.autorun()手动初始化 通过静态方法重新初始化
+如果页面标签是后生成可通过Xupload.autorun() 静态方法重新初始化
 实例:需要手动调用上传方法的对象实例挂载在dom.xupload对象上
 //上传 dom.xupload.upload();
 
@@ -149,8 +149,6 @@ response
 ;(function() {
   //WebUploader注册事件
    (()=>{
-     let alreadyArr = [],
-      md5="";
       WebUploader.Uploader.register({
           "before-send-file":"beforeSendFile",
           "before-send":"beforeSend",
@@ -163,17 +161,16 @@ response
          let uploader = new WebUploader.Uploader();
          let url = $this.owner.options.server;
           //1、计算文件的唯一标记fileMd5，用于断点续传  如果.md5File(file)方法里只写一个file参数则计算MD5值会很慢 所以加了后面的参数：10*1024*1024  
-          uploader.md5File(file,0,10*1024*1024).then(function(md5val){    
+          uploader.md5File(file,0,10*1024*1024).then(function(md5val){ 
               $this.owner.options.formData.md5 = md5val;
               $this.owner.options.formData.saveName=`${md5val}.${file.ext}`;
-              md5 = md5val;
               //md5验证文件是否传玩
               $.ajax({
                 type:"post",
                 url:url+"-checkblock",
                 data:$this.owner.options.formData,
                 success(data){
-                  alreadyArr = data;
+									$this.owner.options.alreadyArr = data;
                   deferred.resolve();
                 },
                 error(e){
@@ -188,10 +185,10 @@ response
         beforeSend:function(block){
         if(!this.owner.options.chunked) return false
           var deferred = WebUploader.Deferred();
-            if(alreadyArr=="all"){
+            if(this.owner.options.alreadyArr=="all"){
                deferred.reject();
             }
-            if(alreadyArr.indexOf(block.chunk+"")!=-1){
+            if(this.owner.options.alreadyArr.indexOf(block.chunk+"")!=-1){
               deferred.reject();
             }else{
               deferred.resolve();
@@ -202,7 +199,7 @@ response
           if(!this.owner.options.chunked) return false
           var deferred = WebUploader.Deferred();
           let url = this.owner.options.server;
-          if(alreadyArr!="all"&&file.size>this.owner.options.chunkSize){
+          if(this.owner.options.alreadyArr!="all"&&file.size>this.owner.options.chunkSize){
             //合并文件
             $.ajax({
               type:"post",
@@ -242,7 +239,6 @@ response
           label: "选择文件",
         },
         runtimeOrder: "html5",
-        prepareNextFile: true,
         // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
         resize: false,
         chunked: true,
@@ -306,7 +302,6 @@ response
 		paramProtect(){
 			//因为事件挂载在全局的body上的  粘贴和拖拽 会导致事件重复绑定
 			//去除已经添加实例的粘贴和拖拽事件
-				console.log(xuploadbox.opts.ins)
 			if(xuploadbox.opts.ins.length>0){
 				 xuploadbox.opts.ins.map(v=>{
 					v._widgets[0].dnd.off("drop");
