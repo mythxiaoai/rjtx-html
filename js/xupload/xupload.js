@@ -35,7 +35,7 @@
 //上传  xupload.upload();
 2.标签调用方式
 <div id="js_xupload3" class="js_xupload" data-server="/uploadFile"></div>
-如果页面标签是后生成可通过Xupload.autorun() 静态方法重新初始化
+如果页面标签是异步执行后生成可通过Xupload.autorun()手动初始化 通过静态方法重新初始化
 实例:需要手动调用上传方法的对象实例挂载在dom.xupload对象上
 //上传 dom.xupload.upload();
 
