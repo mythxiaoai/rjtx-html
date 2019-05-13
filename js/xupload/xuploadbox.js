@@ -115,7 +115,7 @@ removeFile(id)根据id删除对应文件
         </span>`,
         error:`<span class="error">
            <em class="glyphicon glyphicon-remove-sign"></em>
-          <i>服务器错误</i>
+          <i>${file.statusText||'服务器错误'}</i>
         </span>`,
         interrupt:`<span class="pause">
           <em></em>
@@ -305,6 +305,7 @@ removeFile(id)根据id删除对应文件
           let id = $(this).closest("li").data("id");
            let ins = $this.getInsByFileId(id)
            let file = ins.getFile(id);
+					 file.statusText="";
            ins.retry(file);
           $this.reli(id);
         });

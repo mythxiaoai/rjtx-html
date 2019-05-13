@@ -1,149 +1,157 @@
 /*
-文件上传插件
-时间:2019-03-10
-作者：myth小艾
-版本：v1.0.0
-依赖：webuploader  http://fex.baidu.com/webuploader/doc/index.html
-引用顺序
-   css:
-         |-font-awesome.min.css   //字体文件
-         |-bootstrap.css          //bootstartp样式
-         |-xupload.css            //上传样式
-         |-animate.css            //动画样式
-   js:
-         |-jquery.js
-         |-webuploader.js
-         |-xuploadbox.js//多个实例公用一个弹出盒子对象
-         |-xupload.js//上传插件webuploader包裹js
-插件特色
-   1.支持大文件断点续传--需实现三个后台接口
-   2.支持大文件(文件库中md5比对存在的文件)秒传--需实现三个后台接口
-   3.支持多文件上传实例集体控制，支持单文件可控(可删除，可暂停)
-   4.支持webuploader参数配置和事件
-   5.支持插件无感化运行
-   6.支持截屏后的图片粘贴即可添加到上传列表
-   7.支持文件拖拽
-调用方式
-1.js调用
-  var xupload = new Xupload({
-      pick: {
-        id: "#js_xupload"
-      },
-      server: '/uploadFile'
-    })
-//上传  xupload.upload();
-2.标签调用方式
-<div id="js_xupload3" class="js_xupload" data-server="/uploadFile"></div>
-如果页面标签是后生成可通过Xupload.autorun() 静态方法重新初始化
-实例:需要手动调用上传方法的对象实例挂载在dom.xupload对象上
-//上传 dom.xupload.upload();
-
-参数配置:
-uploadSuccessHtml:Fn(file) 每个文件成功后回显到页面上的html  默认值为  回调参数为file
- uploadSuccessHtml:function(file){
-    return `
-       <li class="list-group-item animated fadeIn">
-        <div class="file-info">
-          <i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"></i>
-          <span class="file-name">${file.name}</span>
-          <span class="file-size">(${WebUploader.formatSize(file.size)})</span>
-        </div>
-        <div class="file-opts">
-          <a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
-        </div>
-      </li>
-    `
-  },
- backshowlist:[Object]  页面初始化需要回显的对象  其中需要有3个key需要有
- {
-   id:文件id  用来做操作的传参  默认模板里的  $(".js_xupload_remove").data("id")可获取到  也可以通过该值做代理事件触发传值
-   name:文件名   注：icon是根据文件名后缀变化的哦~
-   size:文件大小
- }
-
-静态方法
-Xupload.autorun() 初始化标签属性用
-
-注:xupload  dom.xupload  是上传实例对象  与webuploader实例一样可调用方法和绑定执行事件
-可以参考http://fex.baidu.com/webuploader/doc/index.html#WebUploader_Uploader_option
-
-
- 事件监听和方法调用都可调用WebUploader的事件完成
- xupload.on('uploadSuccess',file=>{
-  console.log("上传成功")
-});
+ 文件上传插件
+ 时间:2019-03-10
+ 作者：myth小艾
+ 版本：v1.0.0
+ 依赖：webuploader  http://fex.baidu.com/webuploader/doc/index.html
+ 引用顺序
+    css:
+          |-font-awesome.min.css   //字体文件
+          |-bootstrap.css          //bootstartp样式
+          |-xupload.css            //上传样式
+          |-animate.css            //动画样式
+    js:
+          |-jquery.js
+          |-webuploader.js
+          |-xuploadbox.js//多个实例公用一个弹出盒子对象
+          |-xupload.js//上传插件webuploader包裹js
+ 插件特色
+    1.支持大文件断点续传--需实现三个后台接口
+    2.支持大文件(文件库中md5比对存在的文件)秒传--需实现三个后台接口
+    3.支持多文件上传实例集体控制，支持单文件可控(可删除，可暂停)
+    4.支持webuploader参数配置和事件
+    5.支持插件无感化运行
+    6.支持截屏后的图片粘贴即可添加到上传列表
+    7.支持文件拖拽
+ 调用方式
+ 1.js调用
+   var xupload = new Xupload({
+       pick: {
+         id: "#js_xupload"
+       },
+       server: '/uploadFile'
+     })
+ //上传  xupload.upload();
+ 
+ 2.标签调用方式
+ &lt;div id="js_xupload3" class="js_xupload" data-server="/uploadFile"&gt;&lt;/div&gt;
+ 如果页面标签是异步后生成  可通过Xupload.autorun()手动执行   静态方法重新初始化
+ 实例:需要手动调用上传方法的对象实例挂载在dom.xupload对象上
+ //上传 dom.xupload.upload();
+ 
+ 参数配置:
+ uploadSuccessHtml:Fn(file) 每个文件成功后回显到页面上的html  默认值为  回调参数为file
+  uploadSuccessHtml:function(file){
+     return `
+        &lt;li class="list-group-item animated fadeIn"&gt;
+         &lt;div class="file-info"&gt;
+           &lt;i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"&gt;&lt;/i&gt;
+           &lt;span class="file-name"&gt;${file.name}&lt;/span&gt;
+           &lt;span class="file-size"&gt;(${WebUploader.formatSize(file.size)})&lt;/span&gt;
+         &lt;/div&gt;
+         &lt;div class="file-opts"&gt;
+           &lt;a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"&gt;&lt;i class="glyphicon glyphicon-remove"&gt;&lt;/i&gt;&lt;/a&gt;
+         &lt;/div&gt;
+       &lt;/li&gt;
+     `
+   },
+  backshowlist:[Object]  页面初始化需要回显的对象  其中需要有3个key需要有
+  {
+    id:文件id  用来做操作的传参  默认模板里的  $(".js_xupload_remove").data("id")可获取到  也可以通过该值做代理事件触发传值
+    name:文件名   注：icon是根据文件名后缀变化的哦~
+    size:文件大小
+  }
+ 
+ 实例方法
+ xupload.showError(text);//显示异常信息
+	|-text	显示错误的文字内容
+ 
+ xupload.hideError();//隐藏异常信息
+ 当执行beforeFileQueued事件时会自动执行  如有特殊情况请手动调用
  
  
- 断点续传的执行过程
-  1.检查分片
-  2.上传分片(过滤掉已经上传过的分片)
-  3.分片合并
+ 
+ 静态方法
+ Xupload.autorun() 初始化标签属性用
+ 
+ 注:xupload  dom.xupload  是上传实例对象  与webuploader实例一样可调用方法和绑定执行事件
+ 可以参考http://fex.baidu.com/webuploader/doc/index.html#WebUploader_Uploader_options
+ 
+ 
+  事件监听和方法调用都可调用WebUploader的事件完成
+  xupload.on('uploadSuccess',file=>{
+   console.log("上传成功")
+ });
   
- 
- 1.检查分片
- http://localhost:8086/uploadFile-checkblock
- 
- request
- {
-   验证md5
-   md5: 31449889e8fff191b8828ecb1d159e5c
-   上传的文件是否已经存在了
-  saveName: 31449889e8fff191b8828ecb1d159e5c.jpeg
- }
- 
- response
- 返回三种情况
- [] 没上传
- "all"  已经上传过了
- [0,1,2,3,5]  上传部分
- 
- 1.检查分片
- 
- http://localhost:8086/uploadFile
- 没有达到分片最小size
-   request
-   {
-  id: WU_FILE_0
-  name: 1.jpeg
-  type: image/jpeg
-  lastModifiedDate: Wed Jan 23 2019 10:11:00 GMT 0800 (中国标准时间)
-  size: 87904
-  file: (binary)
-   }
- 达到分片最小分片size
+  
+  断点续传的执行过程
+   1.检查分片
+   2.上传分片(过滤掉已经上传过的分片)
+   3.分片合并
+   
+  
+  1.检查分片
+  http://localhost:8086/uploadFile-checkblock
+  请求
+  {
+    验证md5
+    md5: 31449889e8fff191b8828ecb1d159e5c
+    上传的文件是否已经存在了
+   saveName: 31449889e8fff191b8828ecb1d159e5c.jpeg
+  }
+  
+ 返回
+  返回三种情况
+  [] 没上传
+  "all"  已经上传过了
+  [0,1,2,3,5]  上传部分
+  
+ 2.分片上传
+  请求:
+  http://localhost:8086/uploadFile
+  没有达到最小分片大小发送的请求
+    request
+    {
+   id: WU_FILE_0
+   name: 1.jpeg
+   type: image/jpeg
+   lastModifiedDate: Wed Jan 23 2019 10:11:00 GMT 0800 (中国标准时间)
+   size: 87904
+   file: (binary)
+    }
+  达到分片最小分片size
+  {
+    md5: 28e9e2f90bff1ecaf0581885fe39d38b
+     saveName: 28e9e2f90bff1ecaf0581885fe39d38b.zip
+     id: WU_FILE_1
+     name: 150M的东西.zip
+     type: application/x-zip-compressed
+     lastModifiedDate: Thu Feb 14 2019 14:07:49 GMT 0800 (中国标准时间)
+     size: 147888830
+     chunks: 29
+     chunk: 20
+     file: (binary)
+  }
+  
+  返回
+  
+  文件未分割，上传成功
+  
+  文件分割，21/29上传成功
+  
+  
+  3.文件合并
+  请求
+  http://localhost:8086/uploadFile-mergeblock
+   没有达到分片最小size  不会发送请求
+ 有则发送
  {
    md5: 28e9e2f90bff1ecaf0581885fe39d38b
-    saveName: 28e9e2f90bff1ecaf0581885fe39d38b.zip
-    id: WU_FILE_1
-    name: 150M的东西.zip
-    type: application/x-zip-compressed
-    lastModifiedDate: Thu Feb 14 2019 14:07:49 GMT 0800 (中国标准时间)
-    size: 147888830
-    chunks: 29
-    chunk: 20
-    file: (binary)
+   saveName: 28e9e2f90bff1ecaf0581885fe39d38b.zip
  }
- 
- reqonse
- 
- 文件未分割，上传成功
- 
- 文件分割，21/29上传成功
- 
- 
- 3.文件合并
- http://localhost:8086/uploadFile-mergeblock
-  没有达到分片最小size  不会发送请求
-
-request
-{
-  md5: 28e9e2f90bff1ecaf0581885fe39d38b
-  saveName: 28e9e2f90bff1ecaf0581885fe39d38b.zip
-}
-
-response
-提示合并成功
- 
+ 返回
+ response
+ 提示合并成功
  */
 ;(function() {
   //WebUploader注册事件
@@ -173,6 +181,7 @@ response
                   deferred.resolve();
                 },
                 error(e){
+									$this.owner.trigger( 'uploadError', file, e.statusText );
                   if(e.status=="404"){
                     console.error(`${url+"-checkblock"}请求未找到~\n当options.chunked为true时需要实现以下三个接口\n1.${url+"-checkblock"}--检查分块\n2.${url}--上传分块\n3.${url+"-mergeblock"}--合并分块`)
                   }
@@ -208,6 +217,7 @@ response
                 deferred.resolve();
               },
               error(e){
+								$this.owner.trigger( 'uploadError', file, e.statusText);
                 if(e.status=="404"){
                   console.error(`${url+"-mergeblock"}请求未找到~\n当options.chunked为true时需要实现以下三个接口\n1.${url+"-checkblock"}--检查分块\n2.${url}--上传分块\n3.${url+"-mergeblock"}--合并分块`)
                 }
@@ -264,12 +274,19 @@ response
 			this.paramProtect();
       this.ins = WebUploader.create(this.opts);
       xuploadbox.init(this.ins);
-      //暴露出去
-      this.ins.xuploadbox = xuploadbox;
+			
       this.$inputBox = $(this.ins.options.pick.id);
-      
       this.$inputShow=null;
+      //暴露出去
+			this.ins.$inputBox = this.$inputBox;
+      this.ins.xuploadbox = xuploadbox;
       this.selfInit();
+			
+			
+			//方法暴露
+			this.ins.showError = this.showError;
+			this.ins.hideError = this.hideError;
+			
       return this.ins;
     }
 		
@@ -282,6 +299,7 @@ response
       //只重置li
       let cbli = id=>xuploadbox.reli(id);
       
+      this.beforeFileQueued();
       this.filesQueued(cb);
       
       this.fileDequeued(cbli);
@@ -357,19 +375,45 @@ response
           ${lidoms}
           </ul>  
         `);
+				//错误显示
+				//<i class="fa fa-times-circle"></i> 这是必填字段
+				this.$inputBox.find(".js_fileChoose").after(`
+         <span class="help-block js_xupload-error" style="margin-top:0;margin-bottom:0;">
+				 
+				 </span>
+        `);
+				
     }
+		
+		showError(text){
+			let html = `<i class="fa fa-times-circle"></i> ${text||"上传失败"}`;
+			this.$inputBox.addClass("has-error").find(".js_xupload-error").html(html);
+		}
+		
+		hideError(){
+			this.$inputBox.removeClass("has-error").find(".js_xupload-error").html("");
+		}
+		
     getFiles(){
       return this.ins.getFiles().filter(v=>{
         return v.getStatus();
       });
     }
+		
+		beforeFileQueued(){
+			 this.ins.on('beforeFileQueued',files=>{
+			 //错误消失
+			 this.hideError();
+			});
+		}
+		
     //fileQueued  文件选择完成
     filesQueued(cb) {
       this.ins.on('filesQueued',files=>{
        //input展示
        this._inputShow();
         //box展示
-        let $this =this;;
+        let $this =this;
         xuploadbox.push(files);
         xuploadbox.autoShow();
         cb&&cb()
@@ -436,17 +480,18 @@ response
     }
       uploadError(cb){
        this.ins.on('uploadError',(file,reason)=>{
-         console.error(reason)
+				file.setStatus("error",reason);
+        console.error(reason);
         cb&&cb(file.id);
       });
     }
       uploadSuccess(cb){
        this.ins.on('uploadSuccess',file=>{
-         xuploadbox.removeFile(file.id);
+        xuploadbox.removeFile(file.id);
          //新增
-        this.$inputBox.siblings(".js_xupload-show").append(
-          this.opts.uploadSuccessHtml(file)
-        );
+        /* this.$inputBox.siblings(".js_xupload-show").append(
+          this.opts.uploadSuccessHtml(file);
+        );*/
         cb&&cb(file.id);
       });
     }
