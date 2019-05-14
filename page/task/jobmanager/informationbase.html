@@ -35,14 +35,14 @@
                 <div class="row m-t">
                     <div class="col-md-12">
                         <ul class="nav nav-tabs"> 
-                            <li class="active"><a href="#tasktab1" data-toggle="tab">新增任务</a></li>
-                            <li><a href="#tasktab2" data-toggle="tab">审核任务</a></li>
-                            <li><a href="#tasktab3" data-toggle="tab">评审任务</a></li>
-                            <li><a href="#tasktab4" data-toggle="tab">评审任务</a></li>
+                            <li class="active"><a href="#tasktab1" data-toggle="tab">新增</a></li>
+                            <li><a href="#tasktab2" data-toggle="tab">审核</a></li>
+                            <li><a href="#tasktab3" data-toggle="tab">执行</a></li>
+                            <li><a href="#tasktab4" data-toggle="tab">评审</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="tasktab1">
-                                <button onclick="information.addOrUpdate('新增任务')" type="button" class="btn btn-default  m-t btn-md"><i class="iconfont icon-add"></i> 新增</button>
+                                <button onclick="information.addOrUpdate('id','table0')" type="button" class="btn btn-default  m-t btn-md"><i class="iconfont icon-add"></i> 新增</button>
                                 <div class="form-group m-b-xs  m-t pull-right">
                                     <button type="button" class="btn btn-default m-r ">任务模板下载
                                         <i class="iconfont icon-xiazai"></i> 
@@ -54,14 +54,16 @@
                                 <table id="table1"></table>
                             </div>
                             <div class="tab-pane fade" id="tasktab2">
-                                <button type="button" class="btn btn-default  m-t btn-md">批量审核</button>
+                                <button type="button" class="btn btn-default  m-t btn-md " >批量审核</button>
                                 <table id="table2"></table>
                             </div>
                             <div class="tab-pane fade" id="tasktab3">
+                                <button type="button" class="btn btn-default  m-t btn-md">批量执行</button>
                                 <table id="table3"></table>
                             </div>
+                            <!-- onclick="information.batchOpration('#tasktab4')" -->
                             <div class="tab-pane fade" id="tasktab4">
-                                <button type="button" class="btn btn-default  m-t btn-md">批量评审</button>
+                                <button type="button" class="btn btn-default  m-t btn-md js_del" >批量评审</button>
                                 <table id="table4"></table>
                             </div>
                         </div>
@@ -80,10 +82,54 @@
             this.tab3_table();
             this.tab4_table();
             this.taskUpdate();
+            this.batchOpration();
         },
-        addOrUpdate(title,id){
-            //新增 page/task/jobmanager/addOrUpdate.html
-            rj.load(".js_info_content","page/task/jobmanager/addOrUpdate.html");
+        batchOpration(){
+            $(".js_del").click(function(){
+                var rowData = $("#table4").bootstrapTable('getAllSelections');
+                if(rowData.length==0){
+                    xtip("selectLeastOne")
+                }else{
+                    rj.modal("提交评审","page/task/jobmanager/addregral.html",
+                        ()=>{
+                            $("#addDregral").validate({
+                                rules: {
+                                    score:{
+                                        required: true
+                                    }
+                                },
+                                submitHandler: function() {
+                                    xalert('操作成功','数据已经操作成功！','success');
+                                }
+                            })
+                        }
+                    )
+                }
+            });
+           
+        },
+        addOrUpdate(id,tab){
+            //新增表单页面/查看
+            rj.load(".js_info_content","page/task/jobmanager/addOrUpdate.html",function(){
+                console.log(tab);
+                if(tab == "table0"){
+                    $("#testtitle").html('新增任务')
+
+                }else if(tab == "table1"){
+                    $("#testtitle").html('修改任务')
+                    
+                }else if(tab == "table2"){
+                    $("#testtitle").html('任务详情')
+                    
+                }else if(tab == "table3"){
+                    $("#testtitle").html('任务详情')
+                    
+                }else{
+                    // 审核页面
+                    $("#testtitle").html('任务详情')
+                    
+                }
+            });
         },
         taskUpdate(){
             //上传任务
@@ -139,7 +185,7 @@
                        "limittime": "2019-01-11 18:00:00",
                        "createtime": "2019-11-11 12:10:30",
                        "integral": 10,
-                       "auditresu": 0
+                       "auditresu": 1
                     },
                     {
                        "id":2,
@@ -149,7 +195,7 @@
                        "limittime": "2019-01-11 18:00:00",
                        "createtime": "2019-11-11 12:10:30",
                        "integral": 10,
-                       "auditresu": 0
+                       "auditresu": 1
                     },
                     {
                        "id":3,
@@ -159,7 +205,7 @@
                        "limittime": "2019-01-11 18:00:00",
                        "createtime": "2019-11-11 12:10:30",
                        "integral": 10,
-                       "auditresu": 0
+                       "auditresu": 1
                     },
                     {
                        "id":4,
@@ -184,6 +230,9 @@
                     
                 ],
                 columns: [
+                    {
+                        checkbox: true 
+                    },
                     {
 						field: 'id',
                         title: 'id',
@@ -230,7 +279,16 @@
                                 return `<span class="text-danger">不通过</span>`
                             }
                         }
-					}
+					},
+                    {
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            return `
+		                    <div style="width:100px">
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}','table1',)">修改</a>
+		              		<div/>`
+                        }
+                    }
                 ]
             });
         },
@@ -294,17 +352,14 @@
                         sortable:true
                     },
                     {
-						field: 'auditresu',
-						title: '审核结果',
-                        sortable:true,
-                        formatter: function(value,row,index) {
-                            if(value == 0){
-                                return `<span class="text-success">通过</span>`
-                            }else{
-                                return `<span class="text-danger">不通过</span>`
-                            }
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            return `
+		                    <div style="width:100px">
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}','table2',)"">查看详情</a>
+		              		<div/>`
                         }
-					}
+                    }
                 ]
             });
         },
@@ -350,6 +405,9 @@
                 ],
                 columns: [
                     {
+                        checkbox: true 
+                    },
+                    {
 						field: 'id',
                         title: 'id',
                         sortable:true
@@ -385,17 +443,14 @@
                         sortable:true
                     },
                     {
-						field: 'auditresu',
-						title: '审核结果',
-                        sortable:true,
-                        formatter: function(value,row,index) {
-                            if(value == 0){
-                                return `<span class="text-success">通过</span>`
-                            }else{
-                                return `<span class="text-danger">不通过</span>`
-                            }
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            return `
+		                    <div style="width:100px">
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}','table3',)">查看详情</a>
+		              		<div/>`
                         }
-					}
+                    }
                 ]
             });
         },
@@ -421,6 +476,9 @@
                 ],
                 columns: [
                     {
+                        checkbox: true 
+                    },
+                    {
 						field: 'id',
                         title: 'id',
                         sortable:true
@@ -456,17 +514,14 @@
                         sortable:true
                     },
                     {
-						field: 'auditresu',
-						title: '审核结果',
-                        sortable:true,
-                        formatter: function(value,row,index) {
-                            if(value == 0){
-                                return `<span class="text-success">通过</span>`
-                            }else{
-                                return `<span class="text-danger">不通过</span>`
-                            }
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            return `
+		                    <div style="width:100px">
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo"  onclick="information.addOrUpdate('${row.id}','table4',)"">查看详情</a>
+		              		<div/>`
                         }
-					}
+                    }
                 ]
             });
         }
