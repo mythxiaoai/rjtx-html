@@ -5,7 +5,12 @@ const mysql = require("mysql");
 const multer= require("multer");
 const moment = require('moment');
 const fs = require("fs");
+const coordtransform = require("./lib/transformationLonLat");
 
+/*
+let temp =coordtransform.wgs84togcj02(arr[i].lng, arr[i].lat);
+          temp = coordtransform.gcj02tobd09(temp[0],temp[1]);
+*/
 
 let result = {
   msg:"",
@@ -17,6 +22,20 @@ let errorResult = {
 }
 module.exports = function(server,createPool){
   
+server.use("/wgs84tobd09",(req,res)=>{
+	res.setHeader("Access-Control-Allow-Origin","*");
+  //装载数据
+  //let param = req.body;
+  let data = req.query.data||req.body.data;
+	data = JSON.parse(data);
+	let result = [];
+  for (let item of data) {
+  	let temp = coordtransform.wgs84togcj02(item[0], item[1]);
+  	temp = coordtransform.gcj02tobd09(temp[0], temp[1]);
+		result.push(temp);
+  }
+  res.send(result);
+})
 server.use("/demo/upload",(req,res)=>{
   //装载数据
   let param = req.body;
