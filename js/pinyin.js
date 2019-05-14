@@ -1,4 +1,4 @@
-﻿	/*
+	/*
 ---
 description: Pinyin, to get chinese pinyin from chinese.
 
@@ -31,7 +31,6 @@ var xa_pinyin = (function (){
     var Pinyin = function (ops){
         this.initialize(ops);
     },
-    
     options = {
         checkPolyphone: false,
         charcase: 'default'

@@ -72,9 +72,7 @@ function ComplexCustomOverlay(data,opts={}){
       "circleO":0
     },
     showTextZoom:0,
-    sectorDeg:40,
-    wgs84tobd09:false,
-    wgs84tobd09Mark:true,
+    sectorDeg:40
   }
   this.data = data;
   this.activep = null;//选中的点
