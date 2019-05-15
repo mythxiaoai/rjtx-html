@@ -948,7 +948,7 @@ rj.form.get($("#addOrUpdate")[0]);
                 var treeObj = $.fn.zTree.getZTreeObj(opts.id);
                 var html =[];//页面显示的值
                 var ids =[];//数据库传入的值
-                var nodes = treeObj.getNodes();
+                var nodes = treeObj.transformToArray(treeObj.getNodes());
                 $.each(nodes, function(index,node){
                   if(node.id !=""&&node.checked){
                     html.push(node.name);
