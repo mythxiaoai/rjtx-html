@@ -1,27 +1,26 @@
-<div class="panel">
+<div class="panel p-b">
     <div class="panel-heading">
         <div class="panel-title" id="testtitle"></div>
         <div class="panel-tools">
-            <a class="fz18 js_back" href="javascript:location.reload()" title="点击返回">
+            <a class="fz18 js_back" onclick="addtask.skipPage('normal')" title="点击返回">
                 <i class="fa fa-reply"></i>
             </a>
         </div>
     </div>
     <div class="panel-body">
         <form id="addTaskdata" class="form-horizontal">
-            <fieldset disabled>
                 <div class="col-md-6" >
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="">任务名称</label>
                         <div class="col-md-5">
-                            <input type="text"  name="taskname" class="form-control" placeholder="请输入任务名称" name="input1">
+                            <input type="text"  name="taskname" class="form-control js_contdisa" placeholder="请输入任务名称" name="input1">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">任务类型</label>
                         <div class="col-md-3">
-                            <select class="form-control " name="tasktype">
+                            <select class="form-control  js_contdisa" name="tasktype">
                                 <option value="">--请选择--</option>
                                 <option value="1">打卡上刊登</option>
                                 <option value="2">康师傅扣水电</option>
@@ -32,21 +31,21 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label ">领取超时时间</label>
                         <div class="col-md-6">
-                            <input class="form-control js_time fz12" placeholder="请选择月份" name="relasetime"/>
+                            <input class="form-control js_time fz12 js_contdisa" placeholder="请选择月份" name="relasetime"/>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="control-label col-md-3">审核人</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control" placeholder="请输入审核人名字" name="handler">
+                            <input type="text" class="form-control js_contdisa" placeholder="请输入审核人名字" name="handler">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">可视对象</label>
                         <div class="col-md-3">
-                            <select class="form-control" name="looker">
+                            <select class="form-control js_contdisa" name="looker">
                                 <option value="">--请选择--</option>
                                 <option value="1">润建</option>
                                 <option value="2">康师傅扣水电</option>
@@ -57,7 +56,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">是否申请物资</label>
                         <div class="col-md-3">
-                            <select class="form-control" name="goodstype" id="goodstype">
+                            <select class="form-control js_contdisa" name="goodstype" id="goodstype">
                                 <option value="1">是</option>
                                 <option value="2" selected>否</option>
                             </select>
@@ -69,7 +68,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">任务属性</label>
                         <div class="col-md-5">
-                            <select class="form-control " name="taskcontri">
+                            <select class="form-control js_contdisa " name="taskcontri">
                                 <option value="">请选择指派对象</option>
                                 <option value="1">实施任务</option>
                                 <option value="2">限时任务</option>
@@ -80,35 +79,35 @@
                     <div class="form-group"> 
                         <label class="col-md-3 control-label ">项目名称</label>
                         <div class="col-md-6">
-                            <input class="form-control" id="ztree1" name="parentId" type="text" />
+                            <input class="form-control js_contdisa" id="ztree1" name="parentId" type="text" />
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group"> 
                         <label class="col-md-3 control-label ">任务超时时间</label>
                         <div class="col-md-6">
-                            <input class="form-control js_time fz12" placeholder="请选择月份" name="overtime"/>
+                            <input class="form-control js_time fz12 js_contdisa" placeholder="请选择月份" name="overtime"/>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="">任务积分</label>
                         <div class="col-md-5">
-                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入任务名称" name="ingetral">
+                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_contdisa" placeholder="请输入任务名称" name="ingetral">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="control-label col-md-3">物资信息</label>
                         <div class="col-md-8">
-                            <input type="text" class="form-control" placeholder="请输入物资信息" name="information" id="information" disabled>
+                            <input type="text" class="form-control js_contdisa" placeholder="请输入物资信息" name="information" id="information" disabled>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">指派对象</label>
                         <div class="col-md-5">
-                            <select class="form-control" name="defignate">
+                            <select class="form-control js_contdisa" name="defignate">
                                 <option value="">请选择指派对象</option>
                                 <option value="1">Nacy</option>
                                 <option value="2">Jack</option>
@@ -122,19 +121,19 @@
                         <label class="col-md-1 control-label" style="margin-left: 50px;">位置信息</label>
                         <div class="col-md-8">
                             <div class="col-md-4" style="padding-left:0">
-                                <select class="form-control" name="province" id="province">
+                                <select class="form-control js_contdisa" name="province" id="province">
                                     <option value="">省份</option>
                                     <option value="1">广东省</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <select class="form-control" name="city" id="city">
+                                <select class="form-control js_contdisa" name="city" id="city">
                                     <option value="">地级市</option>
                                     <option value="1">广州市</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <select class="form-control" name="area" id="area">
+                                <select class="form-control js_contdisa" name="area" id="area">
                                     <option value="">市、县级市、县</option>
                                     <option value="1">天河区</option>
                                 </select>
@@ -148,7 +147,7 @@
                         <label class="col-md-1 control-label" style="margin-left: 50px;">详细位置</label>
                         <div class="col-md-7">
                             <div class="col-md-6 " style="padding-left: 0px;">
-                                <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="详细地址" name="infoadd" id="infoadd">
+                                <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_contdisa" placeholder="详细地址" name="infoadd" id="infoadd">
                             </div>
                             <div class="col-md-3 m-b">
                                 <a class="btn btn-default btn-sm js_map"><i class="iconfont icon-zuobiaoicon"></i>获取经纬度</a>
@@ -176,7 +175,7 @@
                             <div id="editor" name="editor">
                                 <p>请编辑任务详情</p>
                             </div>
-                            <input type="hidden" id="editor1" name="editor1" value="$oridata.get('detail', '')" >
+                            <input type="hidden" class=" js_contdisa" id="editor1" name="editor1" value="$oridata.get('detail', '')" >
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -186,16 +185,102 @@
                         <label class="col-md-1 control-label" style="margin-left: 50px;margin-right: 14px;">选择文件</label>
                         <div class="col-md-8">
                             <div class="form-group">
-                                <div id="js_xupload"></div>
+                                <div id="js_xupload1"></div>
                             </div>
                         </div>
                     </div>
+                <div class="hr-line-dashed"></div>
                 </div>
-                <div class="form-group m-b-xs text-center">
-                    <button type="submit" class="btn btn-primary m-r js_release js_sure1">发布任务 </button>
-                </div>                
-            </fieldset>
+                <div class="col-md-6 js_appshow" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">作业场景</label>
+                        <div class="col-md-3">
+                            <select class="form-control js_appinpu" name="jobscenario" id="jobscenario">
+                                <option value="">--请选择--</option>
+                                <option value="1">润建</option>
+                                <option value="2">康师傅扣水电</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">作业时段</label>
+                        <div class="col-md-3">
+                            <select class="form-control js_appinpu" name="jobpriod" id="jobpriod">
+                                <option value="1">是</option>
+                                <option value="2" selected>否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-6 js_appshow">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">天气情况</label>
+                        <div class="col-md-8">
+                            <select class="form-control js_contdisa" name="goodstype" id="goodstype">
+                                <option value="1">是</option>
+                                <option value="2" selected>否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">作业时长</label>
+                        <div class="col-md-5">
+                            <select class="form-control js_contdisa" name="defignate">
+                                <option value="">请选择指派对象</option>
+                                <option value="1">Nacy</option>
+                                <option value="2">Jack</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-12 js_appshow">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;">任务详情</label>
+                        <div class="col-md-10">
+                            <div id="editor2" name="editor">
+                                <p>请编辑任务详情</p>
+                            </div>
+                            <input type="hidden" class=" js_appinpu" id="editorin2" name="editor2" value="$oridata.get('detail', '')" >
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-12 js_appshow">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;margin-right: 14px;">任务附件</label>
+                        <div class="col-md-8">
+                            <div class="form-group js_appinpu">
+                                <div id="js_xupload2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-12 js_appopishow">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;margin-right: 14px;">审批意见</label>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <textarea class="form-control js_appinpu" name="appopinion" id="appopinion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
 
+                <div class="col-md-12">
+                    <div class="form-group m-b-xs text-center">
+                        <button type="submit" class=" btn btn-default m-r js_draft js_sure1">保存为草稿 </button>
+                        <button type="submit" class=" btn btn-primary m-r js_release js_sure1">发布任务 </button>
+                        <button type="button" class=" btn btn-danger m-r js_approbtn" onclick="addtask.approvalTest(0)">审批不通过 </button>
+                        <button type="button" class=" btn btn-success m-r js_approbtn " onclick="addtask.approvalTest(1)">审批通过 </button>
+                        <button type="submit" class=" btn btn-primary m-r js_submitfinish js_sure1" onclick="addtask.subFinish()">完成提交 </button>
+                    </div>  
+                </div>
         </form>
     </div>
 </div>
@@ -208,6 +293,19 @@
             this.time();
             this.fileLoad();
             this.ztree1();
+        },
+        skipPage(type){
+            var num = $("#testtitle").attr('data-num')*1
+            if(type == "normal"){
+                rj.load(".js_info_content","page/task/jobmanager/informationbase.html",function(){
+                    $(".js_home_tab").eq(num).trigger("click");
+                })
+            }else{
+                console.log(num+1)
+                rj.load(".js_info_content","page/task/jobmanager/informationbase.html",function(){
+                    $(".js_home_tab").eq(num+1).trigger("click");
+                });
+            }
         },
         ztree1(){
             var zNodes1 =[
@@ -233,6 +331,15 @@
                 console.log(rj.util.repre($("#editor1").val()))
             }
             editor.create();
+            var editor2 = new E('#editor2');
+            editor2.customConfig.onchange = function (html) {
+                // html 即变化之后的内容
+                $("#editoreditorin22").val(rj.util.pre(html));
+                console.log($("#editorin2").val())
+                //反转转义
+                console.log(rj.util.repre($("#editorin2").val()))
+            }
+            editor2.create();
             //是否申请物资
             $("#goodstype").change(function () {  
                 var opt = $("#goodstype").val();
@@ -242,7 +349,11 @@
                     $("#information").attr("disabled","disabled")
                     $("#information").val("");
                 }
-            })
+            });
+            // 隐藏
+            $(".js_appshow").hide(); //作业场景  执行任务显示
+            $(".js_appopishow").hide(); //审批意见显示
+
         },
         addTask(){
             //富文本编辑
@@ -395,12 +506,11 @@
         fileLoad(){
             let url = "http://gd.rjtx.ink:7302/uploadFile";
             //url = "http://localhost:7302/uploadFile";
-            $("#js_xupload2").data("server",url);
             //整体是load  所以需要调用这个静态方法  让data-形式的初始化生效
             Xupload.autorun();
             var xupload = new Xupload({
                 pick: {
-                id: "#js_xupload"
+                id: "#js_xupload1"
                 },
                 //因为该服务器网速比较差,单线程上传比较靠谱...
                 threads:1,
@@ -416,7 +526,7 @@
                 size:13547
                 }
                 ]
-            })
+            });
             
             //上传
             $(".js_sure1").click(()=>{
@@ -431,6 +541,41 @@
                 console.log("删除的文件id是"+$(this).data("id"))
                 $(this).closest("li").fadeOut();
             });
+        },
+        subFinish(){
+            var $this = this;
+            // 完成提交
+            rj.modal("提交评审","page/task/jobmanager/addregral.html",
+                ()=>{
+                    $("#addDregral").validate({
+                        rules: {
+                            score:{required: true,digits: true}
+                        },
+                        submitHandler: function() {
+                            console.log($("#scro").val())
+                            var num = $("#scro").val();
+                            if(num<200 && num>0){
+                                $this.skipPage('add')
+                                $("#addDregral").hide()
+                                xalert('评分成功','点击确定返回评审任务页面','success');
+                            }else{
+                                xalert('评分失败','请输入0~200之间的数值进行评分！','error');
+                            }
+                        }
+                    })
+                }
+            )
+        },
+        approvalTest(val){
+            //评审
+            var $this = this;
+            if(val == 0){  //fail
+                console.log(1);
+                $this.skipPage('add')
+            }else{
+                console.log(2)
+                $this.skipPage('add')
+            }
         }
     };
     addtask.init()
