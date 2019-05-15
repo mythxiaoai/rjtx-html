@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <div class="panel-title">新增任务</div>
+        <div class="panel-title" id="testtitle"></div>
         <div class="panel-tools">
             <a class="fz18 js_back" href="javascript:location.reload()" title="点击返回">
                 <i class="fa fa-reply"></i>
@@ -9,190 +9,193 @@
     </div>
     <div class="panel-body">
         <form id="addTaskdata" class="form-horizontal">
-            <div class="col-md-6" >
-                <div class="form-group">
-                    <label class="col-md-3 control-label" for="">任务名称</label>
-                    <div class="col-md-5">
-                        <input type="text"  name="taskname" class="form-control" placeholder="请输入任务名称" name="input1">
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">任务类型</label>
-                    <div class="col-md-3">
-                        <select class="form-control " name="tasktype">
-                            <option value="">--请选择--</option>
-                            <option value="1">打卡上刊登</option>
-                            <option value="2">康师傅扣水电</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label ">领取超时时间</label>
-                    <div class="col-md-6">
-                        <input class="form-control js_time fz12" placeholder="请选择月份" name="relasetime"/>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">审核人</label>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" placeholder="请输入审核人名字" name="handler">
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">可视对象</label>
-                    <div class="col-md-3">
-                        <select class="form-control" name="looker">
-                            <option value="">--请选择--</option>
-                            <option value="1">润建</option>
-                            <option value="2">康师傅扣水电</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">是否申请物资</label>
-                    <div class="col-md-3">
-                        <select class="form-control" name="goodstype" id="goodstype">
-                            <option value="1">是</option>
-                            <option value="2" selected>否</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label class="col-md-3 control-label">任务属性</label>
-                    <div class="col-md-5">
-                        <select class="form-control " name="taskcontri">
-                            <option value="">请选择指派对象</option>
-                            <option value="1">实施任务</option>
-                            <option value="2">限时任务</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group"> 
-                    <label class="col-md-3 control-label ">项目名称</label>
-                    <div class="col-md-6">
-                        <input class="form-control" id="ztree1" name="parentId" type="text" />
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group"> 
-                    <label class="col-md-3 control-label ">任务超时时间</label>
-                    <div class="col-md-6">
-                        <input class="form-control js_time fz12" placeholder="请选择月份" name="overtime"/>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label" for="">任务积分</label>
-                    <div class="col-md-5">
-                        <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入任务名称" name="ingetral">
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">物资信息</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" placeholder="请输入物资信息" name="information" id="information" disabled>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">指派对象</label>
-                    <div class="col-md-5">
-                        <select class="form-control" name="defignate">
-                            <option value="">请选择指派对象</option>
-                            <option value="1">Nacy</option>
-                            <option value="2">Jack</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label class="col-md-1 control-label" style="margin-left: 50px;">位置信息</label>
-                    <div class="col-md-8">
-                        <div class="col-md-4" style="padding-left:0">
-                            <select class="form-control" name="province" id="province">
-                                <option value="">省份</option>
-                                <option value="1">广东省</option>
-                            </select>
+            <fieldset disabled>
+                <div class="col-md-6" >
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="">任务名称</label>
+                        <div class="col-md-5">
+                            <input type="text"  name="taskname" class="form-control" placeholder="请输入任务名称" name="input1">
                         </div>
-                        <div class="col-md-4">
-                            <select class="form-control" name="city" id="city">
-                                <option value="">地级市</option>
-                                <option value="1">广州市</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <select class="form-control" name="area" id="area">
-                                <option value="">市、县级市、县</option>
-                                <option value="1">天河区</option>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">任务类型</label>
+                        <div class="col-md-3">
+                            <select class="form-control " name="tasktype">
+                                <option value="">--请选择--</option>
+                                <option value="1">打卡上刊登</option>
+                                <option value="2">康师傅扣水电</option>
                             </select>
                         </div>
                     </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label class="col-md-1 control-label" style="margin-left: 50px;">详细位置</label>
-                    <div class="col-md-7">
-                        <div class="col-md-6 " style="padding-left: 0px;">
-                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="详细地址" name="infoadd" id="infoadd">
-                        </div>
-                        <div class="col-md-3 m-b">
-                            <a class="btn btn-default btn-sm js_map"><i class="iconfont icon-zuobiaoicon"></i>获取经纬度</a>
-                        </div>
-                        <div id="allmap" class=""></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-1 control-label" style="margin-left: 50px;">经纬度</label>
-                    <div class="col-md-10">
-                        <div class="col-md-3" style="padding-left:0">
-                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_j" placeholder="经度" name="longitude" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_w" placeholder="纬度" name="latitude" disabled>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label ">领取超时时间</label>
+                        <div class="col-md-6">
+                            <input class="form-control js_time fz12" placeholder="请选择月份" name="relasetime"/>
                         </div>
                     </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label class="col-md-1 control-label" style="margin-left: 50px;">任务详情</label>
-                    <div class="col-md-10">
-                        <div id="editor" name="editor">
-                            <p>请编辑任务详情</p>
-                        </div>
-                        <input type="hidden" id="editor1" name="editor1" value="$oridata.get('detail', '')" >
-                    </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label class="col-md-1 control-label" style="margin-left: 50px;margin-right: 14px;">选择文件</label>
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <div id="js_xupload"></div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">审核人</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="请输入审核人名字" name="handler">
                         </div>
                     </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">可视对象</label>
+                        <div class="col-md-3">
+                            <select class="form-control" name="looker">
+                                <option value="">--请选择--</option>
+                                <option value="1">润建</option>
+                                <option value="2">康师傅扣水电</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">是否申请物资</label>
+                        <div class="col-md-3">
+                            <select class="form-control" name="goodstype" id="goodstype">
+                                <option value="1">是</option>
+                                <option value="2" selected>否</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
                 </div>
-            </div>
-            <div class="form-group m-b-xs text-center">
-                <button type="submit" class="btn btn-primary m-r js_release js_sure1">发布任务 </button>
-            </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">任务属性</label>
+                        <div class="col-md-5">
+                            <select class="form-control " name="taskcontri">
+                                <option value="">请选择指派对象</option>
+                                <option value="1">实施任务</option>
+                                <option value="2">限时任务</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"> 
+                        <label class="col-md-3 control-label ">项目名称</label>
+                        <div class="col-md-6">
+                            <input class="form-control" id="ztree1" name="parentId" type="text" />
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group"> 
+                        <label class="col-md-3 control-label ">任务超时时间</label>
+                        <div class="col-md-6">
+                            <input class="form-control js_time fz12" placeholder="请选择月份" name="overtime"/>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="">任务积分</label>
+                        <div class="col-md-5">
+                            <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入任务名称" name="ingetral">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">物资信息</label>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" placeholder="请输入物资信息" name="information" id="information" disabled>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">指派对象</label>
+                        <div class="col-md-5">
+                            <select class="form-control" name="defignate">
+                                <option value="">请选择指派对象</option>
+                                <option value="1">Nacy</option>
+                                <option value="2">Jack</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;">位置信息</label>
+                        <div class="col-md-8">
+                            <div class="col-md-4" style="padding-left:0">
+                                <select class="form-control" name="province" id="province">
+                                    <option value="">省份</option>
+                                    <option value="1">广东省</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name="city" id="city">
+                                    <option value="">地级市</option>
+                                    <option value="1">广州市</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" name="area" id="area">
+                                    <option value="">市、县级市、县</option>
+                                    <option value="1">天河区</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;">详细位置</label>
+                        <div class="col-md-7">
+                            <div class="col-md-6 " style="padding-left: 0px;">
+                                <input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="详细地址" name="infoadd" id="infoadd">
+                            </div>
+                            <div class="col-md-3 m-b">
+                                <a class="btn btn-default btn-sm js_map"><i class="iconfont icon-zuobiaoicon"></i>获取经纬度</a>
+                            </div>
+                            <div id="allmap" class=""></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;">经纬度</label>
+                        <div class="col-md-10">
+                            <div class="col-md-3" style="padding-left:0">
+                                <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_j" placeholder="经度" name="longitude" disabled>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" autofocus="autofocus" autocomplete="off" class="form-control js_w" placeholder="纬度" name="latitude" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;">任务详情</label>
+                        <div class="col-md-10">
+                            <div id="editor" name="editor">
+                                <p>请编辑任务详情</p>
+                            </div>
+                            <input type="hidden" id="editor1" name="editor1" value="$oridata.get('detail', '')" >
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="col-md-1 control-label" style="margin-left: 50px;margin-right: 14px;">选择文件</label>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <div id="js_xupload"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group m-b-xs text-center">
+                    <button type="submit" class="btn btn-primary m-r js_release js_sure1">发布任务 </button>
+                </div>                
+            </fieldset>
+
         </form>
     </div>
 </div>
