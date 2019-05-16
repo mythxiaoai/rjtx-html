@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <div class="panel-title" id="testtitle"></div>
         <div class="panel-tools">
-            <a class="fz18 js_back" onclick="addtask.skipPage('normal')" title="点击返回">
+            <a class="fz18 js_back" onclick="addtask.skipPage('back')" title="点击返回">
                 <i class="fa fa-reply"></i>
             </a>
         </div>
@@ -218,7 +218,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3">天气情况</label>
                         <div class="col-md-8">
-                            <select class="form-control js_contdisa" name="goodstype" id="goodstype">
+                            <select class="form-control js_appinpu" name="goodstype" id="goodstype">
                                 <option value="1">是</option>
                                 <option value="2" selected>否</option>
                             </select>
@@ -228,7 +228,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">作业时长</label>
                         <div class="col-md-5">
-                            <select class="form-control js_contdisa" name="defignate">
+                            <select class="form-control js_appinpu" name="defignate">
                                 <option value="">请选择指派对象</option>
                                 <option value="1">Nacy</option>
                                 <option value="2">Jack</option>
@@ -279,6 +279,8 @@
                         <button type="button" class=" btn btn-danger m-r js_approbtn" onclick="addtask.approvalTest(0)">审批不通过 </button>
                         <button type="button" class=" btn btn-success m-r js_approbtn " onclick="addtask.approvalTest(1)">审批通过 </button>
                         <button type="submit" class=" btn btn-primary m-r js_submitfinish js_sure1" onclick="addtask.subFinish()">完成提交 </button>
+                        <button type="submit" class=" btn btn-primary m-r js_carryOut js_sure1" onclick="addtask.carryOut()">立即执行 </button>
+                        
                     </div>  
                 </div>
         </form>
@@ -287,23 +289,23 @@
 <script>
     var addtask = {
         init(){
-            this.editor();
             this.mapAnalysis();
             this.addTask();
             this.time();
-            this.fileLoad();
             this.ztree1();
+            this.editor();
+            this.fileLoad();
         },
         skipPage(type){
-            var num = $("#testtitle").attr('data-num')*1
-            if(type == "normal"){
-                rj.load(".js_info_content","page/task/jobmanager/informationbase.html",function(){
-                    $(".js_home_tab").eq(num).trigger("click");
+            //返回跳转页面 提交跳下一个页面
+            var num = information.tabIndex;
+            if(type == "back"){
+                rj.load(".js_index_content","page/task/jobmanager/informationbase.html",function(){
+                    $(".js_home_tab").eq(num).trigger   ("click");
                 })
             }else{
-                console.log(num+1)
-                rj.load(".js_info_content","page/task/jobmanager/informationbase.html",function(){
-                    $(".js_home_tab").eq(num+1).trigger("click");
+                rj.load(".js_index_content","page/task/jobmanager/informationbase.html",function(){
+                    $(".js_home_tab").eq(++num).trigger("click");
                 });
             }
         },
@@ -322,22 +324,29 @@
         },
         editor(){
             var E = window.wangEditor;
+            var tabnum = $("#testtitle").attr('data-num')*1
             var editor = new E('#editor');
+            // 富文本编译器1
             editor.customConfig.onchange = function (html) {
                 // html 即变化之后的内容
                 $("#editor1").val(rj.util.pre(html));
                 console.log($("#editor1").val())
                 //反转转义
                 console.log(rj.util.repre($("#editor1").val()))
-            }
+            };
             editor.create();
+            if(tabnum == 0){
+                //可编辑
+                editor.$textElem.attr('contenteditable', true)
+            }else{
+                // 不可编辑状态
+                editor.$textElem.attr('contenteditable', false)
+            }
+            
             var editor2 = new E('#editor2');
             editor2.customConfig.onchange = function (html) {
                 // html 即变化之后的内容
                 $("#editoreditorin22").val(rj.util.pre(html));
-                console.log($("#editorin2").val())
-                //反转转义
-                console.log(rj.util.repre($("#editorin2").val()))
             }
             editor2.create();
             //是否申请物资
@@ -351,9 +360,6 @@
                 }
             });
             // 隐藏
-            $(".js_appshow").hide(); //作业场景  执行任务显示
-            $(".js_appopishow").hide(); //审批意见显示
-
         },
         addTask(){
             //富文本编辑
@@ -377,7 +383,6 @@
                 messages: {},
                 submitHandler: function(){
                      var data = rj.form.get($("#addTaskdata")[0]);
-                     console.log(data)
                 }
             })
         },
@@ -412,7 +417,6 @@
 					return;
 				};
                 var addstr=$("#province").val()+$("#city").find("option:selected").text()+$("#area").find("option:selected").text()+($("#infoadd").val()||"");
-                console.log($("#province").find("option:selected").text())
 				//写锚点的同时 清除下;
 				map.clearOverlays();
 				//获取解析器
@@ -555,8 +559,9 @@
                             console.log($("#scro").val())
                             var num = $("#scro").val();
                             if(num<200 && num>0){
-                                $this.skipPage('add')
-                                $("#addDregral").hide()
+                                $this.skipPage('add');
+                                // 隐藏modal
+                                $("#xa-modal").trigger('hidden.bs.modal');
                                 xalert('评分成功','点击确定返回评审任务页面','success');
                             }else{
                                 xalert('评分失败','请输入0~200之间的数值进行评分！','error');
@@ -570,16 +575,18 @@
             //评审
             var $this = this;
             if(val == 0){  //fail
-                console.log(1);
                 $this.skipPage('add')
             }else{
-                console.log(2)
                 $this.skipPage('add')
             }
+        },
+        carryOut(){
+            //立即执行
+            var $this = this;
+            $this.skipPage('add')
         }
     };
     addtask.init()
-
 </script>
 <style lang="">
     .redx{font-size:14px;color:red; font-weight: normal; padding-right: 5px;}

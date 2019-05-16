@@ -50,6 +50,7 @@
 </div>
 <script>
     var information = {
+        tabIndex:0,
         init(){
             this.tabInit();
             this.taskUpdate();
@@ -58,7 +59,9 @@
 			let $this = this;
 			$(".js_home_tab").click(function(){
 				$(this).addClass("active").siblings().removeClass("active");
-				rj.load(".js_home_tabContent",$(this).data("url"),function(){})
+				rj.load(".js_home_tabContent",$(this).data("url"),function(){
+                    task_tab1.init();
+                })
 			});
 			//默认选中第一个
 			$(".js_home_tab").eq(0).trigger("click");
@@ -69,10 +72,6 @@
                 xtip("selectLeastOne")
             }else{
                 if(tab == "#table2"){
-                    xconfirm(`选定${rowData.length}个任务进行审核`,"删除后将无法恢复，请谨慎操作！",'info',function(){
-                        xalert('提交成功','点击确定返回查看','success')
-                    });
-                }else if(tab == "#table3"){
                     xconfirm(`选定${rowData.length}个任务进行审核`,"删除后将无法恢复，请谨慎操作！",'info',function(){
                         xalert('提交成功','点击确定返回查看','success')
                     });
@@ -88,6 +87,8 @@
                                     var num = $("#scro1").val();
                                     if(num<200 && num>0){
                                         xalert('评分成功','点击确定返回评审任务页面','success');
+                                        // 隐藏modal
+                                        $("#xa-modal").trigger('hidden.bs.modal');
                                     }else{
                                         xalert('评分失败','请输入0~200之间的数值进行评分！','error');
                                     }
@@ -100,39 +101,55 @@
                 
             }
         },
-        addOrUpdate(id,tab){
+        addOrUpdate(id,tabnum){
+            this.tabIndex = tabnum;
+            console.log(tabnum)
             //新增表单页面/查看
             rj.load(".js_info_content","page/task/jobmanager/addOrUpdate.html",function(){
-                console.log(tab);
+                //按钮
                 $(".js_draft").hide(); 
                 $(".js_release").hide();
                 $(".js_approbtn").hide();
                 $(".js_submitfinish").hide(); 
-               if(tab == "table1"){
+                $(".js_carryOut").hide(); 
+                $(".js_appshow").hide(); //作业场景  执行任务显示
+                $(".js_appopishow").hide(); //审批意见显示 
+               if(tabnum == 0){
                     // 修改任务
-                    $("#testtitle").html('修改任务');$(".js_draft").show();$(".js_release").show();$(".js_submitfinish").hide();
+                    console.log('修改任务')
+                    $("#testtitle").html('修改任务');
+                    $(".js_draft").show();
+                    $(".js_release").show();
+                    $(".js_submitfinish").hide();
                     // 设置属性 跳转页面
-                    $("#testtitle").attr("data-num",0);
-                }else if(tab == "table2"){
+                }else if(tabnum == 1){
                     // 审核任务
-                    $("#testtitle").html('任务详情');$(".js_contdisa").attr("disabled","disabled");$(".js_appopishow").show();$(".js_approbtn").show();
-                    $("#testtitle").attr("data-num",1);
-                }else if(tab == "table3"){
+                    $("#testtitle").html('任务详情');
+                    $(".js_contdisa").attr("disabled","disabled");
+                    $(".js_appopishow").show();
+                    $(".js_approbtn").show();
+                    // 异步加载文件选择器
+                    setTimeout(()=>{
+                        $("#js_xupload1").find("label").css("pointer-events","none");
+                    },200)
+                }else if(tabnum == 2){
                     // 执行任务
                     $("#testtitle").html('任务详情');
-                    $(".js_appshow").show();$(".js_submitfinish").show();
-                    $(".js_contdisa").attr("disabled","disabled");$("#testtitle").attr("data-num",2);
-                }else if(tab == "table4"){
+                    $(".js_carryOut").show(); 
+                    $(".js_contdisa").attr("disabled","disabled");
+                }else if(tabnum == 3){
                     // 评审任务
                     $("#testtitle").html('任务详情');
-                    $(".js_submitfinish").show();$(".js_appshow").show();
-                    $(".js_contdisa").attr("disabled","disabled"); $("#testtitle").attr("data-num",3);
+                    $(".js_submitfinish").show();
+                    $(".js_appshow").show();
+                    $(".js_contdisa").attr("disabled","disabled"); 
                 }else{
                     // 完成任务
                     $("#testtitle").html('任务详情');
-                    $("#testtitle").html('任务详情');$(".js_contdisa").attr("disabled","disabled");$(".js_appshow").show();
-                    $(".js_appinpu").attr("disabled","disabled");$("#testtitle").attr("data-num",4);
-
+                    $("#testtitle").html('任务详情');
+                    $(".js_contdisa").attr("disabled","disabled");
+                    $(".js_appshow").show();
+                    $(".js_appinpu").attr("disabled","disabled");
                 }
             });
         },

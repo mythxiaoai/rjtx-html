@@ -1,5 +1,4 @@
 <div class="tab-pane fade  in active" id="tasktab3">
-    <button type="button" class="btn btn-default  m-t btn-md js_table3" onclick="information.batchOpration('#table3')">批量执行</button>
     <table id="table3"></table>
 </div>
 <script>
@@ -94,7 +93,7 @@
                         formatter: function(value, row, index) {
                             return `
                             <div style="width:100px">
-                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}','table3',)">执行</a>
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}',2)">执行</a>
                             <div/>`
                         }
                     }
