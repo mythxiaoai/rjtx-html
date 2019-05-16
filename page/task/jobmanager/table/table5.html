@@ -1,0 +1,80 @@
+<div class="tab-pane fade in active" id="tasktab5">
+    <table id="table5"></table>
+</div>
+<script>
+    var task_tab5={
+        init(){
+            this.tab5_table();
+        },
+        tab5_table(){
+            rj.table.init({
+                id:"#table5",
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 10, // 每页显示条数  
+                data: [
+                    {
+                       "id":0,
+                       "name": "test2",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "receiver":"jack",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "integral": 10,
+                       "auditresu": 1
+                    }
+                    
+                ],
+                columns: [
+                    {
+						field: 'name',
+						title: '任务名称',
+                        sortable:true
+                    },
+                    {
+						field: 'attribute',
+						title: '任务属性',
+                        sortable:true
+                    },
+                    {
+						field: 'type',
+						title: '任务类型',
+                        sortable:true
+                    },
+                    {
+						field: 'limittime',
+						title: '处理时限',
+                        sortable:true
+                    },
+                    {
+						field: 'createtime',
+						title: '创建时间',
+                        sortable:true
+                    },
+                    {
+						field: 'receiver',
+						title: '领取人',
+                        sortable:true
+                    },
+                    {
+						field: 'integral',
+						title: '积分任务',
+                        sortable:true
+                    },
+                    {
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            return `
+		                    <div style="width:100px">
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo"  onclick="information.addOrUpdate('${row.id}','table5',)"">查看详情</a>
+		              		<div/>`
+                        }
+                    }
+                ]
+            });
+        }
+    }
+    task_tab5.init()
+</script>

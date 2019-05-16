@@ -1,0 +1,106 @@
+<div class="tab-pane fade  in active" id="tasktab3">
+    <button type="button" class="btn btn-default  m-t btn-md js_table3" onclick="information.batchOpration('#table3')">批量执行</button>
+    <table id="table3"></table>
+</div>
+<script>
+    var task_tab3={
+        init(){
+            this.tab3_table();
+        },
+        tab3_table(){
+            rj.table.init({
+                id:"#table3",
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 10, // 每页显示条数  
+                data: [
+                    {
+                       "id":0,
+                       "name": "rwerwer",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "creater":"小红",
+                       "integral": 10,
+                       "auditresu": 1
+                    },
+                    {
+                       "id":1,
+                       "name": "阿打算打算打算多",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "creater":"小红",
+                       "integral": 10,
+                       "auditresu": 0
+                    },
+                    {
+                       "id":2,
+                       "name": "每日指标通报",
+                       "attribute":  "实时任务",
+                       "type": "日常任务",
+                       "limittime": "2019-01-11 18:00:00",
+                       "createtime": "2019-11-11 12:10:30",
+                       "creater":"小红",
+                       "integral": 10,
+                       "auditresu": 0
+                    }
+                    
+                ],
+                columns: [
+                    {
+                        checkbox: true 
+                    },
+                    {
+						field: 'id',
+                        title: 'id',
+                        sortable:true
+                    },
+                    {
+						field: 'name',
+						title: '任务名称',
+                        sortable:true
+                    },
+                    {
+						field: 'attribute',
+						title: '任务属性',
+                        sortable:true
+                    },
+                    {
+						field: 'type',
+						title: '任务类型',
+                        sortable:true
+                    },
+                    {
+						field: 'limittime',
+						title: '处理时限',
+                        sortable:true
+                    },
+                    {
+						field: 'creater',
+						title: '创建人',
+                        sortable:true
+                    },
+                    {
+						field: 'integral',
+						title: '积分任务',
+                        sortable:true
+                    },
+                    {
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            return `
+                            <div style="width:100px">
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}','table3',)">执行</a>
+                            <div/>`
+                        }
+                    }
+                ]
+            });
+        }
+    }
+    task_tab3.init()
+</script>

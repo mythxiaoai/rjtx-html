@@ -1,0 +1,161 @@
+<div class="tab-pane fade in active" id="tasktab1">
+    <button onclick="information.addOrUpdate('id','table1')" type="button" class="btn btn-default  m-t btn-md"><i class="iconfont icon-add"></i> 新增</button>
+    <div class="form-group m-b-xs  m-t pull-right">
+        <button type="button" class="btn btn-default m-r ">任务模板下载
+            <i class="iconfont icon-xiazai"></i> 
+        </button>
+        <button type="button" class="btn btn-default js_taskImport">上传任务
+            <i class="iconfont icon-shangchuan "></i> 
+        </button>
+    </div>
+    <table id="table1"></table>
+</div>
+<script>
+    var task_tab1={
+        init(){
+            this.tab1_table();
+        },
+        tab1_table(){
+            let data =  [
+                {
+                    "id":0,
+                    "name": "每日指标通报",
+                    "attribute":  "实时任务",
+                    "type": "日常任务",
+                    "limittime": "2019-01-11 18:00:00",
+                    "createtime": "2019-11-11 12:10:30",
+                    "integral": 10,
+                    "auditresu": 0
+                },
+                {
+                    "id":1,
+                    "name": "阿打算打算打算多",
+                    "attribute":  "实时任务",
+                    "type": "日常任务",
+                    "limittime": "2019-01-11 18:00:00",
+                    "createtime": "2019-11-11 12:10:30",
+                    "integral": 10,
+                    "auditresu": 0
+                },
+                {
+                    "id":2,
+                    "name": "每日指标通报",
+                    "attribute":  "实时任务",
+                    "type": "日常任务",
+                    "limittime": "2019-01-11 18:00:00",
+                    "createtime": "2019-11-11 12:10:30",
+                    "integral": 10,
+                    "auditresu": 1
+                },
+                {
+                    "id":3,
+                    "name": "每日指标通报",
+                    "attribute":  "实时任务",
+                    "type": "日常任务",
+                    "limittime": "2019-01-11 18:00:00",
+                    "createtime": "2019-11-11 12:10:30",
+                    "integral": 10,
+                    "auditresu": 1
+                },
+                {
+                    "id":4,
+                    "name": "每日指标通报",
+                    "attribute":  "实时任务",
+                    "type": "日常任务",
+                    "limittime": "2019-01-11 18:00:00",
+                    "createtime": "2019-11-11 12:10:30",
+                    "integral": 10,
+                    "auditresu": 1
+                },
+                {
+                    "id":5,
+                    "name": "每日指标通报",
+                    "attribute":  "实时任务",
+                    "type": "日常任务",
+                    "limittime": "2019-01-11 18:00:00",
+                    "createtime": "2019-11-11 12:10:30",
+                    "integral": 10,
+                    "auditresu": 1
+                }
+                
+            ];
+            rj.table.init({
+                id:"#table1",
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 10, // 每页显示条数  
+				data:data,
+                columns: [
+                    {
+                        field: 'id',
+                        title: 'id',
+                        sortable:true
+                    },
+                    {
+                        field: 'name',
+                        title: '任务名称',
+                        sortable:true
+                    },
+                    {
+                        field: 'attribute',
+                        title: '任务属性',
+                        sortable:true
+                    },
+                    {
+                        field: 'type',
+                        title: '任务类型',
+                        sortable:true
+                    },
+                    {
+                        field: 'limittime',
+                        title: '处理时限',
+                        sortable:true
+                    },
+                    {
+                        field: 'createtime',
+                        title: '创建时间',
+                        sortable:true
+                    },
+                    {
+                        field: 'integral',
+                        title: '积分任务',
+                        sortable:true
+                    },
+                    {
+                        field: 'auditresu',
+                        title: '审核结果',
+                        sortable:true,
+                        formatter: function(value,row,index) {
+                            if(value == 0){
+                                return `<span class="text-danger">评审不通过</span>`
+                            }else{
+                                return `<span class="text-warning">任务待发布</span>`
+                            }
+                        }
+                    },
+                    {
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            if(row.auditresu == 0){
+                                return `
+                                <div style="width:100px">
+                                    <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}','table1')">修改</a>
+                                    <a class="btn btn-danger btn-xs">删除</a>
+                                    <div/>`
+                            }else{
+                                return `
+                                <div style="width:100px">
+                                    <a class="btn btn-warning btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}','table1')">修改草稿</a>
+                                    <a class="btn btn-danger btn-xs">删除</a>
+                                <div/>`
+                            }
+                        
+                        }
+                    }
+                ]
+            });
+        }
+    }
+    task_tab1.init()
+</script>
