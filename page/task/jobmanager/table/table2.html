@@ -1,0 +1,84 @@
+<div class="tab-pane fade in active" id="tasktab2">
+    <button type="button" class="btn btn-default  m-t btn-md js_table2" onclick="information.batchOpration('#table2')">批量审核</button>
+    <table id="table2"></table>
+</div>
+<script>
+    var task_tab2={
+        init(){
+            this.tab2_table();
+        },
+        tab2_table(){
+            var data = 
+            rj.table.init({
+                id:"#table2",
+                pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageNumber:1, // 默认显示第几页
+                pageSize: 10, // 每页显示条数  
+                data: [
+                    {
+                        "id":0,
+                        "name": "1",
+                        "attribute":  "实时任务",
+                        "type": "日常任务",
+                        "limittime": "2019-01-11 18:00:00",
+                        "createtime": "2019-11-11 12:10:30",
+                        "integral": 10,
+                        "auditresu": 1
+                    }
+                    
+                ],
+                columns: [
+                    {
+                        checkbox: true 
+                    },
+                    {
+                        field: 'id',
+                        title: 'id',
+                        sortable:true
+                    },
+                    {
+                        field: 'name',
+                        title: '任务名称',
+                        sortable:true
+                    },
+                    {
+                        field: 'attribute',
+                        title: '任务属性',
+                        sortable:true
+                    },
+                    {
+                        field: 'type',
+                        title: '任务类型',
+                        sortable:true
+                    },
+                    {
+                        field: 'limittime',
+                        title: '处理时限',
+                        sortable:true
+                    },
+                    {
+                        field: 'createtime',
+                        title: '创建时间',
+                        sortable:true
+                    },
+                    {
+                        field: 'integral',
+                        title: '积分任务',
+                        sortable:true
+                    },
+                    {
+                        title: '操作',
+                        formatter: function(value, row, index) {
+                            return `
+                            <div style="width:100px">
+                                <a class="btn btn-info btn-xs" data-auth="/project/assessment/getAssessmentInfo" onclick="information.addOrUpdate('${row.id}',1)"">查看详情</a>
+                            <div/>`
+                        }
+                    }
+                ]
+            });
+        }
+    }
+    task_tab2.init()
+</script>
