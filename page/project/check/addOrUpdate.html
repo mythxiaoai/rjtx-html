@@ -1,0 +1,418 @@
+<div class="p-m">
+	<div class="panel panel-white">
+		<div class="panel-heading">
+			<div class="panel-title js_check_title">
+				新增质检规则
+			</div>
+			<div class="panel-tools">
+				<a class="fz18 js_back" href="javascript:;" title="点击返回">
+					<i class="fa fa-reply"></i>
+				</a>
+			</div>
+		</div>
+		<div class="panel-body collapsed in" id="panelContent">
+			<div class="col-md-12">
+				<form id="addOrUpdate" class="form-horizontal">
+					<input type="hidden" name="id" />
+					<div class="form-group">
+						<label class="col-sm-2 control-label">质检规则名称</label>
+						<div class="col-md-10">
+							<input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入规则名称" name="input1">
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">项目名称</label>
+						<div class="col-md-10">
+							<select class="form-control" name="project">
+								<option value="">--请选择--</option>
+								<option value="1">广州项目</option>
+								<option value="2">深圳项目</option>
+							</select>
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">质检规则定义</label>
+						<!--sheet-->
+						<div class="col-sm-10 js_sheet sheet_box" data-name="input4">
+							<div class="row js_sheet_item clearfix m-b-md">
+								<div class="col-md-6">
+									<select class="form-control js_special rj_toggleRow_input" name="inputKey1">
+										<option value="">--工单类型--</option>
+										<option value="and">且</option>
+										<option value="or">或</option>
+									</select>
+								</div>
+								<div class="col-md-2 p-none">
+									<div class="btn-group btn-group-xs m-t-xs">
+										<button type="button" class="btn btn-default js_sheet_add" title="增加"><i class="iconfont icon-add"></i></button>
+										<button type="button" class="btn btn-default js_sheet_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+									</div>
+								</div>
+								<div class="clearfix m-b"></div>
+								<!--列-->
+								<div class="file_box">
+									<div class="js_file_item clearfix m-b">
+										<div class="col-md-6">
+											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
+												<option value="">--列名--</option>
+												<option value="and">且</option>
+												<option value="or">或</option>
+											</select>
+										</div>
+										<div class="col-md-2 p-none">
+											<div class="btn-group btn-group-xs m-t-xs">
+												<button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
+												<button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+											</div>
+										</div>
+										<div class="clearfix m-b-sm"></div>
+
+										<!--关系值-->
+										<div class="relationship_box">
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="js_file_item clearfix m-b">
+										<div class="col-md-6">
+											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
+												<option value="">--列名--</option>
+												<option value="and">且</option>
+												<option value="or">或</option>
+											</select>
+										</div>
+										<div class="col-md-2 p-none">
+											<div class="btn-group btn-group-xs m-t-xs">
+												<button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
+												<button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+											</div>
+										</div>
+										<div class="clearfix m-b-sm"></div>
+
+										<!--关系值-->
+										<div class="relationship_box">
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+							<div class="row js_sheet_item clearfix m-b-md">
+								<div class="col-md-6">
+									<select class="form-control js_special rj_toggleRow_input" name="inputKey1">
+										<option value="">--工单类型--</option>
+										<option value="and">且</option>
+										<option value="or">或</option>
+									</select>
+								</div>
+								<div class="col-md-2 p-none">
+									<div class="btn-group btn-group-xs m-t-xs">
+										<button type="button" class="btn btn-default js_sheet_add" title="增加"><i class="iconfont icon-add"></i></button>
+										<button type="button" class="btn btn-default js_sheet_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+									</div>
+								</div>
+								<div class="clearfix m-b"></div>
+								<!--列-->
+								<div class="file_box">
+									<div class="js_file_item clearfix m-b">
+										<div class="col-md-6">
+											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
+												<option value="">--列名--</option>
+												<option value="and">且</option>
+												<option value="or">或</option>
+											</select>
+										</div>
+										<div class="col-md-2 p-none">
+											<div class="btn-group btn-group-xs m-t-xs">
+												<button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
+												<button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+											</div>
+										</div>
+										<div class="clearfix m-b-sm"></div>
+
+										<!--关系值-->
+										<div class="relationship_box">
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="js_file_item clearfix m-b">
+										<div class="col-md-6">
+											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
+												<option value="">--列名--</option>
+												<option value="and">且</option>
+												<option value="or">或</option>
+											</select>
+										</div>
+										<div class="col-md-2 p-none">
+											<div class="btn-group btn-group-xs m-t-xs">
+												<button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
+												<button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+											</div>
+										</div>
+										<div class="clearfix m-b-sm"></div>
+
+										<!--关系值-->
+										<div class="relationship_box">
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
+												<div class="col-md-3">
+													<select class="form-control rj_toggleRow_input" name="inputKey3">
+														<option value="=">等于</option>
+														<option value="!=">不等于</option>
+														<option value=">">大于</option>
+														<option value=">=">大于等于</option>
+														<option value="<">小于</option>
+														<option value="<=">小于等于</option>
+														<option value="like">包含</option>
+														<option value="not like">不包含</option>
+														<option value="is null">等空值</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+												</div>
+												<div class="col-md-3 p-none">
+													<div class="btn-group btn-group-xs m-t-xs">
+														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
+														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+
+
+						<!-- <div class="col-sm-10 rj_toggleRow" data-name="input4">
+							<div class="row m-b-xs rj_toggleRow_item">
+								<div class="col-md-2  p-none">
+									<select class="form-control js_special rj_toggleRow_input" name="inputKey1">
+										<option value="and">且</option>
+										<option value="or">或</option>
+									</select>
+								</div>
+								<div class="col-md-5">
+									<select class="form-control rj_toggleRow_input" name="inputKey2">
+										<option value="q1">派单人</option>
+										<option value="q2">数据来源</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+								 	<select class="form-control rj_toggleRow_input" name="inputKey3">
+										<option value="=">等于</option>
+										<option value="!=">不等于</option>
+										<option value=">">大于</option>
+										<option value=">=">大于等于</option>
+										<option value="<">小于</option>
+										<option value="<=">小于等于</option>
+										<option value="like">包含</option>
+										<option value="not like">不包含</option>
+										<option value="is null">等空值</option>
+									</select>
+									 
+								</div>
+								<div class="col-md-2 p-none">
+									<div class="btn-group btn-group-xs m-t-xs">
+										<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
+										<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+									</div>
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<div class="col-sm-12 text-center">
+							<button class="btn btn-default m-r js_back" type="button">取消</button>
+							<button class="btn btn-primary js_sure" type="button">确定</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var check = {
+		init() {
+			//返回
+			this.back();
+		},
+		back() {
+			$(".js_back").click(function() {
+				rj.load(".js_index_content", "page/project/check/index.html");
+			});
+		},
+
+	}
+	check.init();
+</script>

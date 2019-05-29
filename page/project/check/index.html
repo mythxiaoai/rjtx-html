@@ -1,0 +1,131 @@
+<div class="p-m">
+	<div class="panel panel-white">
+		<div class="panel-heading">
+			<div class="panel-title">
+				质检规则管理
+        	</div>
+		<!-- 	<div class="panel-tools">
+                <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
+                    <i class="fa fa-chevron-up"></i>
+                </a>
+            </div> -->
+		</div>
+		<div class="panel-body collapsed in" id="panelContent">
+				<div class="col-md-12">
+					<!--search start-->
+					<form id="search" class="form-inline fz12 clearfix">
+	   		            <div class="form-group">
+			            	 <label class="fw-n">项目
+		                		<select class="form-control" name="project">
+		                			<option value="">--请选择--</option>
+		                			<option value="1">广州项目</option>
+		                			<option value="2">深圳项目</option>
+		                		</select>
+			                </label>
+			            </div>
+	   		            <div class="form-group">
+			            	 <label class="fw-n">规则名称
+		                		<input class="form-control"  name="ruleName"/>
+			                </label>
+			            </div> 
+						<div class="form-group">
+			            	 <label class="fw-n">创建用户
+		                		<input class="form-control"  name="userName"/>
+			                </label>
+			            </div>
+	                    <div class="form-group m-b-xs">
+	                        <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+	                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+	                    </div>
+	                </form>
+	                <!--end search-->
+					<div id="toolbar" class="m-b-sm m-t-sm">
+						<button type="button" class="btn btn-default js_addOrUpdate" onclick="check.addOrUpdate('新增质检规则')">
+							<i class="iconfont icon-add"></i> 新增
+						</button>
+					</div>
+					<table id="table"></table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	var check = {
+		init(){
+			this.tableInit();
+		},
+		addOrUpdate(title,id){
+			//新增
+			rj.load(".js_index_content","page/project/check/addOrUpdate.html",function(){
+			  if(!id){
+			  	//新增
+				
+			  }else{
+			  	//修改
+			  	console.log(id)
+				
+			  	//回显操作  根据id查到对象值为  主要要有id  会自动设置到隐藏域里面
+			  	//注意inputKey1，inputKey2，inputKey3一定不能少 少了自己加
+			  	//let json ={"input1":"test1","input2":"2","input4":"[{\"inputKey1\":\"and\",\"inputKey2\":\"q2\",\"inputKey3\":\"=\"},{\"inputKey1\":\"and\",\"inputKey2\":\"q1\",\"inputKey3\":\"=\"}]"};
+				//rj.form.set($("#addOrUpdate")[0],json);
+			  }
+			  $(".js_check_title").html(title);
+			  rj.resetPlug();
+			});
+			
+		},
+		tableInit(){
+			rj.table.init({
+				id: "#table",
+				toolbar:false,
+				data: [
+					{
+						"id": '56165',
+						"pro_name": 'ddd',
+						"user_name": "JONE",
+						"job_name": "33366",
+						"account": "22255",
+						"amount_work": 1,
+						"type_work": "方案库终端",
+					},
+					{
+						"id": '23544',
+						"pro_name": '工单健康',
+						"user_name": "李思思",
+						"job_name": "22333",
+						"account": "22255",
+						"amount_work": 2,
+						"type_work": "方案库终端",
+					},
+					
+				],
+				columns: [
+					{
+						field: 'pro_name',
+						title: '模板名称'
+					}, {
+						field: 'user_name',
+						title: '创建用户',
+					}, {
+						field: 'job_name',
+						title: '创建时间',
+					}, {
+						field: 'account',
+						title: '更新时间'
+					},{
+						title: '操作',
+						formatter:function(value,row,index){ 
+							return `
+							<a class="btn btn-info btn-xs" onclick="check.addOrUpdate('质检规则查看',${row.id})">查看</a>
+							<a class="btn btn-info btn-xs" onclick="check.addOrUpdate('质检规则修改',${row.id})">修改</a>
+							<a class="btn btn-danger btn-xs">删除</a>
+							`
+		                }
+					}
+				],
+			})
+		}
+	}
+	check.init();
+</script>

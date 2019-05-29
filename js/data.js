@@ -66,10 +66,16 @@
                 "pid": "10"
             },
             {
-                "id": "15",
+                "id": "16",
                 "name": "任务总览",
                 "url": "page/project/testoverview/testoverview.html",
                 "icon": "iconfont icon-feiji",
+                "pid": "10"
+            }, {
+                "id": "17",
+                "name": "质检规则管理",
+                "url": "page/project/check/index.html",
+                "icon": "fa fa-edit",
                 "pid": "10"
             },
             {
