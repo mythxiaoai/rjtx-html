@@ -774,7 +774,7 @@ rj.form.get($("#addOrUpdate")[0]);
           //不重复添加
           if($(id).prev()&&$(id).prev().hasClass("rj_ztree_seach"))return false
           //搜索框
-          $(id).before(`<input type="text" placeholder="请输入搜索关键字~" name="rj_ztree_seach" style="width:100%" class="form-control rj_ztree_seach">`)
+          $(id).before(`<input type="text" placeholder="请输入搜索关键字~" style="width:100%" class="form-control rj_ztree_seach">`)
           /*
             @param zTreeId ztree对象的id,不需要#
             @param searchField 输入框选择器

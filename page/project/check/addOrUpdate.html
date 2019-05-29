@@ -13,35 +13,30 @@
 		<div class="panel-body collapsed in" id="panelContent">
 			<div class="col-md-12">
 				<form id="addOrUpdate" class="form-horizontal">
-					<input type="hidden" name="id" />
 					<div class="form-group">
 						<label class="col-sm-2 control-label">质检规则名称</label>
 						<div class="col-md-10">
-							<input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入规则名称" name="input1">
+							<input type="text" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="请输入规则名称" name="templateName">
 						</div>
 					</div>
 					<div class="hr-line-dashed"></div>
 					<div class="form-group">
 						<label class="col-sm-2 control-label">项目名称</label>
 						<div class="col-md-10">
-							<select class="form-control" name="project">
-								<option value="">--请选择--</option>
-								<option value="1">广州项目</option>
-								<option value="2">深圳项目</option>
-							</select>
+							<input class="form-control" name="deptId" id="ztree1" type="text"/>
 						</div>
 					</div>
 					<div class="hr-line-dashed"></div>
 					<div class="form-group">
 						<label class="col-md-2 control-label">质检规则定义</label>
 						<!--sheet-->
-						<div class="col-sm-10 js_sheet sheet_box" data-name="input4">
+						<div class="col-sm-10 js_sheet sheet_box">
 							<div class="row js_sheet_item clearfix m-b-md">
 								<div class="col-md-6">
-									<select class="form-control js_special rj_toggleRow_input" name="inputKey1">
+									<select class="form-control js_input_item js_sheet_input">
 										<option value="">--工单类型--</option>
-										<option value="and">且</option>
-										<option value="or">或</option>
+										<option>故障|干扰|其他</option>
+										<option>参数-邻区关系调整</option>
 									</select>
 								</div>
 								<div class="col-md-2 p-none">
@@ -52,13 +47,14 @@
 								</div>
 								<div class="clearfix m-b"></div>
 								<!--列-->
-								<div class="file_box">
+								<div class="file_box js_file">
 									<div class="js_file_item clearfix m-b">
 										<div class="col-md-6">
-											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
+											<select class="form-control js_input_item js_file_input">
 												<option value="">--列名--</option>
-												<option value="and">且</option>
-												<option value="or">或</option>
+												<option>原因描述</option>
+												<option>原因分类</option>
+												<option>根本原因</option>
 											</select>
 										</div>
 										<div class="col-md-2 p-none">
@@ -70,10 +66,10 @@
 										<div class="clearfix m-b-sm"></div>
 
 										<!--关系值-->
-										<div class="relationship_box">
+										<div class="js_relationship relationship_box">
 											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
 												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
+													<select class="form-control js_input_item js_relationship_key">
 														<option value="=">等于</option>
 														<option value="!=">不等于</option>
 														<option value=">">大于</option>
@@ -86,31 +82,7 @@
 													</select>
 												</div>
 												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
-												</div>
-												<div class="col-md-3 p-none">
-													<div class="btn-group btn-group-xs m-t-xs">
-														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
-														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-													</div>
-												</div>
-											</div>
-											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
-												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
-														<option value="=">等于</option>
-														<option value="!=">不等于</option>
-														<option value=">">大于</option>
-														<option value=">=">大于等于</option>
-														<option value="<">小于</option>
-														<option value="<=">小于等于</option>
-														<option value="like">包含</option>
-														<option value="not like">不包含</option>
-														<option value="is null">等空值</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
+													<input type="text" autocomplete="off" class="form-control js_input_item js_relationship_value" placeholder="请输入匹配值">
 												</div>
 												<div class="col-md-3 p-none">
 													<div class="btn-group btn-group-xs m-t-xs">
@@ -121,231 +93,6 @@
 											</div>
 										</div>
 									</div>
-									<div class="js_file_item clearfix m-b">
-										<div class="col-md-6">
-											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
-												<option value="">--列名--</option>
-												<option value="and">且</option>
-												<option value="or">或</option>
-											</select>
-										</div>
-										<div class="col-md-2 p-none">
-											<div class="btn-group btn-group-xs m-t-xs">
-												<button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
-												<button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-											</div>
-										</div>
-										<div class="clearfix m-b-sm"></div>
-
-										<!--关系值-->
-										<div class="relationship_box">
-											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
-												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
-														<option value="=">等于</option>
-														<option value="!=">不等于</option>
-														<option value=">">大于</option>
-														<option value=">=">大于等于</option>
-														<option value="<">小于</option>
-														<option value="<=">小于等于</option>
-														<option value="like">包含</option>
-														<option value="not like">不包含</option>
-														<option value="is null">等空值</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
-												</div>
-												<div class="col-md-3 p-none">
-													<div class="btn-group btn-group-xs m-t-xs">
-														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
-														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-													</div>
-												</div>
-											</div>
-											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
-												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
-														<option value="=">等于</option>
-														<option value="!=">不等于</option>
-														<option value=">">大于</option>
-														<option value=">=">大于等于</option>
-														<option value="<">小于</option>
-														<option value="<=">小于等于</option>
-														<option value="like">包含</option>
-														<option value="not like">不包含</option>
-														<option value="is null">等空值</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
-												</div>
-												<div class="col-md-3 p-none">
-													<div class="btn-group btn-group-xs m-t-xs">
-														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
-														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-							<div class="row js_sheet_item clearfix m-b-md">
-								<div class="col-md-6">
-									<select class="form-control js_special rj_toggleRow_input" name="inputKey1">
-										<option value="">--工单类型--</option>
-										<option value="and">且</option>
-										<option value="or">或</option>
-									</select>
-								</div>
-								<div class="col-md-2 p-none">
-									<div class="btn-group btn-group-xs m-t-xs">
-										<button type="button" class="btn btn-default js_sheet_add" title="增加"><i class="iconfont icon-add"></i></button>
-										<button type="button" class="btn btn-default js_sheet_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-									</div>
-								</div>
-								<div class="clearfix m-b"></div>
-								<!--列-->
-								<div class="file_box">
-									<div class="js_file_item clearfix m-b">
-										<div class="col-md-6">
-											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
-												<option value="">--列名--</option>
-												<option value="and">且</option>
-												<option value="or">或</option>
-											</select>
-										</div>
-										<div class="col-md-2 p-none">
-											<div class="btn-group btn-group-xs m-t-xs">
-												<button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
-												<button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-											</div>
-										</div>
-										<div class="clearfix m-b-sm"></div>
-
-										<!--关系值-->
-										<div class="relationship_box">
-											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
-												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
-														<option value="=">等于</option>
-														<option value="!=">不等于</option>
-														<option value=">">大于</option>
-														<option value=">=">大于等于</option>
-														<option value="<">小于</option>
-														<option value="<=">小于等于</option>
-														<option value="like">包含</option>
-														<option value="not like">不包含</option>
-														<option value="is null">等空值</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
-												</div>
-												<div class="col-md-3 p-none">
-													<div class="btn-group btn-group-xs m-t-xs">
-														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
-														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-													</div>
-												</div>
-											</div>
-											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
-												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
-														<option value="=">等于</option>
-														<option value="!=">不等于</option>
-														<option value=">">大于</option>
-														<option value=">=">大于等于</option>
-														<option value="<">小于</option>
-														<option value="<=">小于等于</option>
-														<option value="like">包含</option>
-														<option value="not like">不包含</option>
-														<option value="is null">等空值</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
-												</div>
-												<div class="col-md-3 p-none">
-													<div class="btn-group btn-group-xs m-t-xs">
-														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
-														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="js_file_item clearfix m-b">
-										<div class="col-md-6">
-											<select class="form-control js_special rj_toggleRow_input" name="inputKey2">
-												<option value="">--列名--</option>
-												<option value="and">且</option>
-												<option value="or">或</option>
-											</select>
-										</div>
-										<div class="col-md-2 p-none">
-											<div class="btn-group btn-group-xs m-t-xs">
-												<button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
-												<button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-											</div>
-										</div>
-										<div class="clearfix m-b-sm"></div>
-
-										<!--关系值-->
-										<div class="relationship_box">
-											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
-												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
-														<option value="=">等于</option>
-														<option value="!=">不等于</option>
-														<option value=">">大于</option>
-														<option value=">=">大于等于</option>
-														<option value="<">小于</option>
-														<option value="<=">小于等于</option>
-														<option value="like">包含</option>
-														<option value="not like">不包含</option>
-														<option value="is null">等空值</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
-												</div>
-												<div class="col-md-3 p-none">
-													<div class="btn-group btn-group-xs m-t-xs">
-														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
-														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-													</div>
-												</div>
-											</div>
-											<div class="m-b-xs  js_relationship_item clearfix m-b-xs">
-												<div class="col-md-3">
-													<select class="form-control rj_toggleRow_input" name="inputKey3">
-														<option value="=">等于</option>
-														<option value="!=">不等于</option>
-														<option value=">">大于</option>
-														<option value=">=">大于等于</option>
-														<option value="<">小于</option>
-														<option value="<=">小于等于</option>
-														<option value="like">包含</option>
-														<option value="not like">不包含</option>
-														<option value="is null">等空值</option>
-													</select>
-												</div>
-												<div class="col-md-6">
-													<input type="text" autocomplete="off" class="form-control rj_toggleRow_input" name="inputKey4" placeholder="请输入匹配值">
-												</div>
-												<div class="col-md-3 p-none">
-													<div class="btn-group btn-group-xs m-t-xs">
-														<button type="button" class="btn btn-default js_relationship_add" title="增加"><i class="iconfont icon-add"></i></button>
-														<button type="button" class="btn btn-default js_relationship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-
 								</div>
 							</div>
 
@@ -355,19 +102,19 @@
 						<!-- <div class="col-sm-10 rj_toggleRow" data-name="input4">
 							<div class="row m-b-xs rj_toggleRow_item">
 								<div class="col-md-2  p-none">
-									<select class="form-control js_special rj_toggleRow_input" name="inputKey1">
+									<select class="form-control js_special js_input_item" name="inputKey1">
 										<option value="and">且</option>
 										<option value="or">或</option>
 									</select>
 								</div>
 								<div class="col-md-5">
-									<select class="form-control rj_toggleRow_input" name="inputKey2">
+									<select class="form-control js_input_item" name="inputKey2">
 										<option value="q1">派单人</option>
 										<option value="q2">数据来源</option>
 									</select>
 								</div>
 								<div class="col-md-3">
-								 	<select class="form-control rj_toggleRow_input" name="inputKey3">
+								 	<select class="form-control js_input_item" >
 										<option value="=">等于</option>
 										<option value="!=">不等于</option>
 										<option value=">">大于</option>
@@ -393,7 +140,7 @@
 					<div class="form-group">
 						<div class="col-sm-12 text-center">
 							<button class="btn btn-default m-r js_back" type="button">取消</button>
-							<button class="btn btn-primary js_sure" type="button">确定</button>
+							<button class="btn btn-primary js_sure" type="submit">确定</button>
 						</div>
 					</div>
 				</form>
@@ -402,17 +149,252 @@
 	</div>
 </div>
 <script>
-	var check = {
+	var checkAddOrUpdate = {
 		init() {
 			//返回
 			this.back();
+			//下拉树初始化
+			this.ztreeInit();
+			//规则初始化
+			this.initRule();
+			//验证
+			this.v();
+			
+		},
+		v(){
+			let $this = this;
+			$("#addOrUpdate").validate({
+			  rules: {
+				templateName: {required: true},
+				 deptId: {required: true},
+			  },
+			  messages: {
+				   
+			  },
+			  submitHandler: function () {
+				let data= rj.form.get($("#addOrUpdate")[0]);
+				console.log(data);
+				let b =true;
+				$(".js_input_item").each(function(){
+					if(!$(this).val()){
+						xtip("质检规则定义有空值~");
+						b =false
+						return false;
+					}
+				})
+				if(b){
+					data.templateRules = $this.getRule();
+					console.log(data)
+					
+				}
+				
+			  }
+		  });
+		 
 		},
 		back() {
 			$(".js_back").click(function() {
 				rj.load(".js_index_content", "page/project/check/index.html");
 			});
 		},
-
+		ztreeInit(){
+			if(check.param.deptId){
+				console.log(check.param.deptId)
+				$("#ztree1").val(check.param.deptId)
+			}
+			var zNodes =[
+				{id:4, pId:0, name:"财务部"},
+				{id:41, pId:4, name:"财务小组1"},
+				{id:42, pId:4, name:"财务小组2"},
+				{id:43, pId:4, name:"财务小组3"},
+				{id:44, pId:4, name:"财务小组4"},
+				{id:5, pId:0, name:"研发部"},
+				{id:51, pId:5, name:"研发部1"},
+				{id:52, pId:5, name:"研发部2"},
+				{id:53, pId:5, name:"研发部3"},
+				{id:54, pId:5, name:"研发部4"},
+				{id:6, pId:0, name:"行政部"},
+				{id:61, pId:6, name:"行政部1"},
+				{id:62, pId:6, name:"行政部2"},
+				{id:63, pId:6, name:"行政部3"},
+				{id:64, pId:6, name:"行政部4"}
+			 ];
+			 rj.ztree("ztreeRadio","#ztree1",zNodes);
+		},
+		initRule(){
+			//js_input_item js_sheet js_sheet_item js_sheet_add js_sheet_del js_file_item js_relationship_item
+			//减号消失
+			this.autoShow();
+			//保存原始模板
+			this.template = $(".js_sheet").html();
+			//事件绑定
+			this.ruleEvent();
+		},
+		//获取
+		getRule(){
+		 /*
+			后台需要的格式
+			{
+			templateName:"模板名称"
+			deptId:"d63",
+			templateRules:[
+			{sheetName:"故障|干扰|其他",
+			columnRules:[
+				{column:"原因分类",
+				relationship:["like","like","like"],
+				value:["值1","值2","值3"]},
+				
+				{column:"根本原因",
+				relationship:[">=","<="],
+				value:["值4","值5"]}]},
+			{sheetName:"参数-邻区关系调整",columnRules:[{column:"原因分类",relationship:["like","like","like"],value:["值1","值2","值3"]},{column:"根本原因",relationship:[">=","<="],value:["值4","值5"]}]}
+			]
+			}
+			js_sheet_input
+			js_file_input
+			js_relationship_key
+			js_relationship_value
+		 */
+		let json = [];
+		$(".js_sheet_item").each(function(){
+			let temp = {};
+			//类型
+			temp.sheetName = $(this).find(".js_sheet_input").val();
+			temp.columnRules = [];
+			//列
+			$(this).find(".js_file_item").each(function(){
+				let temp2={};
+				temp2.column =  $(this).find(".js_file_input").val();
+				//关系
+				temp2.relationship =  Array.from($(this).find(".js_relationship_key")).map(v=>$(v).val());
+				temp2.value =  Array.from($(this).find(".js_relationship_value")).map(v=>$(v).val());
+				temp.columnRules.push(temp2);
+			})
+			json.push(temp);
+		});
+		
+		return json
+		
+		},
+		//回显
+		setRule(data){
+			if(!data||data.length==0)return;
+			
+			let addSheet = this.template;
+			let addFile = $(this.template).find(".js_file").html();
+			let addRelationship = $(this.template).find(".js_relationship").html();
+			let html = $("<div/>");
+			for(let sheet of data){
+				//类型
+				let $sheet = $(addSheet);
+				$sheet.find(".js_sheet_input").val(sheet.sheetName);
+				
+				let $files = $("<div/>");
+				for(let file of sheet.columnRules){
+					//列
+					let $file = $(addFile);
+					$file.find(".js_file_input").val(file.column);
+					
+					let $relationships = $("<div/>");
+					for(let index in file.relationship){
+						let key =file.relationship[index];
+						let value =file.value[index];
+						//关系
+						let $relationship = $(addRelationship);
+						$relationship.find(".js_relationship_key").val(key);
+						$relationship.find(".js_relationship_value").val(value);
+						
+						$relationships.append($relationship);
+					}
+					$file.find(".js_relationship").html("");
+					$file.find(".js_relationship").append($relationships.children());
+					
+					
+					$files.append($file);
+				}
+				$sheet.find(".js_file").html("");
+				$sheet.find(".js_file").append($files.children());
+				
+				html.append($sheet);
+			}
+			$(".js_sheet").html("");
+			$(".js_sheet").append(html.children());
+			this.autoShow();
+		},
+		autoShow(){
+			//类型
+			if($(".js_sheet_item").length==1){
+				$(".js_sheet_del").hide();
+			}else{
+				$(".js_sheet_del").show();
+			}
+			$(".js_sheet_item").each(function(){
+				//列
+				if($(this).find(".js_file_item").length==1){
+					$(this).find(".js_file_del").hide();
+				}else{
+					$(this).find(".js_file_del").show();
+				}
+				//关系
+				$(this).find(".js_file_item").each(function(){
+					if($(this).find(".js_relationship_item").length==1){
+						$(this).find(".js_relationship_del").hide();
+					}else{
+						$(this).find(".js_relationship_del").show();
+					}
+				})
+			});
+		},
+		ruleEvent(){
+			let $this =this;
+			let addSheet = this.template;
+			let addFile = $(this.template).find(".js_file").html();
+			let addRelationship = $(this.template).find(".js_relationship").html();
+			//类型+
+			$(".js_sheet").on("click",".js_sheet_add",function(){
+				$(this).closest(".js_sheet_item").after(addSheet);
+				$this.autoShow();
+			})
+			//列+
+			$(".js_sheet").on("click",".js_file_add",function(){
+				$(this).closest(".js_file_item").after(addFile);
+				$this.autoShow();
+			})
+			//关系+
+			$(".js_sheet").on("click",".js_relationship_add",function(){
+				$(this).closest(".js_relationship_item").after(addRelationship);
+				$this.autoShow();
+			})
+			
+			//类型-
+			$(".js_sheet").on("click",".js_sheet_del",function(){
+				selfconfirm(()=>{
+					$(this).closest(".js_sheet_item").remove();
+					$this.autoShow();
+				});
+			})
+			//列-
+			$(".js_sheet").on("click",".js_file_del",function(){
+				selfconfirm(()=>{
+					$(this).closest(".js_file_item").remove();
+					$this.autoShow();
+				});
+			})
+			//关系-
+			$(".js_sheet").on("click",".js_relationship_del",function(){
+				selfconfirm(()=>{
+					$(this).closest(".js_relationship_item").remove();
+					$this.autoShow();
+				});
+			})
+			//重载selfconfirm方法;
+			function selfconfirm(fn){
+				let json = {"cancelButtonText":"取消","confirmButtonText":"确认","html":true,"title":"确定删除?","text":null,"showCancelButton":true,"type":"warning"}
+				swal(json,function(){
+					fn&&fn();
+				});
+			}
+		}
 	}
-	check.init();
+	checkAddOrUpdate.init();
 </script>

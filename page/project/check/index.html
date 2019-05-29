@@ -15,13 +15,8 @@
 					<!--search start-->
 					<form id="search" class="form-inline fz12 clearfix">
 	   		            <div class="form-group">
-			            	 <label class="fw-n">项目
-		                		<select class="form-control" name="project">
-		                			<option value="">--请选择--</option>
-		                			<option value="1">广州项目</option>
-		                			<option value="2">深圳项目</option>
-		                		</select>
-			                </label>
+			            	<label class="fw-n">项目</label>
+							<input class="form-control" name="deptId" id="ztree1" type="text"/>
 			            </div>
 	   		            <div class="form-group">
 			            	 <label class="fw-n">规则名称
@@ -52,28 +47,70 @@
 </div>
 <script>
 	var check = {
+		param:{
+			id:"",
+			deptId:""
+		},
 		init(){
+			this.ztreeInit();
 			this.tableInit();
 		},
 		addOrUpdate(title,id){
+			let $this = this;
+			$this.param.deptId = $("input[name='deptId']").val();
 			//新增
 			rj.load(".js_index_content","page/project/check/addOrUpdate.html",function(){
 			  if(!id){
 			  	//新增
-				
+				console.log($this.param)
 			  }else{
 			  	//修改
-			  	console.log(id)
-				
+			  
 			  	//回显操作  根据id查到对象值为  主要要有id  会自动设置到隐藏域里面
 			  	//注意inputKey1，inputKey2，inputKey3一定不能少 少了自己加
 			  	//let json ={"input1":"test1","input2":"2","input4":"[{\"inputKey1\":\"and\",\"inputKey2\":\"q2\",\"inputKey3\":\"=\"},{\"inputKey1\":\"and\",\"inputKey2\":\"q1\",\"inputKey3\":\"=\"}]"};
 				//rj.form.set($("#addOrUpdate")[0],json);
+				
+				let data = [
+					{sheetName:"故障|干扰|其他",
+					columnRules:[
+						{column:"原因分类",
+						relationship:["like","like","like"],
+						value:["值1","值2","值3"]},
+						
+						{column:"根本原因",
+						relationship:[">=","<="],
+						value:["值4","值5"]}]},
+					{sheetName:"参数-邻区关系调整",columnRules:[{column:"原因分类",relationship:["like","like","like"],value:["值1","值2","值3"]},{column:"根本原因",relationship:[">=","<="],value:["值4","值5"]}]}
+					];
+					
+				checkAddOrUpdate.setRule(data);
+				
 			  }
 			  $(".js_check_title").html(title);
 			  rj.resetPlug();
 			});
 			
+		},
+		ztreeInit(){
+			var zNodes =[
+				{id:4, pId:0, name:"财务部"},
+				{id:41, pId:4, name:"财务小组1"},
+				{id:42, pId:4, name:"财务小组2"},
+				{id:43, pId:4, name:"财务小组3"},
+				{id:44, pId:4, name:"财务小组4"},
+				{id:5, pId:0, name:"研发部"},
+				{id:51, pId:5, name:"研发部1"},
+				{id:52, pId:5, name:"研发部2"},
+				{id:53, pId:5, name:"研发部3"},
+				{id:54, pId:5, name:"研发部4"},
+				{id:6, pId:0, name:"行政部"},
+				{id:61, pId:6, name:"行政部1"},
+				{id:62, pId:6, name:"行政部2"},
+				{id:63, pId:6, name:"行政部3"},
+				{id:64, pId:6, name:"行政部4"}
+			 ];
+			 rj.ztree("ztreeRadio","#ztree1",zNodes);
 		},
 		tableInit(){
 			rj.table.init({
