@@ -1,0 +1,124 @@
+<form class="form-horizontal">
+	<div class="form-group">
+		<label class="col-sm-2 control-label">选择质检规则</label>
+		<div class="col-md-8">
+			<select class="form-control">
+				<option value="模板1">质检规则1</option>
+				<option value="模板2">质检规则2</option>
+			</select>
+		</div>
+		<div class="col-md-2 p-none">
+			<a href="javascript:;" class="btn btn-info btn-sm m-t-xs js_start"><i class="fa fa-magic" ></i> 开始解析</a>
+		</div>
+	</div>
+	<div class="hr-line-dashed"></div>
+	<div class="js_reasult display-none">
+		<div class="form-group">
+			<div class="col-md-12">
+				<div class="panel-body">
+					<ul class="nav nav-tabs js_tabs">
+						<li class="active js_check_tab">
+							<a href="javascript:;" >故障|干扰|其他</a>
+						</li>
+						<li class="js_check_tab">
+							<a href="javascript:;">参数-邻区关系调整</a>
+						</li>
+					</ul>
+					<div class="js_check_tabContent p-t">
+						<table id="checkTable"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hr-line-dashed"></div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-12 text-center">
+			<button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">关闭</button>
+		</div>
+	</div>
+</form>
+<script>
+	var checkModal = {
+		init(){
+			this.start();
+			this.tabClick();
+		},
+		start(){
+			let $this = this;
+			$(".js_start").click(function(){
+				$(".js_start").addClass("disabled");
+				//ajax做验证
+				setTimeout(()=>{
+					$(".js_start").removeClass("disabled");
+					//根据数据循环选项卡
+					//然后加载第一个选项卡数据
+					$(".js_reasult").slideDown();
+					$this.tableInit();
+				},2000)
+			});
+		},
+		tabClick(){
+			let $this = this;
+			$(".js_tabs").on("click",".js_check_tab",function(){
+				if(!$(this).hasClass("active")){
+					$(".js_check_tab").removeClass("active");
+					$(this).addClass("active");
+					$this.tableInit();
+				}
+			});
+		},
+		tableInit(){
+			//判断是哪一个选中的选项卡 就加载对应的表格
+			rj.table.init({
+				id: "#checkTable",
+				toolbar:false,
+				data: [
+					{
+						"id": '56165',
+						"pro_name": 'ddd',
+						"user_name": "JONE",
+						"job_name": "33366",
+						"account": "22255",
+						"amount_work": 1,
+						"type_work": "方案库终端",
+					},
+					{
+						"id": '23544',
+						"pro_name": '工单健康',
+						"user_name": "李思思",
+						"job_name": "22333",
+						"account": "22255",
+						"amount_work": 2,
+						"type_work": "方案库终端",
+					},
+					
+				],
+				columns: [
+					{
+						field: 'pro_name',
+						title: '模板名称',
+					}, {
+						field: 'user_name',
+						title: '创建用户',
+						formatter:function(value,row,index){
+							return `
+							<div class="js_tooltip fw600" style="color:red" title="我是错误原因">
+								${value}
+							</div>
+							`
+						}
+					}, {
+						field: 'job_name',
+						title: '创建时间',
+					}, {
+						field: 'account',
+						title: '更新时间'
+					}
+				],
+			})
+		}
+		
+	}
+	checkModal.init();
+</script>

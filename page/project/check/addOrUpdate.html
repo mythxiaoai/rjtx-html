@@ -169,7 +169,7 @@
 				 deptId: {required: true},
 			  },
 			  messages: {
-				   
+				
 			  },
 			  submitHandler: function () {
 				let data= rj.form.get($("#addOrUpdate")[0]);
@@ -178,7 +178,7 @@
 				$(".js_input_item").each(function(){
 					if(!$(this).val()){
 						xtip("质检规则定义有空值~");
-						b =false
+						b = false;
 						return false;
 					}
 				})

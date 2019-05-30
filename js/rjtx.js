@@ -153,7 +153,7 @@ rj.modal({
 	backdrop: true,//点击其他地方关闭
     keyboard: true,//键盘esc关闭
     show: true,//立即显示
-    size:"",//modal-sm|modal-lg//尺寸大小调整
+    size:"",//modal-sm|modal-lg|modal-xlg//尺寸大小调整
     title:"标题",//标题
     url:null,//加载内容的请求地址
     surebtn:true,//显示确认按钮
