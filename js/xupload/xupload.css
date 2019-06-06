@@ -41,11 +41,11 @@
 .webuploader-container .has-error .btn-default{border-color: #a94442;}
 .webuploader-container .help-block{font-size: 12px;}
 
-.webuploader-dnd-over:after{content:"放开双手,即可添加上传";position:fixed;background:rgba(255,255,255,0.6);border:3px dashed rgb(204,204,204);z-index:1000000;color:rgb(153,153,153);font-size:40px;text-align:center;overflow:hidden;top:0px;left:0px;height:539px;line-height:539px;width:1914px;}
+.webuploader-dnd-over:after{content:"放开双手,即可添加上传";position:fixed;background:rgba(255,255,255,0.6);border:3px dashed rgb(204,204,204);z-index:1000000;color:rgb(153,153,153);font-size:40px;text-align:center;overflow:hidden;top:0px;left:0px;height:539px;line-height:539px;width:100%;}
 
-.webuploader-container {
+/* .webuploader-container {
 	position: relative;
-}
+} */
 .webuploader-element-invisible {
 	position: absolute !important;
 	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */

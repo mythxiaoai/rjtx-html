@@ -1,3 +1,7 @@
+<style>
+    .sheet1 :not(.sheet1){display: none;}
+    .sheet2 :not(.sheet2){display: none;}
+</style>
 <div class="p-m">
 	<div class="panel panel-white">
 		<div class="panel-heading">
@@ -52,9 +56,12 @@
 										<div class="col-md-6">
 											<select class="form-control js_input_item js_file_input">
 												<option value="">--列名--</option>
-												<option>原因描述</option>
-												<option>原因分类</option>
-												<option>根本原因</option>
+												<option class="sheet1">原因描述</option>
+												<option class="sheet1">原因分类</option>
+												<option class="sheet1">根本原因</option>
+                                                <option class="sheet2">原因描述</option>
+												<option class="sheet2">原因分类</option>
+												<option class="sheet2">根本原因</option>
 											</select>
 										</div>
 										<div class="col-md-2 p-none">
@@ -98,43 +105,6 @@
 
 						</div>
 
-
-						<!-- <div class="col-sm-10 rj_toggleRow" data-name="input4">
-							<div class="row m-b-xs rj_toggleRow_item">
-								<div class="col-md-2  p-none">
-									<select class="form-control js_special js_input_item" name="inputKey1">
-										<option value="and">且</option>
-										<option value="or">或</option>
-									</select>
-								</div>
-								<div class="col-md-5">
-									<select class="form-control js_input_item" name="inputKey2">
-										<option value="q1">派单人</option>
-										<option value="q2">数据来源</option>
-									</select>
-								</div>
-								<div class="col-md-3">
-								 	<select class="form-control js_input_item" >
-										<option value="=">等于</option>
-										<option value="!=">不等于</option>
-										<option value=">">大于</option>
-										<option value=">=">大于等于</option>
-										<option value="<">小于</option>
-										<option value="<=">小于等于</option>
-										<option value="like">包含</option>
-										<option value="not like">不包含</option>
-										<option value="is null">等空值</option>
-									</select>
-									 
-								</div>
-								<div class="col-md-2 p-none">
-									<div class="btn-group btn-group-xs m-t-xs">
-										<button type="button" class="btn btn-default rj_toggleRow_add" title="增加"><i class="iconfont icon-add"></i></button>
-										<button type="button" class="btn btn-default rj_toggleRow_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
-									</div>
-								</div>
-							</div>
-						</div> -->
 					</div>
 					<div class="hr-line-dashed"></div>
 					<div class="form-group">
@@ -284,6 +254,10 @@
 			let addFile = $(this.template).find(".js_file").html();
 			let addRelationship = $(this.template).find(".js_relationship").html();
 			let html = $("<div/>");
+            const seetClass = {
+                "故障|干扰|其他":"sheet1",
+                "参数-邻区关系调整":"sheet2",
+            }
 			for(let sheet of data){
 				//类型
 				let $sheet = $(addSheet);
@@ -294,7 +268,10 @@
 					//列
 					let $file = $(addFile);
 					$file.find(".js_file_input").val(file.column);
-					
+					//回显对应的下拉值
+                    let className = seetClass[sheet.sheetName];
+                    $file.find(".js_file_input").addClass(className);
+                    
 					let $relationships = $("<div/>");
 					for(let index in file.relationship){
 						let key =file.relationship[index];
@@ -387,6 +364,22 @@
 					$this.autoShow();
 				});
 			})
+            //类型类下拉改变
+            const seetClass = {
+                "故障|干扰|其他":"sheet1",
+                "参数-邻区关系调整":"sheet2",
+            }
+            $(".js_sheet").on("change",".js_sheet_input",function(){
+                let val = $(this).val();
+                if(!val)return;
+                let className = seetClass[val];
+                $(this).closest(".js_sheet_item")
+                .find(".js_file_input")
+                .removeClass(Object.values(seetClass).join(" "))
+                .addClass(className)
+            })
+            
+            
 			//重载selfconfirm方法;
 			function selfconfirm(fn){
 				let json = {"cancelButtonText":"取消","confirmButtonText":"确认","html":true,"title":"确定删除?","text":null,"showCancelButton":true,"type":"warning"}
