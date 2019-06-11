@@ -11,6 +11,16 @@
                   <button class="btn btn-primary btn-block js_sure1" type="button">上传</button>
               </div>
           </div>
+          <li class="list-group-item animated fadeIn">
+              <div class="file-info">
+                <i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"></i>
+                <span class="file-name">file.name</span>
+                <span class="file-size">WebUploader.formatSize(file.size</span>
+              </div>
+              <div class="file-opts">
+                <a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </li>
         </form>
       </div>
   <h2 class="page-header">xupload</h2>

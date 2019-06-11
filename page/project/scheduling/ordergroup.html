@@ -1,0 +1,51 @@
+<div class="p-m animated fadeInRight">
+    <div class="panel panel-white">
+        <div class="panel-heading">
+            <div class="panel-title">工单组配置</div>
+        </div>
+    </div>
+    <div class="panel-body collapsed in">
+        <div class="col-md-12">
+            <form id="orderform" class="form-inline fz12 clearfix">
+                <div class="form-group">
+                    <label for="fw-n">
+                        项目<input  class="form-control" name="ordtree" id="ordtree" placeholder="请选择所属项目"></input>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style>
+
+</style>
+<script>
+    var orderGroup = {
+        init(){
+            this.treeInit();
+        },
+        treeInit(){
+            rj.ztree("ztreeRadio","#ordtree",zNodes,{callback:{
+                onCheck:function(event, treeId, treeNode){
+                    var  status = treeNode.checked;
+                    if(status){
+                        $this.opts.deptId=treeNode.id;
+                    }else{
+                        $this.opts.deptId  =null;
+                    }
+                    //值还原
+                    let html = treeNode.name;
+                    html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
+                    if(treeNode.checked){
+                        $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(html).prev().val(treeNode.id)
+                    }else{
+                        $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val("").prev().val("")
+                    }
+                }
+            }});
+           
+        },
+        
+    }
+    orderGroup.init()
+</script>

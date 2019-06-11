@@ -123,7 +123,8 @@
                             <div class="col-md-4" style="padding-left:0">
                                 <select class="form-control js_contdisa" name="province" id="province">
                                     <option value="">省份</option>
-                                    <option value="1">广东省</option>
+                                    <option value="广东省">广东省</option>
+                                    <option value="湖南省">湖南省</option>
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -186,7 +187,11 @@
                         <div class="col-md-8">
                             <div class="form-group">
                                 <div id="js_xupload1"></div>
+                                <ul class="list_upload xupload-show js_upload_show">
+                                    
+                                </ul>
                             </div>
+                            
                         </div>
                     </div>
                 <div class="hr-line-dashed"></div>
@@ -256,6 +261,7 @@
                             <div class="form-group js_appinpu">
                                 <div id="js_xupload2"></div>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -288,6 +294,10 @@
 </div>
 <script>
     var addtask = {
+        opts:{
+            markinit:null,
+            myGeo:new BMap.Geocoder()
+        },
         init(){
             this.mapAnalysis();
             this.addTask();
@@ -295,19 +305,35 @@
             this.ztree1();
             this.editor();
             this.fileLoad();
+
         },
         skipPage(type){
             //返回跳转页面 提交跳下一个页面
             var num = information.tabIndex;
             if(type == "back"){
                 rj.load(".js_index_content","page/task/jobmanager/informationbase.html",function(){
-                    $(".js_home_tab").eq(num).trigger   ("click");
+                    $(".js_home_tab").eq(num).trigger("click");
                 })
             }else{
                 rj.load(".js_index_content","page/task/jobmanager/informationbase.html",function(){
                     $(".js_home_tab").eq(++num).trigger("click");
                 });
             }
+        },
+        //文件上传成功后
+        uploadSuccessHtml:function(file){
+            return `
+                &lt;li class="list-group-item animated fadeIn"&gt;
+                &lt;div class="file-info"&gt;
+                &lt;i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"&gt;&lt;/i&gt;
+                &lt;span class="file-name"&gt;${file.name}&lt;/span&gt;
+                &lt;span class="file-size"&gt;(${WebUploader.formatSize(file.size)})&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="file-opts"&gt;
+                &lt;a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"&gt;&lt;i class="glyphicon glyphicon-remove"&gt;&lt;/i&gt;&lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/li&gt;
+            `
         },
         ztree1(){
             var zNodes1 =[
@@ -324,7 +350,6 @@
         },
         editor(){
             var E = window.wangEditor;
-            var tabnum = $("#testtitle").attr('data-num')*1
             var editor = new E('#editor');
             // 富文本编译器1
             editor.customConfig.onchange = function (html) {
@@ -335,7 +360,7 @@
                 console.log(rj.util.repre($("#editor1").val()))
             };
             editor.create();
-            if(tabnum == 0){
+            if(information.tabIndex == 0){
                 //可编辑
                 editor.$textElem.attr('contenteditable', true)
             }else{
@@ -387,12 +412,35 @@
             })
         },
         mapAnalysis(){
+            var $this = this;
+            $("#province").change(function(e){
+                console.log($("#province").text())
+            })
             // 百度地图API功能
 			var map = new BMap.Map("allmap",{minZoom:4});
-			map.enableScrollWheelZoom(true);//允许拖放
+            map.enableScrollWheelZoom(true);//允许拖放
+            map.centerAndZoom("兰州",5);
 			// 创建地址解析器实例
 			var localPv = this.getLocalPosition();//
-			map.centerAndZoom(new BMap.Point(106.478927,38.565005),1)
+            map.centerAndZoom(new BMap.Point(106.478927,38.565005),1);
+            var mark =$this.opts.markinit; 
+            map.addEventListener("click",function(e){
+                if(mark){
+                    mark.setAnimation(BMAP_ANIMATION_DROP);
+                    mark.setPosition(e.point)
+                    $this.geoPoint(e.point);
+                }else{
+                    mark =new BMap.Marker(e.point);
+                    mark.setAnimation(BMAP_ANIMATION_DROP);
+                    map.addOverlay(mark);
+                    mark.enableDragging();
+                    $this.geoPoint(e.point);
+                    mark.addEventListener("dragend",function(e){
+                        console.log("enter")
+                        $this.geoPoint(e.point);
+                    });
+                }
+            });
             $(".js_map").click(function(){
                 $("#addTaskdata").validate({
                     rules:{
@@ -407,7 +455,7 @@
                     }
                 })
 				if(!$("#province").val()){
-					alert("请选择省份~");
+					console.log("请选择省份~");
 					return;
 				}else if(!$("#city").val()){
 					alert("请选择城市~");
@@ -420,20 +468,24 @@
 				//写锚点的同时 清除下;
 				map.clearOverlays();
 				//获取解析器
-				var myGeo = new BMap.Geocoder();
-				myGeo.getPoint(addstr, function(point){
+                
+				$this.opts.myGeo.getPoint(addstr, function(point){
+                    var $this = this;
 					if (point) {
 						//1.zoom层级的缩放
 						//2.移动到point点
 						//3.添加覆盖物
 						//4.在页面上显示金纬度坐标
-						//5.为覆盖物添加拖拽
+                        //5.为覆盖物添加拖拽
 						map.setZoom(19); 
-						map.panTo(point);
+                        map.panTo(point);
+                        
 						var mark =new BMap.Marker(point);
 						map.addOverlay(mark);
 						$(".js_j").val("经度:"+point.lng);
-						$(".js_w").val("经度:"+point.lat);
+                        $(".js_w").val("经度:"+point.lat);
+                    mark.removeEventListener("dragend");
+                        
 						mark.enableDragging();
 						var opts = {
 							width : 200,     // 信息窗口宽度
@@ -441,37 +493,58 @@
 							title : "海底捞王府井店" , // 信息窗口标题
 							offset:new BMap.Size(0,-20)
 						}
-						mark.setAnimation(BMAP_ANIMATION_DROP);
+                        mark.setAnimation(BMAP_ANIMATION_DROP);
 						mark.addEventListener("dragend",function(e){
-							//event{type, target, pixel, point}
-							myGeo.getLocation(e.point,function(rs){
-								//1.改变值和上面的输入框
-								//addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber
-								var addComp = rs.addressComponents;
-								if(addComp.province){
-									$("#province").val(addComp.province);
-								}
-								if(addComp.city){
-									$("#city").val(addComp.city);
-								}
-								if(addComp.district){
-									$("#area").val(addComp.district);
-								}
-								if(addComp.street){
-									$("#infoadd").val(addComp.street+addComp.streetNumber);
-								}
-								//alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
-							});
-							$(".js_j").text("经度:"+e.point.lng);
-							$(".js_w").text("经度:"+e.point.lat);
-							
+                            $this.geoPoint(e.point);
 						});
-						
 					}else{
 						alert("您选择地址没有解析到结果!");
 					}
 				});
 			});
+        },
+        geoPoint(point){
+            // console.log(point)
+            this.opts.myGeo.getLocation(point,function(rs){
+                //1.改变值和上面的输入框
+                // console.log(rs)
+                //addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber
+                var addComp = rs.addressComponents;
+                if(addComp.province){
+                    $("#province option").each(function(){
+                        var txt = $(this).text();
+                        if(addComp.province == txt){
+                            $("#province").val(addComp.province)
+                            console.log(addComp.province)
+                        }
+                    })
+                }
+                if(addComp.city){
+                    $("#city option").each(function(){
+                        var txt = $(this).text();
+                        if(addComp.city == txt){
+                            $("#city").val(addComp.city)
+                            console.log(addComp.city)
+                        }
+                    })
+                    $("#city").val(addComp.city);
+                }
+                if(addComp.district){
+                    $("#area option").each(function(){
+                        var txt = $(this).text();
+                        if(addComp.district == txt){
+                            $("#area").val(addComp.district)
+                            console.log(addComp.district)
+                        }
+                    })
+                    // $("#area").val(addComp.district);
+                }
+                if(addComp.street){
+                    $("#infoadd").val(addComp.street+addComp.streetNumber);
+                }
+            });
+            $(".js_j").val("经度:"+point.lng);
+            $(".js_w").val("经度:"+point.lat);
         },
         getLocalPosition(){
             var json ={};

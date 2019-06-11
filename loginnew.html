@@ -9,15 +9,15 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     <title> 登录</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <link rel="shortcut icon" href="img/newico-blue.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="img/newico-blue.ico?v=1.0" type="image/x-icon"/>
     <link rel="stylesheet" href="css/animate.css" />
-    <link rel="stylesheet" href="fonts/font-awesome.min.css" />
+    <link rel="stylesheet" href="fonts/font-awesome.min.css?v=1.0" />
     <link rel="stylesheet" href="js/bootstrap/bootstrap.css" />
     <link rel="stylesheet" href="js/bootstrap/bootstrapfiller.css" />
     <link rel="stylesheet" href="js/slider/jquery.slider.css"/>
     <link rel="stylesheet" href="js/sweetalert/sweetalert.css"/>
     <link rel="stylesheet" href="css/common.css"/>
-    <link rel="stylesheet" href="fonts/iconfont.css">
+    <link rel="stylesheet" href="fonts/iconfont.css?v=1.0">
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
@@ -86,6 +86,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
             </div>
         </div>
         <form method="post" class="login-form m-b-lg" role="form" action="/login.do">
+            <!--登录页面的隐藏域，证明他是登录页 -->
+            <input type="hidden" value="71754E4154114EF882C92FCFDC7DE0E1" />
             <div class="form-group">
                 <input type="text" name="userName" autofocus="autofocus" autocomplete="off" class="form-control" placeholder="用户名">
                 <i class="iconfont icon-zhcc_yonghuming icon-p"></i>
@@ -142,7 +144,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         let login ={
             init(){
                 this.initEnter();
-                // this.register();
+                this.register();
             },
             initEnter(){
                 $(document).keydown(function(e) {
@@ -151,17 +153,18 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
                     }
                 });
             },
-            // register(){
-            //     let $this =this;
-            //     rj.ajax({
-            //         url:"/gt/register-slide",
-            //         type:"get",
-            //         dataType: "json",
-            //         success:function(data){
-            //             $this.initGeetest(data);
-            //         }
-            //     });
-            // },
+            register(){
+                let $this =this;
+                rj.ajax({
+                    url:"http://pmscloud.club:8092/gt/register-slide?v=04131686690668632",
+                    type:"get",
+                    dataType: "json",
+                    success:function(data){
+                        console.log(data)
+                        $this.initGeetest(data);
+                    }
+                });
+            },
             initGeetest(data){
                 // 调用 initGeetest 进行初始化
                 // 参数1：配置参数
