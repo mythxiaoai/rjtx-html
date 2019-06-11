@@ -1,51 +1,164 @@
-<form id="addOrUpdate" class="form-horizontal">
-    <div class="form-group">
-        <label class="col-sm-3 control-label">回复工单任务名称</label>
-        <div class="col-md-9">
-            <input type="text" class="form-control" name="input1">
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-<!--    <div class="form-group">
-        <label class="col-sm-3 control-label">项目</label>
-        <div class="col-md-9">
-             <select class="form-control" name="project" disabled="disabled">
-                <option value="">--请选择--</option>
-                <option value="1" selected="selected">广州项目</option>
-                <option value="2">深圳项目</option>
-              </select>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">回复类型</label>
-        <div class="col-md-9">
-          <select class="form-control" name="type" disabled="disabled">
-            <option value="">--请选择--</option>
-            <option value="1" selected="selected">故障类型</option>
-            <option value="2">状态库低端</option>
-          </select>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>-->
-    <div class="form-group">
-        <label class="col-sm-3 control-label">模板下载</label>
-        <div class="col-md-9">
-            <a href="javascript:;" class="btn btn-default">故障类工单回复模板.xlsx</a>
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label">文件上传</label>
-        <div class="col-md-9">
-             <input type="file" class="form-control prettyFile" name="input1">
-        </div>
-    </div>
-    <div class="hr-line-dashed"></div>
-    <div class="form-group">
-        <div class="col-sm-12 text-center">
-            <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary js_sure" type="button">确定</button>
-        </div>
-    </div>
-</form>
+<div class="p-m">
+	<div class="panel panel-white">
+		<div class="panel-heading">
+			<div class="panel-title js_receipt_title">
+				回单管理
+			</div>
+			<div class="panel-tools">
+				<a class="fz18 js_back" href="javascript:;" title="点击返回">
+					<i class="fa fa-reply"></i>
+				</a>
+			</div>
+		</div>
+		<div class="panel-body collapsed in" id="panelContent">
+			<div class="col-md-12">
+				<form id="addOrUpdate" class="form-horizontal">
+					<div class="form-group">
+						<label class="col-md-2 control-label">回复工单任务名称</label>
+						<div class="col-md-10">
+							<input type="text" class="form-control" name="input1">
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-md-2 control-label">模板下载</label>
+						<div class="col-md-10">
+							<a href="javascript:;" class="btn btn-default">故障类工单回复模板.xlsx</a>
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group has-warning js_upload_warning1">
+						<label class="col-md-2 control-label">文件上传</label>
+						<div class="col-md-9">
+							<input type="file" class="form-control prettyFile js_file" name="input1">
+							<span class="help-block m-b-none js_upload_warning2"><i class="fa fa-info-circle"></i> 我这里显示质检结果</span>
+						</div>
+						<div class="col-md-1 p-none">
+							<a href="javascript:;" class="btn btn-info btn-sm m-t-xs js_quality" title="质检">
+								<div class="js_nomal_status"><i class="fa fa-ravelry" ></i> 质检</div>
+								<div class="js_upload_status display-none">
+									<i class="fa fa-spinner fa-spin" ></i> 正在上传...
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<div class="col-sm-12 text-center">
+							<button class="btn btn-default m-r js_back" type="button">取消</button>
+							<button class="btn btn-primary" type="submit">确定</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var receiptInit = {
+		fail:{num:3,run:true},
+		upload:false,
+		init(){
+			this.back();
+			this.v();
+			this.quality();
+		},
+		v(){
+			let $this = this;
+			$("#addOrUpdate").validate({
+			  rules: {
+				input1:{required:true}
+			  },
+			  messages: {
+				   
+			  },
+			  submitHandler: function () {
+				  let msg = "";
+				if($this.fail.run==false){
+					msg = "当前回单文件未经过质检流程是否继续提交？"
+				}else{
+					if($this.fail.num!==0){
+						msg = `当前质检有${$this.fail.num}条数据不合格是否继续提交？`;
+					}
+				}
+				
+				
+				if(msg){
+					try{
+						xconfirm("提示",msg,null,runajax);
+					}catch(e){
+						console.error(e)
+					}
+					//xconfirm("提示",msg,"waring",runajax);
+				}else{
+					runajax();
+				}
+				
+				function runajax(){
+					
+					xalert("操作成功",null,"success")
+				}
+				
+			  }
+			});
+		},
+		quality(){
+			let $this = this;
+			$(".js_quality").click(function(){
+				//验证是否有文件;
+				if(!$(".js_file").val()){
+					xtip("请选择文件~")
+					return;
+				}
+				if($(".js_file")[0].files[0].size>10*1024*1024){
+					xtip("请查看文件超过10M~")
+					return;
+				}
+				
+				//判断是否已经上传
+				if($this.upload){
+					openModal()
+				}else{
+					$(".js_nomal_status").hide();
+					$(".js_upload_status").show();
+					$(".js_quality").addClass("disabled");
+					//假装在上传
+					setTimeout(()=>{
+						$(".js_upload_status").hide();
+						$(".js_nomal_status").show();
+						$(".js_quality").removeClass("disabled");
+						//上传后给个id值赋给upload
+						$this.upload = "561561561615641";
+						openModal()
+					},2000)
+				}
+				
+				function openModal(){
+					rj.modal({
+							title:"质检规则",
+							url:"page/project/check/checkModal.html",
+							size:"modal-xlg",
+							loadback:() => {
+								//加载对应项目的模板
+								
+							}
+						})
+				}
+			});
+			
+			//有新文件重置状态
+			$(".js_file").change(()=>{
+				this.upload = false;
+				$(".js_upload_warning1").removeClass("has-warning");
+				$(".js_upload_warning2").hide();
+			})
+		},
+		back(){
+			$(".js_back").click(function() {
+				rj.load(".js_index_content", "page/project/receipt/receipt.html");
+			});
+		}
+	}
+	receiptInit.init();
+</script>

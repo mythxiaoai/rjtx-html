@@ -16,7 +16,7 @@ let createPool = mysql.createPool({
   host:"47.106.249.138",
   port:3308,
   user:"root",
-  password:"123456",
+  password:"rjgf_2019!",
   database:"rjtx_html"
 })
 

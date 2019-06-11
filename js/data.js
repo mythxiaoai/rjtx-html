@@ -66,29 +66,36 @@
                 "pid": "10"
             },
             {
-                "id": "15",
+                "id": "16",
                 "name": "任务总览",
                 "url": "page/project/testoverview/testoverview.html",
                 "icon": "iconfont icon-feiji",
                 "pid": "10"
-            },{
-                "id": "16",
+            },
+			{
+				 "id": "17",
+                "name": "质检规则管理",
+                "url": "page/project/check/index.html",
+                "icon": "fa fa-edit",
+                "pid": "10"
+			},{
+                "id": "18",
                 "name": "智能调度",
                 "url": "",
                 "icon": "iconfont icon-feiji",
                 "pid": "10"
             },{
-                "id": "17",
+                "id": "19",
                 "name": "人员组配置",
                 "url": "page/project/scheduling/actorgroup.html",
                 "icon": "iconfont icon-feiji",
-                "pid": "16"
+                "pid": "18"
             },{
-                "id": "18",
+                "id": "191",
                 "name": "工单组配置",
                 "url": "page/project/scheduling/ordergroup.html",
                 "icon": "iconfont icon-feiji",
-                "pid": "16"
+                "pid": "18"
             },
             {
                 "id": "20",

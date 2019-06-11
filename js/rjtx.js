@@ -153,7 +153,7 @@ rj.modal({
 	backdrop: true,//点击其他地方关闭
     keyboard: true,//键盘esc关闭
     show: true,//立即显示
-    size:"",//modal-sm|modal-lg//尺寸大小调整
+    size:"",//modal-sm|modal-lg|modal-xlg//尺寸大小调整
     title:"标题",//标题
     url:null,//加载内容的请求地址
     surebtn:true,//显示确认按钮
@@ -774,7 +774,7 @@ rj.form.get($("#addOrUpdate")[0]);
           //不重复添加
           if($(id).prev()&&$(id).prev().hasClass("rj_ztree_seach"))return false
           //搜索框
-          $(id).before(`<input type="text" placeholder="请输入搜索关键字~" name="rj_ztree_seach" style="width:100%" class="form-control rj_ztree_seach">`)
+          $(id).before(`<input type="text" placeholder="请输入搜索关键字~" style="width:100%" class="form-control rj_ztree_seach">`)
           /*
             @param zTreeId ztree对象的id,不需要#
             @param searchField 输入框选择器

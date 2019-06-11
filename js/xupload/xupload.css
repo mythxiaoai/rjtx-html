@@ -30,22 +30,22 @@
 .xupload-show li:first-child{margin-top: 15px;}
 .xupload-show li{position:relative;}
 .xupload-show li:hover .file-opts{display:block;}
-.xupload-show li:hover .file-opts a{color:#5f6f95;}
 .xupload-show .file-info{display:inline-block;width:100%;padding-right:50px;overflow:hidden;white-space:nowrap;font-size:12px;text-overflow:ellipsis;}
 .xupload-show .file-info .file-icon{display:inline-block;font-size:20px;margin-right:10px;}
 .xupload-show .file-info .file-name{display:inline-block;font-size:13px;}
 .xupload-show .file-info .file-size{display:inline-block;font-size:12px;}
-.xupload-show .file-opts{display:none;width:50px;height:100%;text-align:center;position:absolute;right:0;top:0;line-height:45px;}
-.xupload-show .file-opts>a{display: block;height: 100%;}
+.xupload-show .file-opts{display:none;width:85px;height:100%;text-align:right;position:absolute;right:15px;top:0;line-height:45px;}
+.xupload-show .file-opts>a{height: 100%;display: inline-block;padding: 0 5px;color:rgb(103, 106, 108);}
+.xupload-show .file-opts>a:hover{opacity: .8;}
 
 .webuploader-container .has-error .btn-default{border-color: #a94442;}
 .webuploader-container .help-block{font-size: 12px;}
 
-.webuploader-dnd-over:after{content:"放开双手,即可添加上传";position:fixed;background:rgba(255,255,255,0.6);border:3px dashed rgb(204,204,204);z-index:1000000;color:rgb(153,153,153);font-size:40px;text-align:center;overflow:hidden;top:0px;left:0px;height:539px;line-height:539px;width:1914px;}
+.webuploader-dnd-over:after{content:"放开双手,即可添加上传";position:fixed;background:rgba(255,255,255,0.6);border:3px dashed rgb(204,204,204);z-index:1000000;color:rgb(153,153,153);font-size:40px;text-align:center;overflow:hidden;top:0px;left:0px;height:539px;line-height:539px;width:100%;}
 
-.webuploader-container {
+/* .webuploader-container {
 	position: relative;
-}
+} */
 .webuploader-element-invisible {
 	position: absolute !important;
 	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */

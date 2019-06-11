@@ -40,26 +40,30 @@
  //上传 dom.xupload.upload();
  
  参数配置:
+ |-showRmoveBtn:true,//是否回显显示删除按钮
+ showDownloadBtn:true,//是否回显下载删除按钮
  uploadSuccessHtml:Fn(file) 每个文件成功后回显到页面上的html  默认值为  回调参数为file
   uploadSuccessHtml:function(file){
      return `
-        &lt;li class="list-group-item animated fadeIn"&gt;
-         &lt;div class="file-info"&gt;
-           &lt;i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"&gt;&lt;/i&gt;
-           &lt;span class="file-name"&gt;${file.name}&lt;/span&gt;
-           &lt;span class="file-size"&gt;(${WebUploader.formatSize(file.size)})&lt;/span&gt;
-         &lt;/div&gt;
-         &lt;div class="file-opts"&gt;
-           &lt;a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"&gt;&lt;i class="glyphicon glyphicon-remove"&gt;&lt;/i&gt;&lt;/a&gt;
-         &lt;/div&gt;
-       &lt;/li&gt;
+             <li class="list-group-item animated fadeIn">
+              <div class="file-info">
+                <i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"></i>
+                <span class="file-name">${file.name}</span>
+                <span class="file-size">(${WebUploader.formatSize(file.size)})</span>
+              </div>
+              <div class="file-opts">
+                <a href="${file.url?file.url:'javascript:;'}" title="下载" class="js_xupload_download" data-id="${file.id}"><i class="glyphicon glyphicon-download-alt"></i></a>
+                <a href="javascript:;" title="删除" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
+              </div>
+            </li>
      `
    },
-  backshowlist:[Object]  页面初始化需要回显的对象  其中需要有3个key需要有
+  backshowlist:[Object]  页面初始化需要回显的对象  其中需要有3个key需要有 id name size  
   {
     id:文件id  用来做操作的传参  默认模板里的  $(".js_xupload_remove").data("id")可获取到  也可以通过该值做代理事件触发传值
     name:文件名   注：icon是根据文件名后缀变化的哦~
-    size:文件大小
+    size:文件大小,
+		url:下载的url
   }
  
  实例方法
@@ -251,8 +255,14 @@
         // 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
         resize: false,
         chunked: true,
+				showRmoveBtn:true,
+				showDownloadBtn:true,
         //每个文件成功后返回的模板
         uploadSuccessHtml:function(file){
+					let downloadBtn = `<a href="${file.url?file.url:'javascript:;'}" title="下载" class="js_xupload_download" data-id="${file.id}"><i class="glyphicon glyphicon-download-alt"></i></a>`
+					let removeBtn = `<a href="javascript:;" title="删除" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>`
+					if(!this.showDownloadBtn)downloadBtn="";
+					if(!this.showRmoveBtn)removeBtn="";
           return `
              <li class="list-group-item animated fadeIn">
               <div class="file-info">
@@ -261,8 +271,9 @@
                 <span class="file-size">(${WebUploader.formatSize(file.size)})</span>
               </div>
               <div class="file-opts">
-                <a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
-              </div>
+									${downloadBtn}
+									${removeBtn}
+							</div>
             </li>
           `
         },

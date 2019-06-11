@@ -4,11 +4,11 @@
       <div class="panel-title">
                   回单管理
       </div>
-      <div class="panel-tools">
+ <!--     <div class="panel-tools">
           <a class="collapse-link" data-toggle="collapse"  href="#panelContent">
               <i class="fa fa-chevron-up"></i>
           </a>
-      </div>
+      </div> -->
     </div>
     <div class="panel-body collapsed in" id="panelContent">
         <div class="col-md-12">
@@ -75,24 +75,13 @@ var receipt = {
       })
     },
     addOrUpdate(title, id) {
-      rj.modal(
-        title,
-        "page/project/receipt/addOrUpdate.html",
-        () => {
-          //load加载完成  需要把问题的下拉加载完
-          rj.resetPlug();
-          
-          //改变title
-          let ptext = $("select[name='project']option[selected='selected']").text();
-          let ttext = $("select[name='type'] option[selected='selected']").text();
-          let text = ` ${ptext} | ${ttext} `
-          $("#xa-modal .modal-title").text( $("#xa-modal .modal-title").text() + text);
-        },
-        () => {
-          //点击确认
-          alert(JSON.stringify(rj.form.get($("#addOrUpdate")[0])))
-        }
-      )
+			
+			rj.load(".js_index_content","page/project/receipt/addOrUpdate.html",function(){
+			  
+			  $(".js_receipt_title").text(title);
+				rj.resetPlug()
+			});
+			
     },
     tableInit() {
       let data = [
