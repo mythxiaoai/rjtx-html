@@ -3,16 +3,40 @@
         <div class="panel-heading">
             <div class="panel-title">工单组配置</div>
         </div>
-    </div>
-    <div class="panel-body collapsed in">
-        <div class="col-md-12">
-            <form id="orderform" class="form-inline fz12 clearfix">
-                <div class="form-group">
-                    <label for="fw-n">
-                        项目<input  class="form-control" name="ordtree" id="ordtree" placeholder="请选择所属项目"></input>
-                    </label>
+        <div class="panel-body collapsed in">
+            <div class="col-md-12">
+                <form id="orderform" class="form-inline fz12 clearfix">
+                    <div class="form-group">
+                        <label class="fw-n">项目</label>
+                        <input class="form-control" name="ordtree" id="ordtree" placeholder="请选择所属项目"></input>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-n">工单组名</label>
+                        <input class="form-control" name="ordgroname" id="ordgroname" type="text"></input>
+                    </div>
+                    <div class="form-group m-b-xs">
+                        <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+                    </div>
+                </form>
+                <div id="toolbar" class="m-t btn-group">
+                    <button type="button" class="btn btn-default" title="新增" onclick="orderGroup.addOrGroup('新增工单组')">
+                        <i class="iconfont icon-add"></i> 新增
+                    </button>
+                    <button type="button" class="btn btn-default" title="删除" onclick="orderGroup.delOrGroup()">
+                        <i class="iconfont icon-shanchu" ></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-default" title="启用" onclick="orderGroup.changeStatus('0')">
+                        <i class="iconfont icon-bofang"></i> 一键启用
+                    </button>
+                    <button type="button" class="btn btn-default" title="停用" onclick="orderGroup.changeStatus('1')">
+                        <i class="iconfont icon-zanting"></i> 一键停用
+                    </button>
                 </div>
-            </form>
+                <div class="m-t">
+                    <table id="ordertable"></table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -23,27 +47,195 @@
     var orderGroup = {
         init(){
             this.treeInit();
+            this.orderTableInit();
+        },
+        addOrGroup(title,id){
+            rj.modal(title,"page/project/scheduling/actoraddpage/addorder.html",()=>{
+                let $this = this;
+                if(!id){
+                    //新增工单组
+                }else{
+                    //修改工单组
+                    console.log(id);
+                    let data = {
+                        "ordaddtree" :  "归属项目",
+                        "ordgroname" :  "工单组名",
+                        "templateRules": [   
+                            {
+                                "columnTitle" :  "优化措施",
+                                "relationship" : ["=", "<", "="],
+                                "value" : ["213", "12312", "123123"]
+                            },
+                            {
+                                "columnTitle" :  "方案模板",
+                                "relationship":["=", "<", "="],
+                                "value": ["sads", "xczv", "dasd"]
+                            }
+                        ]
+                    } ;
+                    //回显操作
+                    orderAddpage.echoFormRule(data);
+                }
+            })
+        },
+        delOrGroup(){
+            //批量删除工单组
+            var $this = this;
+            var rowCheck = $("#ordertable").bootstrapTable('getAllSelections');
+            if(rowCheck.length == 0){
+                xtip("selectLeastOne")
+            }else{
+                xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！",null,function(){
+                    var delid = $this.checkId(rowCheck);
+                    console.log(delid) //删除的id
+                })
+            }
+        },
+        checkId(data){
+            var id="";
+            $.each(data, function(index,val) {
+                if(index!=data.length-1){
+                    id+=val.id+",";
+                }else{
+                    id+=val.id;
+                }
+            });
+            return id;
+        },
+        delSingle(id){
+            console.log(id)//删除的id
+            //单个列删除
+			xconfirm("确定删除？","删除后将无法恢复，请谨慎操作！",null,function(){
+				//ajax
+			});
+        },
+        changeStatus(status){
+            //一键启动，停用状态
+            var rowStatus = $("#ordertable").bootstrapTable('getAllSelections');
+            var $this = this;
+            if(rowStatus == 0){
+				xtip("selectLeastOne");
+            }else{
+                var selId = $this.checkId(rowStatus);
+                console.log(selId) //选中的id
+                console.log(status) //选中的id要改变的状态
+                /*
+                    ajax:
+                        data: {"selId":selId,"status":status}
+                */
+            }
+        },
+        changOne(id,status){
+            var $this = this;
+            console.log(id) //改变状态的id
+            console.log(status) //改变状态的status值
+        },
+        orderTableInit(){
+            //表格初始化
+            var data = [
+                {
+                    "id":0,
+                    "deptId":"d101",
+                    "create_date": "2019-04-16 14:44:15",
+                    "creator":"system",
+                    "dept_name": "茂名项目",
+                    "order_name": "地段工单组",
+                    "modifier": "",
+                    "is_enable": 1
+                },
+                {
+                    "id":1,
+                    "deptId":"d102",
+                    "create_date": "2019-04-16 14:44:15",
+                    "creator":"system",
+                    "dept_name": "茂名项目",
+                    "order_name": "地段工单组",
+                    "modifier": "",
+                    "is_enable": 0
+                },
+                {
+                    "id":2,
+                    "deptId":"d104",
+                    "create_date": "2019-04-16 14:44:15",
+                    "creator":"system",
+                    "dept_name": "茂名项目",
+                    "order_name": "地段工单组",
+                    "modifier": "",
+                    "is_enable": 1
+                }
+            ]
+            rj.table.init({
+                id: "#ordertable",
+                toolbar:false,
+                data:data,
+                columns:[
+                    {checkbox: true },
+                    {
+                        field: 'order_name',
+                        title: '工单组名称'
+                    },
+                    {
+                        field: 'dept_name',
+                        title: '项目名称'
+                    },
+                    {
+                        field: 'creator',
+                        title: '创建用户'
+                    },
+                    {
+                        field: 'create_date',
+                        title: '创建时间'
+                    },
+                    {
+                        field: 'is_enable',
+                        title: '是否启用',
+                        formatter: function(value,row,index){
+                            if(value == 0){
+		                		return `<span class="text-success">启用</span>`
+                            }else{
+		                		return `<span class="text-danger">停用</span>`
+		                	}
+                        }
+                    },
+                    {
+                        title: '操作',
+						width: 180,
+                        formatter:function(value,row,index){
+							if(row.is_enable==0){
+                                return `
+                                    <div style="width:180px">
+                                        <a class="btn btn-warning btn-xs" onclick="orderGroup.changOne('${row.id}',1)">停用</a>
+                                        <a class="btn btn-info btn-xs" onclick="orderGroup.addOrGroup('修改工单组','${row.id}')">修改</a>
+                                        <a class="btn btn-danger btn-xs" onclick="orderGroup.delSingle('${row.id}')">删除</a>
+                                    </div>
+                                `
+							}else{
+                                return `
+                                    <div style="width:180px">
+                                        <a class="btn btn-success btn-xs"onclick="orderGroup.changOne('${row.id}',0)">启用</a>
+                                        <a class="btn btn-info btn-xs" onclick="orderGroup.addOrGroup('修改工单组','${row.id}')">修改</a>
+                                        <a class="btn btn-danger btn-xs" onclick="orderGroup.delSingle('${row.id}')">删除</a>
+                                    </div>
+                                `
+							}
+		                }
+                    }
+                ]
+            })
         },
         treeInit(){
-            rj.ztree("ztreeRadio","#ordtree",zNodes,{callback:{
-                onCheck:function(event, treeId, treeNode){
-                    var  status = treeNode.checked;
-                    if(status){
-                        $this.opts.deptId=treeNode.id;
-                    }else{
-                        $this.opts.deptId  =null;
-                    }
-                    //值还原
-                    let html = treeNode.name;
-                    html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
-                    if(treeNode.checked){
-                        $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(html).prev().val(treeNode.id)
-                    }else{
-                        $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val("").prev().val("")
-                    }
-                }
-            }});
-           
+            var zNodes4 =[
+                {id:"", pId:0, name:"全部"},
+                {id:"润建", pId:0, name:"润建"},
+                {id:"怡创", pId:0, name:"怡创"},
+                {id:"宜通", pId:0, name:"宜通"},
+                {id:"华苏", pId:0, name:"华苏"},
+                {id:"华星", pId:0, name:"华星"},
+                {id:"南建", pId:0, name:"南建"},
+                {id:"拓明", pId:0, name:"拓明"},
+                {id:"中通服", pId:0, name:"中通服"},
+            ];
+            rj.ztree("ztreeRadio","#ordtree",zNodes4);
         },
         
     }

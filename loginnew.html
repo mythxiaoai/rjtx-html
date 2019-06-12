@@ -53,8 +53,8 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
     </script>
     <style>
         body{word-wrap: break-word;;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;min-width: 960px;}
+        .newlogin{position:fixed;width:100%;height:100%;background-color:#2597f9;z-index:-1; background:url(./img/bg.png) no-repeat;background-position: center;background-size:100% 104%; background-attachment:fixed;}
         /* .newlogin{background: #1454CF url(img/newlog-bg.png);background-size: 100% 100%;position: fixed;height: 100%;width: 100%;} */
-        .newlogin{position:fixed;width:100%;height:100%;background-color:#1454CF;background:url(img/newlog-bg.png) no-repeat;background-position: center;background-size: cover; background-attachment:fixed;z-index:-1;}/*-webkit-filter:blur(2px);-moz-filter:blur(2px);-ms-filter:blur(2px);filter:blur(2px);*/
         .mbox{position:absolute;width:350px;top:20vh;left:49%;right:0;margin:0 auto;background-color:rgba(255,255,252,0.3);padding:30px 30px;border-radius:3px;height: 347px;}
         .system-mark{width:321px;height:40px;position:relative;margin-bottom: 46px;top: 13px;}
         .system-mark .fontstyle {height:40px}
@@ -73,10 +73,42 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         .icon-p{position:absolute;color:#39aef5;right:4px;top:3px;height:34px;width:34px;line-height:34px;text-align:center;font-size: 19px;}
         .icon-bg{color: #fff;position: relative;margin-right: 9px;float: left;font-size: 34px;}
 
+        /* 极验style */
+        .geetest_panelshowslide .geetest_panel .geetest_copyright{display:none;}
+        .geetest_holder.geetest_mobile.geetest_ant .geetest_panel a.geetest_feedback{display:none !important;}
+        /* 动态图*/
+        .gifimg{ width: 50%;height: 515px;position: relative;top: 99px;left: 96px;}
+        .gif_i{position: absolute;background-position: center;}
+        #imgone{width: 264px;height: 306px;background: url(img/364-414.gif) no-repeat;left: 50px;top: 29px;background-position: center;background-size: cover;z-index: 1;}
+        #imgotwo{ width: 899px;height: 506px;background: url(img/1239-760.gif) no-repeat;background-position: initial;top: -4px;left: -81px;background-size: cover;transform: skew(0deg,0deg);}
+        #imgthree{width: 228px;height: 221px;top: 173px;z-index: 2;left: 192px;background: url(img/346-324.gif) no-repeat;background-size: cover;}
+        #imgfour{width: 139px;height: 60px;top: 143px;left: 309px;background: url(img/200-80.gif) no-repeat;background-size: 144px;}
+        #imgfive{ width: 140px;height: 95px;top: 48px;left: 307px;background: url(img/200-140.gif) no-repeat;background-size: 139px;}
+        #imgsix{    width: 185px;height: 200px;top: 297px;left: 34px;background: url(img/215-250.gif) no-repeat;background-size: 159px;}
+        #imgseven{width: 185px;height: 230px;top: 162px;left: 474px;background: url(img/240-295.gif) no-repeat;background-size: 172px;}
+        /* footer  */
+        .footer{text-align: center;color:#67aae0;font-size:12px;position: fixed;bottom: 10px;width: 100%;}
+        /*  */
+        .login_left{position: absolute;top: 2%;left: 6%;width: 360px;height:50px;line-height: 50px;}
+        .login_left .rightspan{color: #fff;font-size: 18px;padding-left: 55px; letter-spacing: 4px;}
+        .login_left .rightspan::before{content: ""; width: 2px;height: 28px;background-color: #efefef94;position: absolute;left: 42px;top: 12px;}
     </style>
 </head>
 <body>
     <div class="newlogin"></div>
+    <div class="gifimg">
+        <div id="imgone" class="gif_i"></div>
+        <div id="imgotwo" class="gif_i"></div>
+        <div id="imgthree" class="gif_i"></div>
+        <div id="imgfour" class="gif_i"></div>
+        <div id="imgfive" class="gif_i"></div>
+        <div id="imgsix" class="gif_i"></div>
+        <div id="imgseven" class="gif_i"></div>
+    </div>
+    <div class="login_left">
+        <i class="iconfont icon-bg icon-px"></i>
+        <div class="rightspan">智能网优作业管理系统</div>
+    </div>
     <div class="mbox animated fadeInDown">
         <div class="system-mark">
             <div class="fontstyle">
@@ -116,6 +148,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
             </div>
         </form>
     </div>
+    <div class="footer">Copyright © 2019 Project Management System</div>
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap/bootstrap.js"></script>
     <script type="text/javascript" src="js/tip.js"></script>
@@ -153,35 +186,35 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
                     }
                 });
             },
-            register(){
-                let $this =this;
-                rj.ajax({
-                    url:"http://pmscloud.club:8092/gt/register-slide?v=04131686690668632",
-                    type:"get",
-                    dataType: "json",
-                    success:function(data){
-                        console.log(data)
-                        $this.initGeetest(data);
-                    }
-                });
-            },
-            initGeetest(data){
-                // 调用 initGeetest 进行初始化
-                // 参数1：配置参数
-                // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
-                initGeetest({
-                    // 以下 4 个配置参数为必须，不能缺少
-                    gt: data.gt,
-                    challenge: data.challenge,
-                    offline: !data.success, // 表示用户后台检测极验服务器是否宕机
-                    new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
-                    product: "bind", // 产品形式，包括：float，popup
-                    width: "300px",
-                    https: true
-                    // 更多配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
-                }, this.handler.bind(this));
+            // register(){
+            //     let $this =this;
+            //     rj.ajax({
+            //         url:"http://pmscloud.club:8092/gt/register-slide?v=04131686690668632",
+            //         type:"get",
+            //         dataType: "json",
+            //         success:function(data){
+            //             console.log(data)
+            //             $this.initGeetest(data);
+            //         }
+            //     });
+            // },
+            // initGeetest(data){
+            //     // 调用 initGeetest 进行初始化
+            //     // 参数1：配置参数
+            //     // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+            //     initGeetest({
+            //         // 以下 4 个配置参数为必须，不能缺少
+            //         gt: data.gt,
+            //         challenge: data.challenge,
+            //         offline: !data.success, // 表示用户后台检测极验服务器是否宕机
+            //         new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+            //         product: "bind", // 产品形式，包括：float，popup
+            //         width: "300px",
+            //         https: true
+            //         // 更多配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
+            //     }, this.handler.bind(this));
     
-            },
+            // },
             handler(captchaObj){
                 let $this =this;
                 // 调用之前先通过前端表单校验
