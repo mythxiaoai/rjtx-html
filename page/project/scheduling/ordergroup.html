@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group m-b-xs">
                         <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
-                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+                        <input class="btn btn-default btn-sm" onclick="orderGroup.reset1()" type="button" value="重置">
                     </div>
                 </form>
                 <div id="toolbar" class="m-t btn-group">
@@ -45,9 +45,17 @@
 </style>
 <script>
     var orderGroup = {
+        opts:{
+            ztreeObj: null
+        },
         init(){
             this.treeInit();
             this.orderTableInit();
+            // var n = this.opts.ztreeObj.getNodes();
+            // for(var i=0;i<n.length;i++){
+            //     this.opts.ztreeObj.setChkDisabled(n[i],true)
+            // }
+            // nodes = treeObj.getChangeCheckedNodes()
         },
         addOrGroup(title,id){
             rj.modal(title,"page/project/scheduling/actoraddpage/addorder.html",()=>{
@@ -235,9 +243,18 @@
                 {id:"拓明", pId:0, name:"拓明"},
                 {id:"中通服", pId:0, name:"中通服"},
             ];
-            rj.ztree("ztreeRadio","#ordtree",zNodes4);
+           this.opts.ztreeObj =  rj.ztree("ztreeCheckbox","#ordtree",zNodes4);
         },
-        
+        reset1(){
+            //禁止点击
+            console.log(this.opts.ztreeObj)
+            
+            //单个ztree清空值
+            // var check = this.opts.ztreeObj.getCheckedNodes()   //选中的节点
+            // for(var i=0;i<check.length;i++){
+            //     $("#"+check[i].tId+"_a").trigger('click'); 
+            // }
+        }
     }
     orderGroup.init()
 </script>

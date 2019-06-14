@@ -88,13 +88,19 @@
                 "id": "19",
                 "name": "人员组配置",
                 "url": "page/project/scheduling/actorgroup.html",
-                "icon": "iconfont icon-feiji",
+                "icon": "iconfont icon-jiaoseguanli",
                 "pid": "18"
             },{
                 "id": "191",
                 "name": "工单组配置",
                 "url": "page/project/scheduling/ordergroup.html",
-                "icon": "iconfont icon-feiji",
+                "icon": "iconfont icon-nav2-1",
+                "pid": "18"
+            },{
+                "id": "192",
+                "name": "工单分配详情",
+                "url": "page/project/scheduling/orderinformation.html",
+                "icon": "iconfont icon-zidingyiyemian",
                 "pid": "18"
             },
             {
