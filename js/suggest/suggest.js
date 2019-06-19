@@ -32,75 +32,91 @@ $("body").on("input focus", ".js_suggest", function() {
   }, 200);
 })
  */
-;(()=>{
-	let selector,
-	opts,
-	data=[];
-	let suggest = {
-		init(str){
-      selector = str;
-      this.event();
-		},
-		setDate(dom,data){
-			if(!Array.isArray(data)){
-		       console.error("suggest方法的参数必须是数组");
-		    }
-			let lis = "";
-			if(data.length>0){
-				data.map(v=>{
-					lis+=`<a href="javscript:;" class="list-group-item js_suggest_li">${v}</a>`
-				});
-			}else{
-				lis+=`<a href="javscript:;" class="list-group-item js_suggest_li text-center" style="color:#aaa">暂无此项~</a>`
-			}
-			$(dom).next().html($(lis))
-		},
-		destroy(){
-			 $("body").unbind("click",this.bodyClick);
-		},
-		event(){
-			$("body").on("click",selector,this.bodyClick)
-		},
-		bodyClick(e){
-			$(selector).each(function(){
-				if(this===e.target){
-					//相对定位判断
-					let css = $(this).parent().css("position");
-					if(css=="static")$(this).parent().css("position","relative");
-					
-					if($(this).parent().find(".js_suggest_ul").length>0)return;
-					
-					$(this).parent().append(`
+;
+(() => {
+    let selector,
+        opts,
+        data = [];
+    let time;
+    let suggest = {
+        init(str) {
+            selector = str;
+            this.event();
+        },
+        setDate(dom, data) {
+            if (!Array.isArray(data)) {
+                console.error("suggest方法的参数必须是数组");
+            }
+            time = setInterval(function(){
+                if($(dom).next().hasClass("js_suggest_ul")){
+                    clearInterval(time);
+                    addLi();
+                }
+            },200)
+            
+            function addLi(){
+                let lis = "";
+                if (data.length > 0) {
+                    data.map(v => {
+                        lis += `<a href="javscript:;" class="list-group-item js_suggest_li">${v}</a>`
+                    });
+                } else {
+                    lis +=
+                        `<a href="javscript:;" class="list-group-item js_suggest_li text-center" style="color:#aaa">暂无此项~</a>`
+                }
+                $(dom).next().html($(lis))
+            }
+        },
+        destroy() {
+            $("body").unbind("click", this.bodyClick);
+        },
+        event() {
+            $("body").on("click", selector, this.bodyClick)
+        },
+        bodyClick(e) {
+            $(selector).each(function() {
+                if (this === e.target) {
+                    //相对定位判断
+                    let css = $(this).parent().css("position");
+                    if (css == "static") $(this).parent().css("position", "relative");
+
+                    if ($(this).parent().find(".js_suggest_ul").length > 0) return;
+
+                    $(this).parent().append(
+                        `
 					 <div class="list-group suggest_ul js_suggest_ul">
 					</div>
-					`).find(".js_suggest_ul").css({
-						position:"absolute",
-						left:$(this).position().left,
-						top:$(this).outerHeight()-1,
-						width:$(this).outerWidth()
-					}).hide().slideDown("fast")
-					
-					//点击赋值
-					$(this).next().on("click",".js_suggest_li",liclick);
-					
-					let dom =this;
-    		$("body").on("click",hidelist);
-    		function hidelist(event) {
-    		   if (!(($(event.target).closest(".js_suggest_ul").length>0)||event.target==dom)) {
-    		   	 $(dom).next().unbind("click",liclick);
-    		     $(dom).next().remove();
-    		     $("body").unbind("click", hidelist);
-    		   }
-    		 }
-    		
-    		function liclick(){
-    			$(dom).val($(this).text());
-    			$(dom).next().remove();
-    		}
-    		
-				}
-			});
-		}
-	}
-  window.suggest = suggest;
+					`
+                    ).find(".js_suggest_ul").css({
+                        position: "absolute",
+                        left: $(this).position().left,
+                        top: $(this).outerHeight() - 1,
+                        width: $(this).outerWidth()
+                    }).hide().slideDown("fast")
+
+                    //点击赋值
+                    $(this).next().on("click", ".js_suggest_li", liclick);
+
+                    let dom = this;
+                    $("body").on("click", hidelist);
+
+                    function hidelist(event) {
+                        if (!(($(event.target).closest(".js_suggest_ul").length > 0) || event.target ==
+                                dom)) {
+                            $(dom).next().unbind("click", liclick);
+                            $(dom).next().remove();
+                            $("body").unbind("click", hidelist);
+                        }
+                    }
+
+                    function liclick() {
+                        $(dom).val($(this).text());
+                        $(dom).next().remove();
+                    }
+
+                }
+            });
+        }
+    }
+    window.suggest = suggest;
 })()

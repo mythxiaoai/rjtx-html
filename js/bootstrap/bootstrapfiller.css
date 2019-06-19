@@ -224,9 +224,9 @@ fieldset[disabled] .navbar-white .btn-link:focus {
 .result:after{content: "";background-color:#fff;position: absolute;height: 100%;width: 100%;}/*添加底色，为不与opacity冲突*/
 .result .panel{margin-bottom:0px;}
 .result .panel .panel-body{height:180px;margin-bottom:0px;overflow: auto;padding: 0px 20px 0px;}
-.result .result_icon{color:#0B8AFF;position: absolute; left: 0; right: 0;top: 0;margin: 0 auto;text-align: center;padding-top: 8px; width: 40px;height:40px;}
+.result .result_icon{color:#0B8AFF;position: absolute; left: 0; right: 0;top: 0;margin: 0 auto;text-align: center;padding-top: 8px; width: 40px;height:40px;z-index: 1;}
 .result .result_icon:hover{color:#3C80BE}
-.result .targ_line{position: absolute;height: 3px;width:100%;background: #3C80BE;top:0;left: 0;cursor:n-resize ;}
+.result .targ_line{position: absolute;height: 3px;width:100%;background: #3C80BE;top:0;left: 0;cursor:n-resize;z-index: 1;}
 /*滑动盒子*/
 .panel-slide .panel-body{padding: 0;}
 /*滑动盒子 左侧查询*/

@@ -120,8 +120,8 @@ ComplexCustomOverlay.prototype=$.extend({},new BMap.Overlay(),{
     	zoom=this._map.getZoom();
     this._canvas.width=this._map.getSize().width;
 		this._canvas.height=this._map.getSize().height;
-		this._canvas.style.top=$(".BMap_mask").css("top");
-		this._canvas.style.left=$(".BMap_mask").css("left");
+		this._canvas.style.top=$(this._map.ye).css("top");
+		this._canvas.style.left=$(this._map.ye).css("left");
 		//控制渲染层级  opts.showAllZoom
 		if(zoom<this.opts.showAllZoom){
     	return false;
