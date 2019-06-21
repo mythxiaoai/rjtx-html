@@ -1,9 +1,217 @@
-<div class="p-m animated fadeInRight">
-    
-</div>
-<style>
+<div class="p-m animated fadeInRight js_actor">
+        <div class="panel panel-white">
+            <div class="panel-heading">
+                <div class="panel-title">人员工单组配置</div>
+            </div>
+            <div class="panel-body collapsed in">
+                <div class="col-md-12">
+                    <form id="orderform" class="form-inline fz12 clearfix">
+                        <div class="form-group">
+                            <label class="fw-n">项目</label>
+                            <input class="form-control" name="ordtree" id="ordtree" placeholder="请选择所属项目" />
+                        </div>
+                        <div class="form-group">
+                            <label class="fw-n">人员组名</label>
+                            <input class="form-control" id="presonztree" name="presonztree" type="text"/>
+                        </div>
+                        <div class="form-group m-b-xs">
+                            <input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+                            <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    <div id="toolbar" class="m-t btn-group">
+                        <button type="button" class="btn btn-default js_addOrUpdate" onclick="actorgroup.addOrUpdate('新增')">
+                            <i class="iconfont icon-add"></i> 新增
+                        </button>
+                        <button type="button" class="btn btn-default js_addOrUpdate" onclick="actorgroup.delOrGroup()">
+                            <i class="iconfont icon-add"></i> 删除
+                        </button>
+                    </div>
+                    <div class="m-t">
+                        <table id="table"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+    </style>
+    <script>
+        /*
+            {
+                "groupName":测试组,        //人员组名
+                "algorithm":随机平均分配,   //分配算法
+                "deptId":d63,             //组ID
+                "workGroupName":['工单组1'，'工单组2'],   //分配工单组
+                "userList":[              //分配人员
+                    {"userId":007,"weight":20}, 
+                    {"userId":008,"weight":30}
+                ],
+                "creatTime":"2019-04-16 14:44:15" //创建时间
+            }
+        */
+        var actorgroup= {
+            opts:{
+                data:[
+                    {
+                        "id":1,
+                        "groupName":"测试组",        //人员组名
+                        "proName": "润建",          //归属项目
+                        "algorithm":"随机平均分配",   //分配算法
+                        "deptId":"d63",             //组ID
+                        "workGroupName":['工单组1','工单组2'],   //分配工单组
+                        "userList":[              //分配人员
+                            {"userId":007,userName:"李四","weight":1}, 
+                            {"userId":003,userName:"王二","weight":2}, 
+                            {"userId":001,userName:"张三","weight":3}
+                        ],
+                        "creatTime":"2019-04-16 14:44:15"
+                    },
+                    {
+                        "id":2,
+                        "groupName":"开发组",        //人员组名
+                        "proName": "润建",          //归属项目
+                        "algorithm":"随机平均分配",   //分配算法
+                        "deptId":"d11",             //组ID
+                        "workGroupName":['测试工单组1','测试工单组2'],   //分配工单组
+                        "userList":[              //分配人员
+                            {"userId":007,userName:"小姨","weight":1}, 
+                            {"userId":003,userName:"小儿","weight":2}, 
+                            {"userId":001,userName:"小三","weight":3}
+                        ],
+                        "creatTime":"2019-04-16 14:44:15"
+                    },
+                ]
+            },
+            init(){
+                //项目ztree初始化
+                this.treeInit();
+                //人员组ztree
+                this.listTreeInit();
+                //表格初始化
+                this.tableInit(this.opts.data)
+            },
+            listTreeInit(){
+                //左侧列表树状列表
+                var $this = this;
+                var zNodes = [
+                    { id:1, pId:0, name: "人员组1"},
+                    { id:2, pId:0, name: "人员组2"},
+                    { id:3, pId:0, name: "人员组3"},
+                    { id:4, pId:0, name: "人员组4"},
+                ];
+                rj.ztree("ztreeCheckbox","#presonztree",zNodes);
+            },
+            treeInit(){
+                //初始化项目ztree 选择框
+                var zNodes4 =[
+                    {id:"", pId:0, name:"全部"},
+                    {id:"润建", pId:0, name:"润建"},
+                    {id:"怡创", pId:0, name:"怡创"},
+                    {id:"宜通", pId:0, name:"宜通"},
+                    {id:"华苏", pId:0, name:"华苏"},
+                    {id:"华星", pId:0, name:"华星"},
+                    {id:"南建", pId:0, name:"南建"},
+                    {id:"拓明", pId:0, name:"拓明"},
+                    {id:"中通服", pId:0, name:"中通服"},
+                ];
+                rj.ztree("ztreeCheckbox","#ordtree",zNodes4);
 
-</style>
-<script>
-
-</script>
+            },
+            tableInit(data){
+                //初始化table
+                rj.table.init({
+                    id: "#table",
+                    toolbar:false,
+                    data: data,
+                    columns: [
+                        {
+                            checkbox: true 
+                        },
+                        {
+                            field: 'groupName',
+                            title: '人员组名'
+                        },
+                        {
+                            field: 'proName',
+                            title: '归属项目'
+                        },{
+                            field: 'algorithm',
+                            title: '分配算法'
+                        }, {
+                            field: 'workGroupName',
+                            title: '工单组分配'
+                        }, {
+                            field: 'userList',
+                            title: '人员分配',
+                            formatter:function(value,row,index){ 
+                                var result = "";
+                                for(let val of value){
+                                    result +=  val.userName+","
+                                }
+                                result = result.substring(0,result.length-1); 
+                                return result
+                            }
+                        }, {
+                            field: 'creatTime',
+                            title: '创建时间'
+                        },{
+                            title: '操作',
+                            formatter:function(value,row,index){ 
+                                return `
+										<a class="btn btn-info btn-xs" onclick="actorgroup.addOrUpdate('修改',${row.deptId})">修改</a>
+										<a class="btn btn-danger btn-xs" onclick="actorgroup.delsinOrder('${row.deptId}')">删除</a>`
+                            }
+                        }
+                    ],
+                })
+            },
+            delOrGroup(){
+                //批量删除工单组
+                var $this = this;
+                var rowCheck = $("#table").bootstrapTable('getAllSelections');
+                if(rowCheck.length == 0){
+                    xtip("selectLeastOne")
+                }else{
+                    xconfirm("确定是否删除？","删除后将无法恢复，请谨慎操作！",null,function(){
+                        var delid = $this.checkId(rowCheck);
+                        console.log(delid) //删除的组id
+                    })
+                }
+            },
+            checkId(data){
+                var id="";
+                $.each(data, function(index,val){
+                    if(index!=data.length-1){
+                        id+=val.deptId+",";
+                    }else{
+                        id+=val.deptId;
+                    }
+                });
+                return id;
+            },
+            delsinOrder(id){
+                console.log(id)//删除的id
+                //删除单个列表
+                xconfirm("确定删除？","删除后无法恢复,请谨慎操作！",null,function(){
+                    //ajax
+                })
+            },
+            addOrUpdate(type,id){
+                //修改人员组配置
+                var title = "修改"+$(".js_tempText").text()+"配置";
+                if(type == "修改"){
+                    rj.load(".js_actor","page/project/scheduling/addpersonpage/addpersonpage.html",function(){
+                        $("#addtitle").text(title)
+                    })
+                }else{
+                    rj.load(".js_actor","page/project/scheduling/addpersonpage/addpersonpage.html",function(){
+                        $("#addtitle").text("新增人员组")
+                    })
+                }
+            }
+        }
+        actorgroup.init()
+    </script>
