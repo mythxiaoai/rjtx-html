@@ -179,7 +179,9 @@
                 var arr = [];
                 this.opts.ztreeObj = rj.ztree("ztreeCheckbox","#choosePerson",zNodes3,{callback:{
                     onCheck: function(event, treeId, treeNode) {
-                        console.log(Array.from($(".js_addperi ").find(".js_ship_value")).map(v=>$(v).val()))
+                         
+                        // console.log(Array.from($(".js_addperi ").find(".js_ship_value")).map(v=>$(v).val()))
+                        // console.log(Array.from($(".js_addperi ").find(".js_ship_value")).map(v=>$(v).val()))
                         var html =[];//页面显示的值
                         var ids =[];//数据库传入的值
                         var nodes = $this.opts.ztreeObj.transformToArray($this.opts.ztreeObj.getNodes());
@@ -254,7 +256,14 @@
                 //添加html
                 var $this = this;
                 var html = $("<div/>");
+                var json = $this.getScaleinput();
                 for(let val of $this.opts.ztreeObj.getCheckedNodes()){
+                    var bil = "";
+                    for(let data of json){
+                        if(data.userName == val.name){
+                            bil = data.weight;
+                        }
+                    }
                     var addhtml = `                        
                         <div class="row js_addperi_item orde_last_border clearfix m-t">
                             <!-- 选择项 -->
@@ -262,7 +271,7 @@
                                 <input class="form-control js_in_item js_sel_in " data-id="${val.id}" value="${val.name}" placeholder="请选择分配的人员" disabled>
                             </div>
                             <div class="col-md-3" style=" padding-left: 0;">
-                                <input type="text" autocomplete="off" class="form-control js_in_item js_ship_value" placeholder="请输入自定义比例">
+                                <input type="text" autocomplete="off" class="form-control js_in_item js_ship_value" value="${bil}"  placeholder="请输入自定义比例">
                             </div>
                             <!-- 选项 btn -->
                             <div class="col-md-2 p-none">
