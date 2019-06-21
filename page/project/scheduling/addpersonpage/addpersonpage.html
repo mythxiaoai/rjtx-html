@@ -179,7 +179,7 @@
                 var arr = [];
                 this.opts.ztreeObj = rj.ztree("ztreeCheckbox","#choosePerson",zNodes3,{callback:{
                     onCheck: function(event, treeId, treeNode) {
-                        console.log()
+                        console.log(Array.from($(".js_addperi ").find(".js_ship_value")).map(v=>$(v).val()))
                         var html =[];//页面显示的值
                         var ids =[];//数据库传入的值
                         var nodes = $this.opts.ztreeObj.transformToArray($this.opts.ztreeObj.getNodes());
