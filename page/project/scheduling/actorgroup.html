@@ -159,10 +159,11 @@
                             title: '创建时间'
                         },{
                             title: '操作',
-                            formatter:function(value,row,index){ 
+                            formatter:function(value,row,index){
+                                console.log(row.deptId) 
                                 return `
-										<a class="btn btn-info btn-xs" onclick="actorgroup.addOrUpdate('修改',${row.deptId})">修改</a>
-										<a class="btn btn-danger btn-xs" onclick="actorgroup.delsinOrder('${row.deptId}')">删除</a>`
+										<a class="btn btn-info btn-xs" onclick="actorgroup.addOrUpdate('修改',${row.id})">修改</a>
+										<a class="btn btn-danger btn-xs" onclick="actorgroup.delsinOrder('${row.id}')">删除</a>`
                             }
                         }
                     ],
@@ -201,6 +202,7 @@
             },
             addOrUpdate(type,id){
                 //修改人员组配置
+                console.log(id)
                 var title = "修改"+$(".js_tempText").text()+"配置";
                 if(type == "修改"){
                     rj.load(".js_actor","page/project/scheduling/addpersonpage/addpersonpage.html",function(){
