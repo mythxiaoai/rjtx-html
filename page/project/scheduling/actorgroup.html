@@ -206,11 +206,25 @@
                 var title = "修改"+$(".js_tempText").text()+"配置";
                 if(type == "修改"){
                     rj.load(".js_actor","page/project/scheduling/addpersonpage/addpersonpage.html",function(){
-                        $("#addtitle").text(title)
+                        $("#addtitle").text(title);
+                        var data =    //表单回显厕所数据
+                            {
+                                "algorithm":"2",   
+                                "choosePerson":"d02,d03",
+                                "groupName":"1",
+                                "ordaddtree":"4",
+                                "ordergrouptree":"润建,怡创,宜通,华苏,华星,南建,拓明,中通服",
+                                "userList":[
+                                    {"userName": "张创", "userId": "d02", "weight": "2"},
+                                    {"userName": "张通", "userId": "d03", "weight": "3"}
+                                ]
+                            }
+                        //表单回显
+                        addFormpre.echoForm(data)
                     })
                 }else{
                     rj.load(".js_actor","page/project/scheduling/addpersonpage/addpersonpage.html",function(){
-                        $("#addtitle").text("新增人员组")
+                        $("#addtitle").text("新增人员组");
                     })
                 }
             }

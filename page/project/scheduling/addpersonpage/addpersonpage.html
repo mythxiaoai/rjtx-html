@@ -78,18 +78,7 @@
                 ztreeObj:undefined,  //人员Ztree 对象
                 firstCreate:true, //判断是否为第一次创建
                 checkArr:[],  //选中的人员
-                // echodata:    //表单回显厕所数据
-                //     {
-                //         "algorithm":"2",   
-                //         "choosePerson":"d02,d03",
-                //         "groupName":"1",
-                //         "ordaddtree":"4",
-                //         "ordergrouptree":"润建,怡创,宜通,华苏,华星,南建,拓明,中通服",
-                //         "userList":[
-                //             {"userName": "张创", "userId": "d02", "weight": "2"},
-                //             {"userName": "张通", "userId": "d03", "weight": "3"}
-                //         ]
-                //     }
+                
                 
             },
             init(){
@@ -106,8 +95,6 @@
                 this.customRatio();
                 //表单验证
                 this.formVail();
-                //表单回显
-                // this.echoForm(this.opts.echodata)
             },
             skipPage(type){
                 //返回跳转页面
@@ -292,6 +279,7 @@
                    //删除相应的ztree分配人员
                     $(this).closest(".js_addperi_item").remove();
                     var delName = $(this).closest(".js_addperi_item").find(".js_sel_in").val();
+                    console.log(delName)
                     for(let val of $this.opts.ztreeObj.getCheckedNodes()){
                         if(delName == val.name){
                             // val.checked = false;
@@ -360,7 +348,6 @@
                 //表单回显
                 let $this = this;
                 let html = $("<div/>");
-
                 //自定义比例回显
                 if(data.algorithm ==2){
                     let customArr = data.userList;
