@@ -1,4 +1,4 @@
-<div class="p-m animated fadeInRight">
+<div class="p-m animated fadeInRight js_orderinformation">
 	<div class="row">
 		<div class="col-md-7" style="padding-right: 0px;">
 			<div class="panel" style="">
@@ -11,19 +11,19 @@
 						</div>
 						<div class="form-group">
 							<label class="fw-n">工单分配状态
-								<select class="form-control" name="project">
+								<select class="form-control js_test" name="project">
 									<option value="0">全部</option>
 									<option value="1">已分配</option>
 									<option value="2">未分配</option>
 								</select>
 							</label>
 						</div>
-						<div class="form-group m-b-xs">
+						<div class="form-group m-b-xs m-b">
 							<input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
-							<input class="btn btn-default btn-sm" onclick="orderInformation.reset()" type="button" value="重置">
+							<input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
 						</div>
 					</form>
-					<div class=" m-t">
+					<div class=" m-t ">
 						<table id="table"></table>
 					</div>
 				</div>
@@ -109,7 +109,8 @@
 					"del_time": "2019-04-16 14:44:15"
 
                 }
-			]
+			],
+			myChart:null
 		},
 		init(){
 			//表格初始化
@@ -118,6 +119,38 @@
 			this.echart1(this.opts.data);
 			//ztree初始化
 			this.treeInit();
+			//js_test --- slecte的class
+			var $this = this;
+			$(".js_test").change(function(){
+				//监听select 选中下拉框的值
+				// console.log($(this).children('option:selected').val());
+				// console.log($this.opts.myChart);
+				var data = [
+					{
+						"id":0,
+						"deptId":"2",
+						"person_name": "性能组",//人员组名
+						"create_date": "2019-04-16 14:44:15",//扫描时间
+						"order_total":"121",   //工单总数
+						"distribution_already": "32",//已分配工单数
+						"distribution_no": "32",//未分配工单数
+						"person_already": "44", //人员数
+						"del_status": 0 // 0-未删除 1-删除
+					},
+					{
+						"id":1,
+						"deptId":"1",
+						"person_name": "测试组",
+						"create_date": "2019-04-16 14:44:15", 
+						"order_total":"111",  
+						"distribution_already": "32",
+						"person_already": "44",
+						"del_status": 0 
+					}
+				];
+				$this.opts.myChart.dispose();
+				$this.echart1(data);
+			});
 		},
 		treeInit(){
             var zNodes4 =[
@@ -181,21 +214,30 @@
 							return `
 								<div style="width:180px">
 									<a class="btn btn-success btn-xs" >工单地图</a>
-									<a class="btn btn-info btn-xs">工单列表</a>
+									<a class="btn btn-info btn-xs " onclick="orderInformation.addlist('工单分配详情列表','${row.id}')">工单列表</a>
 								</div>
 							`
 		                }
                     }
                 ]
             })
-        },
+		},
+		addlist(type,id){
+			rj.load(".js_orderinformation","page/project/scheduling/listaddpage/addorderlist.html",function(){
+				$("#listtitle").text(type);
+				orderlist.tableInit();
+				rj.resetPlug();
+			})
+		},
 		echart1(res){
 			var data = res;
 			console.log(res);
-			var myChart = echarts.init($(".js_echart1")[0]);
+			var month = $(".js_test").children('option:selected').text();
+			console.log(month)
+			this.opts.myChart = echarts.init($(".js_echart1")[0]);
 			var option = {
 			    title: {
-			    	text: '当月工单分配',  
+			    	text: `${month}工单数`,  
                     x:'center',
                     textStyle:{
                     	color:"rgb(103, 106, 108)"
@@ -315,9 +357,9 @@
 					}
 			    ]
 			};
-			 myChart.setOption(option);
+			this.opts.myChart.setOption(option);
 			 //窗口变动，表格刷新
-			 $(window).resize(function(){myChart.resize();});
+			 $(window).resize(function(){this.opts.myChart.resize();});
 		},
 	}
 	orderInformation.init();

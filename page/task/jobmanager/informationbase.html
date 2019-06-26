@@ -35,11 +35,11 @@
                 <div class="row m-t">
                     <div class="col-md-12">
                         <ul class="nav nav-tabs">
-                            <li class="active js_home_tab" data-url="./page/task/jobmanager/table/table1.html"><a href="javascript:;" >新增</a></li>
-                            <li class="js_home_tab" data-url="./page/task/jobmanager/table/table2.html"><a href="javascript:;">审核</a></li>
-                            <li class="js_home_tab" data-url="./page/task/jobmanager/table/table3.html"><a href="javascript:;">执行</a></li>
-                            <li class="js_home_tab" data-url="./page/task/jobmanager/table/table4.html"><a href="javascript:;">评审</a></li> 
-                            <li class="js_home_tab" data-url="./page/task/jobmanager/table/table5.html"><a href="javascript:;">完成</a></li> 
+                            <li class="active js_home_tab" data-num="0" data-url="./page/task/jobmanager/table/table1.html"><a href="javascript:;" >新增</a></li>
+                            <li class="js_home_tab" data-num="1" data-url="./page/task/jobmanager/table/table2.html"><a href="javascript:;">审核</a></li>
+                            <li class="js_home_tab" data-num="2" data-url="./page/task/jobmanager/table/table3.html"><a href="javascript:;">执行</a></li>
+                            <li class="js_home_tab" data-num="3" data-url="./page/task/jobmanager/table/table4.html"><a href="javascript:;">评审</a></li> 
+                            <li class="js_home_tab" data-num="4" data-url="./page/task/jobmanager/table/table5.html"><a href="javascript:;">完成</a></li> 
                         </ul>
                         <div class="tab-content js_home_tabContent"></div>
                     </div>
@@ -58,6 +58,7 @@
 		tabInit(){
 			let $this = this;
 			$(".js_home_tab").click(function(){
+                console.log($(this).attr("data-num"))
 				$(this).addClass("active").siblings().removeClass("active");
 				rj.load(".js_home_tabContent",$(this).data("url"),function(){
                     task_tab1.init();

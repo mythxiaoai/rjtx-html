@@ -1,0 +1,167 @@
+<form id="disupdatamodal" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">已选工单问题点序号</label>
+        <div class="col-md-8">
+            <input class="form-control" name="pointnumber" id="pointnumber" type="text" disabled></input>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">派发类型</label>
+        <div class="col-md-8">
+            <div class="radio-inline">
+                <label><input type="radio" name="algorithm" value="1"  class="icheck" checked="checked">人员组分配</label>
+            </div>
+            <div class="radio-inline">
+                <label><input type="radio" name="algorithm" value="2" class="icheck"> 单个人员组组员分配</label>
+            </div>
+        </div>
+    </div>
+    <div class="hr-line-dashed js_ordername"></div>
+    <div class="form-group js_personname">
+
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-default m-r js_back" type="button">取消</button>
+            <button class="btn btn-primary js_sure" type="submit">保存</button>
+        </div>
+    </div>
+</form>
+<style>
+</style>
+<script>
+    var disupdata= {
+        opts:{
+            radionumber:1
+        
+        },
+        init(){
+            this.icheckInit();
+            //分配类型改变
+            this.changeType();
+            //ztree初始化
+            this.treeInit(1);
+            //表单提交
+            this.formvail();
+        },
+        icheckInit(){
+            //icheck初始化
+            var $this = this;
+            $('input[type="radio"]').iCheck({ 
+                labelHover : false, 
+                cursor : true, 
+                checkboxClass : 'icheckbox_square-green', 
+                radioClass : 'iradio_square-green', 
+                increaseArea : '20%' 
+            }); 
+        },
+        changeType(){
+            var $this = this;
+            $('input[type="radio"]').on('ifChecked',function(){
+                $this.opts.radioClass = $(this).val();
+                $(".js_personname .js_test").remove();
+                if($(this).val() == 1){
+                    $this.treeInit(1)
+                }else{
+                    $this.treeInit(2)
+                }
+            })
+        },
+        treeInit(type){
+            //人员组名
+            if(type == 1){
+                var thtml = `<div class="js_test">
+                <label class="col-sm-3 control-label">人员组名</label>
+                    <div class="col-md-5">
+                        <input class="form-control" name="persontree" id="persontree" placeholder="请选择人员组名"></input>
+                    </div></div>`
+                $(".js_personname").append(thtml);
+                var zNodes2 = [
+                    {id:1, pId:0, name:"人员组1(本月分配工单)"},
+                    {id:"d01", pId:1, name:"张山(20)"},
+                    {id:"d02", pId:1, name:"张创(10)"},
+                    {id:"d03", pId:1, name:"张通(40)"},
+                    {id:"d04", pId:1, name:"张苏(20)"},
+                    {id:"d05", pId:1, name:"张星(30)"},
+                    {id:2, pId:0, name:"人员组2(本月分配工单)"},
+                    {id:"d04", pId:2, name:"张苏(20)"},
+                    {id:"d05", pId:2, name:"张星(30)"},
+                    {id:3, pId:0, name:"人员组3（本月分配工单)"},
+                    {id:"d04", pId:3, name:"张苏(20)"},
+                    {id:"d05", pId:3, name:"张星(30)"},
+
+                ];
+                var tree = rj.ztree("ztreeRadio","#persontree",zNodes2,{callback:{
+                    onCheck:function(event,treeId,treeNode){
+                            var cname =  treeNode.name.replace(/\(.*?\)/g,'');
+                            console.log(cname);
+                            let html =cname;
+                            html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
+                            if(treeNode.checked){
+                                $("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val(html).prev().val(treeNode.id)
+                            }else{
+                                $("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val("").prev().val("")
+                            }
+                    }
+                }});
+                //禁用子节点
+                var pnodes = tree.getNodes();
+                for(let val of pnodes){
+                    for(let index in val.children){
+                        tree.setChkDisabled(val.children[index], true);
+                    }
+                    
+                }
+            }
+
+            //单个人员组组员分配
+            if(type == 2){
+                var html = `
+                    <div class="js_test">
+                        <label class="col-sm-3 control-label">被派发人</label>
+                        <div class="col-md-5">
+                            <input class="form-control" name="persontree" id="persontree" placeholder="请选择被派发人"></input>
+                        </div>
+                    </div>
+                `
+                $(".js_personname").append(html);
+                var zNodes3 = [
+                    {id:1, pId:0, name:"项目1(本月分配工单)"},
+                    {id:"d01", pId:1, name:"张山(20)"},
+                    {id:"d02", pId:1, name:"张创(10)"},
+                    {id:"d03", pId:1, name:"张通(40)"},
+                    {id:"d04", pId:1, name:"张苏(20)"},
+                    {id:"d05", pId:1, name:"张星(30)"},
+                ];
+                rj.ztree("ztreeRadio","#persontree",zNodes3,{callback:{
+                    onCheck:function(event,treeId,treeNode){
+                        if(treeNode.getParentNode()){
+                            var pname = treeNode.getParentNode().name.replace(/\(.*?\)/g,'');
+                            var cname =  treeNode.name.replace(/\(.*?\)/g,'')
+                            let html =pname +"-"+ cname;
+                            html=$("<div>").html(html).text().replace(/( )/gi,"").trim()
+                            if(treeNode.checked){
+                                $("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val(html).prev().val(treeNode.id)
+                            }else{
+                                $("#"+treeNode.tId).closest(".ztree").closest("div").fadeOut("fast").prev().val("").prev().val("")
+                            }
+                        }
+                    }
+                }});                
+            }
+        },
+        formvail(){
+            $("#disupdatamodal").validate({
+                rules:{
+                    persontree:{required: true}
+                },
+                submitHandler: function(){
+                    console.log(rj.form.get($("#disupdatamodal")[0]))
+                }
+            })
+        }
+    }
+    disupdata.init()
+</script>

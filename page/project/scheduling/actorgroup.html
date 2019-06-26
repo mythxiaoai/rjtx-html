@@ -160,10 +160,9 @@
                         },{
                             title: '操作',
                             formatter:function(value,row,index){
-                                console.log(row.deptId) 
                                 return `
-										<a class="btn btn-info btn-xs" onclick="actorgroup.addOrUpdate('修改',${row.id})">修改</a>
-										<a class="btn btn-danger btn-xs" onclick="actorgroup.delsinOrder('${row.id}')">删除</a>`
+                                    <a class="btn btn-info btn-xs" onclick="actorgroup.addOrUpdate('修改',${row.id})">修改</a>
+                                    <a class="btn btn-danger btn-xs" onclick="actorgroup.delsinOrder('${row.id}')">删除</a>`
                             }
                         }
                     ],
@@ -202,16 +201,18 @@
             },
             addOrUpdate(type,id){
                 //修改人员组配置
-                console.log(id)
                 var title = "修改"+$(".js_tempText").text()+"配置";
                 if(type == "修改"){
                     rj.load(".js_actor","page/project/scheduling/addpersonpage/addpersonpage.html",function(){
+                        //修改页面
                         $("#addtitle").text(title);
+                        addFormpre.init();
+                        addFormpre.chospersonTree(); 
                         var data =    //表单回显厕所数据
                             {
                                 "algorithm":"2",   
                                 "choosePerson":"d02,d03",
-                                "groupName":"1",
+                                "groupName":"测试组",
                                 "ordaddtree":"4",
                                 "ordergrouptree":"润建,怡创,宜通,华苏,华星,南建,拓明,中通服",
                                 "userList":[
@@ -220,7 +221,17 @@
                                 ]
                             }
                         //表单回显
-                        addFormpre.echoForm(data)
+                        let json ={
+                            "groupName":data.groupName,
+                            "choosePerson":data.choosePerson,
+                            "ordaddtree": data.ordaddtree,
+                            "ordergrouptree": data.ordergrouptree,
+                            "algorithm": data.algorithm,  
+                        };
+                        rj.form.set($("#addPerson")[0],json);
+                        //归属项目ztree 禁选
+                        addFormpre.echoForm(data);
+                        rj.resetPlug();
                     })
                 }else{
                     rj.load(".js_actor","page/project/scheduling/addpersonpage/addpersonpage.html",function(){
