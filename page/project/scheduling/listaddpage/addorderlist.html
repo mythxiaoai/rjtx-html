@@ -181,7 +181,7 @@
                 },{
                     "id":4, //问题点序号
                     "handler": '',//被分配人
-                    "dispatch_status":0, //分配状态 分配状态，0已分配，1未分配
+                    "dispatch_status":0, //分配状态 分配状态，0已分配，1未分配 
                     "distribution":"蔡晓丽/caixiaoli",//派发人
                     "claim":"李四",//领取人
                     "state":0,//分析状态 0-未分析 1-分析
@@ -295,7 +295,10 @@
                         }
                     },{
                         field: 'handler',
-                        title:'被派发人',
+                        title:'预分配人/组',
+                    },{
+                        field: 'handler',
+                        title:'分配人',
                     },
                     {field:'distribution',title:'派发人'}
                     ,{field:'claim',title:'领取人'}

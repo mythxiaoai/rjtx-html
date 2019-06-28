@@ -13,7 +13,7 @@
                 <label><input type="radio" name="algorithm" value="1"  class="icheck" checked="checked">人员组分配</label>
             </div>
             <div class="radio-inline">
-                <label><input type="radio" name="algorithm" value="2" class="icheck"> 单个人员组组员分配</label>
+                <label><input type="radio" name="algorithm" value="2" class="icheck"> 组员分配</label>
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
     <div class="hr-line-dashed"></div>
     <div class="form-group">
         <div class="col-sm-12 text-center">
-            <button class="btn btn-default m-r js_back" type="button">取消</button>
+            <button class="btn btn-default m-r js_back" type="button"  data-dismiss="modal">取消</button>
             <button class="btn btn-primary js_sure" type="submit">保存</button>
         </div>
     </div>
@@ -112,15 +112,15 @@
                     for(let index in val.children){
                         tree.setChkDisabled(val.children[index], true);
                     }
-                    
                 }
+                
             }
 
             //单个人员组组员分配
             if(type == 2){
                 var html = `
                     <div class="js_test">
-                        <label class="col-sm-3 control-label">被派发人</label>
+                        <label class="col-sm-3 control-label">人员名</label>
                         <div class="col-md-5">
                             <input class="form-control" name="persontree" id="persontree" placeholder="请选择被派发人"></input>
                         </div>
@@ -134,8 +134,14 @@
                     {id:"d03", pId:1, name:"张通(40)"},
                     {id:"d04", pId:1, name:"张苏(20)"},
                     {id:"d05", pId:1, name:"张星(30)"},
+                    {id:2, pId:0, name:"项目1(本月分配工单)"},
+                    {id:"d01", pId:2, name:"张山(20)"},
+                    {id:"d02", pId:2, name:"张创(10)"},
+                    {id:"d03", pId:2, name:"张通(40)"},
+                    {id:"d04", pId:2, name:"张苏(20)"},
+                    {id:"d05", pId:2, name:"张星(30)"},
                 ];
-                rj.ztree("ztreeRadio","#persontree",zNodes3,{callback:{
+                var trretwo = rj.ztree("ztreeRadio","#persontree",zNodes3,{callback:{
                     onCheck:function(event,treeId,treeNode){
                         if(treeNode.getParentNode()){
                             var pname = treeNode.getParentNode().name.replace(/\(.*?\)/g,'');
@@ -149,7 +155,13 @@
                             }
                         }
                     }
-                }});                
+                }});  
+                for(let val of trretwo.getNodes()){
+                    console.log(val.isParent);
+                    if(val.isParent){
+                        trretwo.setChkDisabled(val, true);
+                    }
+                }   
             }
         },
         formvail(){
