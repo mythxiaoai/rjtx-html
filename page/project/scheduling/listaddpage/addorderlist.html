@@ -8,91 +8,90 @@
         </div>
     </div>
     <div class="panel-body">
-        <button class="btn btn-info js_inbtn" type="button" data-toggle="collapse" data-target="#filterlist" aria-expanded="false" aria-controls="collapseExample" onclick="orderlist.filtershow()">展开筛选条件</button>   
-        <div class="collapse m-t" id="filterlist">
-            <div class="col-md-12 panel-body m-b" style="border:1px solid #e7eaec;">
-                <form id="orderform" class="form-inline fz12 clearfix">
-                    <div class="col-md-12 m-b">
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">分配状态
-                                <select class="form-control" name="disstatue" id="disstatue">
-                                    <option value="0">全部</option>
-                                    <option value="1">已分配</option>
-                                    <option value="2">未分配</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">道路名称</label>  
-                            <input class="form-control" name="roadname" id="roadname" placeholder="请输入道路名称" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">数据来源</label>
-                            <input class="form-control" name="datasources" id="datasources" placeholder="请选择数据来源" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">责任网格</label>
-                            <input class="form-control" name="responsgrid" id="responsgrid" placeholder="请选择责任网格" />
+        <div class="col-md-12 m-b">
+            <form id="orderform" class="form-inline fz12 clearfix">
+                <div class="col-sm-1 form_condition">
+                    <span>高级筛选：</span>
+                </div>
+                <div class="col-md-10" id="form_bas"  style="text-align:left;padding-left: 0;">
+                    <div class="form-group">
+                        <label class="fw-n">分配状态
+                            <select class="form-control" name="disstatue" id="disstatue" style="width: 100px;">
+                                <option value="0">全部</option>
+                                <option value="1">已分配</option>
+                                <option value="2">未分配</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-n">道路名称</label>  
+                        <input class="form-control" name="roadname" id="roadname" placeholder="请输入道路名称" />
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-n">问题小区名</label>
+                        <input class="form-control" type="text" name="problemareaname" id="problemareaname" placeholder="请输入问题小区名" />
+                    </div>
+                    <div class="form-group ">
+                        <label class="fw-n">数据来源</label>
+                        <input class="form-control" name="datasources" id="datasources" placeholder="请选择数据来源" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">责任网格</label>
+                        <input class="form-control" name="responsgrid" id="responsgrid" placeholder="请选择责任网格" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题点序号</label>
+                        <input class="form-control" type="text" name="problempointmber" id="problempointmber" placeholder="请输入问题点序号" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">分配对象</label>
+                        <input class="form-control" name="activtiy" id="activtiy" placeholder="请选择被分配人" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">派发人</label>
+                        <input class="form-control" name="disperson" id="disperson" placeholder="请选择派发人" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">领取人</label>
+                        <input class="form-control" name="receiver" id="receiver" placeholder="请选择领取人" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题小区</label>
+                        <input class="form-control" type="text" name="problemarea" id="problemarea" placeholder="请输入问题小区" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题点类型
+                        <input class="form-control" type="text" name="problempointtype" id="problempointtype" placeholder="请输入问题小区" />
+                        </label>
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题点指标</label>
+                        <input class="form-control" name="problempointinstructions" id="problempointinstructions" placeholder="请输入问题点指标" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">归属网格</label>
+                        <input class="form-control" name="homegrip" id="homegrip" placeholder="请选择归属网格" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">处理期限</label>
+                        <div class="input-group">
+                            <input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
+                                <span class="input-group-addon white-bg">~</span>
+                            <input class="form-control js_time" placeholder="请选择结束时间"/>
                         </div>
                     </div>
-                    <div class="col-md-12 m-b">
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">被分配人</label>
-                            <input class="form-control" name="activtiy" id="activtiy" placeholder="请选择被分配人" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">派发人</label>
-                            <input class="form-control" name="disperson" id="disperson" placeholder="请选择派发人" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">领取人</label>
-                            <input class="form-control" name="receiver" id="receiver" placeholder="请选择领取人" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">问题点序号</label>
-                            <input class="form-control" type="text" name="problempointmber" id="problempointmber" placeholder="请输入问题点序号" />
-                        </div>
+                    <div class="form-group">
+                        <input class="btn btn-info btn-sm js_search" type="button" value="筛选" style="width: 76px;">
+                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置"style="width: 76px;">
                     </div>
-                    <div class="col-md-12 m-b">
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">问题小区名</label>
-                            <input class="form-control" type="text" name="problemareaname" id="problemareaname" placeholder="请输入问题小区名" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">问题小区</label>
-                            <input class="form-control" type="text" name="problemarea" id="problemarea" placeholder="请输入问题小区" />
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">问题点类型
-                            <input class="form-control" type="text" name="problempointtype" id="problempointtype" placeholder="请输入问题小区" />
-
-                            </label>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">问题点指标</label>
-                            <input class="form-control" name="problempointinstructions" id="problempointinstructions" placeholder="请输入问题点指标" />
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group col-md-3">
-                            <label class="fw-n">归属网格</label>
-                            <input class="form-control" name="homegrip" id="homegrip" placeholder="请选择归属网格" />
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="fw-n">处理期限</label>
-                            <div class="input-group">
-                                <input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
-                                    <span class="input-group-addon white-bg">~</span>
-                                <input class="form-control js_time" placeholder="请选择结束时间"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-3 m-t" style="width: 100%; text-align:center">
-                        <input class="btn btn-info btn-sm js_search m-r-sm" type="button" value="筛选">
-                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="col-md-1" style="border-left:1px solid #eee;">
+                    <button class="js_inbtn btn_condition m-b" type="button"onclick="orderlist.filtershow()">更多筛选<i class="iconfont icon-zhankai"></i></button>   
+                </div>
+                <!-- <div class="col-md-2" style=" text-align: right;">
+                    
+                </div>  -->
+            </form>
         </div>
         <div class="">
             <div id="toolbar" class="m-b-sm pull-right ">
@@ -111,7 +110,10 @@
     </div>
 </div>
 <style>
-    .form-inline .form-group{margin-right:0;}
+    #form_bas .form-group{margin-right: 15px;float: none ;margin-bottom: 10px;}
+    .btn_condition{color: #259dfb;background: #fff;margin-top: 9px;}
+    .btn_condition .iconfont{font-size: 12px;padding-left: 5px;}
+    .form_condition{ text-align: right;width: 100px;padding-left: 0px;margin-left: -18px;margin-top: 6px;}
 </style>
 <script>
     var orderlist = {
@@ -120,20 +122,23 @@
             this.tableInit();
             //时间
             this.time();
+            $(".js_fshow").hide();
         },
         filtershow(){
-            var statue = $(".js_inbtn").attr("aria-expanded");
-            if(statue == "false"){
-                $(".js_inbtn").text("收起筛选条件")
+            var statue = $(".js_inbtn").find(".iconfont").hasClass("icon-zhankai");
+            if(statue == true){
+                $(".js_fshow").fadeIn();
+                $(".js_inbtn").find(".iconfont").removeClass("icon-zhankai").addClass("icon-shouqi");
             }else{
-                $(".js_inbtn").text("展开筛选条件")
+                $(".js_fshow").fadeOut();
+                $(".js_inbtn").find(".iconfont").removeClass("icon-shouqi").addClass("icon-zhankai");
             }
         },
         time(){
 			//时间初始化
             $(".js_time").datetimepicker({
                 showClear: true,
-                format: 'YYYY-MM-DD',
+                format: 'YYYY-MM-DD hh:mm',
                 locale: 'zh-CN',
                 viewMode:"days",
                 widgetPositioning: {
@@ -298,7 +303,7 @@
                         title:'预分配人/组',
                     },{
                         field: 'handler',
-                        title:'分配人',
+                        title:'分配对象',
                     },
                     {field:'distribution',title:'派发人'}
                     ,{field:'claim',title:'领取人'}

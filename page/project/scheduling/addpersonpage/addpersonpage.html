@@ -11,7 +11,7 @@
             <form id="addPerson" class="form-horizontal">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">人员组名称</label>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <input type="text"class="form-control" placeholder="请输入规则名称" name="groupName" id="groupName">
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         <input class="form-control js_distribution" id="choosePerson" name="choosePerson"  placeholder="选择分配的人员"/>
                     </div>
                 </div>
-                <div class="hr-line-dashed"></div>
+                <div class="hr-line-dashed "></div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">算法分配</label>
                     <div class="col-md-10">
@@ -51,9 +51,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="hr-line-dashed"></div>
+                <div class="hr-line-dashed js_line"></div>  
                 <div class="form-group js_choossignl">
-                    <label class="col-sm-2 control-label">自定义比例</label>
+                    <label class="col-sm-2 control-label m-t">自定义比例</label>
                     <div class="col-md-10 js_addperi ">
 
                     </div>
@@ -69,7 +69,7 @@
         </div>
     </div>
     <style>
-        .js_choossignl{display:none;}
+        .js_choossignl,.js_line{display:none;}
     </style>
     <script>
         var addFormpre = {
@@ -197,6 +197,7 @@
                 var $this = this;
                 var html = $("<div/>");
                 $(".js_choossignl").show();
+                $(".js_line").show();
                 var addhtml = `                        
                     <div class="row js_addperi_item orde_last_border clearfix m-t">
                         <!-- 选择项 -->
@@ -233,10 +234,12 @@
                 var $this = this;
                 if($this.opts.choosenum == 2 && $this.opts.ztreeObj.getCheckedNodes().length != 0){
                     $(".js_choossignl").show();
+                    $(".js_line").show();
                     $this.opts.firstCreate = false;
                     $this.addHtml()
                 }else{
                     $(".js_choossignl").hide();
+                    $(".js_line").hide();
                 }
             },
             addHtml(){
@@ -288,6 +291,7 @@
                         console.log(val)
                     }
                     if($this.opts.ztreeObj.getCheckedNodes().length == 0){
+                        $(".js_line").hide();
                         $(".js_choossignl").hide();
                     }
                 })
@@ -371,6 +375,7 @@
                         html.append(addhtml);
                     }
                     $(".js_choossignl").show();
+                    $(".js_line").show();
                     $(".js_addperi").html("");
                     $(".js_addperi").append(html.children())
                 }
