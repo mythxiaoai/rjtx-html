@@ -247,10 +247,13 @@
                 var $this = this;
                 var html = $("<div/>");
                 var json = $this.getScaleinput();
+                var s = '[{"userName":"陈荣平","userId":"62c2db734ba746ba8a6154fc935ce7aa","weight":"1"},{"userName":"黄德生","userId":"4b0a9c0722c9427eb0173295dd17cc59","weight":"2"}]'
+                console.log(typeof JSON.parse(s))
                 for(let val of $this.opts.ztreeObj.getCheckedNodes()){
                     var bil = "";
                     for(let data of json){
                         if(data.userName == val.name){
+
                             bil = data.weight;
                         }
                     }
@@ -328,6 +331,10 @@
                                 return false;
                             }
                         });
+                        console.log($this.opts.ztreeObj.getCheckedNodes())
+                        if($this.opts.ztreeObj.getCheckedNodes().length == 0){
+                            formdata.choosePerson = "";
+                        }
                         if(mark && $this.opts.choosenum == 2){
                             formdata.userList = $this.getScaleinput();
                         }

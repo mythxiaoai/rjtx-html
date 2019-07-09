@@ -10,10 +10,10 @@
     <div class="panel-body">
         <div class="col-md-12 m-b">
             <form id="orderform" class="form-inline fz12 clearfix">
-                <div class="col-sm-1 form_condition">
+                <!-- <div class="col-sm-1 form_condition">
                     <span>高级筛选：</span>
-                </div>
-                <div class="col-md-10" id="form_bas"  style="text-align:left;padding-left: 0;">
+                </div> -->
+                <div class="col-md-11" id="form_bas"  style="text-align:left;padding-left: 0;">
                     <div class="form-group">
                         <label class="fw-n">分配状态
                             <select class="form-control" name="disstatue" id="disstatue" style="width: 100px;">
@@ -81,16 +81,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input class="btn btn-info btn-sm js_search" type="button" value="筛选" style="width: 76px;">
-                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置"style="width: 76px;">
+                        <input class="btn btn-info btn-sm js_search" type="button" value="筛选">
+                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
                     </div>
                 </div>
                 <div class="col-md-1" style="border-left:1px solid #eee;">
                     <button class="js_inbtn btn_condition m-b" type="button"onclick="orderlist.filtershow()">更多筛选<i class="iconfont icon-zhankai"></i></button>   
                 </div>
-                <!-- <div class="col-md-2" style=" text-align: right;">
-                    
-                </div>  -->
             </form>
         </div>
         <div class="">
@@ -127,10 +124,10 @@
         filtershow(){
             var statue = $(".js_inbtn").find(".iconfont").hasClass("icon-zhankai");
             if(statue == true){
-                $(".js_fshow").fadeIn();
+                $(".js_fshow").show();
                 $(".js_inbtn").find(".iconfont").removeClass("icon-zhankai").addClass("icon-shouqi");
             }else{
-                $(".js_fshow").fadeOut();
+                $(".js_fshow").hide();
                 $(".js_inbtn").find(".iconfont").removeClass("icon-shouqi").addClass("icon-zhankai");
             }
         },
