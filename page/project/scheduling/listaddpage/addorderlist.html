@@ -1,0 +1,374 @@
+<div class="panel panel-white">
+    <div class="panel-heading">
+        <div class="panel-title" id="listtitle"></div>
+        <div class="panel-tools">
+            <a class="fz18 js_back" onclick="orderlist.skipPage('back')" title="点击返回">
+                <i class="fa fa-reply"></i>
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12 m-b">
+            <form id="orderform" class="form-inline fz12 clearfix">
+                <!-- <div class="col-sm-1 form_condition">
+                    <span>高级筛选：</span>
+                </div> -->
+                <div class="col-md-11" id="form_bas"  style="text-align:left;padding-left: 0;">
+                    <div class="form-group">
+                        <label class="fw-n">分配状态
+                            <select class="form-control" name="disstatue" id="disstatue" style="width: 100px;">
+                                <option value="0">全部</option>
+                                <option value="1">已分配</option>
+                                <option value="2">未分配</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-n">道路名称</label>  
+                        <input class="form-control" name="roadname" id="roadname" placeholder="请输入道路名称" />
+                    </div>
+                    <div class="form-group">
+                        <label class="fw-n">问题小区名</label>
+                        <input class="form-control" type="text" name="problemareaname" id="problemareaname" placeholder="请输入问题小区名" />
+                    </div>
+                    <div class="form-group ">
+                        <label class="fw-n">数据来源</label>
+                        <input class="form-control" name="datasources" id="datasources" placeholder="请选择数据来源" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">责任网格</label>
+                        <input class="form-control" name="responsgrid" id="responsgrid" placeholder="请选择责任网格" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题点序号</label>
+                        <input class="form-control" type="text" name="problempointmber" id="problempointmber" placeholder="请输入问题点序号" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">分配对象</label>
+                        <input class="form-control" name="activtiy" id="activtiy" placeholder="请选择被分配人" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">派发人</label>
+                        <input class="form-control" name="disperson" id="disperson" placeholder="请选择派发人" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">领取人</label>
+                        <input class="form-control" name="receiver" id="receiver" placeholder="请选择领取人" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题小区</label>
+                        <input class="form-control" type="text" name="problemarea" id="problemarea" placeholder="请输入问题小区" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题点类型
+                        <input class="form-control" type="text" name="problempointtype" id="problempointtype" placeholder="请输入问题小区" />
+                        </label>
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">问题点指标</label>
+                        <input class="form-control" name="problempointinstructions" id="problempointinstructions" placeholder="请输入问题点指标" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">归属网格</label>
+                        <input class="form-control" name="homegrip" id="homegrip" placeholder="请选择归属网格" />
+                    </div>
+                    <div class="form-group js_fshow">
+                        <label class="fw-n">处理期限</label>
+                        <div class="input-group">
+                            <input class="form-control fz12 js_time" placeholder="请选择起始时间"/>
+                                <span class="input-group-addon white-bg">~</span>
+                            <input class="form-control js_time" placeholder="请选择结束时间"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input class="btn btn-info btn-sm js_search" type="button" value="筛选">
+                        <input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+                    </div>
+                </div>
+                <div class="col-md-1" style="border-left:1px solid #eee;">
+                    <button class="js_inbtn btn_condition m-b" type="button"onclick="orderlist.filtershow()">更多筛选<i class="iconfont icon-zhankai"></i></button>   
+                </div>
+            </form>
+        </div>
+        <div class="">
+            <div id="toolbar" class="m-b-sm pull-right ">
+                <button type="button" class="btn btn-default js_addOrUpdate m-r-xs" onclick="orderlist.adddisOrUpdate('批量分配工单')">
+                    <i class="glyphicon glyphicon-transfer"></i> 批量预分配
+                </button>
+                <button type="button " class="btn btn-default m-r-xs">
+                    <i class="glyphicon glyphicon-refresh"></i> 重置分配
+                </button>
+                <button type="button" class="btn btn-primary " onclick="orderlist.makeSure()">
+                    <i class="glyphicon glyphicon-ok"></i> 确认分配
+                </button>
+            </div>
+            <table id="table"></table>
+        </div>
+    </div>
+</div>
+<style>
+    #form_bas .form-group{margin-right: 15px;float: none ;margin-bottom: 10px;}
+    .btn_condition{color: #259dfb;background: #fff;margin-top: 9px;}
+    .btn_condition .iconfont{font-size: 12px;padding-left: 5px;}
+    .form_condition{ text-align: right;width: 100px;padding-left: 0px;margin-left: -18px;margin-top: 6px;}
+</style>
+<script>
+    var orderlist = {
+        init(){
+            //表格初始化
+            this.tableInit();
+            //时间
+            this.time();
+            $(".js_fshow").hide();
+        },
+        filtershow(){
+            var statue = $(".js_inbtn").find(".iconfont").hasClass("icon-zhankai");
+            if(statue == true){
+                $(".js_fshow").show();
+                $(".js_inbtn").find(".iconfont").removeClass("icon-zhankai").addClass("icon-shouqi");
+            }else{
+                $(".js_fshow").hide();
+                $(".js_inbtn").find(".iconfont").removeClass("icon-shouqi").addClass("icon-zhankai");
+            }
+        },
+        time(){
+			//时间初始化
+            $(".js_time").datetimepicker({
+                showClear: true,
+                format: 'YYYY-MM-DD hh:mm',
+                locale: 'zh-CN',
+                viewMode:"days",
+                widgetPositioning: {
+                    horizontal: 'left',
+                    vertical: 'bottom'
+                }
+            })
+        },
+        skipPage(type){
+            if(type == "back"){
+                rj.load(".js_orderinformation","page/project/scheduling/orderinformation.html",function(){
+                })
+            }else{
+                rj.load(".js_orderinformation","page/project/scheduling/orderinformation.html",function(){
+                });
+            }
+        },
+        tableInit(){
+            var data = [
+                {
+                    "id":0, //问题点序号
+                    "handler": '',//被分配人
+                    "dispatch_status":0, //分配状态 分配状态，0已分配，1未分配
+                    "distribution":"蔡晓丽/caixiaoli",//派发人
+                    "claim":"李四",//领取人
+                    "state":0,//分析状态 0-未分析 1-分析
+                    "distribution_time":"2019-01-12 20:10",//派发时间
+                    "term":"2019-01-14 20:10",//处理期限
+                    "on_site_inspection":"无", //现场排查
+                    "check_single":"231312312",//排查单号
+                    "check_trem":"",//排查期限
+                    "severity_score":12,//严重度分值
+                    "data_sources":"EMOS实施工单",//数据来源
+                    "city":"广州",//地市归属
+                    "grid":"广州西区",//责任网格
+                    "ascription_grid":"广州西区",//归属网格
+                    "ecgi":"213123",//问题小区
+                    "cell_name":"西关村",//问题小区名
+                    "road":"fjjf",//道路名称
+                    "problem_type":"实施工单",//问题点类型
+                    "problem_expr":"当前KPI:fksdkfsdf",//问题点指标
+                    "special_label":"2312",//专项标签
+                    "prolem_count":11,//问题点数量
+                    "price_lable":"",//价值标签
+                },{
+                    "id":4, //问题点序号
+                    "handler": '',//被分配人
+                    "dispatch_status":0, //分配状态 分配状态，0已分配，1未分配 
+                    "distribution":"蔡晓丽/caixiaoli",//派发人
+                    "claim":"李四",//领取人
+                    "state":0,//分析状态 0-未分析 1-分析
+                    "distribution_time":"2019-01-12 20:10",//派发时间
+                    "term":"2019-01-14 20:10",//处理期限
+                    "on_site_inspection":"无", //现场排查
+                    "check_single":"231312312",//排查单号
+                    "check_trem":"",//排查期限
+                    "severity_score":12,//严重度分值
+                    "data_sources":"EMOS实施工单",//数据来源
+                    "city":"广州",//地市归属
+                    "grid":"广州西区",//责任网格
+                    "ascription_grid":"广州西区",//归属网格
+                    "ecgi":"213123",//问题小区
+                    "cell_name":"西关村",//问题小区名
+                    "road":"fjjf",//道路名称
+                    "problem_type":"实施工单",//问题点类型
+                    "problem_expr":"当前KPI:fksdkfsdf",//问题点指标
+                    "special_label":"2312",//专项标签
+                    "prolem_count":11,//问题点数量
+                    "price_lable":"",//价值标签
+                },{
+                    "id":1, //问题点序号
+                    "handler": '小三',//被分配人
+                    "dispatch_status":1, //分配状态 分配状态，0已分配，1未分配
+                    "distribution":"蔡晓丽/caixiaoli",//派发人
+                    "claim":"nacy",//领取人
+                    "state":0,//分析状态 0-未分析 1-分析
+                    "distribution_time":"2019-01-12 20:10",//派发时间
+                    "term":"2019-01-14 20:10",//处理期限
+                    "on_site_inspection":"无", //现场排查
+                    "check_single":"231312312",//排查单号
+                    "check_trem":"",//排查期限
+                    "severity_score":12,//严重度分值
+                    "data_sources":"EMOS实施工单",//数据来源
+                    "city":"广州",//地市归属
+                    "grid":"广州西区",//责任网格
+                    "ascription_grid":"广州西区",//归属网格
+                    "ecgi":"213123",//问题小区
+                    "cell_name":"西关村",//问题小区名
+                    "road":"fjjf",//道路名称
+                    "problem_type":"实施工单",//问题点类型
+                    "problem_expr":"当前KPI:fksdkfsdf",//问题点指标
+                    "special_label":"2312",//专项标签
+                    "prolem_count":11,//问题点数量
+                    "price_lable":"",//价值标签
+                },{
+                    "id":2, //问题点序号
+                    "handler": '测试组',//被分配人/组
+                    "dispatch_status":1, //分配状态 分配状态，0已分配，1未分配
+                    "distribution":"借古/caixiaoli",//派发人
+                    "claim":"MACK",//领取人
+                    "state":1,//分析状态 0-未分析 1-分析
+                    "distribution_time":"2019-01-12 20:10",//派发时间
+                    "term":"2019-01-14 20:10",//处理期限
+                    "on_site_inspection":"无", //现场排查
+                    "check_single":"231312312",//排查单号
+                    "check_trem":"",//排查期限
+                    "severity_score":12,//严重度分值
+                    "data_sources":"EMOS实施工单",//数据来源
+                    "city":"广州",//地市归属
+                    "grid":"广州西区",//责任网格
+                    "ascription_grid":"广州西区",//归属网格
+                    "ecgi":"213123",//问题小区
+                    "cell_name":"西关村",//问题小区名
+                    "road":"fjjf",//道路名称
+                    "problem_type":"实施工单",//问题点类型
+                    "problem_expr":"当前KPI:fksdkfsdf",//问题点指标
+                    "special_label":"2312",//专项标签
+                    "prolem_count":11,//问题点数量
+                    "price_lable":"",//价值标签
+                },
+            ];
+            //表格初始化
+            rj.table.init({
+                id: "#table",
+				toolbar:false,
+				pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageSize: 10, // 每页显示条数  
+                data:data,
+				columns:[
+					{
+                        checkbox: true,
+                        formatter: function(value,row,index){
+                            if(row.dispatch_status == 0){ //'分配状态，0已分配，1未分配
+                                return {
+                                    disabled: false
+                                }
+                            }else{
+                                return {
+                                    disabled: true
+                                }
+                            }
+                        }
+                    },{
+                        field: 'id',
+                        title:'问题点序号',
+                    },{
+                        field:'dispatch_status',
+                        title:'分配状态',
+                        formatter: function(value,row,index){
+                            if(value == 0){
+                                //未分配
+                                return `<span class="text-danger">未分配</span>`
+                            }else if(value == 1){
+                                return `<span class="text-success">已分配</span>`
+                            }else if(value == 2){
+                                return `<span class="text-info">待分配</span>`
+                            }
+                        }
+                    },{
+                        field: 'handler',
+                        title:'预分配人/组',
+                    },{
+                        field: 'handler',
+                        title:'分配对象',
+                    },
+                    {field:'distribution',title:'派发人'}
+                    ,{field:'claim',title:'领取人'}
+                    ,{field:'state',title:'分析状态',
+                        formatter: function(value,row,index){
+                            //分析状态 0-未分析 1-分析
+                            if(value == 0){
+                                return `<span class="text-danger">未分析</span>`
+                            }else{
+                                return `<span class="text-success">已分析</span>`
+                            }
+                        }
+                    }
+                    ,{field:'distribution_time',title:'派发时间'}
+                    ,{field:'term',title:'处理期限'}
+                    ,{field:'on_site_inspection',title:'现场排查'}
+                    ,{field:'check_single',title:'排查单号'}
+                    ,{field:'check_trem',title:'排查期限'}
+                    ,{field:'severity_score',title:'严重度分值'}
+                    ,{field:'data_sources',title:'数据来源'}
+                    ,{field:'city',title:'地市归属'}
+                    ,{field:'grid',title:'责任网格'}
+                    ,{field:'ecgi',title:'问题小区'}
+                    ,{field:'cell_name',title:'问题小区名'}
+                    ,{field:'road',title:'道路名称'}
+                    ,{field:'problem_type',title:'问题点类型'}
+                    ,{field:'problem_expr',title:'问题点指标'}
+                    ,{field:'special_label',title:'专项标签'}
+                    ,{field:'prolem_count',title:'问题点数量'}
+                    ,{field:'price_lable',title:'价值标签'}
+                ]
+            })
+        },
+        adddisOrUpdate(title){
+            var len = $('#table').bootstrapTable('getSelections').length;
+            if(len == 0){
+                xtip("selectLeastOne")
+            }else{
+                rj.modal(title,"page/project/scheduling/listaddpage/disupdatamodal.html",
+                    ()=>{
+                        var row = $.map($('#table').bootstrapTable('getSelections'),function (row) {
+                            return row;
+                        });
+                        var text = '';
+                        for(let val of row){
+                            text += val.id + ','
+                        }
+                        text = text.substring(0,text.length-1);
+                        $("#pointnumber").val(text)
+                    }
+                )
+            }
+            
+        },
+        makeSure(){
+            xconfirm("确定进行此预分配？","确定后将无法恢复，请谨慎操作！","warning",function(){
+                rj.ajax({
+                        type:"post",
+                        url:"/auth/delete",
+                        data:{id:id},
+                        success:function(data){
+                            auth._flush();
+                        }
+                    });
+                
+            });
+        }
+        
+    };
+    orderlist.init()
+</script>

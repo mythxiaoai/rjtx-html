@@ -1,0 +1,366 @@
+<div class="p-m animated fadeInRight js_orderinformation">
+	<div class="row">
+		<div class="col-md-7" style="padding-right: 0px;">
+			<div class="panel" style="">
+				<div class="panel-heading"><div class="panel-title">项目工单分配详情</div></div>
+				<div class="panel-body">
+					<form id="orderform" class="form-inline fz12 clearfix">
+						<div class="form-group">
+							<label class="fw-n">项目</label>
+							<input class="form-control" name="ordtree" id="ordtree" placeholder="请选择所属项目"></input>
+						</div>
+						<div class="form-group">
+							<label class="fw-n">工单分配状态
+								<select class="form-control js_test" name="project">
+									<option value="0">全部</option>
+									<option value="1">已分配</option>
+									<option value="2">未分配</option>
+								</select>
+							</label>
+						</div>
+						<div class="form-group m-b-xs m-b">
+							<input class="btn btn-default btn-sm js_search m-r-sm" type="button" value="查询">
+							<input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
+						</div>
+					</form>
+					<div class=" m-t ">
+						<table id="table"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- echart表 -->
+		<div class="col-md-5">
+			<div class="panel-body m-b">
+				<div class="js_echart1" style="height: 325px;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+	.aorder{text-decoration: underline;cursor: pointer;}
+</style>
+<script>
+	var orderInformation={
+		opts: {
+			ztreeObj: null,
+			data:[
+				{
+                    "id":0,
+					"deptId":"2",
+					"person_name": "性能组",//人员组名
+                    "create_date": "2019-04-16 14:44:15",//扫描时间
+                    "order_total":"121",   //工单总数
+                    "distribution_already": "32",//已分配工单数
+                    "distribution_no": "32",//未分配工单数
+					"person_already": "44", //人员数
+					"del_status": 0 // 0-未删除 1-删除
+                },
+                {
+                    "id":1,
+					"deptId":"1",
+					"person_name": "测试组",
+                    "create_date": "2019-04-16 14:44:15", 
+                    "order_total":"111",  
+                    "distribution_already": "32",
+					"person_already": "44",
+					"del_status": 0 
+                },{
+                    "id":2,
+					"deptId":"3",
+					"person_name": "投诉组",
+                    "create_date": "2019-04-16 14:44:15",
+                    "order_total":"33",   //工单总数
+                    "distribution_already": "12",
+					"person_already": "56",
+					"del_status": 1,
+					"del_time": "2019-04-16 14:44:15" //删除时间
+				},
+				{
+                    "id":3,
+					"deptId":"1",
+					"person_name": "测试组",
+                    "create_date": "2019-04-16 14:44:15", 
+                    "order_total":"111",  
+                    "distribution_already": "32",
+					"person_already": "44",
+					"del_status": 0,
+                },{
+                    "id":4,
+					"deptId":"3",
+					"person_name": "投诉组",
+                    "create_date": "2019-04-16 14:44:15",
+                    "order_total":"33",   //工单总数
+                    "distribution_already": "12",
+					"person_already": "56",
+					"del_status": 1,
+					"del_time": "2019-04-16 14:44:15"
+
+				},
+				{
+                    "id":5,
+					"deptId":"1",
+					"person_name": "测试组",
+                    "create_date": "2019-04-16 14:44:15", 
+                    "order_total":"111",  
+                    "distribution_already": "32",
+                    "person_already": "44",
+					"del_status": 1,
+					"del_time": "2019-04-16 14:44:15"
+
+                }
+			],
+			myChart:null
+		},
+		init(){
+			//表格初始化
+			this.tableInit();
+			//echart初始化
+			this.echart1(this.opts.data);
+			//ztree初始化
+			this.treeInit();
+			//js_test --- slecte的class
+			var $this = this;
+			$(".js_test").change(function(){
+				//监听select 选中下拉框的值
+				// console.log($(this).children('option:selected').val());
+				// console.log($this.opts.myChart);
+				var data = [
+					{
+						"id":0,
+						"deptId":"2",
+						"person_name": "性能组",//人员组名
+						"create_date": "2019-04-16 14:44:15",//扫描时间
+						"order_total":"121",   //工单总数
+						"distribution_already": "32",//已分配工单数
+						"distribution_no": "32",//未分配工单数
+						"person_already": "44", //人员数
+						"del_status": 0 // 0-未删除 1-删除
+					},
+					{
+						"id":1,
+						"deptId":"1",
+						"person_name": "测试组",
+						"create_date": "2019-04-16 14:44:15", 
+						"order_total":"111",  
+						"distribution_already": "32",
+						"person_already": "44",
+						"del_status": 0 
+					}
+				];
+				$this.opts.myChart.dispose();
+				$this.echart1(data);
+			});
+		},
+		treeInit(){
+            var zNodes4 =[
+                {id:"", pId:0, name:"全部"},
+                {id:"润建", pId:0, name:"润建"},
+                {id:"怡创", pId:0, name:"怡创"},
+                {id:"宜通", pId:0, name:"宜通"},
+                {id:"华苏", pId:0, name:"华苏"},
+                {id:"华星", pId:0, name:"华星"},
+                {id:"南建", pId:0, name:"南建"},
+                {id:"拓明", pId:0, name:"拓明"},
+                {id:"中通服", pId:0, name:"中通服"},
+            ];
+           this.opts.ztreeObj =  rj.ztree("ztreeCheckbox","#ordtree",zNodes4);
+        },
+		tableInit(){
+            //表格初始化
+            rj.table.init({
+                id: "#table",
+				toolbar:false,
+				pagination: true, //分页
+                sidePagination: "client", //服务端处理分页
+                pageSize: 7, // 每页显示条数  
+                data:this.opts.data,
+				columns:[
+					{
+                        field: 'create_date',
+                        title: '扫描时间'
+                    },
+                    {
+                        field: 'order_total',
+						title: '工单总数',
+                    },
+                    {
+                        field: 'distribution_already',
+						title: '已分配工单数',
+						formatter:function(value,row,index){
+							return `
+							<span class="text-primary aorder">22</span>
+							`
+		                }
+                    },
+                    {
+                        field: 'distribution_no',
+						title: '未分配工单数',
+						formatter:function(value,row,index){
+							return `
+							<span class="text-danger aorder" >22</span>
+							`
+		                }
+						
+                    },
+                    {
+                        field: 'person_already',
+						title: '人员数(已分配)'
+                    },
+                    {
+                        title: '操作',
+						width: 180,
+                        formatter:function(value,row,index){
+							return `
+								<div style="width:180px">
+									<a class="btn btn-success btn-xs" >工单地图</a>
+									<a class="btn btn-info btn-xs " onclick="orderInformation.addlist('工单分配详情列表','${row.id}')">工单列表</a>
+								</div>
+							`
+		                }
+                    }
+                ]
+            })
+		},
+		addlist(type,id){
+			rj.load(".js_orderinformation","page/project/scheduling/listaddpage/addorderlist.html",function(){
+				$("#listtitle").text(type);
+				orderlist.tableInit();
+				rj.resetPlug();
+			})
+		},
+		echart1(res){
+			var data = res;
+			console.log(res);
+			var month = $(".js_test").children('option:selected').text();
+			console.log(month)
+			this.opts.myChart = echarts.init($(".js_echart1")[0]);
+			var option = {
+			    title: {
+			    	text: `${month}工单数`,  
+                    x:'center',
+                    textStyle:{
+                    	color:"rgb(103, 106, 108)"
+                    }
+				},
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'shadow'
+					},
+					formatter:function(val){
+						var index = val[0].dataIndex;
+						let res ;
+						if(data[index].del_time){ //1-已删除
+							res = val[0].marker + `删除时间:${data[index].del_time}`
+						}else{
+							res = val[0].marker + `当月已分配工单数:${data[index].distribution_already}`
+						}
+						return res;
+					}
+			    },
+			    grid: {
+			        left: '3%',
+			        right: '3%',
+			        bottom: '3%',
+			        containLabel: true
+			    },
+			    yAxis: { //y轴数据
+					name : '已分配工单数',
+					axisLabel: {  
+						show: true,  
+						interval: 'auto' 
+					},  
+					show: true,
+					splitLine: {
+						show: true,
+						lineStyle:{
+							color: '#ddd',
+							width: 1,
+							type: 'solid'
+						}
+					}
+				},
+			    xAxis: {  //x轴数据
+			        type: 'category',
+			        data: data.map(v=>v.person_name),  //x轴map data里面的人员组
+			    	axisLabel:{
+		    			interval:0,
+						alignWithLabel: true,
+						color: function(value,index){
+							if(data[index].del_time){
+								return '#c12e34'
+							}else{
+								return '#188df0'
+							}
+						}
+			    	},
+			    	axisTick: {
+		                alignWithLabel: true
+					},
+					// 设置图标背景的表格
+					splitLine: {
+						show: true,
+						lineStyle:{
+							color: '#ddd',
+							width: 1,
+							type: 'solid'
+						}
+					}
+			    },
+			    series: [
+			      	{
+			            type: 'bar',
+			            data: data.map(v=>v.distribution_already), //柱子数据 y轴数据
+			        	barWidth: '40%',
+						itemStyle: {
+							normal: {
+								color: new echarts.graphic.LinearGradient(
+									0, 0, 0, 1,
+									[
+										{offset: 0, color: '#83bff6'},
+										{offset: 0.5, color: '#188df0'},
+										{offset: 1, color: '#188df0'}
+									]
+								),
+								label: { //根据不同状态改变label的顶部的不同颜色
+									show: true,
+									position: 'top'
+								},
+							},
+							emphasis: {
+								color: new echarts.graphic.LinearGradient(
+									0, 0, 0, 1,
+									[
+										{offset: 0, color: '#2378f7'},
+										{offset: 0.7, color: '#2378f7'},
+										{offset: 1, color: '#83bff6'}
+									]
+								)
+							}
+						}
+						// itemStyle:{//根据不同的状态显示不同的颜色
+						// 	normal:{
+						// 		color:function(param){
+						// 			console.log(res[param.dataIndex].del_status)
+						// 			//0-未删除 1-删除
+						// 			var statues = data.map(v=>v.distribution_already)
+						// 			if(res[param.dataIndex].del_status == 1){
+						// 				res[param.dataIndex].del_status
+						// 				return "#F0805A"
+						// 			}else{
+						// 				return "#3fb1e3"
+						// 			}
+						// 		}
+						// 	}
+						// }
+					}
+			    ]
+			};
+			this.opts.myChart.setOption(option);
+			 //窗口变动，表格刷新
+			 $(window).resize(function(){this.opts.myChart.resize();});
+		},
+	}
+	orderInformation.init();
+</script>

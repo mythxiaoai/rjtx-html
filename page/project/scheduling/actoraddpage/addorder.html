@@ -1,0 +1,251 @@
+<form id="addorder" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">工单组名</label>
+        <div class="col-md-8">
+            <input class="form-control" name="ordgroname" id="ordgroname" type="text"></input>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">归属项目</label>
+        <div class="col-md-5">
+            <input class="form-control" name="ordaddtree" id="ordaddtree" placeholder="请选择所属项目"></input>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-md-2 contol-label text-right m-t-sm">组规则定义</label>
+        <div class="js_orderule col-md-10">
+            <div class="row js_orderule_item orde_last_border clearfix">
+                <!-- 选择项 -->
+                <div class="col-md-6">
+                    <select class="form-control js_in_item js_sel_in">
+                        <option class="sheet2">根本原因</option>
+                        <option class="sheet2">方案分类</option>
+                        <option class="sheet1">优化措施</option>
+                        <option class="sheet1">方案模板</option>
+                    </select>
+                </div>
+                <!-- 选项 btn -->
+                <div class="col-md-2 p-none">
+                    <div class="btn-group btn-group-xs m-t-xs">
+                        <button type="button" class="btn btn-default js_file_add" title="增加"><i class="iconfont icon-add"></i></button>
+                        <button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+                    </div>
+                </div>
+                <div class="clearfix m-b-sm"></div>
+                <!-- 关系 -->
+                <div class="js_ship relationship_box">
+                    <div class="m-b-xs js_ship_item clearfix m-b-xs">
+                        <div class="col-md-3">
+                            <select class="form-control js_in_item js_ship_key">
+                                <option value="=">等于</option>
+                                <option value="!=">不等于</option>
+                                <option value=">">大于</option>
+                                <option value=">=">大于等于</option>
+                                <option value="<">小于</option>
+                                <option value="<=">小于等于</option>
+                                <option value="like">包含</option>
+                                <option value="not like">不包含</option>
+                                <option value="is null">等空值</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5" style=" padding-left: 0;">
+                            <input type="text" autocomplete="off" class="form-control js_in_item js_ship_value" placeholder="请输入匹配值">
+                        </div>
+                        <div class="col-md-3 p-none">
+                            <div class="btn-group btn-group-xs m-t-xs">
+                                <button type="button" class="btn btn-default js_ship_add" title="增加"><i class="iconfont icon-add"></i></button>
+                                <button type="button" class="btn btn-default js_ship_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hr-line-dashed" style="margin-top: -27px;"></div>
+    <div class="form-group">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-default m-r js_back" type="button" data-dismiss="modal">取消</button>
+            <button class="btn btn-primary js_sure" type="submit">确定</button>
+        </div>
+    </div>
+</form>
+<style>
+    .orde_last_border{border-bottom: 1px dashed #e7eaec; padding-bottom: 15px;margin-bottom: 15px; }
+    .orde_last_border:last-child{border:none;}
+</style>
+<script>
+    var orderAddpage = {
+        opts:{
+            
+        },
+        init(){
+            this.treeInit();
+            this.initRule();
+            this.getRule()
+        },
+        treeInit(){
+            var zNodes4 =[
+                {id:"", pId:0, name:"全部"},
+                {id:"润建", pId:0, name:"润建"},
+                {id:"怡创", pId:0, name:"怡创"},
+                {id:"宜通", pId:0, name:"宜通"},
+                {id:"华苏", pId:0, name:"华苏"},
+                {id:"华星", pId:0, name:"华星"},
+                {id:"南建", pId:0, name:"南建"},
+                {id:"拓明", pId:0, name:"拓明"},
+                {id:"中通服", pId:0, name:"中通服"},
+            ];
+            rj.ztree("ztreeRadio","#ordaddtree",zNodes4);
+        },
+        initRule(){
+            //减号 显示隐藏
+            this.btnShow();
+            //保存原始模板
+            this.template = $(".js_orderule").html();
+            //事件绑定
+            this.ordrRule();
+            // 表单验证
+            this.orderVali();
+            //表单回显
+            // this.echoFormRule(this.opts.data);
+        },
+        orderVali(){   
+            //表单验证
+            let $this = this;
+            $("#addorder").validate({
+                rules:{
+                    ordgroname:{required: true},
+                    ordaddtree: {required: true}
+                },
+                submitHandler: function(){
+                    /*   
+                        返回给后台json格式
+                        {
+                            ordaddtree :  "归属项目"
+                            ordgroname :  "工单组名"
+                            templateRules: [     组规则定义
+                                {
+                                    columnTitle :  "类型"
+                                    relationship : ["=", "<", "="],
+                                    value : ["213", "12312", "123123"]
+                                },
+                                {
+                                    columnTitle :  "类型"
+                                    relationship:["=", "<", "="],
+                                    value: ["213", "12312", "123123"]
+                                }
+                            ]
+                        }
+                    */
+                    let mark = true;
+                    let formdata = rj.form.get($("#addorder")[0]);
+                    $(".js_in_item").each(function(){
+                        if(!$(this).val()){
+                            xtip("规则定义不能有空值");
+                            mark = false;
+                            return false;
+                        }
+                    });
+                    if(mark){
+                        formdata.templateRules = $this.getRule();
+                        console.log(formdata)  
+                    }
+                }
+            })
+        },
+        echoFormRule(data){
+            let $this = this;
+            let addAllHtml = this.template; //获取总的html
+            let addShipHtml = $(this.template).find(".js_ship").html(); //获取条件的html;
+            let $addHtml = $("<div/>");
+            //表单回显
+            let ruleArr = data.templateRules;
+            for(let rules of ruleArr){
+                //列
+                let $addAllhtml = $(addAllHtml)
+                $addAllhtml.find(".js_sel_in").val(rules.columnTitle);
+                let $addShips = $("<div/>");
+                for(let index in rules.relationship){
+                    let shipkey = rules.relationship[index];
+                    let shipval = rules.value[index];
+                    let $addShipHtml = $(addShipHtml);
+                    $addShipHtml.find(".js_ship_key").val(shipkey);
+                    $addShipHtml.find(".js_ship_value").val(shipval);
+                    $addShips.append($addShipHtml);
+                }
+                $addAllhtml.find(".js_ship").html("");
+                $addAllhtml.find(".js_ship").append($addShips.children());
+                $addHtml.append($addAllhtml);
+            }
+            $(".js_orderule").html("");
+            $(".js_orderule").append($addHtml.children());
+            $this.btnShow();
+        },
+        ordrRule(){
+            let $this = this;
+            let addAllHtml = this.template; //总
+            let addOrdHtml = $(this.template).find(".js_ship").html(); //关系
+            //add 列表
+            $(".js_orderule").on("click",".js_file_add",function(){
+                $(this).closest(".js_orderule_item").after(addAllHtml);
+                $this.btnShow();
+            });
+            //del 列表
+            $(".js_orderule").on("click",".js_file_del",function(){
+                selfconfirm(()=>{
+                    $(this).closest(".js_orderule_item").remove();
+                    $this.btnShow();
+                })
+            })
+            //add 关系
+            $(".js_orderule").on("click",".js_ship_add",function(){
+                $(this).closest(".js_ship_item").after(addOrdHtml);
+                $this.btnShow();
+            })
+            //del 关系
+            $(".js_orderule").on("click",".js_ship_del",function(){
+                selfconfirm(()=>{
+                    $(this).closest(".js_ship_item").remove();
+                    $this.btnShow();
+                })
+            })
+			function selfconfirm(fn){
+				let json = {"cancelButtonText":"取消","confirmButtonText":"确认","html":true,"title":"确定删除?","text":null,"showCancelButton":true,"type":"warning"}
+				swal(json,function(){
+					fn&&fn();
+				});
+			}
+        },
+        getRule(){
+            var ordadJson = [];
+            $(".js_orderule_item").each(function(){
+                let tempchild= {};
+                tempchild.columnTitle = $(this).find(".js_sel_in").val();
+                tempchild.relationship = Array.from($(this).find(".js_ship_key")).map(v=>$(v).val());
+                tempchild.value =  Array.from($(this).find(".js_ship_value")).map(v=>$(v).val());
+                ordadJson.push(tempchild);
+            });
+            return ordadJson;
+        },
+        btnShow(){   
+            //列 btn 显示隐藏
+            if($(".js_orderule_item").length == 1){
+                $(".js_file_del").hide();
+            }else{
+                $(".js_file_del").show();
+            }
+            //列里面的关系
+            $(".js_orderule_item").each(function(){
+                if($(this).find(".js_ship_item").length == 1){
+                    $(this).find(".js_ship_del").hide();
+                }else{
+                    $(this).find(".js_ship_del").show();
+                }
+            })
+        }
+    }
+    orderAddpage.init()
+</script>

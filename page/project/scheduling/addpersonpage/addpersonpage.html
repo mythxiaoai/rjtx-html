@@ -1,0 +1,392 @@
+<div class="panel panel-white">
+        <div class="panel-heading">
+            <div class="panel-title" id="addtitle"></div>
+            <div class="panel-tools">
+                <a class="fz18 js_back" onclick="addFormpre.skipPage('back')" title="点击返回">
+                    <i class="fa fa-reply"></i>
+                </a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <form id="addPerson" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">人员组名称</label>
+                    <div class="col-md-6">
+                        <input type="text"class="form-control" placeholder="请输入规则名称" name="groupName" id="groupName">
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">归属项目</label>
+                    <div class="col-md-4">
+                        <input class="form-control" name="ordaddtree" id="ordaddtree" placeholder="请选择所属项目"></input>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">工单组分配</label>
+                    <div class="col-md-7">
+                        <input class="form-control" name="ordergrouptree" id="ordergrouptree" placeholder="请选择分配的工单组"></input>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">分配人员</label>
+                    <div class="col-md-7 ">
+                        <input class="form-control js_distribution" id="choosePerson" name="choosePerson"  placeholder="选择分配的人员"/>
+                    </div>
+                </div>
+                <div class="hr-line-dashed "></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">算法分配</label>
+                    <div class="col-md-10">
+                        <div class="radio-inline">
+                            <label><input type="radio" name="algorithm" value="1"  class="icheck" checked="checked"> 随机平均</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="algorithm" value="2" class="icheck"> 自定义分配</label>
+                        </div>
+                        <div class="radio-inline">
+                            <label><input type="radio" name="algorithm" value="3" class="icheck"> 累计分配</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr-line-dashed js_line"></div>  
+                <div class="form-group js_choossignl">
+                    <label class="col-sm-2 control-label m-t">自定义比例</label>
+                    <div class="col-md-10 js_addperi ">
+
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                        <button class="btn btn-default m-r js_close" type="button" data-dismiss="modal">取消</button>
+                        <button class="btn btn-primary js_sure" type="submit">确定</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <style>
+        .js_choossignl,.js_line{display:none;}
+    </style>
+    <script>
+        var addFormpre = {
+            opts:{
+                choosenum:0,  //选中的算法num
+                ztreeObj:undefined,  //人员Ztree 对象
+                firstCreate:true, //判断是否为第一次创建
+                checkArr:[],  //选中的人员
+                
+                
+            },
+            init(){
+                //icheck初始化
+                this.icheckInit(); 
+                this.pretreeInit(); 
+                //选择人员ztree
+                this.chospersonTree(); 
+                //改变自定义的值
+                this.changIn();
+                //监听icheckd
+                this.checkChange();
+                //自定义比例
+                this.customRatio();
+                //表单验证
+                this.formVail();
+            },
+            skipPage(type){
+                //返回跳转页面
+                if(type == "back"){
+                    rj.load(".js_index_content","page/project/scheduling/actorgroup.html",function(){
+                    })
+                }else{
+                    rj.load(".js_index_content","page/project/scheduling/actorgroup.html",function(){
+                    });
+                }
+            },
+            icheckInit(){
+                //icheck初始化
+                var $this = this;
+                $('input[type="checkbox"],input[type="radio"]').iCheck({ 
+                    labelHover : false, 
+                    cursor : true, 
+                    checkboxClass : 'icheckbox_square-green', 
+                    radioClass : 'iradio_square-green', 
+                    increaseArea : '20%' 
+                }); 
+            },
+            pretreeInit(){
+                //初始化ztree 选择框
+                //归属项目ztree初始化
+                var zNodes1 =[
+                    {id:4, pId:0, name:"润建"},
+                    {id:41, pId:4, name:"财务小组1"},
+                    {id:42, pId:4, name:"财务小组2"},
+                    {id:43, pId:4, name:"财务小组3"},
+                    {id:44, pId:4, name:"财务小组4"},
+                    {id:5, pId:0, name:"怡创"},
+                    {id:51, pId:5, name:"研发部1"},
+                    {id:52, pId:5, name:"研发部2"},
+                    {id:53, pId:5, name:"研发部3"},
+                    {id:54, pId:5, name:"研发部4"},
+                    {id:6, pId:0, name:"南建"},
+                    {id:61, pId:6, name:"行政部1"},
+                    {id:62, pId:6, name:"行政部2"},
+                    {id:63, pId:6, name:"行政部3"},
+                    {id:64, pId:6, name:"行政部4"}
+                ];
+                rj.ztree("ztreeRadio","#ordaddtree",zNodes1);
+                //项目对应下面的工单组分配
+                var zNodes2 = [
+                    {id:0,  name:"全部"},
+                    {id:"润建", pId:0, name:"项目1"},
+                    {id:"怡创", pId:0, name:"项目2"},
+                    {id:"宜通", pId:0, name:"项目3"},
+                    {id:"华苏", pId:0, name:"项目4"},
+                    {id:"华星", pId:0, name:"项目5"},
+                    {id:"南建", pId:0, name:"项目6"},
+                    {id:"拓明", pId:0, name:"项目7"},
+                    {id:"中通服", pId:0, name:"项目8"},
+                ];
+                rj.ztree("ztreeCheckbox","#ordergrouptree",zNodes2);
+    
+            },
+            chospersonTree(){
+                //选择人员ztree
+                var $this = this;
+                var zNodes3 = [
+                    {id:"d01", pId:1, name:"张山"},
+                    {id:"d02", pId:1, name:"张创"},
+                    {id:"d03", pId:1, name:"张通"},
+                    {id:"d04", pId:1, name:"张苏"},
+                    {id:"d05", pId:1, name:"张星"},
+                ];
+                var arr = [];
+                this.opts.ztreeObj = rj.ztree("ztreeCheckbox","#choosePerson",zNodes3,{callback:{
+                    onCheck: function(event, treeId, treeNode) {
+                         
+                        // console.log(Array.from($(".js_addperi ").find(".js_ship_value")).map(v=>$(v).val()))
+                        // console.log(Array.from($(".js_addperi ").find(".js_ship_value")).map(v=>$(v).val()))
+                        var html =[];//页面显示的值
+                        var ids =[];//数据库传入的值
+                        var nodes = $this.opts.ztreeObj.transformToArray($this.opts.ztreeObj.getNodes());
+                        $.each(nodes, function(index,node){
+                            if(node.id !=""&&node.checked){
+                                html.push(node.name);
+                                ids.push(node.id);
+                            }
+                        });
+                        let len = ids.length;
+                        ids = ids.join(",");
+                        //search的span标签的处理
+                        html=$("<div>").html(html.join(",")).text().replace(/( )/gi,"").trim();
+                        $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(len>0?`${html}(${len}个)`:"").prev().val(ids);
+                        if($this.opts.choosenum == 2){
+                            if($this.opts.firstCreate == false){
+                                $this.changIn();
+                            }else{
+                                $this.treeAddHtml(treeNode)
+                            }
+                        }
+                    }
+                }});
+            },
+            treeAddHtml(node){
+                var $this = this;
+                var html = $("<div/>");
+                $(".js_choossignl").show();
+                $(".js_line").show();
+                var addhtml = `                        
+                    <div class="row js_addperi_item orde_last_border clearfix m-t">
+                        <!-- 选择项 -->
+                        <div class="col-md-2">
+                            <input class="form-control js_in_item js_sel_in " data-id="${node.id}" value="${node.name}" placeholder="请选择分配的人员" disabled>
+                        </div>
+                        <div class="col-md-3" style=" padding-left: 0;">
+                            <input type="text" autocomplete="off" class="form-control js_in_item js_ship_value" placeholder="请输入自定义比例">
+                        </div>
+                        <!-- 选项 btn -->
+                        <div class="col-md-2 p-none">
+                            <div class="btn-group btn-group-xs m-t-xs">
+                                <button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+                            </div>
+                        </div>
+                    </div>`;
+                html.append(addhtml);
+                $(".js_addperi").html("");
+                $(".js_addperi").append(html.children());
+                $this.opts.firstCreate = false;
+            },
+            checkChange(){
+                //监听icheck的值的改变
+                var $this = this;
+                $('input[type="radio"]').on('ifChecked',function(){
+                    //单选选中 自定义算法的时候给他配置比例
+                    var checkval = $(this).val();
+                    $this.opts.choosenum  = checkval;
+                    $this.changIn();
+                });
+            },
+            changIn(){
+                //显示自定比例
+                var $this = this;
+                if($this.opts.choosenum == 2 && $this.opts.ztreeObj.getCheckedNodes().length != 0){
+                    $(".js_choossignl").show();
+                    $(".js_line").show();
+                    $this.opts.firstCreate = false;
+                    $this.addHtml()
+                }else{
+                    $(".js_choossignl").hide();
+                    $(".js_line").hide();
+                }
+            },
+            addHtml(){
+                //添加html
+                var $this = this;
+                var html = $("<div/>");
+                var json = $this.getScaleinput();
+                var s = '[{"userName":"陈荣平","userId":"62c2db734ba746ba8a6154fc935ce7aa","weight":"1"},{"userName":"黄德生","userId":"4b0a9c0722c9427eb0173295dd17cc59","weight":"2"}]'
+                console.log(typeof JSON.parse(s))
+                for(let val of $this.opts.ztreeObj.getCheckedNodes()){
+                    var bil = "";
+                    for(let data of json){
+                        if(data.userName == val.name){
+
+                            bil = data.weight;
+                        }
+                    }
+                    var addhtml = `                        
+                        <div class="row js_addperi_item orde_last_border clearfix m-t">
+                            <!-- 选择项 -->
+                            <div class="col-md-2">
+                                <input class="form-control js_in_item js_sel_in " data-id="${val.id}" value="${val.name}" placeholder="请选择分配的人员" disabled>
+                            </div>
+                            <div class="col-md-3" style=" padding-left: 0;">
+                                <input type="text" autocomplete="off" class="form-control js_in_item js_ship_value" value="${bil}"  placeholder="请输入自定义比例">
+                            </div>
+                            <!-- 选项 btn -->
+                            <div class="col-md-2 p-none">
+                                <div class="btn-group btn-group-xs m-t-xs">
+                                    <button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+                                </div>
+                            </div>
+                        </div>`;
+                    html.append(addhtml);
+                }
+                $(".js_addperi").html("");
+                $(".js_addperi").append(html.children())
+            },
+            customRatio(){
+                //自定义比例 删除列
+                let $this = this;
+                $(".js_addperi").on("click",".js_file_del",function(){
+                   //删除相应的ztree分配人员
+                    $(this).closest(".js_addperi_item").remove();
+                    var delName = $(this).closest(".js_addperi_item").find(".js_sel_in").val();
+                    console.log(delName)
+                    for(let val of $this.opts.ztreeObj.getCheckedNodes()){
+                        if(delName == val.name){
+                            // val.checked = false;
+                            $("#"+val.tId+"_check").trigger("click");
+                        }
+                        console.log(val)
+                    }
+                    if($this.opts.ztreeObj.getCheckedNodes().length == 0){
+                        $(".js_line").hide();
+                        $(".js_choossignl").hide();
+                    }
+                })
+            },
+            formVail(){
+                //表单提交验证
+                var $this = this;
+                $("#addPerson").validate({
+                    rules:{
+                        groupName:{required: true},
+                        ordaddtree:{required: true}
+                    },
+                    submitHandler: function(){
+                        /*
+                            返回给后台json格式
+                            {
+                                "groupName":测试组,            //人员组名
+                                "algorithm":1,                // 1-随机平均 2-自定义分配 3-累计分配  默认选中为1
+                                "deptId":d63,                 //组ID
+                                "choosePerson":"d01,d02,d03"  //组成员
+                                "workGroupName":['工单组1'，'工单组2'],   //分配工单组
+                                "userList":[                  //分配人员
+                                    {"userId":007,"weight":20}, 
+                                    {"userId":008,"weight":30}
+                                ],
+                            }
+                        */
+                        let mark = true;
+                        let formdata = rj.form.get($("#addPerson")[0]);
+                        $(".js_in_item").each(function(){
+                            if(!$(this).val()){
+                                xtip("比例不能为空");
+                                mark = false;
+                                return false;
+                            }
+                        });
+                        console.log($this.opts.ztreeObj.getCheckedNodes())
+                        if($this.opts.ztreeObj.getCheckedNodes().length == 0){
+                            formdata.choosePerson = "";
+                        }
+                        if(mark && $this.opts.choosenum == 2){
+                            formdata.userList = $this.getScaleinput();
+                        }
+                        console.log(formdata)
+                    }
+                })
+            },
+            getScaleinput(){
+                //获取自定义比例json格式
+                var scaleJson = [];
+                $(".js_addperi_item").each(function(){
+                    let child = {};
+                    //人员ID
+                    child.userName = $(this).find(".js_sel_in").val();
+                    child.userId = $(this).find(".js_sel_in").attr("data-id");
+                    child.weight = $(this).find(".js_ship_value").val();
+                    scaleJson.push(child)
+                });
+                return scaleJson;
+            },
+            echoForm(data){
+                //表单回显
+                let $this = this;
+                let html = $("<div/>");
+                //自定义比例回显
+                if(data.algorithm ==2){
+                    let customArr = data.userList;
+                    for(let custom of customArr){
+                        var addhtml = `                        
+                            <div class="row js_addperi_item orde_last_border clearfix m-t">
+                                <!-- 选择项 -->
+                                <div class="col-md-2">
+                                    <input class="form-control js_in_item js_sel_in " data-id="${custom.userId}" value="${custom.userName}" placeholder="请选择分配的人员" disabled>
+                                </div>
+                                <div class="col-md-3" style=" padding-left: 0;">
+                                    <input type="text" autocomplete="off" class="form-control js_in_item js_ship_value" value="${custom.weight}" placeholder="请输入自定义比例">
+                                </div>
+                                <!-- 选项 btn -->
+                                <div class="col-md-2 p-none">
+                                    <div class="btn-group btn-group-xs m-t-xs">
+                                        <button type="button" class="btn btn-default js_file_del" title="删除"><i class="iconfont icon-guanbi3"></i></button>
+                                    </div>
+                                </div>
+                            </div>`;
+                        html.append(addhtml);
+                    }
+                    $(".js_choossignl").show();
+                    $(".js_line").show();
+                    $(".js_addperi").html("");
+                    $(".js_addperi").append(html.children())
+                }
+            }
+        };
+        addFormpre.init();
+    </script>

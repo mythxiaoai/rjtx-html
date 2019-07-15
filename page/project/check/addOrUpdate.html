@@ -199,6 +199,8 @@
 			this.template = $(".js_sheet").html();
 			//事件绑定
 			this.ruleEvent();
+			console.log(this.template)
+
 		},
 		//获取
 		getRule(){
@@ -237,12 +239,13 @@
 				temp2.column =  $(this).find(".js_file_input").val();
 				//关系
 				temp2.relationship =  Array.from($(this).find(".js_relationship_key")).map(v=>$(v).val());
+				console.log(temp2.relationship)
 				temp2.value =  Array.from($(this).find(".js_relationship_value")).map(v=>$(v).val());
 				temp.columnRules.push(temp2);
 			})
 			json.push(temp);
 		});
-		
+		console.log(json)
 		return json
 		
 		},

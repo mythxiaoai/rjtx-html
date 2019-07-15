@@ -41,9 +41,9 @@
                 "评估通过量":0,
                 "日工单目标量":0,
                 "评估完成量":0,
-                "处理及时率":"100.00%",
+                "处理及时率":"300.00%",
                 "及时处理量":42,
-                "派单目标完成率":"75.17%",
+                "派单目标完成率":"375.17%",
                 "评估通过率":"0.00%",
                 "地市":"佛山市",
                 "月份":"2019-04",
@@ -419,6 +419,7 @@
                     newdata = json;
                 }
             });
+            console.log(newdata)
             let option = {
                 title: {
                     text: newdata["地市"],
@@ -453,12 +454,12 @@
                     },
                     radius:"50%",
                     indicator: [
-                        { name: '接单及时率\n'+newdata["接单及时率"], max: 100, color:'#3fb1e3'},
-                        { name: '处理及时率\n'+newdata["处理及时率"], max: 100, color:'#6be6c1'},
-                        { name: '评估完成率\n'+newdata["评估完成率"], max: 100, color:'#ffb980'},
-                        { name: '评估通过率\n'+newdata["评估通过率"], max: 100, color:'#d87a80'},
-                        { name: '工单规范率\n'+newdata["工单规范率"], max: 100,color:'#626c91'},
-                        { name: '目标完成率\n'+newdata["派单目标完成率"], max: 100, color:'#dc69aa'}
+                        { name: '接单及时率\n'+newdata["接单及时率"], max: 500, color:'#3fb1e3'},
+                        { name: '处理及时率\n'+newdata["处理及时率"], max: 500, color:'#6be6c1'},
+                        { name: '评估完成率\n'+newdata["评估完成率"], max: 500, color:'#ffb980'},
+                        { name: '评估通过率\n'+newdata["评估通过率"], max: 500, color:'#d87a80'},
+                        { name: '工单规范率\n'+newdata["工单规范率"], max: 500,color:'#626c91'},
+                        { name: '目标完成率\n'+newdata["派单目标完成率"], max: 500, color:'#dc69aa'}
                     ],
                     center: ["50%", "60%"]
                 },
@@ -468,7 +469,7 @@
                     itemStyle: {normal: {areaStyle: {type: 'default',opacity: 0.5 }}},
                     data : [
                         {
-                            value : [20,60,30, 40,80,90,],
+                            value : [240,60,30, 40,80,90],
                             name : '项目完成情况'
                         }
                     ]
@@ -587,6 +588,7 @@
 </script>
 <style>
     #table .item_progress{margin-bottom:0px;height: 15px;}
-    #table .item_progress .progress-bar{line-height: 15px;}
+    #table .item_progress .progress-bar{line-height: 15px;text-align: left;}
+    
 </style>
 

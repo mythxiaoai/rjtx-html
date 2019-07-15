@@ -65,30 +65,36 @@
 			rj.table.init({
 				id: "#table",
 				toolbar: "#toolbar",
+				uniqueId:"deptId",//作用是在tr上面加上主键  方便做修改和删除操作
 				data: [
 					{
+						"deptId":1,
 						"num": 001,
-						"dept_name": "天馈",
+						"deptName": "润建通信",
 						"job_title": "Jone",
-						"provincial_city": "GuangZhou",
+						"province": "43",
 					},
 					{
+						"deptId":2,
 						"num": 001,
-						"dept_name": "天馈",
+						"deptName": "茂名项目",
 						"job_title": "Jone",
-						"provincial_city": "GuangZhou",
+						"province": "43",
 					},
 					{
+						"deptId":3,
 						"num": 001,
-						"dept_name": "天馈",
+						"deptName": "运营设备商",
 						"job_title": "Jone",
-						"provincial_city": "GuangZhou",
+						"province": "43",
 					},
 					{
+						"deptId":4,
 						"num": 001,
-						"dept_name": "天馈",
+						"deptName": "阳江项目",
 						"job_title": "Jone",
-						"provincial_city": "GuangZhou",
+						"province": "43",
+					
 					}
 				],
 				columns:[
@@ -97,26 +103,28 @@
 						title: '编号',
 						align: 'center',  
 						valign: 'bottom',
-						// formatter:function(value,row,index){  
-						//           var pageNumber = $('#table').bootstrapTable('getOptions').pageNumber;  
-						//           var pageSize = $('#table').bootstrapTable('getOptions').pageSize;  
-						//           return (pageNumber-1) * pageSize+index+1;  
-						//       }
 					}, {
-						field: 'dept_name',
-						title: '生产项目名称'
+						field: 'deptName',
+						title: '部门名称'
 					},{
 						field: 'job_title',
 						title: '生产项目经理'
 					}, {
-						field: 'provincial_city',
+						field: 'province',
 						title: '生产项目城市'
+					},
+					{
+						field: 'resnet',
+						title: '责任网格',
+						formatter(value,row,index){
+							
+						}
 					}, {
 						title: '操作',
 						formatter(value,row,index){
 							return `
-							<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="dept.addOrUpdate('修改职位','${row.dept_id}')">修改</a>
-							<a href="javascript:;" class="btn btn-danger btn-xs m-r-xs" onclick="dept.del('${row.dept_id}')">删除</a>
+							<a href="javascript:;" class="btn btn-info btn-xs m-r-xs" onclick="dept.addOrUpdate('修改职位','${row.deptId}')">修改</a>
+							<a href="javascript:;" class="btn btn-danger btn-xs m-r-xs" onclick="dept.del('${row.deptId}')">删除</a>
 							`
 						}
 					}],
@@ -146,16 +154,27 @@
 			}})			
 		},
 		addOrUpdate(title,id){
-		 	var $this = this;
+			 var $this = this;
+			 console.log(id)
 			if(level>=2&&title=="新增职位"){
 				xtip("项目级别无法新增职位");
-            				return;
+				return;
 			}
 			rj.modal(
 				title,
 				"./page/sys/dept/addOrUpdate.html",
 				()=>{
-					console.log("加载完成")
+					//修改 回显表单
+					var zNodes =[];
+				    if(id!=undefined){
+						let json = {
+							"deptName": "部门", 
+							"province": "2",   
+							"resnet": `[{"inputKey":"广州天河区"},{"inputKey":"广州越秀区"}]` //责任网格
+						}
+						console.log(json)
+						rj.form.set($("#addOrUpdate")[0],json)
+					}
 					//初始化插件
 					rj.resetPlug();
 					//菜单下拉框
@@ -181,54 +200,19 @@
 						{id:64, pId:6, name:"三明"}
 					];
 					rj.ztree("ztreeRadio","#ztree2",zNodes2);
-					//做回显动作
-					var zNodes =[];
-				    if(id!=undefined){
-						var data = [];
-						var rowDate = $("#table").bootstrapTable('getRowByUniqueId',id);
-						$.each(rowDate,function(index,val){
-							if(index=='dept_id'){
-								data.deptId=val;
-							}else if(index=='dept_name'){
-								data.deptName=val;
-								data.oldDeptName=val;
-							}else if(index=='province_id'){
-								$("#ztree2").val(val);
-							}
-						});
-						rj.form.set($("#addOrUpdate")[0],data);
-				    }
-					rj.ztree("ztreeRadio","#ztree2",zNodes);
 				},
 				(dom)=>{
 					$("#addOrUpdate").validate({
 				        rules: {
-				            deptName: {required: true},
-				            province: {required: true},
+							province: {required: true},
 				        },
 				        messages: {
-				             
+							
 				        },
 				        submitHandler: function () {
-				        	 var oldDeptName="";
-				         	//获取form表单数据
-				         	if(id!=undefined){
-					         	var rowDate = $("#table").bootstrapTable('getRowByUniqueId',id);
-					            oldDeptName=rowDate.dept_name;
-				         	}
-
-							var data= getFromJson($("#addOrUpdate")[0]);
-							data.parentId=dept_id;
-							data.level=level;
-							data.deptId=id;
-			            	var arr1=deptNames.substring(0,deptNames.length-1).split(",");
-			            	for(var i=0;i<arr1.length;i++)
-			            		{
-			            			if(arr1[i]==data.deptName&&arr1[i]!=oldDeptName){
-			            				xtip("该生产项目已存在！");
-			            				return;
-			            			}
-			            		}	
+							//获取表单数据 
+							var data= rj.form.get($("#addOrUpdate")[0]);
+							console.log(data)
 				        }
 				    });
 				}
