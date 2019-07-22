@@ -170,7 +170,12 @@
                     persontree:{required: true}
                 },
                 submitHandler: function(){
-                    console.log(rj.form.get($("#disupdatamodal")[0]))
+                    orderlist.opts.data[0]["0"] = false;
+                    orderlist.opts.data[0]["id"] = "jjfsjdfjsjfdjsdjf";
+                    orderlist.opts.data[0]["dispatch_status"] = 0;
+                    console.log(orderlist.opts.data)
+                    $("#table").bootstrapTable('load', orderlist.opts.data)
+                    $("#xa-modal").remove()
                 }
             })
         }
