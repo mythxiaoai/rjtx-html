@@ -23,6 +23,11 @@
 							<input class="btn btn-default btn-sm" onclick="reset()" type="button" value="重置">
 						</div>
 					</form>
+					<div id="toolbar" class="m-t btn-group">
+						<button type="button" class="btn btn-default js_addOrUpdate" onclick="orderInformation.createList()">
+							<i class="iconfont icon-add"></i> 批量操作
+						</button>
+					</div>				
 					<div class=" m-t ">
 						<table id="table"></table>
 					</div>
@@ -589,6 +594,15 @@
 				$this.echart1(data);
 			});
 		},
+		createList(){
+			var $this = this;
+			var tableCheck = $("#table").bootstrapTable('getAllSelections');
+			if(tableCheck == 0) {
+				xtip('selectLeastOne')
+			}else{
+				console.log(tableCheck)
+			}
+		},
 		treeInit(){
             var zNodes4 =[
                 {id:"", pId:0, name:"全部"},
@@ -613,6 +627,9 @@
                 pageSize: 7, // 每页显示条数  
                 data:this.opts.data,
 				columns:[
+					{
+						checkbox: true
+					},
 					{
                         field: 'create_date',
                         title: '扫描时间'
