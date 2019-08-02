@@ -38,23 +38,33 @@ $("body").on("input focus", ".js_suggest", function() {
         opts,
         data = [];
     let time;
+    let p;
+    let mark = false;
+
+    let domO = null;
+    let dataO = [];
+
     let suggest = {
         init(str) {
             selector = str;
             this.event();
         },
         setDate(dom, data) {
+            if (dom && data) {
+                domO = dom;
+                dataO = data;
+            }
             if (!Array.isArray(data)) {
                 console.error("suggest方法的参数必须是数组");
             }
-            time = setInterval(function(){
-                if($(dom).next().hasClass("js_suggest_ul")){
-                    clearInterval(time);
-                    addLi();
-                }
-            },200)
-            
-            function addLi(){
+
+            if ($(dom).next().hasClass("js_suggest_ul")) {
+                addLi();
+            } else {
+                mark = true;
+            }
+
+            function addLi() {
                 let lis = "";
                 if (data.length > 0) {
                     data.map(v => {
@@ -62,7 +72,7 @@ $("body").on("input focus", ".js_suggest", function() {
                     });
                 } else {
                     lis +=
-                        `<a href="javscript:;" class="list-group-item js_suggest_li text-center" style="color:#aaa">暂无此项~</a>`
+                        `<a href="javscript:;" class="list-group-item js_suggest_li text-center js_suggest_null" style="color:#aaa">暂无此项~</a>`
                 }
                 $(dom).next().html($(lis))
             }
@@ -95,7 +105,7 @@ $("body").on("input focus", ".js_suggest", function() {
                     }).hide().slideDown("fast")
 
                     //点击赋值
-                    $(this).next().on("click", ".js_suggest_li", liclick);
+                    $(this).next().on("click", ".js_suggest_li:not(.js_suggest_null)", liclick);
 
                     let dom = this;
                     $("body").on("click", hidelist);
@@ -116,6 +126,14 @@ $("body").on("input focus", ".js_suggest", function() {
 
                 }
             });
+
+
+            if (mark) {
+                suggest.setDate(domO, dataO);
+                $(".js_suggest_ul").hide().slideDown("fast")
+            }
+
+
         }
     }
     window.suggest = suggest;

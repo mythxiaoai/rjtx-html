@@ -1,31 +1,21 @@
 <div class="p-m container">
   <div class="panel-body">
-      <div class="col-sm-12 p-m"  style="border-right: 1px solid #e7e7e7;">
-        <form id="addOrUpdate" class="form-horizontal p-m">
-          <div class="form-group">
-            <div id="js_xupload"></div>
+    <div class="col-sm-12 p-m" style="border-right: 1px solid #e7e7e7;">
+      <form id="addOrUpdate" class="form-horizontal p-m">
+        <div class="form-group">
+          <div id="js_xupload"></div>
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+          <div class="col-sm-12 text-center">
+            <button class="btn btn-primary btn-block js_sure1" type="button">上传</button>
           </div>
-          <div class="hr-line-dashed"></div>
-          <div class="form-group">
-              <div class="col-sm-12 text-center">
-                  <button class="btn btn-primary btn-block js_sure1" type="button">上传</button>
-              </div>
-          </div>
-          <li class="list-group-item animated fadeIn">
-              <div class="file-info">
-                <i class="file-icon ${xuploadbox.getIconByfile(file.type,file.name)}"></i>
-                <span class="file-name">file.name</span>
-                <span class="file-size">WebUploader.formatSize(file.size</span>
-              </div>
-              <div class="file-opts">
-                <a href="javascript:;" class="js_xupload_remove" data-id="${file.id}"><i class="glyphicon glyphicon-remove"></i></a>
-              </div>
-            </li>
-        </form>
-      </div>
-  <h2 class="page-header">xupload</h2>
-	
-  <pre>
+        </div>
+      </form>
+    </div>
+    <h2 class="page-header">xupload</h2>
+
+    <pre>
  文件上传插件
  时间:2019-03-10
  作者：myth小艾
@@ -171,56 +161,57 @@
  response
  提示合并成功
   </pre>
-</div>
-  
-    <script>
-       
-      var url = "http://pmscloud.club:7302/uploadFile";
-      //url = "http://localhost:7302/uploadFile";
-      $("#js_xupload2").data("server",url);
-      //整体是load  所以需要调用这个静态方法  让data-形式的初始化生效
-      Xupload.autorun();
-      var xupload = new Xupload({
-        pick: {
-          id: "#js_xupload"
-        },
-        //因为该服务器网速比较差,单线程上传比较靠谱...
-        threads:1,
-        server:url,
-        backshowlist:[
-        {
-          id:"0",
-          name:"回显数据(不同后缀对应不同icon).txt",
-          size:15982
-        },{
-          id:"1",
-          name:"回显数据(不同后缀对应不同icon).png",
-          size:13547
-        }
-        ]
-      })
-    
-      //上传
-      $(".js_sure1").click(()=>{
-        xupload.upload();
-      });
-     
-  xupload.on('uploadSuccess',(file,response)=>{
-       console.log(`上传${file.name}成功`)
-			  //新增
-			/* 
-			if(response.status===0){
-				$("#js_xupload").siblings(".js_xupload-show").append(
-					 xupload.options.uploadSuccessHtml(file)
-				 );
-			}else{
-				xupload.showError(response.msg);
-			}
-			*/
-			 
-      });
-			
-			/* xupload.on('error',type=>{
+  </div>
+
+  <script>
+    var url = "http://pmscloud.club:7302/uploadFile";
+    //url = "http://localhost:7302/uploadFile";
+    $("#js_xupload2").data("server", url);
+    //整体是load  所以需要调用这个静态方法  让data-形式的初始化生效
+    Xupload.autorun();
+    var xupload = new Xupload({
+      pick: {
+        id: "#js_xupload"
+      },
+      //因为该服务器网速比较差,单线程上传比较靠谱...
+      threads: 1,
+/*      accept: {
+        extensions: 'xls,xlsx',
+        mimeTypes: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      }, */
+      server: url,
+      backshowlist: [{
+        id: "0",
+        name: "回显数据(不同后缀对应不同icon).txt",
+        size: 15982
+      }, {
+        id: "1",
+        name: "回显数据(不同后缀对应不同icon).png",
+        size: 13547
+      }]
+    })
+
+    //上传
+    $(".js_sure1").click(() => {
+      xupload.upload();
+    });
+
+    xupload.on('uploadSuccess', (file, response) => {
+      console.log(`上传${file.name}成功`)
+      //新增
+      /* 
+      if(response.status===0){
+      	$("#js_xupload").siblings(".js_xupload-show").append(
+      		 xupload.options.uploadSuccessHtml(file)
+      	 );
+      }else{
+      	xupload.showError(response.msg);
+      }
+      */
+
+    });
+
+    /* xupload.on('error',type=>{
 				let msg = "上传错误";
 				if(type=="Q_EXCEED_NUM_LIMIT"){
 					msg = "文件数量超出设置大小";
@@ -233,13 +224,12 @@
 				}
 				xupload.showError(msg);
       }); */
-			
-			
-      //删除--共同绑定
-      $("body").on('click',".js_xupload_remove",function(){
-        console.log("删除的文件id是"+$(this).data("id"))
-        $(this).closest("li").fadeOut();
-      });
-      
-    </script>
-  </div>
+
+
+    //删除--共同绑定
+    $("body").on('click', ".js_xupload_remove", function() {
+      console.log("删除的文件id是" + $(this).data("id"))
+      $(this).closest("li").fadeOut();
+    });
+  </script>
+</div>

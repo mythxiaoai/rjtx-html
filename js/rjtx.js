@@ -959,7 +959,7 @@ rj.form.get($("#addOrUpdate")[0]);
                 ids = ids.join(",");
                 //search的span标签的处理
                 html=$("<div>").html(html.join(",")).text().replace(/( )/gi,"").trim();
-                $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(len>0?`${html}(${len}个)`:"").prev().val(ids);
+                $("#"+treeNode.tId).closest(".ztree").closest("div").prev().val(len>0?`(${len}个)${html}`:"").prev().val(ids);
               }
             }
           }
