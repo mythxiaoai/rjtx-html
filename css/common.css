@@ -2,7 +2,7 @@
 @charset "UTF-8";
 /*css reset*/
 /** {word-wrap: break-word;;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}*/
-html{font-size:0.625em;}/*把px设置成10px   方便 每个局部模块的rem取值   1.2rem = 12px*/
+html{font-size:0.625em;  -moz-osx-font-smoothing: grayscale;-webkit-font-smoothing: antialiased;}/*把px设置成10px   方便 每个局部模块的rem取值   1.2rem = 12px*/
 ::selection{background:#3399FF ;color:#fff ;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,figure,figcaption,input,textarea,p,blockquote,th,td,span{padding:0;margin:0;}
 body{font:normal 1.2em "PingFang SC","Lantinghei SC","Microsoft YaHei","HanHei SC","Helvetica Neue","Open Sans",Arial,"Hiragino Sans GB","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;text-align: justify;color:rgb(103, 106, 108);}
@@ -18,6 +18,15 @@ input::-webkit-inner-spin-button {
 }
 input[type="number"]{
     -moz-appearance: textfield;
+}
+/*去掉登陆的黑背景*/
+.login_input{
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none
 }
 /*select*/
 /*select{max-width: 260px;position:relative;z-index:3;background:transparent;-webkit-appearance: none;-moz-appearance: none;-ms-appearance: none;appearance: none;}

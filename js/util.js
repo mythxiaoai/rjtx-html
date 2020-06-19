@@ -83,8 +83,20 @@ function isNotEmpty(val) {
 function GetQueryString(name){
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
      var r = window.location.search.substr(1).match(reg);
-     if(r!=null)return  unescape(r[2]); return null;
+     //if(r!=null)return  unescape(r[2]); return null;
+     if(r!=null)return  decodeURIComponent(r[2]); return null;
 }
+//json转url？
+function getUrlByJson(params) {
+  let tempParam = [];
+  for (let key in params) {
+    //url中文转义
+    tempParam.push(encodeURIComponent(key) + "=" + encodeURIComponent(params[key]));
+  }
+  return tempParam.join("&")
+}
+
+
 /*对象拓展*/
 /**
  * 对Date的扩展，将 Date 转化为指定格式的String 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)
@@ -319,5 +331,25 @@ function getIconByfile(vType, vName){
   return icon[getFileType(vType, vName)];
 }
 
+//深度克隆
+function mix(target,datajson){
+	var args = Array.prototype.slice.call(arguments);
+	if(args.length==1)return args[0];
+	var i = 1 ;
+	while(args[i]){//这里做为判断条件 取不到就返回false
+		var temp =args[i];
+		for(var j in temp){
+			if(temp.hasOwnProperty(j)){
+        if(typeof temp[j] == "object"){
+          target[j] = mix({},temp[j]);
+        }else{
+          target[j]=temp[j];
+        }
+			}
+		}
+		i++;
+	}
+	return target;
+}
 
 
