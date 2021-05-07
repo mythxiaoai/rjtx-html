@@ -144,8 +144,8 @@ Date.prototype.format = function(fmt) {
 		fmt = fmt
 				.replace(
 						RegExp.$1,
-						((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "/u661f/u671f"
-								: "/u5468")
+						((RegExp.$1.length > 1) ? (RegExp.$1.length > 2 ? "星期"
+								: "周")
 								: "")
 								+ week[this.getDay() + ""]);
 	}
@@ -244,6 +244,25 @@ function simpleToPS(data,optObj){
     }
     return result;
  }
+ 
+ function convert(list) {
+  const res = []
+  const map = list.reduce((res, v) => (res[v.id] = v, res), {});
+  for (const item of list) {
+      if (item.parentId === null) {
+          res.push(item)
+          continue
+      }
+      if (item.parentId in map) {
+        //在map中找出父
+          const parent = map[item.parentId]
+          //添加子
+          parent.children = parent.children || []
+          parent.children.push(item)
+      }
+  }
+  return res
+}
 
 //根据文件类型和文件名获取文件类型
 function getFileType(vType, vName) {
